@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2: Supply and Demand | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        /* Chapter-specific interactive graph styles */
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 150px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover {
+            background: var(--color-primary-dark);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover {
+            color: var(--color-primary-dark);
+        }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 2: Supply and Demand</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">← Home</a></li>
+                <li class="nav-section-title">Chapter 2</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#demand">2.1 Demand</a></li>
+                <li><a href="#supply">2.2 Supply</a></li>
+                <li><a href="#equilibrium">2.3 Market Equilibrium</a></li>
+                <li><a href="#shocks">2.4 Shocking the Equilibrium</a></li>
+                <li><a href="#government">2.5 Government Interventions</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: How Are Prices and Quantities Determined?</h2>
+                <p>Walk into any supermarket and you will find avocados priced at roughly £2 per kilogram. Go back a month later and the price might be £3. Why? Nobody sat in an office and decided the price. No committee voted on how many avocados to grow. Yet somehow, millions of consumers and thousands of producers coordinate their decisions, and a price emerges.</p>
+
+                <p>This is the fundamental puzzle of a market economy: <strong>how do decentralised decisions by millions of independent agents produce an orderly outcome?</strong> And what happens when something disrupts that order — a drought, a change in tastes, or a government policy?</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>The supply-and-demand model is the most widely used tool in economics precisely because it answers these questions with elegant simplicity. It describes how the price and quantity of a good are determined by the interaction of buyers and sellers in a competitive market.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to predict what happens to the price and quantity of any good when conditions change — whether a new technology lowers production costs, consumers' incomes rise, or the government imposes a tax. That is a remarkable amount of analytical power from a single model.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#demand">Demand</a> — why consumers buy less when the price rises</li>
+                    <li><a href="#supply">Supply</a> — why firms sell more when the price rises</li>
+                    <li><a href="#equilibrium">Market Equilibrium</a> — the price at which buyers and sellers agree</li>
+                    <li><a href="#shocks">Shocking the Equilibrium</a> — what happens when conditions change</li>
+                    <li><a href="#government">Government Interventions</a> — price ceilings, floors, and their consequences</li>
+                </ol>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- 2.1 DEMAND                                    -->
+            <!-- ============================================ -->
+            <section id="demand" class="lesson-section section-intuition">
+                <h2>2.1 Demand</h2>
+
+                <h3>Intuition: Why Do People Buy Less When the Price Rises?</h3>
+                <p>Think about your own behaviour. If avocados cost £1 each, you might buy three per week. If the price jumps to £4, you would probably buy fewer — perhaps just one, or none at all. You would switch to a cheaper substitute (tomatoes, perhaps) or simply do without.</p>
+
+                <p>This is not a peculiarity of avocados. It is a near-universal pattern of human behaviour, and economists consider it so reliable that they call it the <strong>Law of Demand</strong>:</p>
+
+                <div class="callout callout-definition">
+                    <h4>Law of Demand</h4>
+                    <p>Consumers demand more of a good the lower its price, holding constant tastes, the prices of other goods, income, and other factors that influence the amount they consume.</p>
+                </div>
+
+                <p>The key phrase is <em>holding constant</em>. The demand curve isolates the relationship between a good's own price and the quantity demanded, keeping everything else fixed. When the price of the good itself changes, we move <strong>along</strong> the demand curve. When anything else changes — income, the price of a related good, tastes — the <strong>entire curve shifts</strong>.</p>
+
+                <h3>Geometric Solution: The Demand Curve</h3>
+                <p>We can represent the Law of Demand graphically. By convention, economists place price (<em>p</em>) on the vertical axis and quantity (<em>Q</em>) on the horizontal axis. The demand curve slopes downward from left to right, reflecting the inverse relationship between price and quantity demanded.</p>
+
+                <div class="interactive-graph" id="demand-graph-container">
+                    <canvas id="demandCanvas" width="600" height="400"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Price: <span class="value-display" id="demandPriceDisplay">£2.00</span>
+                            <input type="range" id="demandPriceSlider" min="0" max="4" step="0.1" value="2">
+                        </label>
+                        <button id="demandShiftBtn">Shift Demand →</button>
+                        <button id="demandResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="demandInfo">
+                        At a price of £2.00, the quantity demanded is 80 million units per month. Move the slider to explore how quantity demanded changes with price.
+                    </div>
+                    <p class="graph-caption">Figure 2.1 — The Demand Curve. Drag the price slider to see how quantity demanded responds.</p>
+                </div>
+
+                <p>Notice what happens as you move the price slider upward: the quantity demanded falls. Drag it downward: the quantity demanded rises. Every point along the demand curve represents a different price–quantity pair, but the same underlying preferences and conditions.</p>
+
+                <p>Now click <strong>"Shift Demand →"</strong>. The entire curve moves to the right. This represents a change in one of the <em>other</em> factors — for instance, an increase in income, or a rise in the price of a substitute good. At any given price, consumers now want to buy more. This is a <strong>shift of the curve</strong>, not a movement along it.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Movement vs. Shift — A Crucial Distinction</h4>
+                    <p>A change in the good's own price causes a <strong>movement along</strong> the demand curve. A change in any other factor (income, tastes, prices of related goods) causes a <strong>shift of</strong> the entire curve. Confusing the two is the most common mistake in introductory economics.</p>
+                </div>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>We can express the demand curve as a <strong>demand function</strong> that relates the quantity demanded to its determinants. In general form:</p>
+
+                \[ Q_d = D(p, \, p_s, \, Y) \]
+
+                <p>where \(p\) is the good's own price, \(p_s\) is the price of a related good (substitute or complement), and \(Y\) is consumers' income. Other factors (tastes, information, expectations) are held constant.</p>
+
+                <p>A specific linear example makes this concrete. Suppose the estimated demand function is:</p>
+
+                \[ Q_d = 104 - 40p + 20p_s + 0.01Y \]
+
+                <p>If we hold the price of the substitute at \(p_s = 0.80\) and income at \(Y = 4{,}000\), we can simplify to a function of price alone:</p>
+
+                \[ Q_d = 104 - 40p + 20(0.80) + 0.01(4{,}000) = 160 - 40p \]
+
+                <p>This is the equation of the demand curve you see in the graph above. We can read off specific values immediately: at \(p = 2\), we get \(Q_d = 160 - 40(2) = 80\). At \(p = 0\), consumers would want 160 units (the horizontal intercept). At \(p = 4\), quantity demanded falls to zero (the vertical intercept).</p>
+
+                <div class="callout callout-definition">
+                    <h4>Inverse Demand Function</h4>
+                    <p>Sometimes it is useful to express price as a function of quantity. Rearranging \(Q = 160 - 40p\), we get the <strong>inverse demand function</strong>:</p>
+                    <p>\[ p = 4 - 0.025Q \]</p>
+                    <p>This tells us the maximum price consumers are willing to pay for any given quantity — also known as the <strong>willingness to pay</strong>.</p>
+                </div>
+
+                <p>The <strong>slope</strong> of the demand curve is \(\Delta p / \Delta Q = -1/40 = -0.025\). The negative sign confirms the Law of Demand: as quantity increases, the price consumers are willing to pay decreases.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 2.2 SUPPLY                                    -->
+            <!-- ============================================ -->
+            <section id="supply" class="lesson-section section-intuition">
+                <h2>2.2 Supply</h2>
+
+                <h3>Intuition: Why Do Firms Sell More When the Price Rises?</h3>
+                <p>Put yourself in the shoes of a producer. You grow avocados. If the market price is high, you have every incentive to expand production — hire more workers, cultivate more land, or divert resources from other crops. A higher price means greater revenue per unit and, typically, greater profit. If the price is low, some of your more expensive fields become unprofitable, and you scale back.</p>
+
+                <p>There is no formal "Law of Supply" as universally strong as the Law of Demand — supply curves can theoretically take various shapes. But in most markets, especially in the short run, the supply curve <strong>slopes upward</strong>: the higher the price, the more firms are willing to sell.</p>
+
+                <h3>Geometric Solution: The Supply Curve</h3>
+
+                <div class="interactive-graph" id="supply-graph-container">
+                    <canvas id="supplyCanvas" width="600" height="400"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Price: <span class="value-display" id="supplyPriceDisplay">£2.00</span>
+                            <input type="range" id="supplyPriceSlider" min="0" max="4" step="0.1" value="2">
+                        </label>
+                        <button id="supplyShiftBtn">Shift Supply ←</button>
+                        <button id="supplyResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="supplyInfo">
+                        At a price of £2.00, the quantity supplied is 80 million units per month.
+                    </div>
+                    <p class="graph-caption">Figure 2.2 — The Supply Curve. Move the slider to explore how quantity supplied responds to price changes.</p>
+                </div>
+
+                <p>As you move the price slider upward, the quantity supplied increases. Click <strong>"Shift Supply ←"</strong> to simulate an increase in input costs (e.g., fertiliser prices rise). The supply curve shifts leftward — at any given price, firms now supply less.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>The supply function in general form is:</p>
+
+                \[ Q_s = S(p, \, p_f) \]
+
+                <p>where \(p_f\) is the price of an input (e.g., fertiliser). A specific linear supply function might be:</p>
+
+                \[ Q_s = 58 + 15p - 20p_f \]
+
+                <p>Holding the input price at \(p_f = 0.40\):</p>
+
+                \[ Q_s = 58 + 15p - 20(0.40) = 50 + 15p \]
+
+                <p>At \(p = 2\): \(Q_s = 50 + 15(2) = 80\). The slope of the supply curve is \(\Delta p / \Delta Q = 1/15 \approx 0.067\) — positive, confirming the upward slope.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 2.3 EQUILIBRIUM                               -->
+            <!-- ============================================ -->
+            <section id="equilibrium" class="lesson-section section-geometric">
+                <h2>2.3 Market Equilibrium</h2>
+
+                <h3>Intuition: Where Do Buyers and Sellers Agree?</h3>
+                <p>Imagine a busy market square. If avocados are priced too cheaply, shoppers rush to buy them and the stalls run out — there is <strong>excess demand</strong> (a shortage). Frustrated buyers offer to pay more, and sellers, seeing the opportunity, raise their prices. Conversely, if avocados are priced too dearly, they sit unsold — there is <strong>excess supply</strong> (a surplus). Sellers cut prices to clear their stock.</p>
+
+                <p>This process of adjustment continues until the market reaches a price at which the quantity consumers want to buy exactly equals the quantity producers want to sell. That is the <strong>equilibrium</strong>.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Equilibrium</h4>
+                    <p>A situation in which no one has an incentive to change their behaviour. The <strong>equilibrium price</strong> is the price at which quantity demanded equals quantity supplied. The <strong>equilibrium quantity</strong> is the amount bought and sold at that price.</p>
+                </div>
+
+                <h3>Geometric Solution: The Intersection</h3>
+                <p>The equilibrium is simply the point where the demand and supply curves cross. At that intersection, the quantity consumers wish to purchase exactly matches the quantity firms wish to sell.</p>
+
+                <div class="interactive-graph" id="equilibrium-graph-container">
+                    <canvas id="equilibriumCanvas" width="600" height="400"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Price: <span class="value-display" id="eqPriceDisplay">£2.00</span>
+                            <input type="range" id="eqPriceSlider" min="0.5" max="3.5" step="0.1" value="2">
+                        </label>
+                        <button id="eqResetBtn">Reset to Equilibrium</button>
+                    </div>
+                    <div class="graph-info" id="eqInfo">
+                        At the equilibrium price of £2.00, Q<sub>d</sub> = Q<sub>s</sub> = 80. The market clears with no excess demand or supply.
+                    </div>
+                    <p class="graph-caption">Figure 2.3 — Market Equilibrium. Move the price away from £2.00 to see excess demand or supply emerge.</p>
+                </div>
+
+                <p>Drag the price slider below £2.00. You will see that quantity demanded exceeds quantity supplied — a shortage appears, shown by the gap between the two curves. Drag it above £2.00 and a surplus appears. The market naturally tends toward the equilibrium price of £2.00 where the gap vanishes.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>To find the equilibrium algebraically, we set quantity demanded equal to quantity supplied and solve for the price:</p>
+
+                \[ Q_d = Q_s \]
+                \[ 160 - 40p = 50 + 15p \]
+                \[ 110 = 55p \]
+                \[ p^* = 2 \]
+
+                <p>Substituting back into either equation gives the equilibrium quantity:</p>
+
+                \[ Q^* = 160 - 40(2) = 80 \]
+
+                <p>The equilibrium is at \((Q^*, p^*) = (80, \, 2)\). This is the point where both curves intersect in the graph above.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 2.4 SHOCKS                                    -->
+            <!-- ============================================ -->
+            <section id="shocks" class="lesson-section section-geometric">
+                <h2>2.4 Shocking the Equilibrium</h2>
+
+                <h3>Intuition: What Happens When Conditions Change?</h3>
+                <p>An equilibrium can persist indefinitely — until something disrupts it. A change in any factor other than the good's own price will shift either the demand curve or the supply curve (or both), producing a <strong>new equilibrium</strong> with a different price and quantity.</p>
+
+                <p>The analytical technique is always the same: (1) identify which curve shifts and in which direction, (2) find the new intersection, (3) compare the new equilibrium to the old one.</p>
+
+                <h3>Geometric Solution: Comparative Statics</h3>
+
+                <div class="interactive-graph" id="shocks-graph-container">
+                    <canvas id="shocksCanvas" width="600" height="400"></canvas>
+                    <div class="graph-controls">
+                        <button id="shockDemandRight">↑ Income (Demand →)</button>
+                        <button id="shockDemandLeft">↓ Income (Demand ←)</button>
+                        <button id="shockSupplyLeft">↑ Input costs (Supply ←)</button>
+                        <button id="shockSupplyRight">↓ Input costs (Supply →)</button>
+                        <button id="shocksResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="shocksInfo">
+                        Starting equilibrium: p* = £2.00, Q* = 80. Click a button to apply a shock and see how the equilibrium changes.
+                    </div>
+                    <p class="graph-caption">Figure 2.4 — Comparative Statics. Apply demand or supply shocks to see the new equilibrium.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: A Rise in Income</h4>
+                    <p>If consumers' income rises, they demand more at every price — the demand curve shifts right. The new equilibrium has both a higher price and a higher quantity. The increase in demand causes a <em>shift of the demand curve</em> and a <em>movement along the supply curve</em>.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: A Rise in Input Costs</h4>
+                    <p>If the price of fertiliser rises, producers supply less at every price — the supply curve shifts left. The new equilibrium has a higher price but a lower quantity. The increase in costs causes a <em>shift of the supply curve</em> and a <em>movement along the demand curve</em>.</p>
+                </div>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>Suppose the price of a substitute good (tomatoes) rises from £0.80 to £1.35. Using the full demand function:</p>
+
+                \[ Q_d = 104 - 40p + 20(1.35) + 0.01(4{,}000) = 171 - 40p \]
+
+                <p>The supply function is unchanged: \(Q_s = 50 + 15p\). Setting them equal:</p>
+
+                \[ 171 - 40p = 50 + 15p \implies 55p = 121 \implies p^* = 2.20 \]
+
+                \[ Q^* = 50 + 15(2.20) = 83 \]
+
+                <p>The equilibrium price rises from £2.00 to £2.20 and the equilibrium quantity rises from 80 to 83. Both the price and quantity increase — the classic prediction of a rightward demand shift with an upward-sloping supply curve.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 2.5 GOVERNMENT INTERVENTIONS                  -->
+            <!-- ============================================ -->
+            <section id="government" class="lesson-section section-mathematical">
+                <h2>2.5 Government Interventions</h2>
+
+                <h3>Intuition: What Happens When the Government Overrides the Market?</h3>
+                <p>Governments sometimes believe the market equilibrium price is too high for consumers or too low for producers. They may respond by setting legal limits on prices. Two common interventions are <strong>price ceilings</strong> (maximum prices) and <strong>price floors</strong> (minimum prices).</p>
+
+                <p>The critical insight is that these policies cannot repeal the laws of supply and demand. They merely prevent the price from performing its coordinating role, which creates predictable side effects.</p>
+
+                <h3>Geometric Solution: Price Ceilings and Floors</h3>
+
+                <div class="interactive-graph" id="intervention-graph-container">
+                    <canvas id="interventionCanvas" width="600" height="400"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Policy price: <span class="value-display" id="policyPriceDisplay">£2.00</span>
+                            <input type="range" id="policyPriceSlider" min="0.5" max="3.5" step="0.1" value="2">
+                        </label>
+                        <button id="ceilingBtn">Set Price Ceiling</button>
+                        <button id="floorBtn">Set Price Floor</button>
+                        <button id="interventionResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="interventionInfo">
+                        The free-market equilibrium is at p* = £2.00, Q* = 80. Use the controls to impose a price ceiling or floor and observe the resulting shortage or surplus.
+                    </div>
+                    <p class="graph-caption">Figure 2.5 — Price Ceilings and Floors. Set a policy price and observe the resulting market distortion.</p>
+                </div>
+
+                <div class="callout callout-key-insight">
+                    <h4>Binding vs. Non-Binding</h4>
+                    <p>A price ceiling only matters if it is set <strong>below</strong> the equilibrium price (it "binds"). A ceiling above the equilibrium has no effect — the market is already delivering a lower price. Similarly, a price floor only binds if set <strong>above</strong> the equilibrium.</p>
+                </div>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>Suppose the government sets a price ceiling at \(\bar{p} = 1.50\), below the equilibrium of £2.00. At this price:</p>
+
+                \[ Q_d = 160 - 40(1.50) = 100 \]
+                \[ Q_s = 50 + 15(1.50) = 72.5 \]
+                \[ \text{Shortage} = Q_d - Q_s = 100 - 72.5 = 27.5 \]
+
+                <p>The ceiling creates a shortage of 27.5 million units per month. Consumers want to buy 100 million but only 72.5 million are available. The market cannot adjust through the price mechanism because the price is legally capped. The result: queues, rationing, or black markets.</p>
+
+                <p>Conversely, a price floor at \(\underline{p} = 2.50\) above equilibrium produces:</p>
+
+                \[ Q_d = 160 - 40(2.50) = 60 \]
+                \[ Q_s = 50 + 15(2.50) = 87.5 \]
+                \[ \text{Surplus} = Q_s - Q_d = 87.5 - 60 = 27.5 \]
+
+                <p>Firms produce 87.5 million units but consumers only buy 60 million — a surplus of 27.5 million units accumulates. Think of the European Union's butter mountains and wine lakes: classic consequences of agricultural price floors.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>In this chapter, we built the supply-and-demand model from the ground up, following a consistent approach: starting with the real-world problem, developing intuition, visualising the solution geometrically, and formalising it mathematically.</p>
+
+                <p>The key results are as follows. The <strong>demand curve</strong> slopes downward (the Law of Demand) and captures the relationship between a good's price and the quantity consumers wish to buy, holding other factors constant. The <strong>supply curve</strong> typically slopes upward: firms supply more at higher prices. The <strong>market equilibrium</strong> occurs at the intersection of supply and demand, where the quantity demanded equals the quantity supplied and no participant has an incentive to change behaviour.</p>
+
+                <p>When external conditions change, curves shift and the equilibrium moves. A rightward demand shift raises both price and quantity; a leftward supply shift raises price but lowers quantity. Government <strong>price controls</strong> — ceilings below or floors above the equilibrium — prevent the market from clearing and create shortages or surpluses.</p>
+
+                <p>In the next chapter, we apply this model to analyse real-world policy questions: who bears the burden of a tax, what happens when governments set quotas, and how elasticities determine the magnitude of these effects.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="../index.html">← Home</a>
+                <span style="color: var(--color-text-lighter);">Chapter 3: Coming Soon →</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        // ---- Utility functions ----
+        const COLORS = {
+            demand: '#3b82f6',
+            demandShifted: '#93c5fd',
+            supply: '#ef4444',
+            supplyShifted: '#fca5a5',
+            equilibrium: '#0a9396',
+            ceiling: '#f59e0b',
+            floor: '#8b5cf6',
+            grid: '#e5e5e5',
+            axis: '#1a1a1a',
+            text: '#555555',
+            excess: 'rgba(239, 68, 68, 0.15)',
+            shortage: 'rgba(59, 130, 246, 0.15)'
+        };
+
+        function getCtx(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            const ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            return { ctx, w: rect.width, h: rect.height };
+        }
+
+        // Graph area margins
+        const M = { top: 30, right: 30, bottom: 50, left: 60 };
+
+        function toPixel(q, p, gw, gh, qMax, pMax) {
+            return {
+                x: M.left + (q / qMax) * gw,
+                y: M.top + (1 - p / pMax) * gh
+            };
+        }
+
+        function drawAxes(ctx, w, h, gw, gh, qMax, pMax, qLabel, pLabel) {
+            ctx.clearRect(0, 0, w, h);
+            // Grid
+            ctx.strokeStyle = COLORS.grid;
+            ctx.lineWidth = 0.5;
+            for (let p = 0; p <= pMax; p += 0.5) {
+                const pt = toPixel(0, p, gw, gh, qMax, pMax);
+                ctx.beginPath();
+                ctx.moveTo(M.left, pt.y);
+                ctx.lineTo(M.left + gw, pt.y);
+                ctx.stroke();
+            }
+            for (let q = 0; q <= qMax; q += 20) {
+                const pt = toPixel(q, 0, gw, gh, qMax, pMax);
+                ctx.beginPath();
+                ctx.moveTo(pt.x, M.top);
+                ctx.lineTo(pt.x, M.top + gh);
+                ctx.stroke();
+            }
+            // Axes
+            ctx.strokeStyle = COLORS.axis;
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(M.left, M.top);
+            ctx.lineTo(M.left, M.top + gh);
+            ctx.lineTo(M.left + gw, M.top + gh);
+            ctx.stroke();
+            // Labels
+            ctx.fillStyle = COLORS.text;
+            ctx.font = '13px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(qLabel || 'Q (millions per month)', M.left + gw / 2, h - 8);
+            ctx.save();
+            ctx.translate(15, M.top + gh / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText(pLabel || 'p (£ per unit)', 0, 0);
+            ctx.restore();
+            // Tick labels
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            for (let q = 0; q <= qMax; q += 20) {
+                const pt = toPixel(q, 0, gw, gh, qMax, pMax);
+                ctx.fillText(q, pt.x, M.top + gh + 5);
+            }
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            for (let p = 0; p <= pMax; p += 0.5) {
+                const pt = toPixel(0, p, gw, gh, qMax, pMax);
+                ctx.fillText(p.toFixed(1), M.left - 8, pt.y);
+            }
+        }
+
+        function drawLine(ctx, gw, gh, qMax, pMax, qFn, color, label, dashed) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2.5;
+            if (dashed) ctx.setLineDash([6, 4]);
+            else ctx.setLineDash([]);
+            ctx.beginPath();
+            let started = false;
+            for (let p = 0; p <= pMax; p += 0.02) {
+                const q = qFn(p);
+                if (q < 0 || q > qMax) continue;
+                const pt = toPixel(q, p, gw, gh, qMax, pMax);
+                if (!started) { ctx.moveTo(pt.x, pt.y); started = true; }
+                else ctx.lineTo(pt.x, pt.y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+            // Label
+            if (label) {
+                const lp = pMax * 0.15;
+                const lq = qFn(lp);
+                if (lq > 0 && lq <= qMax) {
+                    const pt = toPixel(lq, lp, gw, gh, qMax, pMax);
+                    ctx.fillStyle = color;
+                    ctx.font = 'bold 13px -apple-system, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText(label, pt.x + 5, pt.y - 5);
+                }
+            }
+        }
+
+        function drawDot(ctx, q, p, gw, gh, qMax, pMax, color, radius) {
+            const pt = toPixel(q, p, gw, gh, qMax, pMax);
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, radius || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+
+        function drawDashedLines(ctx, q, p, gw, gh, qMax, pMax, color) {
+            const pt = toPixel(q, p, gw, gh, qMax, pMax);
+            const origin = toPixel(0, 0, gw, gh, qMax, pMax);
+            const yAxis = toPixel(0, p, gw, gh, qMax, pMax);
+            const xAxis = toPixel(q, 0, gw, gh, qMax, pMax);
+            ctx.strokeStyle = color || COLORS.text;
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 3]);
+            ctx.beginPath();
+            ctx.moveTo(yAxis.x, pt.y);
+            ctx.lineTo(pt.x, pt.y);
+            ctx.lineTo(pt.x, xAxis.y);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        // ---- Demand & Supply Functions ----
+        function Qd(p, shift) { return Math.max(0, (160 + (shift || 0)) - 40 * p); }
+        function Qs(p, shift) { return Math.max(0, (50 + (shift || 0)) + 15 * p); }
+
+        // ============================================================
+        // GRAPH 1: DEMAND CURVE
+        // ============================================================
+        (function() {
+            const slider = document.getElementById('demandPriceSlider');
+            const display = document.getElementById('demandPriceDisplay');
+            const info = document.getElementById('demandInfo');
+            const shiftBtn = document.getElementById('demandShiftBtn');
+            const resetBtn = document.getElementById('demandResetBtn');
+            let shifted = false;
+            const qMax = 180, pMax = 4.5;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('demandCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAxes(ctx, w, h, gw, gh, qMax, pMax);
+
+                // Demand curve(s)
+                if (shifted) {
+                    drawLine(ctx, gw, gh, qMax, pMax, p => Qd(p, 0), COLORS.demandShifted, 'D¹', true);
+                    drawLine(ctx, gw, gh, qMax, pMax, p => Qd(p, 20), COLORS.demand, 'D²');
+                } else {
+                    drawLine(ctx, gw, gh, qMax, pMax, p => Qd(p, 0), COLORS.demand, 'D');
+                }
+
+                // Price indicator
+                const price = parseFloat(slider.value);
+                const q = shifted ? Qd(price, 20) : Qd(price, 0);
+                drawDashedLines(ctx, q, price, gw, gh, qMax, pMax, COLORS.demand);
+                drawDot(ctx, q, price, gw, gh, qMax, pMax, COLORS.demand);
+
+                display.textContent = '£' + price.toFixed(2);
+                const demandLabel = shifted ? 'D²' : 'D';
+                info.textContent = `At a price of £${price.toFixed(2)}, the quantity demanded on ${demandLabel} is ${q.toFixed(0)} million units per month.` +
+                    (shifted ? ' The demand curve has shifted rightward (e.g., due to higher income or substitute prices).' : ' Move the slider to explore how quantity demanded changes with price.');
+            }
+
+            slider.addEventListener('input', draw);
+            shiftBtn.addEventListener('click', () => { shifted = !shifted; shiftBtn.textContent = shifted ? 'Remove Shift' : 'Shift Demand →'; draw(); });
+            resetBtn.addEventListener('click', () => { shifted = false; slider.value = 2; shiftBtn.textContent = 'Shift Demand →'; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 2: SUPPLY CURVE
+        // ============================================================
+        (function() {
+            const slider = document.getElementById('supplyPriceSlider');
+            const display = document.getElementById('supplyPriceDisplay');
+            const info = document.getElementById('supplyInfo');
+            const shiftBtn = document.getElementById('supplyShiftBtn');
+            const resetBtn = document.getElementById('supplyResetBtn');
+            let shifted = false;
+            const qMax = 180, pMax = 4.5;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('supplyCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAxes(ctx, w, h, gw, gh, qMax, pMax);
+
+                if (shifted) {
+                    drawLine(ctx, gw, gh, qMax, pMax, p => Qs(p, 0), COLORS.supplyShifted, 'S¹', true);
+                    drawLine(ctx, gw, gh, qMax, pMax, p => Qs(p, -11), COLORS.supply, 'S²');
+                } else {
+                    drawLine(ctx, gw, gh, qMax, pMax, p => Qs(p, 0), COLORS.supply, 'S');
+                }
+
+                const price = parseFloat(slider.value);
+                const q = shifted ? Qs(price, -11) : Qs(price, 0);
+                drawDashedLines(ctx, q, price, gw, gh, qMax, pMax, COLORS.supply);
+                drawDot(ctx, q, price, gw, gh, qMax, pMax, COLORS.supply);
+
+                display.textContent = '£' + price.toFixed(2);
+                const label = shifted ? 'S²' : 'S';
+                info.textContent = `At a price of £${price.toFixed(2)}, the quantity supplied on ${label} is ${q.toFixed(0)} million units per month.` +
+                    (shifted ? ' The supply curve has shifted leftward (e.g., due to higher input costs).' : '');
+            }
+
+            slider.addEventListener('input', draw);
+            shiftBtn.addEventListener('click', () => { shifted = !shifted; shiftBtn.textContent = shifted ? 'Remove Shift' : 'Shift Supply ←'; draw(); });
+            resetBtn.addEventListener('click', () => { shifted = false; slider.value = 2; shiftBtn.textContent = 'Shift Supply ←'; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 3: MARKET EQUILIBRIUM
+        // ============================================================
+        (function() {
+            const slider = document.getElementById('eqPriceSlider');
+            const display = document.getElementById('eqPriceDisplay');
+            const info = document.getElementById('eqInfo');
+            const resetBtn = document.getElementById('eqResetBtn');
+            const qMax = 180, pMax = 4.5;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('equilibriumCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAxes(ctx, w, h, gw, gh, qMax, pMax);
+
+                const price = parseFloat(slider.value);
+                const qd = Qd(price, 0);
+                const qs = Qs(price, 0);
+
+                // Shade excess area
+                if (Math.abs(qd - qs) > 1) {
+                    const ptLeft = toPixel(Math.min(qd, qs), price, gw, gh, qMax, pMax);
+                    const ptRight = toPixel(Math.max(qd, qs), price, gw, gh, qMax, pMax);
+                    ctx.fillStyle = qd > qs ? COLORS.shortage : COLORS.excess;
+                    ctx.fillRect(ptLeft.x, ptLeft.y - 15, ptRight.x - ptLeft.x, 30);
+                    ctx.fillStyle = qd > qs ? COLORS.demand : COLORS.supply;
+                    ctx.font = 'bold 12px -apple-system, sans-serif';
+                    ctx.textAlign = 'center';
+                    const mid = (ptLeft.x + ptRight.x) / 2;
+                    ctx.fillText(qd > qs ? 'Shortage' : 'Surplus', mid, ptLeft.y - 20);
+                    ctx.fillText(`= ${Math.abs(qd - qs).toFixed(0)}`, mid, ptLeft.y + 28);
+                }
+
+                drawLine(ctx, gw, gh, qMax, pMax, p => Qd(p, 0), COLORS.demand, 'D');
+                drawLine(ctx, gw, gh, qMax, pMax, p => Qs(p, 0), COLORS.supply, 'S');
+
+                // Price line
+                const ptL = toPixel(0, price, gw, gh, qMax, pMax);
+                const ptR = toPixel(qMax, price, gw, gh, qMax, pMax);
+                ctx.strokeStyle = '#999';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([3, 3]);
+                ctx.beginPath();
+                ctx.moveTo(ptL.x, ptL.y);
+                ctx.lineTo(ptR.x, ptR.y);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Dots at Qd and Qs
+                drawDot(ctx, qd, price, gw, gh, qMax, pMax, COLORS.demand);
+                drawDot(ctx, qs, price, gw, gh, qMax, pMax, COLORS.supply);
+
+                // Equilibrium dot
+                drawDot(ctx, 80, 2, gw, gh, qMax, pMax, COLORS.equilibrium, 7);
+                const ept = toPixel(80, 2, gw, gh, qMax, pMax);
+                ctx.fillStyle = COLORS.equilibrium;
+                ctx.font = 'bold 13px -apple-system, sans-serif';
+                ctx.fillText('e', ept.x + 12, ept.y - 8);
+
+                display.textContent = '£' + price.toFixed(2);
+                if (Math.abs(price - 2) < 0.05) {
+                    info.textContent = `At the equilibrium price of £${price.toFixed(2)}, Qd = Qs = 80. The market clears with no excess demand or supply.`;
+                } else if (qd > qs) {
+                    info.textContent = `At p = £${price.toFixed(2)}: Qd = ${qd.toFixed(0)}, Qs = ${qs.toFixed(0)}. Shortage = ${(qd - qs).toFixed(0)} million units. Buyers compete, pushing the price up toward equilibrium.`;
+                } else {
+                    info.textContent = `At p = £${price.toFixed(2)}: Qd = ${qd.toFixed(0)}, Qs = ${qs.toFixed(0)}. Surplus = ${(qs - qd).toFixed(0)} million units. Sellers cut prices, pushing the price down toward equilibrium.`;
+                }
+            }
+
+            slider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { slider.value = 2; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 4: COMPARATIVE STATICS (SHOCKS)
+        // ============================================================
+        (function() {
+            const info = document.getElementById('shocksInfo');
+            const resetBtn = document.getElementById('shocksResetBtn');
+            let dShift = 0, sShift = 0;
+            const qMax = 200, pMax = 4.5;
+
+            function findEq(ds, ss) {
+                // Qd = (160+ds) - 40p = (50+ss) + 15p => p = (110+ds-ss)/55
+                const p = (110 + ds - ss) / 55;
+                const q = (50 + ss) + 15 * p;
+                return { p, q };
+            }
+
+            function draw() {
+                const { ctx, w, h } = getCtx('shocksCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAxes(ctx, w, h, gw, gh, qMax, pMax);
+
+                // Original curves (dashed if shifted)
+                const hasDShift = dShift !== 0;
+                const hasSShift = sShift !== 0;
+                drawLine(ctx, gw, gh, qMax, pMax, p => Qd(p, 0), hasDShift ? COLORS.demandShifted : COLORS.demand, hasDShift ? 'D¹' : 'D', hasDShift);
+                drawLine(ctx, gw, gh, qMax, pMax, p => Qs(p, 0), hasSShift ? COLORS.supplyShifted : COLORS.supply, hasSShift ? 'S¹' : 'S', hasSShift);
+
+                // Shifted curves
+                if (hasDShift) drawLine(ctx, gw, gh, qMax, pMax, p => Qd(p, dShift), COLORS.demand, 'D²');
+                if (hasSShift) drawLine(ctx, gw, gh, qMax, pMax, p => Qs(p, sShift), COLORS.supply, 'S²');
+
+                // Equilibria
+                const eq1 = findEq(0, 0);
+                drawDashedLines(ctx, eq1.q, eq1.p, gw, gh, qMax, pMax, '#aaa');
+                drawDot(ctx, eq1.q, eq1.p, gw, gh, qMax, pMax, '#aaa', 5);
+                const pt1 = toPixel(eq1.q, eq1.p, gw, gh, qMax, pMax);
+                ctx.fillStyle = '#aaa';
+                ctx.font = '12px -apple-system, sans-serif';
+                ctx.fillText('e₁', pt1.x + 10, pt1.y - 10);
+
+                if (hasDShift || hasSShift) {
+                    const eq2 = findEq(dShift, sShift);
+                    drawDashedLines(ctx, eq2.q, eq2.p, gw, gh, qMax, pMax, COLORS.equilibrium);
+                    drawDot(ctx, eq2.q, eq2.p, gw, gh, qMax, pMax, COLORS.equilibrium, 6);
+                    const pt2 = toPixel(eq2.q, eq2.p, gw, gh, qMax, pMax);
+                    ctx.fillStyle = COLORS.equilibrium;
+                    ctx.font = 'bold 13px -apple-system, sans-serif';
+                    ctx.fillText('e₂', pt2.x + 10, pt2.y - 10);
+
+                    // Arrow from e1 to e2
+                    ctx.strokeStyle = COLORS.equilibrium;
+                    ctx.lineWidth = 1.5;
+                    ctx.setLineDash([4, 3]);
+                    ctx.beginPath();
+                    ctx.moveTo(pt1.x, pt1.y);
+                    ctx.lineTo(pt2.x, pt2.y);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    const dp = (eq2.p - eq1.p).toFixed(2);
+                    const dq = (eq2.q - eq1.q).toFixed(0);
+                    info.textContent = `New equilibrium: p* = £${eq2.p.toFixed(2)}, Q* = ${eq2.q.toFixed(0)}. Change: Δp = ${dp > 0 ? '+' : ''}${dp}, ΔQ = ${dq > 0 ? '+' : ''}${dq}.`;
+                } else {
+                    info.textContent = 'Starting equilibrium: p* = £2.00, Q* = 80. Click a button to apply a shock.';
+                }
+            }
+
+            document.getElementById('shockDemandRight').addEventListener('click', () => { dShift += 20; draw(); });
+            document.getElementById('shockDemandLeft').addEventListener('click', () => { dShift -= 20; draw(); });
+            document.getElementById('shockSupplyRight').addEventListener('click', () => { sShift += 15; draw(); });
+            document.getElementById('shockSupplyLeft').addEventListener('click', () => { sShift -= 15; draw(); });
+            resetBtn.addEventListener('click', () => { dShift = 0; sShift = 0; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 5: GOVERNMENT INTERVENTIONS
+        // ============================================================
+        (function() {
+            const slider = document.getElementById('policyPriceSlider');
+            const display = document.getElementById('policyPriceDisplay');
+            const info = document.getElementById('interventionInfo');
+            const ceilingBtn = document.getElementById('ceilingBtn');
+            const floorBtn = document.getElementById('floorBtn');
+            const resetBtn = document.getElementById('interventionResetBtn');
+            let mode = 'none'; // 'none', 'ceiling', 'floor'
+            const qMax = 180, pMax = 4.5;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('interventionCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAxes(ctx, w, h, gw, gh, qMax, pMax);
+
+                drawLine(ctx, gw, gh, qMax, pMax, p => Qd(p, 0), COLORS.demand, 'D');
+                drawLine(ctx, gw, gh, qMax, pMax, p => Qs(p, 0), COLORS.supply, 'S');
+
+                // Equilibrium
+                drawDot(ctx, 80, 2, gw, gh, qMax, pMax, COLORS.equilibrium, 6);
+                const ept = toPixel(80, 2, gw, gh, qMax, pMax);
+                ctx.fillStyle = COLORS.equilibrium;
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.fillText('e', ept.x + 10, ept.y - 8);
+
+                const policyPrice = parseFloat(slider.value);
+                display.textContent = '£' + policyPrice.toFixed(2);
+
+                if (mode !== 'none') {
+                    const color = mode === 'ceiling' ? COLORS.ceiling : COLORS.floor;
+                    const ptL = toPixel(0, policyPrice, gw, gh, qMax, pMax);
+                    const ptR = toPixel(qMax, policyPrice, gw, gh, qMax, pMax);
+
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 2.5;
+                    ctx.setLineDash([8, 4]);
+                    ctx.beginPath();
+                    ctx.moveTo(ptL.x, ptL.y);
+                    ctx.lineTo(ptR.x, ptR.y);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    ctx.fillStyle = color;
+                    ctx.font = 'bold 13px -apple-system, sans-serif';
+                    ctx.textAlign = 'right';
+                    ctx.fillText(mode === 'ceiling' ? 'Price ceiling' : 'Price floor', ptR.x, ptL.y - 8);
+
+                    const qd = Qd(policyPrice, 0);
+                    const qs = Qs(policyPrice, 0);
+                    drawDot(ctx, qd, policyPrice, gw, gh, qMax, pMax, COLORS.demand, 5);
+                    drawDot(ctx, qs, policyPrice, gw, gh, qMax, pMax, COLORS.supply, 5);
+
+                    const binds = (mode === 'ceiling' && policyPrice < 2) || (mode === 'floor' && policyPrice > 2);
+
+                    if (binds && Math.abs(qd - qs) > 1) {
+                        const ptMin = toPixel(Math.min(qd, qs), policyPrice, gw, gh, qMax, pMax);
+                        const ptMax = toPixel(Math.max(qd, qs), policyPrice, gw, gh, qMax, pMax);
+                        ctx.fillStyle = mode === 'ceiling' ? 'rgba(59,130,246,0.12)' : 'rgba(239,68,68,0.12)';
+                        ctx.fillRect(ptMin.x, ptMin.y - 15, ptMax.x - ptMin.x, 30);
+                        ctx.fillStyle = color;
+                        ctx.font = 'bold 12px -apple-system, sans-serif';
+                        ctx.textAlign = 'center';
+                        const mid = (ptMin.x + ptMax.x) / 2;
+                        const label = mode === 'ceiling' ? 'Shortage' : 'Surplus';
+                        ctx.fillText(`${label} = ${Math.abs(qd - qs).toFixed(0)}`, mid, ptMin.y - 20);
+                    }
+
+                    if (mode === 'ceiling') {
+                        if (policyPrice < 2) {
+                            info.textContent = `Price ceiling at £${policyPrice.toFixed(2)} (binding). Qd = ${qd.toFixed(0)}, Qs = ${qs.toFixed(0)}. Shortage = ${(qd - qs).toFixed(0)} million units. The ceiling prevents the price from rising to clear the market.`;
+                        } else {
+                            info.textContent = `Price ceiling at £${policyPrice.toFixed(2)} (non-binding). The market equilibrium price of £2.00 is already below the ceiling, so the policy has no effect.`;
+                        }
+                    } else {
+                        if (policyPrice > 2) {
+                            info.textContent = `Price floor at £${policyPrice.toFixed(2)} (binding). Qd = ${qd.toFixed(0)}, Qs = ${qs.toFixed(0)}. Surplus = ${(qs - qd).toFixed(0)} million units. The floor prevents the price from falling to clear the market.`;
+                        } else {
+                            info.textContent = `Price floor at £${policyPrice.toFixed(2)} (non-binding). The market equilibrium price of £2.00 is already above the floor, so the policy has no effect.`;
+                        }
+                    }
+                } else {
+                    info.textContent = 'The free-market equilibrium is at p* = £2.00, Q* = 80. Use the controls to impose a price ceiling or floor.';
+                }
+            }
+
+            ceilingBtn.addEventListener('click', () => { mode = 'ceiling'; slider.value = 1.5; draw(); });
+            floorBtn.addEventListener('click', () => { mode = 'floor'; slider.value = 2.5; draw(); });
+            slider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { mode = 'none'; slider.value = 2; draw(); });
+            draw();
+        })();
+
+        // Handle window resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                document.querySelectorAll('.interactive-graph canvas').forEach(c => {
+                    c.dispatchEvent(new Event('redraw'));
+                });
+                // Re-trigger all draws - simplest way is to dispatch input events on sliders
+                document.querySelectorAll('input[type="range"]').forEach(s => s.dispatchEvent(new Event('input')));
+            }, 250);
+        });
+    })();
+    </script>
+</body>
+</html>
