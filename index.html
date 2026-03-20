@@ -3,173 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microeconomics Lessons | Interactive Guide to Microeconomic Theory</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <title>Andrea Sarcina | University of Padua</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Homepage-specific styles */
+        .hero {
+            background: linear-gradient(135deg, #001219 0%, #005f73 60%, #0a9396 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            margin: 0 0 0.5rem;
+            font-weight: 700;
+            color: white;
+        }
+        .hero .affiliation {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.85);
+            margin: 0 0 0.3rem;
+        }
+        .hero .role {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.65);
+            font-style: italic;
+        }
+        .hero .contact-links {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .hero .contact-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.4rem 1rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            transition: all 0.25s ease;
+        }
+        .hero .contact-links a:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .content-wrapper {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .bio-section {
+            margin-bottom: 3rem;
+        }
+        .bio-section h2 {
+            font-size: 1.6rem;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-primary);
+        }
+        .bio-section p {
+            line-height: 1.7;
+            color: var(--color-text-light);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 1.8rem;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .card .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+        .card h3 {
+            font-size: 1.2rem;
+            margin: 0 0 0.5rem;
+            color: var(--color-text);
+        }
+        .card p {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            line-height: 1.6;
+            margin: 0 0 1rem;
+        }
+        .card .card-link {
+            display: inline-block;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+        .card .card-link:hover {
+            color: var(--color-primary-dark);
+        }
+        .card.active {
+            border-color: var(--color-primary);
+        }
+        .card.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--color-primary);
+        }
+        .card .badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .badge-active {
+            background: #e0f4f5;
+            color: #086b70;
+        }
+        .badge-soon {
+            background: #f0f0f0;
+            color: #888;
+        }
+
+        /* Teaching Section */
+        .teaching-section {
+            margin-bottom: 3rem;
+        }
+        .teaching-section h2 {
+            font-size: 1.6rem;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-primary);
+        }
+        .teaching-placeholder {
+            background: var(--color-background-alt);
+            border: 1px dashed var(--color-border);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            color: var(--color-text-lighter);
+            font-style: italic;
+        }
+
+        /* Publications */
+        .publication {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+        .publication:last-child {
+            border-bottom: none;
+        }
+        .publication .authors {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+        .publication .title {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+        .publication .venue {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
+        .site-footer {
+            background: var(--color-background-alt);
+            border-top: 1px solid var(--color-border);
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--color-text-lighter);
+            font-size: 0.85rem;
+        }
+        .site-footer p { margin: 0; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 2.5rem 1.2rem; }
+            .content-wrapper { padding: 1.5rem 1rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <header class="site-header">
-        <div class="header-content">
-            <h1 class="site-title">Microeconomics Lessons</h1>
-            <p class="site-subtitle">An interactive guide to microeconomic theory</p>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <h1>Andrea Sarcina</h1>
+        <p class="affiliation">University of Padua</p>
+        <p class="role">PhD Candidate in Management Engineering and Real Estate Economics</p>
+        <div class="contact-links">
+            <a href="mailto:andrea.sarcina@unipd.it">andrea.sarcina@unipd.it</a>
+            <a href="https://github.com/cinoSar">GitHub</a>
+            <a href="assets/cv.pdf">Curriculum Vitae ↓</a>
         </div>
     </header>
 
-    <div class="main-container">
-        <nav class="sidebar-nav">
-            <ul class="nav-list">
-                <li><a href="#introduction">Introduction</a></li>
-                <li><a href="#chapters">Chapters</a></li>
-            </ul>
-        </nav>
+    <div class="content-wrapper">
 
-        <main class="main-content">
-            <section id="introduction" class="intro-section">
-                <h2>About This Resource</h2>
-                <p>Welcome to Microeconomics Lessons, an interactive guide designed to build deep understanding of microeconomic theory through a systematic pedagogical approach.</p>
+        <!-- About -->
+        <section class="bio-section">
+            <h2>About</h2>
+            <p>I am a PhD candidate at the University of Padua, working on the territorial impacts of logistics infrastructure. My research investigates the trade-offs between national logistics efficiency (TEN-T corridors) and local negative externalities — congestion, land use, environmental costs — generated by freight villages. I combine spatial analysis with multi-criteria evaluation methods to study these socio-economic impacts.</p>
+            <p>Previously, I worked as a research fellow on European projects related to energy communities and cost-benefit analysis of environmental interventions. I hold a Master's degree in Economics and Finance from the University of Padua and a Bachelor's degree in Foreign Trade from Ca' Foscari University of Venice.</p>
+        </section>
 
-                <h3>How We Teach</h3>
-                <p>Each lesson follows a proven learning sequence:</p>
-                <ol class="teaching-approach">
-                    <li><strong>Real-World Problem:</strong> We start with a concrete, practical problem that motivates the economic concept you'll learn.</li>
-                    <li><strong>Intuition Building:</strong> We develop your intuition through clear explanations and relatable examples.</li>
-                    <li><strong>Graphical Solutions:</strong> We visualize the problem geometrically, allowing you to see the relationships between variables.</li>
-                    <li><strong>Mathematical Formalization:</strong> Finally, we formalize the concepts mathematically for precision and rigor.</li>
-                </ol>
-                <p>This progression from concrete to abstract ensures you understand not just the "how" but the "why" of microeconomic theory.</p>
-            </section>
+        <!-- Course Cards -->
+        <section>
+            <h2 style="font-size:1.6rem; margin-bottom:1rem; padding-bottom:0.5rem; border-bottom:2px solid var(--color-primary);">Courses &amp; Resources</h2>
+            <div class="cards-grid">
 
-            <section id="chapters" class="chapters-section">
-                <h2>Chapter Index</h2>
-                <p class="chapters-intro">Select a chapter below to begin learning. New chapters are being added regularly.</p>
-
-                <div class="chapters-grid">
-                    <div class="chapter-card">
-                        <h3>Chapter 1</h3>
-                        <p class="chapter-title">Introduction to Microeconomics</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card active">
-                        <h3>Chapter 2</h3>
-                        <p class="chapter-title">Supply and Demand</p>
-                        <a href="chapters/ch2-supply-and-demand.html" class="chapter-link">Start Lesson →</a>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 3</h3>
-                        <p class="chapter-title">Applying Supply and Demand</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 4</h3>
-                        <p class="chapter-title">Consumer Choice</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 5</h3>
-                        <p class="chapter-title">Applying Consumer Theory</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 6</h3>
-                        <p class="chapter-title">Firms and Production</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 7</h3>
-                        <p class="chapter-title">Costs</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 8</h3>
-                        <p class="chapter-title">Competitive Firms and Markets</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 9</h3>
-                        <p class="chapter-title">Applying the Competitive Model</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 10</h3>
-                        <p class="chapter-title">General Equilibrium and Welfare</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 11</h3>
-                        <p class="chapter-title">Monopoly</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 12</h3>
-                        <p class="chapter-title">Pricing and Advertising</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 13</h3>
-                        <p class="chapter-title">Oligopoly and Monopolistic Competition</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 14</h3>
-                        <p class="chapter-title">Game Theory</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 15</h3>
-                        <p class="chapter-title">Factor Markets</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 16</h3>
-                        <p class="chapter-title">Interest Rates, Investments, and Capital Markets</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 17</h3>
-                        <p class="chapter-title">Uncertainty</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 18</h3>
-                        <p class="chapter-title">Externalities and Public Goods</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 19</h3>
-                        <p class="chapter-title">Asymmetric Information</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
-
-                    <div class="chapter-card">
-                        <h3>Chapter 20</h3>
-                        <p class="chapter-title">Contracts and Moral Hazards</p>
-                        <span class="coming-soon">Coming soon</span>
-                    </div>
+                <div class="card active">
+                    <span class="card-icon">📈</span>
+                    <h3>Microeconomics</h3>
+                    <p>Interactive lessons covering supply and demand, consumer theory, production, market structures, and welfare economics. Built around an intuition-first pedagogical approach.</p>
+                    <span class="badge badge-active">In Progress</span><br><br>
+                    <a href="micro/index.html" class="card-link">Enter Course →</a>
                 </div>
-            </section>
-        </main>
+
+                <div class="card">
+                    <span class="card-icon">🌍</span>
+                    <h3>Environmental Economics</h3>
+                    <p>Forthcoming course on externalities, public goods, environmental policy instruments, and the economics of sustainability.</p>
+                    <span class="badge badge-soon">Coming Soon</span>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">📄</span>
+                    <h3>Curriculum Vitae</h3>
+                    <p>Full academic CV including education, research experience, publications, and skills.</p>
+                    <a href="assets/cv.pdf" class="card-link">Download PDF →</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Teaching -->
+        <section class="teaching-section">
+            <h2>Teaching</h2>
+            <p style="line-height:1.7; color:var(--color-text-light); margin-bottom:1.5rem;">I serve as a teaching assistant (tutorial sessions) at the University of Padua, preparing and delivering exercise classes that complement the main lectures. My sessions focus on guided problem-solving, working through exercises step by step so that students build both analytical technique and economic intuition.</p>
+
+            <div class="cards-grid">
+
+                <div class="card active">
+                    <span class="card-icon">🌍</span>
+                    <h3>Environmental Economics and Resource Valuation</h3>
+                    <p style="font-size:0.82rem; color:var(--color-text-lighter); margin-bottom:0.6rem;">A.Y. 2024–2025 · Dept. ICEA · Prof. C. D'Alpaos · English</p>
+                    <p>Tutorial sessions covering the microeconomic foundations of environmental policy: public goods and free-riding, externalities and the social optimum, Pigouvian taxation, the Coase theorem, and tradeable emission permits. Exercises progress from analytical derivations to numerical welfare comparisons.</p>
+                </div>
+
+                <div class="card active">
+                    <span class="card-icon">📐</span>
+                    <h3>Fondamenti di Economia e Valutazione dei Progetti</h3>
+                    <p style="font-size:0.82rem; color:var(--color-text-lighter); margin-bottom:0.6rem;">A.Y. 2025–2026 · Dept. ICEA · Prof. R. Canesi &amp; C. D'Alpaos · Italian</p>
+                    <p>Tutorial sessions covering the microeconomics and financial mathematics modules of the course. Microeconomics topics include consumer theory (utility maximisation with Cobb-Douglas, perfect substitutes, and Leontief preferences), demand derivation from first principles, horizontal aggregation of individual demands, and monetary welfare measures (compensating and equivalent variation). Financial mathematics topics include interest calculations, annuities, and amortisation schedules.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Research & Publications -->
+        <section class="bio-section">
+            <h2>Research</h2>
+            <p>My current PhD project, supervised by Prof. Chiara D'Alpaos and Prof. Luciano Greco, examines the territorial paradox of logistics hubs — how infrastructure that benefits national supply chains can simultaneously impose costs on local communities. I am also working on a systematic literature review on the spatial impacts of logistics hubs.</p>
+
+            <h3 style="font-size:1.2rem; margin-top:1.5rem; margin-bottom:0.8rem;">Publications</h3>
+
+            <div class="publication">
+                <p class="authors"><strong>Sarcina, A.</strong>, Canesi, R. (2023).</p>
+                <p class="title">"Renewable Energy Community: Opportunities and Threats towards Green Transition."</p>
+                <p class="venue">Sustainability, 15(18), 13860.</p>
+            </div>
+
+            <div class="publication">
+                <p class="authors">Bertolini, M., Greco, L., <strong>Sarcina, A.</strong> (2023).</p>
+                <p class="title">"Public-private investments for the energy transition: from the experience of local authorities to the perspective of energy communities."</p>
+                <p class="venue">In Italian Public Finance — 2022-2023 Report. Il Mulino.</p>
+            </div>
+
+            <h3 style="font-size:1.2rem; margin-top:1.5rem; margin-bottom:0.8rem;">Working Papers</h3>
+            <div class="publication">
+                <p class="title">"A systematic literature review on logistics hubs impacts: a spatial perspective"</p>
+                <p class="venue">Draft stage.</p>
+            </div>
+        </section>
+
     </div>
 
     <footer class="site-footer">
-        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+        <p>&copy; 2026 Andrea Sarcina · University of Padua · Built with care</p>
     </footer>
+
 </body>
 </html>
