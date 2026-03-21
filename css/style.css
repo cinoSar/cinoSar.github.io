@@ -147,9 +147,9 @@
     --color-primary-light: #6dd8dc;
     --color-primary-pale: rgba(10, 147, 150, 0.18);
 
-    /* Hero gradient — lightened for contrast against charcoal body */
-    --color-hero-start: #0a2e38;
-    --color-hero-mid: #0a7a8a;
+    /* Hero gradient — lifted well above charcoal body so teal is unmistakable */
+    --color-hero-start: #0b4f5c;
+    --color-hero-mid: #0a8a96;
     --color-hero-end: #2ec4c8;
 
     /* Section colours — ~20% desaturated for dark backgrounds */
