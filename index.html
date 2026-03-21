@@ -9,8 +9,8 @@
     <style>
         /* Homepage-specific styles */
         .hero {
-            background: linear-gradient(135deg, #001219 0%, #005f73 60%, #0a9396 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--color-hero-start) 0%, var(--color-hero-mid) 60%, var(--color-hero-end) 100%);
+            color: #ffffff;
             padding: 4rem 2rem;
             text-align: center;
         }
@@ -89,7 +89,7 @@
             overflow: hidden;
         }
         .card:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow-lg);
             transform: translateY(-2px);
         }
         .card .card-icon {
@@ -141,12 +141,12 @@
             letter-spacing: 0.03em;
         }
         .badge-active {
-            background: #e0f4f5;
-            color: #086b70;
+            background: var(--color-badge-bg);
+            color: var(--color-badge-text);
         }
         .badge-soon {
-            background: #f0f0f0;
-            color: #888;
+            background: var(--color-badge-soon-bg);
+            color: var(--color-badge-soon-text);
         }
 
         /* Teaching Section */

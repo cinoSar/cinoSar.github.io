@@ -476,8 +476,12 @@
     (function() {
         'use strict';
 
-        // ---- Utility functions ----
-        const COLORS = {
+        // ---- Theme-aware colour palette ----
+        // Canvas ignores CSS variables, so we detect the OS colour scheme
+        // via matchMedia and pick the right palette. When the user toggles
+        // their system theme, we redraw every graph automatically.
+
+        const LIGHT_COLORS = {
             demand: '#3b82f6',
             demandShifted: '#93c5fd',
             supply: '#ef4444',
@@ -488,9 +492,43 @@
             grid: '#e5e5e5',
             axis: '#1a1a1a',
             text: '#555555',
+            textMuted: '#aaaaaa',
+            priceLine: '#999999',
+            canvasBg: '#ffffff',
             excess: 'rgba(239, 68, 68, 0.15)',
-            shortage: 'rgba(59, 130, 246, 0.15)'
+            shortage: 'rgba(59, 130, 246, 0.15)',
+            ceilingShade: 'rgba(59, 130, 246, 0.12)',
+            floorShade: 'rgba(239, 68, 68, 0.12)'
         };
+
+        const DARK_COLORS = {
+            demand: '#60a5fa',       // brighter blue
+            demandShifted: '#a5c8ff',
+            supply: '#f87171',       // brighter red
+            supplyShifted: '#fdb5b5',
+            equilibrium: '#2ec4c8',  // brighter teal
+            ceiling: '#fbbf24',      // brighter amber
+            floor: '#a78bfa',        // brighter purple
+            grid: '#4a4a4a',
+            axis: '#d0d0d0',
+            text: '#c0c0c0',
+            textMuted: '#808080',
+            priceLine: '#888888',
+            canvasBg: '#2d2d2d',
+            excess: 'rgba(248, 113, 113, 0.2)',
+            shortage: 'rgba(96, 165, 250, 0.2)',
+            ceilingShade: 'rgba(96, 165, 250, 0.15)',
+            floorShade: 'rgba(248, 113, 113, 0.15)'
+        };
+
+        const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        let COLORS = darkMQ.matches ? DARK_COLORS : LIGHT_COLORS;
+
+        // Re-pick palette and redraw all graphs when OS theme changes
+        darkMQ.addEventListener('change', function(e) {
+            COLORS = e.matches ? DARK_COLORS : LIGHT_COLORS;
+            redrawAll();
+        });
 
         function getCtx(canvasId) {
             const canvas = document.getElementById(canvasId);
@@ -516,7 +554,9 @@
         }
 
         function drawAxes(ctx, w, h, gw, gh, qMax, pMax, qLabel, pLabel) {
-            ctx.clearRect(0, 0, w, h);
+            // Fill canvas with themed background
+            ctx.fillStyle = COLORS.canvasBg;
+            ctx.fillRect(0, 0, w, h);
             // Grid
             ctx.strokeStyle = COLORS.grid;
             ctx.lineWidth = 0.5;
@@ -751,7 +791,7 @@
                 // Price line
                 const ptL = toPixel(0, price, gw, gh, qMax, pMax);
                 const ptR = toPixel(qMax, price, gw, gh, qMax, pMax);
-                ctx.strokeStyle = '#999';
+                ctx.strokeStyle = COLORS.priceLine;
                 ctx.lineWidth = 1;
                 ctx.setLineDash([3, 3]);
                 ctx.beginPath();
@@ -820,10 +860,10 @@
 
                 // Equilibria
                 const eq1 = findEq(0, 0);
-                drawDashedLines(ctx, eq1.q, eq1.p, gw, gh, qMax, pMax, '#aaa');
-                drawDot(ctx, eq1.q, eq1.p, gw, gh, qMax, pMax, '#aaa', 5);
+                drawDashedLines(ctx, eq1.q, eq1.p, gw, gh, qMax, pMax, COLORS.textMuted);
+                drawDot(ctx, eq1.q, eq1.p, gw, gh, qMax, pMax, COLORS.textMuted, 5);
                 const pt1 = toPixel(eq1.q, eq1.p, gw, gh, qMax, pMax);
-                ctx.fillStyle = '#aaa';
+                ctx.fillStyle = COLORS.textMuted;
                 ctx.font = '12px -apple-system, sans-serif';
                 ctx.fillText('e₁', pt1.x + 10, pt1.y - 10);
 
@@ -923,7 +963,7 @@
                     if (binds && Math.abs(qd - qs) > 1) {
                         const ptMin = toPixel(Math.min(qd, qs), policyPrice, gw, gh, qMax, pMax);
                         const ptMax = toPixel(Math.max(qd, qs), policyPrice, gw, gh, qMax, pMax);
-                        ctx.fillStyle = mode === 'ceiling' ? 'rgba(59,130,246,0.12)' : 'rgba(239,68,68,0.12)';
+                        ctx.fillStyle = mode === 'ceiling' ? COLORS.ceilingShade : COLORS.floorShade;
                         ctx.fillRect(ptMin.x, ptMin.y - 15, ptMax.x - ptMin.x, 30);
                         ctx.fillStyle = color;
                         ctx.font = 'bold 12px -apple-system, sans-serif';
@@ -958,17 +998,19 @@
             draw();
         })();
 
+        // Shared redraw function — used by resize handler and theme-change listener
+        function redrawAll() {
+            document.querySelectorAll('.interactive-graph canvas').forEach(c => {
+                c.dispatchEvent(new Event('redraw'));
+            });
+            document.querySelectorAll('input[type="range"]').forEach(s => s.dispatchEvent(new Event('input')));
+        }
+
         // Handle window resize
         let resizeTimer;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                document.querySelectorAll('.interactive-graph canvas').forEach(c => {
-                    c.dispatchEvent(new Event('redraw'));
-                });
-                // Re-trigger all draws - simplest way is to dispatch input events on sliders
-                document.querySelectorAll('input[type="range"]').forEach(s => s.dispatchEvent(new Event('input')));
-            }, 250);
+            resizeTimer = setTimeout(redrawAll, 250);
         });
     })();
     </script>
