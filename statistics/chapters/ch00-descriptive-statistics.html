@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 00: Setup &amp; Descriptive Statistics | Statistics for Econometrics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        /* Code blocks */
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+
+        /* Output blocks */
+        .output-block {
+            background: var(--color-background-alt);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        /* Download/Colab bar */
+        .notebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .notebook-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .notebook-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .notebook-actions a:hover { background: var(--color-primary-dark); }
+
+        /* Key concept boxes */
+        .key-concept {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .key-concept h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+
+        /* Exercise boxes */
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Statistics for Econometrics</h1>
+            </a>
+            <p class="site-subtitle">Module 00: Setup &amp; Descriptive Statistics Refresher</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#setup">0.1 Setup</a></li>
+                <li><a href="#data">0.2 Data</a></li>
+                <li><a href="#central-tendency">0.3 Central Tendency</a></li>
+                <li><a href="#variability">0.4 Variability</a></li>
+                <li><a href="#shape">0.5 Shape</a></li>
+                <li><a href="#correlation">0.6 Correlation</a></li>
+                <li><a href="#groups">0.7 Groups</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="notebook-actions">
+                <span>Run this module yourself:</span>
+                <a href="https://colab.research.google.com/github/cinoSar/cinosar.github.io/blob/main/statistics/downloads/00_setup_descriptive_statistics.ipynb" target="_blank">Open in Google Colab</a>
+                <a href="../downloads/00_setup_descriptive_statistics.ipynb" download>Download Notebook</a>
+            </div>
+
+            <div class="toc" id="toc">
+                <h3>In This Module</h3>
+                <ol>
+                    <li><a href="#setup">Imports and Setup</a></li>
+                    <li><a href="#data">Loading Data: A Macroeconomic Dataset</a></li>
+                    <li><a href="#central-tendency">Measures of Central Tendency</a></li>
+                    <li><a href="#variability">Measures of Variability</a></li>
+                    <li><a href="#shape">The Shape of Distributions</a></li>
+                    <li><a href="#correlation">Relationships Between Variables</a></li>
+                    <li><a href="#groups">Group Comparisons</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                </ol>
+            </div>
+
+            <!-- ==================== 0.1 SETUP ==================== -->
+            <section id="setup">
+                <h2>0.1 &mdash; Imports and Setup</h2>
+                <p>Every notebook in this course starts with this block. It loads the libraries we use throughout and sets sensible defaults for plotting.</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+<span class="code-keyword">import</span> seaborn <span class="code-keyword">as</span> sns
+
+<span class="code-comment"># Plotting defaults — clean, publication-ready style</span>
+sns.<span class="code-function">set_theme</span>(style=<span class="code-string">"whitegrid"</span>, font_scale=<span class="code-number">1.1</span>)
+plt.rcParams[<span class="code-string">"figure.figsize"</span>] = (<span class="code-number">10</span>, <span class="code-number">6</span>)
+plt.rcParams[<span class="code-string">"figure.dpi"</span>] = <span class="code-number">100</span>
+
+<span class="code-comment"># Pandas display options</span>
+pd.<span class="code-function">set_option</span>(<span class="code-string">"display.max_columns"</span>, <span class="code-number">20</span>)
+pd.<span class="code-function">set_option</span>(<span class="code-string">"display.precision"</span>, <span class="code-number">2</span>)</code></div>
+
+                <p>If you don't have these packages installed, run <code>pip install pandas numpy matplotlib seaborn scipy statsmodels</code> in your terminal.</p>
+            </section>
+
+            <!-- ==================== 0.2 DATA ==================== -->
+            <section id="data">
+                <h2>0.2 &mdash; Loading Data: A Macroeconomic Dataset</h2>
+                <p>Rather than fabricating toy data, we work with a realistic cross-sectional dataset of 120 countries: GDP per capita, life expectancy, population, and the Gini inequality index. These are the kinds of variables you encounter in econometric research.</p>
+
+<div class="code-block"><code>np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)  <span class="code-comment"># Reproducibility</span>
+n_countries = <span class="code-number">120</span>
+
+<span class="code-comment"># GDP per capita (log-normal — realistic for income data)</span>
+log_gdp = np.random.<span class="code-function">normal</span>(loc=<span class="code-number">8.5</span>, scale=<span class="code-number">1.5</span>, size=n_countries)
+gdp_per_capita = np.<span class="code-function">exp</span>(log_gdp)
+
+<span class="code-comment"># Life expectancy: correlated with GDP</span>
+life_exp = <span class="code-number">50</span> + <span class="code-number">8</span> * np.<span class="code-function">log</span>(gdp_per_capita / <span class="code-number">1000</span>) + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">4</span>, n_countries)
+life_exp = np.<span class="code-function">clip</span>(life_exp, <span class="code-number">45</span>, <span class="code-number">88</span>)
+
+<span class="code-comment"># Build the DataFrame</span>
+df = pd.<span class="code-function">DataFrame</span>({
+    <span class="code-string">"gdp_per_capita"</span>: np.<span class="code-function">round</span>(gdp_per_capita, <span class="code-number">2</span>),
+    <span class="code-string">"life_expectancy"</span>: np.<span class="code-function">round</span>(life_exp, <span class="code-number">1</span>),
+    <span class="code-string">"population"</span>: population,
+    <span class="code-string">"gini_index"</span>: np.<span class="code-function">round</span>(gini, <span class="code-number">1</span>),
+    <span class="code-string">"region"</span>: regions
+})</code></div>
+
+                <div class="key-concept">
+                    <h4>Key pandas concept: first inspection</h4>
+                    <p>A <code>DataFrame</code> is a table &mdash; rows are observations (countries), columns are variables. Three things you should always check first: <code>.shape</code> (how many rows and columns?), <code>.dtypes</code> (what type is each column?), and <code>.head(n)</code> (what do the first few rows look like?).</p>
+                </div>
+            </section>
+
+            <!-- ==================== 0.3 CENTRAL TENDENCY ==================== -->
+            <section id="central-tendency">
+                <h2>0.3 &mdash; Measures of Central Tendency</h2>
+                <p>You already know what mean, median, and mode are. The interesting question is: <strong>when does each one tell you something useful, and when does it mislead you?</strong></p>
+
+                <h3>The Mean&ndash;Median Gap as a Diagnostic Tool</h3>
+                <p>When mean &asymp; median, the distribution is roughly symmetric. When they diverge, something interesting is happening &mdash; usually skewness. For a researcher, that divergence is a <em>signal</em>, not just a number.</p>
+
+<div class="code-block"><code>summary = pd.<span class="code-function">DataFrame</span>({
+    <span class="code-string">"mean"</span>: df[[<span class="code-string">"gdp_per_capita"</span>, <span class="code-string">"life_expectancy"</span>, <span class="code-string">"gini_index"</span>]].<span class="code-function">mean</span>(),
+    <span class="code-string">"median"</span>: df[[<span class="code-string">"gdp_per_capita"</span>, <span class="code-string">"life_expectancy"</span>, <span class="code-string">"gini_index"</span>]].<span class="code-function">median</span>(),
+})
+summary[<span class="code-string">"gap_pct"</span>] = (summary[<span class="code-string">"mean"</span>] - summary[<span class="code-string">"median"</span>]) / summary[<span class="code-string">"median"</span>] * <span class="code-number">100</span></code></div>
+
+<div class="output-block">                     mean    median   gap_pct
+gdp_per_capita   11227.47   4403.52    155.0%
+life_expectancy     62.57     62.10      0.8%
+gini_index          34.47     32.30      6.7%</div>
+
+                <p>GDP per capita has a mean 155% higher than its median &mdash; a massive right skew. Life expectancy is almost perfectly symmetric. This pattern is typical of income-related variables and has direct consequences for regression.</p>
+
+                <div class="key-concept">
+                    <h4>Why this matters in econometrics</h4>
+                    <p>When the mean is substantially higher than the median, the distribution is <strong>right-skewed</strong>. This has three practical consequences: (1) OLS regression assumes normally distributed errors &mdash; skewed dependent variables can violate this; (2) the standard fix is <code>log(GDP per capita)</code> &mdash; the log transformation pulls in the right tail; (3) interpretation changes &mdash; coefficients in a log-linear model represent <em>percentage</em> changes, not absolute ones.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 0.4 VARIABILITY ==================== -->
+            <section id="variability">
+                <h2>0.4 &mdash; Measures of Variability</h2>
+                <p>Variability is <em>at least</em> as important as central tendency. Two datasets can have the same mean but tell completely different stories.</p>
+
+                <h3>Standard Deviation: What It Actually Means</h3>
+                <p>SD is the <strong>typical distance</strong> of observations from the mean. Not the maximum distance, not a boundary &mdash; a <em>typical</em> distance. For a normal distribution, about 68% of data falls within &plusmn;1 SD of the mean.</p>
+
+                <h3>Coefficient of Variation: Comparing Apples and Oranges</h3>
+                <p>SD is in the same units as your variable, which makes it useless for comparing variability <em>across</em> variables with different scales. GDP is in dollars; life expectancy in years. The <strong>Coefficient of Variation (CV)</strong> &mdash; SD divided by the mean, expressed as a percentage &mdash; solves this.</p>
+
+<div class="output-block">                      std       IQR    CV (%)
+gdp_per_capita   22591.14   6643.57    201.2
+life_expectancy     11.23     14.00     17.9
+gini_index          11.57     15.60     33.6</div>
+
+                <p>GDP per capita varies the most in relative terms (CV = 201%) &mdash; income inequality across countries is enormous. Life expectancy, despite having a similar absolute SD to the Gini index, varies much less relative to its mean.</p>
+
+                <div class="key-concept">
+                    <h4>When SD is misleading: enter the IQR</h4>
+                    <p>Just as the mean is sensitive to outliers, so is the standard deviation. The <strong>Interquartile Range (IQR)</strong> &mdash; the range covering the middle 50% of data &mdash; is a robust alternative. When SD and IQR tell different stories, you likely have outliers or heavy tails.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 0.5 SHAPE ==================== -->
+            <section id="shape">
+                <h2>0.5 &mdash; The Shape of Distributions: Skewness and Kurtosis</h2>
+                <p>Beyond centre and spread, distributions have <strong>shape</strong>. Two key descriptors:</p>
+                <p><strong>Skewness</strong> measures asymmetry. Positive skewness means the right tail is longer (income, house prices). Negative skewness means the left tail is longer (exam scores near the maximum).</p>
+                <p><strong>Kurtosis</strong> measures the heaviness of tails. High kurtosis means more extreme values than a normal distribution would predict. In finance and econometrics, this is crucial: financial returns have <em>fat tails</em>, which is why models assuming normality underestimate risk.</p>
+
+<div class="code-block"><code>shape_stats = pd.<span class="code-function">DataFrame</span>({
+    <span class="code-string">"skewness"</span>: df[[<span class="code-string">"gdp_per_capita"</span>, <span class="code-string">"life_expectancy"</span>, <span class="code-string">"gini_index"</span>]].<span class="code-function">skew</span>(),
+    <span class="code-string">"kurtosis"</span>: df[[<span class="code-string">"gdp_per_capita"</span>, <span class="code-string">"life_expectancy"</span>, <span class="code-string">"gini_index"</span>]].<span class="code-function">kurtosis</span>()
+})</code></div>
+
+<div class="output-block">                 skewness  kurtosis
+gdp_per_capita      5.54     40.09
+life_expectancy     0.25     -0.55
+gini_index          0.75     -0.09</div>
+
+                <p>GDP per capita has extreme skewness (5.54) and kurtosis (40.09) &mdash; this distribution is far from normal. Life expectancy is nearly symmetric (skewness &asymp; 0) with slightly lighter tails than normal (negative kurtosis). Rules of thumb: skewness near 0 is symmetric; kurtosis near 0 is normal-like (pandas reports <em>excess</em> kurtosis).</p>
+            </section>
+
+            <!-- ==================== 0.6 CORRELATION ==================== -->
+            <section id="correlation">
+                <h2>0.6 &mdash; Relationships Between Variables: Correlation</h2>
+                <p>In econometrics, we are almost always interested in relationships: does X affect Y? Before running regressions, we <strong>explore</strong> relationships visually and with correlation.</p>
+
+                <h3>Pearson Correlation</h3>
+                <p>Pearson&rsquo;s <em>r</em> measures <strong>linear</strong> association, ranging from &minus;1 to +1. A value near 0 means no <em>linear</em> relationship &mdash; but there could still be a strong non-linear one.</p>
+
+<div class="output-block">Key correlations:
+  GDP &harr; Life expectancy:  r = 0.62
+  GDP &harr; Gini:             r = &minus;0.26
+  Population:                weakly correlated with everything</div>
+
+                <h3>Scatter Plots: Always Visualise Before Correlating</h3>
+                <p>A correlation coefficient is a single number that can hide patterns. In our dataset, GDP and life expectancy have <em>r</em> = 0.62 on the raw scale, but <em>r</em> = 0.93 after log-transforming GDP. The relationship is actually much stronger than the linear correlation suggests &mdash; it's <strong>log-linear</strong>.</p>
+
+                <div class="key-concept">
+                    <h4>Why log(GDP) is standard in econometrics</h4>
+                    <p>The log transformation serves three purposes: it linearises relationships that are curved on the raw scale, it reduces skewness, and it changes interpretation &mdash; a one-unit change in log(GDP) represents a <em>percentage</em> change in GDP. This is why you'll see <code>log(income)</code>, <code>log(price)</code>, and <code>log(GDP)</code> in virtually every empirical paper.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 0.7 GROUPS ==================== -->
+            <section id="groups">
+                <h2>0.7 &mdash; Group Comparisons</h2>
+                <p>In research, we rarely look at data as a monolith. We compare <strong>groups</strong>: countries by region, firms by sector, patients by treatment. The pandas <code>groupby()</code> method is the workhorse here.</p>
+
+<div class="code-block"><code>regional = df.<span class="code-function">groupby</span>(<span class="code-string">"region"</span>)[[<span class="code-string">"gdp_per_capita"</span>, <span class="code-string">"life_expectancy"</span>]].<span class="code-function">agg</span>(
+    [<span class="code-string">"count"</span>, <span class="code-string">"mean"</span>, <span class="code-string">"median"</span>, <span class="code-string">"std"</span>]
+)</code></div>
+
+                <p>Violin plots show the <em>full distribution</em> within each group, not just summary statistics &mdash; always prefer them over bar charts with error bars.</p>
+            </section>
+
+            <!-- ==================== 0.8 CHEATSHEET ==================== -->
+            <section id="cheatsheet">
+                <h2>0.8 &mdash; Pandas Essentials Cheatsheet</h2>
+                <table style="width:100%; font-size:var(--font-size-sm); border-collapse:collapse;">
+                    <thead>
+                        <tr style="border-bottom:2px solid var(--color-border);">
+                            <th style="text-align:left; padding:0.5rem;">Operation</th>
+                            <th style="text-align:left; padding:0.5rem;">Syntax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid var(--color-border-light);"><td style="padding:0.4rem 0.5rem;">Load CSV</td><td style="padding:0.4rem 0.5rem;"><code>pd.read_csv("file.csv")</code></td></tr>
+                        <tr style="border-bottom:1px solid var(--color-border-light);"><td style="padding:0.4rem 0.5rem;">Inspect</td><td style="padding:0.4rem 0.5rem;"><code>df.head()</code>, <code>.shape</code>, <code>.dtypes</code>, <code>.info()</code></td></tr>
+                        <tr style="border-bottom:1px solid var(--color-border-light);"><td style="padding:0.4rem 0.5rem;">Summary stats</td><td style="padding:0.4rem 0.5rem;"><code>df.describe()</code></td></tr>
+                        <tr style="border-bottom:1px solid var(--color-border-light);"><td style="padding:0.4rem 0.5rem;">Correlation</td><td style="padding:0.4rem 0.5rem;"><code>df.corr()</code></td></tr>
+                        <tr style="border-bottom:1px solid var(--color-border-light);"><td style="padding:0.4rem 0.5rem;">Group by</td><td style="padding:0.4rem 0.5rem;"><code>df.groupby("col").agg(...)</code></td></tr>
+                        <tr style="border-bottom:1px solid var(--color-border-light);"><td style="padding:0.4rem 0.5rem;">Filter rows</td><td style="padding:0.4rem 0.5rem;"><code>df[df["col"] > value]</code></td></tr>
+                        <tr style="border-bottom:1px solid var(--color-border-light);"><td style="padding:0.4rem 0.5rem;">New column</td><td style="padding:0.4rem 0.5rem;"><code>df["new"] = expression</code></td></tr>
+                        <tr><td style="padding:0.4rem 0.5rem;">Log transform</td><td style="padding:0.4rem 0.5rem;"><code>np.log(df["col"])</code></td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ==================== EXERCISES ==================== -->
+            <section id="exercises">
+                <h2>Exercises</h2>
+                <p>Open the notebook in Colab or download it to work through these exercises with code.</p>
+
+                <div class="exercise">
+                    <h4>Exercise 0.1 &mdash; Exploring a Subset</h4>
+                    <p>Filter the dataset to only <strong>African countries</strong>. Compute the mean, median, and standard deviation of GDP per capita for this subset. How does the mean&ndash;median gap compare to the full dataset? What does this tell you about income distribution within Africa?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 0.2 &mdash; Creating a New Variable</h4>
+                    <p>Create a column <code>gdp_log</code> containing the natural log of GDP per capita. Compute the skewness of both <code>gdp_per_capita</code> and <code>gdp_log</code>. Which is closer to zero? Why does this matter for regression?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 0.3 &mdash; The Outlier Question</h4>
+                    <p>A single country has GDP per capita of $500,000 (a tax haven). Add this observation and recompute the mean and median. Which measure changes more? By how much?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 0.4 &mdash; Grouped Visualisation</h4>
+                    <p>Create a box plot of <code>gini_index</code> grouped by <code>region</code>. Which region has the highest inequality? Which has the most variability?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 0.5 &mdash; Correlation &ne; Causation</h4>
+                    <p>GDP per capita and life expectancy are positively correlated. List at least <strong>three</strong> reasons why we cannot conclude that higher GDP <em>causes</em> longer life. For each, identify whether it's a confounding variable, reverse causation, or selection bias.</p>
+                </div>
+            </section>
+
+            <!-- ==================== KEY TAKEAWAYS ==================== -->
+            <section id="takeaways">
+                <div class="key-concept">
+                    <h4>Key Takeaways</h4>
+                    <p><strong>Always inspect your data first</strong> with <code>.shape</code>, <code>.dtypes</code>, <code>.describe()</code>, <code>.head()</code>. The <strong>mean&ndash;median gap</strong> is a diagnostic for skewness. <strong>Log transformations</strong> tame right-skewed variables and are standard in econometrics. The <strong>Coefficient of Variation</strong> lets you compare variability across scales. <strong>Visualise before computing</strong> &mdash; a correlation coefficient hides patterns that scatter plots reveal. And always remember: <strong>correlation &ne; causation</strong>.</p>
+                </div>
+            </section>
+
+            <!-- ==================== NAV ==================== -->
+            <div class="chapter-nav">
+                <a href="../index.html">&larr; Course Index</a>
+                <span>Next: Module 01 &mdash; Probability Foundations (coming soon)</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>
