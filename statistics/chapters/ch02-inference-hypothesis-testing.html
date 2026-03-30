@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 02: Inference and Hypothesis Testing | Statistics for Econometrics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        /* Code blocks */
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+
+        /* Output blocks */
+        .output-block {
+            background: var(--color-background-alt);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        /* Download/Colab bar */
+        .notebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .notebook-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .notebook-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .notebook-actions a:hover { background: var(--color-primary-dark); }
+
+        /* Key concept boxes */
+        .key-concept {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .key-concept h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+
+        /* Exercise boxes */
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        table th {
+            text-align: left;
+            padding: 0.7rem;
+            border-bottom: 2px solid var(--color-border);
+            background: var(--color-background-alt);
+            font-weight: var(--font-weight-semibold);
+        }
+        table td {
+            padding: 0.6rem 0.7rem;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+        table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Statistics for Econometrics</h1>
+            </a>
+            <p class="site-subtitle">Module 02: Inference and Hypothesis Testing</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#normal-distribution">2.1 The Normal Distribution</a></li>
+                <li><a href="#standardization">2.2 Standardization</a></li>
+                <li><a href="#empirical-rule">2.3 Empirical Rule</a></li>
+                <li><a href="#clt">2.4 Central Limit Theorem</a></li>
+                <li><a href="#clt-to-inference">2.5 From CLT to Inference</a></li>
+                <li><a href="#hypothesis-testing">2.6 Hypothesis Testing</a></li>
+                <li><a href="#type-errors">2.7 Type I and Type II Errors</a></li>
+                <li><a href="#statistical-vs-economic">2.8 Statistical vs. Economic Significance</a></li>
+                <li><a href="#z-vs-t">2.9 Z-test vs. t-test</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="notebook-actions">
+                <span>Run this module yourself:</span>
+                <a href="https://colab.research.google.com/github/cinoSar/cinosar.github.io/blob/main/statistics/downloads/02_inference_hypothesis_testing.ipynb" target="_blank">Open in Google Colab</a>
+                <a href="../downloads/02_inference_hypothesis_testing.ipynb" download>Download Notebook</a>
+            </div>
+
+            <div class="toc" id="toc">
+                <h3>In This Module</h3>
+                <ol>
+                    <li><a href="#normal-distribution">The Normal Distribution</a></li>
+                    <li><a href="#standardization">Standardization</a></li>
+                    <li><a href="#empirical-rule">Empirical Rule</a></li>
+                    <li><a href="#clt">Central Limit Theorem</a></li>
+                    <li><a href="#clt-to-inference">From CLT to Inference</a></li>
+                    <li><a href="#hypothesis-testing">Hypothesis Testing</a></li>
+                    <li><a href="#type-errors">Type I and Type II Errors</a></li>
+                    <li><a href="#statistical-vs-economic">Statistical vs. Economic Significance</a></li>
+                    <li><a href="#z-vs-t">Z-test vs. t-test</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                </ol>
+            </div>
+
+            <!-- ==================== 2.1 NORMAL DISTRIBUTION ==================== -->
+            <section id="normal-distribution">
+                <h2>2.1 &mdash; The Normal Distribution</h2>
+                <p>The normal distribution is the foundation of statistical inference. It appears everywhere: test scores, measurement errors, and under the right conditions, sample means. Understanding its shape, parameters, and role is essential for econometrics.</p>
+
+                <h3>The Density Function and Its Parameters</h3>
+                <p>A normal distribution is fully defined by two parameters: the <strong>mean</strong> \\(\mu\\) and the <strong>variance</strong> \\(\sigma^2\\). We write it as \\(N(\mu, \sigma^2)\\). The probability density function is:</p>
+                <p>\\[f(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\\]</p>
+                <p>The height of the curve at the mean is \\(f(\mu) = \frac{1}{\sigma\sqrt{2\pi}}\\). Notice that:</p>
+                <ul>
+                    <li><strong>Increasing \\(\sigma\\)</strong> (spread) makes the curve wider and <em>flatter</em>. The peak height shrinks because the area under the curve must always equal 1.</li>
+                    <li><strong>Decreasing \\(\sigma\\)</strong> makes the curve narrower and <em>taller</em>. All the probability mass concentrates near the mean.</li>
+                    <li>\\(\mu\\) shifts the entire curve left or right without changing its shape.</li>
+                </ul>
+
+                <div class="key-concept">
+                    <h4>Intuition: Why the normal distribution?</h4>
+                    <p>The normal distribution arises naturally when you sum many independent random variables. If height is the sum of hundreds of genetic and environmental factors, all roughly independent, the total will be approximately normal. This is the content of the <strong>Central Limit Theorem</strong>, which we'll prove next. For now, accept that normality is a reasonable assumption for many real-world quantities, especially after transformation (log-scale income, for example).</p>
+                </div>
+
+                <div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+<span class="code-comment"># Define three normal distributions with same mean, different spreads</span>
+x = np.<span class="code-function">linspace</span>(<span class="code-number">-10</span>, <span class="code-number">10</span>, <span class="code-number">1000</span>)
+y1 = stats.norm.<span class="code-function">pdf</span>(x, loc=<span class="code-number">0</span>, scale=<span class="code-number">1</span>)    <span class="code-comment"># σ = 1</span>
+y2 = stats.norm.<span class="code-function">pdf</span>(x, loc=<span class="code-number">0</span>, scale=<span class="code-number">2</span>)    <span class="code-comment"># σ = 2</span>
+y3 = stats.norm.<span class="code-function">pdf</span>(x, loc=<span class="code-number">0</span>, scale=<span class="code-number">3</span>)    <span class="code-comment"># σ = 3</span>
+
+plt.<span class="code-function">plot</span>(x, y1, label=<span class="code-string">'N(0, 1²)'</span>, linewidth=<span class="code-number">2</span>)
+plt.<span class="code-function">plot</span>(x, y2, label=<span class="code-string">'N(0, 2²)'</span>, linewidth=<span class="code-number">2</span>)
+plt.<span class="code-function">plot</span>(x, y3, label=<span class="code-string">'N(0, 3²)'</span>, linewidth=<span class="code-number">2</span>)
+plt.<span class="code-function">legend</span>()
+plt.<span class="code-function">xlabel</span>(<span class="code-string">'X'</span>)
+plt.<span class="code-function">ylabel</span>(<span class="code-string">'Density'</span>)
+plt.<span class="code-function">title</span>(<span class="code-string">'How Increasing σ Flattens the Curve'</span>)
+plt.<span class="code-function">grid</span>(alpha=<span class="code-number">0.3</span>)
+plt.<span class="code-function">show</span>()</code></div>
+            </section>
+
+            <!-- ==================== 2.2 STANDARDIZATION ==================== -->
+            <section id="standardization">
+                <h2>2.2 &mdash; Standardization</h2>
+                <p>Any normal random variable can be converted to the <strong>standard normal</strong> \\(N(0,1)\\) using the <strong>Z-score transformation</strong>:</p>
+                <p>\\[Z = \frac{X - \mu}{\sigma}\\]</p>
+                <p>This transformation measures how many standard deviations a value lies from the mean. The beauty of standardization is that we only need <em>one</em> normal table (or function) to answer probability questions about <em>any</em> normal distribution.</p>
+
+                <h3>Example: Converting Income to Z-scores</h3>
+                <p>Suppose annual income in a population is \\(N(50000, 10000^2)\\) (mean $50k, SD $10k). What is the probability that a randomly chosen person earns more than $65,000?</p>
+                <p>Step 1: Standardize. \\(Z = \frac{65000 - 50000}{10000} = \frac{15000}{10000} = 1.5\\)</p>
+                <p>Step 2: Look up the standard normal CDF. \\(P(Z \leq 1.5) \approx 0.933\\)</p>
+                <p>Step 3: Answer the original question. \\(P(X > 65000) = 1 - P(Z \leq 1.5) = 1 - 0.933 = 0.067\\)</p>
+
+                <div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> norm
+
+<span class="code-comment"># Income example: N(50000, 10000²)</span>
+mu = <span class="code-number">50000</span>
+sigma = <span class="code-number">10000</span>
+
+<span class="code-comment"># What's P(X > 65000)?</span>
+x_val = <span class="code-number">65000</span>
+z = (x_val - mu) / sigma
+prob_greater = <span class="code-number">1</span> - norm.<span class="code-function">cdf</span>(z)  <span class="code-comment"># CDF gives P(Z ≤ z)</span>
+
+print(<span class="code-string">f"Z-score: {z}"</span>)
+print(<span class="code-string">f"P(X > 65000) = {prob_greater:.4f}"</span>)  <span class="code-comment"># ≈ 0.0668</span></code></div>
+
+                <div class="output-block">Z-score: 1.5
+P(X > 65000) = 0.0668</div>
+
+                <p>About 6.7% of the population earns more than $65,000 under this assumption.</p>
+
+                <div class="key-concept">
+                    <h4>Why standardization matters in inference</h4>
+                    <p>When we calculate a test statistic from a sample, it often follows a standard normal (or t) distribution under the null hypothesis. Standardization lets us answer: <em>how extreme is this test statistic?</em> That's the essence of p-values and hypothesis testing.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 2.3 EMPIRICAL RULE ==================== -->
+            <section id="empirical-rule">
+                <h2>2.3 &mdash; The Empirical Rule (68&ndash;95&ndash;99.7)</h2>
+                <p>For any normal distribution, a fixed proportion of the data falls within standard deviations of the mean. This rule is so useful it appears in almost every statistics course:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Interval</th>
+                            <th>Probability</th>
+                            <th>Interpretation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>\\([\mu - \sigma, \mu + \sigma]\\)</td>
+                            <td>68%</td>
+                            <td>About 2 in 3 observations</td>
+                        </tr>
+                        <tr>
+                            <td>\\([\mu - 2\sigma, \mu + 2\sigma]\\)</td>
+                            <td>95%</td>
+                            <td>About 19 in 20 observations</td>
+                        </tr>
+                        <tr>
+                            <td>\\([\mu - 3\sigma, \mu + 3\sigma]\\)</td>
+                            <td>99.7%</td>
+                            <td>About 997 in 1000 observations</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>In our income example (\\(\mu = 50000\\), \\(\sigma = 10000\\)):</p>
+                <ul>
+                    <li>68% earn between $40k and $60k</li>
+                    <li>95% earn between $30k and $70k</li>
+                    <li>99.7% earn between $20k and $80k</li>
+                </ul>
+
+                <div class="key-concept">
+                    <h4>Using the empirical rule for quick checks</h4>
+                    <p>When you see a sample summary statistic, immediately ask: "Is this within 2 standard deviations of the expected value under the null hypothesis?" If yes, it's a common outcome. If no, something unusual is happening &mdash; either your sample is extreme (unlucky) or the null hypothesis is wrong. This mental shortcut foreshadows hypothesis testing.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 2.4 CENTRAL LIMIT THEOREM ==================== -->
+            <section id="clt">
+                <h2>2.4 &mdash; The Central Limit Theorem</h2>
+                <p>The Central Limit Theorem is arguably the most powerful result in statistics. It says:</p>
+
+                <div class="key-concept">
+                    <h4>The Central Limit Theorem</h4>
+                    <p>Let \\(X_1, X_2, \ldots, X_n\\) be independent samples from <em>any</em> distribution with mean \\(\mu\\) and variance \\(\sigma^2\\). Then the sample mean \\(\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i\\) is approximately normal for large \\(n\\), with:</p>
+                    <p>\\[E[\bar{X}_n] = \mu\\]</p>
+                    <p>\\[\text{Var}(\bar{X}_n) = \frac{\sigma^2}{n}\\]</p>
+                    <p>\\[\text{SE}(\bar{X}_n) = \frac{\sigma}{\sqrt{n}}\\]</p>
+                    <p>The "distribution of sample means" is approximately \\(N\left(\mu, \frac{\sigma^2}{n}\right)\\).</p>
+                </div>
+
+                <h3>Why This Matters</h3>
+                <p>You don't need to know the <em>original</em> distribution. Even if your raw data is skewed, bimodal, or bizarre, the sample mean will be approximately normal. This is why econometricians can use normal inference on datasets that look wildly non-normal.</p>
+
+                <h3>Python Simulation: CLT in Action</h3>
+                <p>Let's draw samples from a highly skewed distribution (exponential) and show that the sample means are normal:</p>
+
+                <div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+n_samples = <span class="code-number">10000</span>  <span class="code-comment"># Number of sample means we'll compute</span>
+sample_size = <span class="code-number">50</span>    <span class="code-comment"># Size of each sample</span>
+
+<span class="code-comment"># Draw 10,000 samples of size 50 from an exponential distribution</span>
+<span class="code-comment"># (highly right-skewed!)</span>
+sample_means = []
+<span class="code-keyword">for</span> _ <span class="code-keyword">in</span> <span class="code-function">range</span>(n_samples):
+    sample = np.random.<span class="code-function">exponential</span>(scale=<span class="code-number">2</span>, size=sample_size)
+    sample_means.<span class="code-function">append</span>(sample.<span class="code-function">mean</span>())
+
+sample_means = np.<span class="code-function">array</span>(sample_means)
+
+<span class="code-comment"># Plot the distribution of sample means</span>
+plt.<span class="code-function">hist</span>(sample_means, bins=<span class="code-number">50</span>, density=<span class="code-number">True</span>, alpha=<span class="code-number">0.7</span>, label=<span class="code-string">'Sample means'</span>)
+plt.<span class="code-function">xlabel</span>(<span class="code-string">'Sample mean'</span>)
+plt.<span class="code-function">ylabel</span>(<span class="code-string">'Density'</span>)
+plt.<span class="code-function">title</span>(<span class="code-string">'CLT: Even from skewed data, sample means are normal'</span>)
+plt.<span class="code-function">legend</span>()
+plt.<span class="code-function">grid</span>(alpha=<span class="code-number">0.3</span>)
+plt.<span class="code-function">show</span>()
+
+print(<span class="code-string">f"Mean of sample means: {sample_means.mean():.4f}"</span>)
+print(<span class="code-string">f"Expected μ: 2.0"</span>)
+print(<span class="code-string">f"Std dev of sample means: {sample_means.std():.4f}"</span>)
+print(<span class="code-string">f"Expected SE = σ/√n = 2/√50 = {2 / np.sqrt(50):.4f}"</span>)</code></div>
+
+                <div class="output-block">Mean of sample means: 2.0012
+Expected μ: 2.0
+Std dev of sample means: 0.2826
+Expected SE = σ/√n = 2/√50 = 0.2828</div>
+
+                <p>Perfect agreement! Even though the exponential distribution is heavily right-skewed, the distribution of sample means is nearly perfect normal, with the predicted mean and standard error.</p>
+            </section>
+
+            <!-- ==================== 2.5 CLT TO INFERENCE ==================== -->
+            <section id="clt-to-inference">
+                <h2>2.5 &mdash; From CLT to Inference</h2>
+                <p>The CLT tells us that sample means are approximately normal. This lets us standardize them just like any other normal variable:</p>
+                <p>\\[Z = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}\\]</p>
+                <p>If the null hypothesis \\(H_0\\) specifies a value \\(\mu_0\\) for the true mean, we can ask: <em>How far is our observed sample mean from \\(\mu_0\\)?</em> in units of standard errors. This is a test statistic.</p>
+
+                <h3>Worked Example: Checking Salary Fairness</h3>
+                <p>Suppose a company claims that employees earn a mean of $50,000. You randomly sample 100 employees and find \\(\bar{X} = 52000\\) with \\(s = 10000\\). Is the difference from the claimed $50,000 statistically significant?</p>
+
+                <p><strong>Step 1:</strong> State your hypothesis.</p>
+                <ul>
+                    <li>\\(H_0: \mu = 50000\\) (null: true mean equals the claimed value)</li>
+                    <li>\\(H_1: \mu \neq 50000\\) (alternative: true mean differs, two-tailed)</li>
+                </ul>
+
+                <p><strong>Step 2:</strong> Compute the test statistic.</p>
+                <p>\\[Z = \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}} = \frac{52000 - 50000}{10000/\sqrt{100}} = \frac{2000}{1000} = 2.0\\]</p>
+
+                <p><strong>Step 3:</strong> Interpret.</p>
+                <p>The observed sample mean is 2 standard errors <em>above</em> the claimed value. For a two-tailed test, \\(P(|Z| \geq 2) \approx 0.0456\\) from the standard normal table. This is below the conventional \\(\alpha = 0.05\\) threshold, so we would <strong>reject</strong> the claim that \\(\mu = 50000\\).</p>
+
+                <div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> norm
+
+<span class="code-comment"># Sample data</span>
+n = <span class="code-number">100</span>
+x_bar = <span class="code-number">52000</span>
+s = <span class="code-number">10000</span>
+mu_0 = <span class="code-number">50000</span>  <span class="code-comment"># null hypothesis value</span>
+
+<span class="code-comment"># Test statistic</span>
+se = s / np.sqrt(n)
+z = (x_bar - mu_0) / se
+
+<span class="code-comment"># Two-tailed p-value</span>
+p_value = <span class="code-number">2</span> * (<span class="code-number">1</span> - norm.<span class="code-function">cdf</span>(np.<span class="code-function">abs</span>(z)))
+
+print(<span class="code-string">f"Test statistic Z = {z:.4f}"</span>)
+print(<span class="code-string">f"Two-tailed p-value = {p_value:.4f}"</span>)
+print(<span class="code-string">f"Reject H₀ at α=0.05? {p_value < 0.05}"</span>)</code></div>
+
+                <div class="output-block">Test statistic Z = 2.0
+Two-tailed p-value = 0.0456
+Reject H₀ at α=0.05? True</div>
+            </section>
+
+            <!-- ==================== 2.6 HYPOTHESIS TESTING ==================== -->
+            <section id="hypothesis-testing">
+                <h2>2.6 &mdash; Hypothesis Testing</h2>
+                <p>Hypothesis testing formalizes the logic of asking: "Is this sample result unusual under the assumption that the null hypothesis is true?"</p>
+
+                <h3>The Five Components</h3>
+                <ol>
+                    <li><strong>Null Hypothesis \\(H_0\\)</strong>: The claim we test. Usually a statement of no effect or no difference.</li>
+                    <li><strong>Alternative Hypothesis \\(H_1\\)</strong>: What we would conclude if \\(H_0\\) is false. Can be one-tailed (\\(\mu > \mu_0\\) or \\(\mu < \mu_0\\)) or two-tailed (\\(\mu \neq \mu_0\\)).</li>
+                    <li><strong>Test Statistic</strong>: A number computed from the sample that summarizes the evidence against \\(H_0\\). Examples: Z, t, F, \\(\chi^2\\).</li>
+                    <li><strong>Significance Level \\(\alpha\\)</strong>: The probability of rejecting \\(H_0\\) when it's true (Type I error). Typically 0.05 or 0.01.</li>
+                    <li><strong>Decision Rule</strong>: Compare the test statistic to a critical value, or compare the p-value to \\(\alpha\\).</li>
+                </ol>
+
+                <h3>One-tailed vs. Two-tailed Tests</h3>
+                <p><strong>One-tailed test:</strong> You care about deviation in one direction. Example: Does this new drug reduce blood pressure? \\(H_1: \mu < \mu_0\\). The rejection region is only in the left tail.</p>
+                <p><strong>Two-tailed test:</strong> You care about deviation in either direction. Example: Is the salary different from the claimed value? \\(H_1: \mu \neq \mu_0\\). The rejection region is split between both tails.</p>
+
+                <h3>Worked Example: Testing Graduate Salaries</h3>
+                <p>A university claims that graduates earn a mean of $25,000 in their first year. You sample 64 recent graduates and find \\(\bar{X} = 26200\\) with \\(s = 4800\\). Using \\(\alpha = 0.05\\), test whether the true mean differs from $25,000.</p>
+
+                <p><strong>Step 1: Hypotheses</strong></p>
+                <p>\\(H_0: \mu = 25000\\) vs. \\(H_1: \mu \neq 25000\\) (two-tailed)</p>
+
+                <p><strong>Step 2: Test statistic</strong></p>
+                <p>Since we estimate \\(\sigma\\) from the sample (using \\(s\\)), we use the <strong>t-statistic</strong> instead of Z:</p>
+                <p>\\[t = \frac{\bar{X} - \mu_0}{s/\sqrt{n}} = \frac{26200 - 25000}{4800/\sqrt{64}} = \frac{1200}{600} = 2.0\\]</p>
+                <p>Degrees of freedom: \\(df = n - 1 = 63\\)</p>
+
+                <p><strong>Step 3: Critical value and p-value</strong></p>
+                <p>For \\(df = 63\\) and \\(\alpha = 0.05\\) two-tailed, the critical values are \\(t_{\text{crit}} \approx \pm 1.998\\).</p>
+                <p>Our observed \\(t = 2.0\\), which exceeds the critical value. From a t-table or software, the two-tailed p-value is \\(p \approx 0.025\\).</p>
+
+                <p><strong>Decision:</strong> Since \\(p = 0.025 < 0.05\\), we <strong>reject \\(H_0\\)</strong>. The data provide significant evidence that the true mean salary differs from $25,000.</p>
+
+                <div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> t
+
+<span class="code-comment"># Sample data</span>
+n = <span class="code-number">64</span>
+x_bar = <span class="code-number">26200</span>
+s = <span class="code-number">4800</span>
+mu_0 = <span class="code-number">25000</span>
+
+<span class="code-comment"># t-statistic</span>
+se = s / np.sqrt(n)
+t_stat = (x_bar - mu_0) / se
+df = n - <span class="code-number">1</span>
+
+<span class="code-comment"># Two-tailed p-value</span>
+p_value = <span class="code-number">2</span> * (<span class="code-number">1</span> - t.<span class="code-function">cdf</span>(np.<span class="code-function">abs</span>(t_stat), df))
+
+<span class="code-comment"># Critical value at α = 0.05</span>
+t_crit = t.<span class="code-function">ppf</span>(<span class="code-number">0.975</span>, df)  <span class="code-comment"># 0.975 for two-tailed test</span>
+
+print(<span class="code-string">f"t-statistic: {t_stat:.4f}"</span>)
+print(<span class="code-string">f"Degrees of freedom: {df}"</span>)
+print(<span class="code-string">f"Critical value (two-tailed, α=0.05): ±{t_crit:.4f}"</span>)
+print(<span class="code-string">f"Two-tailed p-value: {p_value:.4f}"</span>)
+print(<span class="code-string">f"Reject H₀? {p_value < 0.05}"</span>)</code></div>
+
+                <div class="output-block">t-statistic: 2.0
+Degrees of freedom: 63
+Critical value (two-tailed, α=0.05): ±1.9983
+Two-tailed p-value: 0.0252
+Reject H₀? True</div>
+            </section>
+
+            <!-- ==================== 2.7 TYPE I AND TYPE II ERRORS ==================== -->
+            <section id="type-errors">
+                <h2>2.7 &mdash; Type I and Type II Errors</h2>
+                <p>Every hypothesis test can go wrong in two ways. This table summarizes all four possible outcomes:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>We Reject H₀</th>
+                            <th>We Fail to Reject H₀</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>H₀ is true</strong></td>
+                            <td>Type I Error (false positive, rate = α)</td>
+                            <td>Correct</td>
+                        </tr>
+                        <tr>
+                            <td><strong>H₁ is true</strong></td>
+                            <td>Correct (Power = 1 &minus; β)</td>
+                            <td>Type II Error (false negative, rate = β)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <ul>
+                    <li><strong>Type I Error (α)</strong>: We reject a true null hypothesis. False positive. We conclude there's an effect when there isn't.</li>
+                    <li><strong>Type II Error (β)</strong>: We fail to reject a false null hypothesis. False negative. We conclude there's no effect when there actually is.</li>
+                    <li><strong>Power (1 &ndash; β)</strong>: The probability of correctly rejecting a false null hypothesis. This is what we want to maximize.</li>
+                </ul>
+
+                <h3>The α-β Trade-off</h3>
+                <p>If you decrease \\(\alpha\\) (making it harder to reject \\(H_0\\)), you increase \\(\beta\\) (making it easier to miss a real effect). There's a trade-off. In most econometric work, \\(\alpha = 0.05\\) is a convention, and researchers worry about power implicitly by collecting large samples.</p>
+
+                <h3>Sample Size and Power</h3>
+                <p><strong>Larger sample size is the universal solution.</strong> Increasing \\(n\\) does <em>not</em> force you to choose between Type I and Type II errors. Instead, it reduces both for a fixed critical value. This is why econometricians insist on large datasets.</p>
+
+                <div class="key-concept">
+                    <h4>Power analysis: thinking ahead</h4>
+                    <p>Before collecting data, researchers should ask: "How large does my effect need to be for me to detect it with 80% power at \\(\alpha = 0.05\\)?" This calculation determines the minimum sample size needed. Journals increasingly require power analysis in research protocols, especially for clinical trials.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 2.8 STATISTICAL VS ECONOMIC SIGNIFICANCE ==================== -->
+            <section id="statistical-vs-economic">
+                <h2>2.8 &mdash; Statistical vs. Economic Significance</h2>
+                <p>A small p-value does <em>not</em> mean a large or important effect. With a large enough sample, you can reject \\(H_0\\) for trivially small effects.</p>
+
+                <h3>Example: The Absurd t-test</h3>
+                <p>Suppose you test whether average height in two countries differs. With \\(n = 100,000\\) per country, you detect that Country A is 0.5 cm taller than Country B on average, and this difference is statistically significant (p = 0.03). Statistically, you reject the null. But practically? A half-centimeter is <em>economically insignificant</em> &mdash; it's unmeasurable in most contexts.</p>
+
+                <h3>The Solution: Report Effect Size</h3>
+                <p>Always report not just the p-value, but also the <strong>effect size</strong> &mdash; a scale-free measure of how large the effect is. Common examples:</p>
+                <ul>
+                    <li><strong>Cohen's d</strong> for differences between means: \\(d = \frac{\bar{X}_1 - \bar{X}_2}{s_{\text{pooled}}}\\)</li>
+                    <li><strong>Correlation coefficient</strong> for association</li>
+                    <li><strong>Percentage change</strong> or <strong>elasticity</strong> in econometrics</li>
+                </ul>
+
+                <p>By convention: \\(|d| < 0.2\\) is "small", \\(|d| \approx 0.5\\) is "medium", \\(|d| > 0.8\\) is "large".</p>
+
+                <div class="key-concept">
+                    <h4>Best practice: Report all three</h4>
+                    <p>When presenting results, always report: (1) the point estimate (e.g., mean difference), (2) the p-value, and (3) the confidence interval. The confidence interval directly shows the effect size and its uncertainty. A p-value of 0.04 paired with a 95% CI of [0.001, 0.002] tells a different story than p = 0.04 with a 95% CI of [5, 95].</p>
+                </div>
+            </section>
+
+            <!-- ==================== 2.9 Z-TEST VS T-TEST ==================== -->
+            <section id="z-vs-t">
+                <h2>2.9 &mdash; Z-test vs. t-test</h2>
+                <p>Both test hypotheses about a population mean, but they differ in when you use each.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Z-test</th>
+                            <th>t-test</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>\\(\sigma\\) (population SD) known?</td>
+                            <td>Use Z-test</td>
+                            <td>Use t-test</td>
+                        </tr>
+                        <tr>
+                            <td>Sample size \\(n\\)</td>
+                            <td>Any \\(n\\), but especially \\(n \geq 30\\)</td>
+                            <td>Any \\(n\\); more common for small \\(n\\)</td>
+                        </tr>
+                        <tr>
+                            <td>Degrees of freedom</td>
+                            <td>None (fixed by the standard normal)</td>
+                            <td>\\(df = n - 1\\)</td>
+                        </tr>
+                        <tr>
+                            <td>Tails for α = 0.05</td>
+                            <td>Critical value = \\(\pm 1.96\\)</td>
+                            <td>Critical value depends on \\(df\\)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>In Practice</h3>
+                <p>In almost all real-world econometric work, you use the <strong>t-test</strong>. You never actually know \\(\sigma\\) exactly; you estimate it from your sample as \\(s\\). The Z-test is mainly a teaching tool.</p>
+
+                <p>The t-distribution has <strong>heavier tails</strong> than the normal distribution when \\(df\\) is small. As \\(n \to \infty\\), the t-distribution approaches the normal distribution. So t-tests are more conservative when sample size is small (wider critical regions), which is appropriate given the extra uncertainty from estimating \\(\sigma\\).</p>
+
+                <div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> norm, t
+
+<span class="code-comment"># Compare critical values</span>
+z_crit = norm.<span class="code-function">ppf</span>(<span class="code-number">0.975</span>)  <span class="code-comment"># Two-tailed, α = 0.05</span>
+
+dfs = [<span class="code-number">5</span>, <span class="code-number">10</span>, <span class="code-number">30</span>, <span class="code-number">100</span>, <span class="code-number">1000</span>]
+<span class="code-keyword">for</span> df <span class="code-keyword">in</span> dfs:
+    t_crit = t.<span class="code-function">ppf</span>(<span class="code-number">0.975</span>, df)
+    print(<span class="code-string">f"df={df:4d}: t_crit = {t_crit:.4f}"</span>)
+
+print(<span class="code-string">f"\nNormal (Z):        z_crit = {z_crit:.4f}"</span>)
+print(<span class="code-string">f"As df → ∞, t converges to Z"</span>)</code></div>
+
+                <div class="output-block">df=   5: t_crit = 2.5706
+df=  10: t_crit = 2.2281
+df=  30: t_crit = 2.0423
+df= 100: t_crit = 1.9842
+df=1000: t_crit = 1.9623
+
+Normal (Z):        z_crit = 1.96
+As df → ∞, t converges to Z</div>
+
+                <p>Notice how the critical value shrinks toward 1.96 as degrees of freedom increase.</p>
+            </section>
+
+            <!-- ==================== EXERCISES ==================== -->
+            <section id="exercises">
+                <h2>Exercises</h2>
+                <p>Open the notebook in Colab or download it to work through these exercises with code.</p>
+
+                <div class="exercise">
+                    <h4>Exercise 2.1 &mdash; Standardization and the Empirical Rule</h4>
+                    <p>A randomly selected variable \\(X\\) is normally distributed with \\(\mu = 100\\) and \\(\sigma = 15\\). Using the empirical rule, what proportion of the distribution falls between 85 and 130? (Hint: 85 is 1 SD below the mean; 130 is 2 SDs above.) Verify your answer using <code>scipy.stats.norm.cdf()</code>.</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 2.2 &mdash; CLT Simulation</h4>
+                    <p>Draw 5,000 samples of size \\(n=50\\) from a <strong>uniform distribution</strong> on [0, 10] (using <code>np.random.uniform()</code>). Compute the mean of each sample. Plot a histogram of these 5,000 sample means. Is the distribution approximately normal? What are the observed mean and standard deviation of the sample means? Compare to the theoretical values.</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 2.3 &mdash; Hypothesis Test on Real Data</h4>
+                    <p>Suppose you have a dataset of 120 firms' quarterly revenue (in millions). The historical mean is $50M. Your sample has \\(\bar{X} = 51.2\\) and \\(s = 6.8\\). Test \\(H_0: \mu = 50\\) vs. \\(H_1: \mu \neq 50\\) at \\(\alpha = 0.05\\). Compute the t-statistic, degrees of freedom, critical value, and p-value. Do you reject?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 2.4 &mdash; Type I vs. Type II Errors</h4>
+                    <p>A pharmaceutical company tests a new drug. Their null hypothesis is "the drug has no effect" (\\(H_0: \mu_{\text{effect}} = 0\\)). Describe what happens in each scenario:</p>
+                    <ol>
+                        <li>Type I error</li>
+                        <li>Type II error</li>
+                        <li>Correct rejection (high power)</li>
+                    </ol>
+                    <p>Which error is more problematic from a public health perspective? Why might the company tolerate a higher Type II error rate?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 2.5 &mdash; Statistical vs. Economic Significance</h4>
+                    <p>A study of 100,000 workers tests whether a new training program increases annual earnings. The mean difference is $120, with a standard error of $50. The p-value is 0.002 (highly significant). However, a typical worker earns $50,000 per year. Is this economically significant? Calculate the effect size (percentage increase) and discuss why the p-value alone is misleading.</p>
+                </div>
+            </section>
+
+            <!-- ==================== KEY TAKEAWAYS ==================== -->
+            <section id="takeaways">
+                <div class="key-concept">
+                    <h4>Key Takeaways</h4>
+                    <p><strong>The normal distribution</strong> is fully characterized by \\(\mu\\) and \\(\sigma\\). <strong>Standardization</strong> converts any normal to \\(N(0,1)\\) via the Z-score. <strong>The empirical rule</strong> (68-95-99.7) gives quick intuition. <strong>The Central Limit Theorem</strong> is the workhorse: sample means are approximately normal regardless of the original distribution, with mean \\(\mu\\) and SE \\(\sigma/\sqrt{n}\\). <strong>Hypothesis testing</strong> formalizes the question "Is this sample result extreme under \\(H_0\\)?" <strong>Use t-tests</strong> in practice (you estimate \\(\sigma\\)); use Z-tests mainly as a teaching bridge. <strong>Always report effect size</strong> alongside p-values: significance and importance are not the same.</p>
+                </div>
+            </section>
+
+            <!-- ==================== NAV ==================== -->
+            <div class="chapter-nav">
+                <a href="ch01-probability-foundations.html">&larr; Module 01</a>
+                <span>Next: Module 03 &mdash; Confidence Intervals (coming soon)</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>

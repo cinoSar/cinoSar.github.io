@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 01: Probability Foundations | Statistics for Econometrics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        /* Code blocks */
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+
+        /* Output blocks */
+        .output-block {
+            background: var(--color-background-alt);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        /* Download/Colab bar */
+        .notebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .notebook-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .notebook-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .notebook-actions a:hover { background: var(--color-primary-dark); }
+
+        /* Key concept boxes */
+        .key-concept {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .key-concept h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+
+        /* Exercise boxes */
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Statistics for Econometrics</h1>
+            </a>
+            <p class="site-subtitle">Module 01: Probability Foundations</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#frequentist-bayesian">1.1 Frequentist vs. Bayesian</a></li>
+                <li><a href="#axioms">1.2 Axioms</a></li>
+                <li><a href="#conditional">1.3 Conditional Probability</a></li>
+                <li><a href="#bayes">1.4 Bayes' Theorem</a></li>
+                <li><a href="#independence">1.5 Independence</a></li>
+                <li><a href="#confounders">1.6 Confounders and Mediators</a></li>
+                <li><a href="#continuous">1.7 Continuous Variables</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="notebook-actions">
+                <span>Run this module yourself:</span>
+                <a href="https://colab.research.google.com/github/cinoSar/cinosar.github.io/blob/main/statistics/downloads/01_probability_foundations.ipynb" target="_blank">Open in Google Colab</a>
+                <a href="../downloads/01_probability_foundations.ipynb" download>Download Notebook</a>
+            </div>
+
+            <div class="toc" id="toc">
+                <h3>In This Module</h3>
+                <ol>
+                    <li><a href="#frequentist-bayesian">Frequentist vs. Bayesian Interpretations</a></li>
+                    <li><a href="#axioms">Kolmogorov's Axioms</a></li>
+                    <li><a href="#conditional">Conditional Probability</a></li>
+                    <li><a href="#bayes">Bayes' Theorem</a></li>
+                    <li><a href="#independence">Independence</a></li>
+                    <li><a href="#confounders">Confounders and Mediators</a></li>
+                    <li><a href="#continuous">Continuous Random Variables</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                </ol>
+            </div>
+
+            <!-- ==================== 1.1 FREQUENTIST VS BAYESIAN ==================== -->
+            <section id="frequentist-bayesian">
+                <h2>1.1 &mdash; Frequentist vs. Bayesian Interpretations</h2>
+                <p>Before diving into the mathematics, we must ask a foundational question: <strong>what does probability mean?</strong> Two schools of thought offer different answers.</p>
+
+                <h3>The Frequentist View</h3>
+                <p>In the <strong>frequentist</strong> interpretation, probability is the <em>long-run relative frequency</em> of an event. If we flip a fair coin infinitely many times, heads comes up 50% of the time. If unemployment rises 60% of the time when monetary policy tightens (in similar historical contexts), then we might assign probability 0.60 to unemployment rising given a policy tightening. Probability is about <em>what happens repeatedly under similar conditions</em>.</p>
+
+                <p>This view works well for repeatable experiments but struggles with one-off events. What is the probability that GDP growth exceeds 3% <em>next year</em>? Next year will happen only once, so the frequentist must appeal to a hypothetical long-run frequency &mdash; across many parallel universes, perhaps, or across many similar economic scenarios.</p>
+
+                <h3>The Bayesian View</h3>
+                <p>Bayesians interpret probability as <strong>degree of belief</strong>, updated by evidence. Before seeing the data, I might believe (prior) that a new policy has a 40% chance of success. After observing six months of data, I update to 70%. Probability is subjective, but it follows strict rules. This flexibility is powerful for one-off decisions &mdash; "What is the probability that Italian GDP growth exceeds 3% next year?" becomes a coherent question.</p>
+
+                <h3>Which Do We Use Here?</h3>
+                <p>This course is fundamentally <strong>frequentist</strong>. We fit linear regressions, construct confidence intervals, and run hypothesis tests &mdash; all frequentist machinery. Bayesian methods are powerful and increasingly used in applied work, but they require a different conceptual framework and more computational machinery. We'll touch on Bayes' theorem because it's fundamental, but most of what follows is frequentist.</p>
+
+                <div class="key-concept">
+                    <h4>Why this matters for econometrics</h4>
+                    <p>The frequentist-Bayesian divide shapes every decision you make: confidence intervals (frequentist) versus credible intervals (Bayesian), hypothesis tests (frequentist) versus posterior probabilities (Bayesian), OLS regression (neutral, but frequentist inference) versus Bayesian hierarchical models. Understanding both perspectives makes you a better applied researcher.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 1.2 AXIOMS ==================== -->
+            <section id="axioms">
+                <h2>1.2 &mdash; Axioms: The Foundation of Probability</h2>
+                <p>All of probability rests on three axioms, formalized by Andrey Kolmogorov. These axioms don't prove anything &mdash; they're the starting point. Every result that follows flows from them.</p>
+
+                <h3>The Three Axioms</h3>
+                <p><strong>Axiom 1 (Non-negativity):</strong> Probability is never negative.
+                $$\P(A) \geq 0 \text{ for all events } A$$
+                </p>
+
+                <p><strong>Axiom 2 (Unitarity):</strong> The probability of the entire sample space (all possible outcomes) is 1.
+                $$\P(\Omega) = 1$$
+                where $\Omega$ is the sample space.
+                </p>
+
+                <p><strong>Axiom 3 (Additivity):</strong> If events are mutually exclusive (disjoint), the probability of their union is the sum of their probabilities.
+                $$\P(A \cup B) = \P(A) + \P(B) \quad \text{if } A \cap B = \emptyset$$
+                </p>
+
+                <p>From these three axioms, everything follows: conditional probability, independence, Bayes' theorem, laws of large numbers, central limit theorem. They are minimalist and elegant.</p>
+
+                <div class="key-concept">
+                    <h4>Why axioms matter</h4>
+                    <p>Axioms define the rules of the game. They ensure consistency: you can't assign probability 0.3 to event A, probability 0.6 to event B, and probability 0.8 to A or B if A and B are mutually exclusive (that would violate axiom 3). When you feel confused about probability, return to the axioms. They always cut through the fog.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 1.3 CONDITIONAL PROBABILITY ==================== -->
+            <section id="conditional">
+                <h2>1.3 &mdash; Conditional Probability: Updating on Evidence</h2>
+                <p>Probability is rarely about the world in isolation. Almost always, we ask: <em>given what we know, what is the probability of the event?</em> This is conditional probability.</p>
+
+                <h3>Definition and Intuition</h3>
+                <p>The probability of event A <em>given</em> event B is denoted $\P(A \mid B)$ and defined as:</p>
+                $$\P(A \mid B) = \frac{\P(A \cap B)}{\P(B)}, \quad \text{provided } \P(B) > 0$$
+
+                <p>Intuition: of all the times B occurs, what fraction of those also have A? The numerator $\P(A \cap B)$ is the probability that both occur. The denominator $\P(B)$ is the probability of B alone. The ratio restricts our attention to the world where B is true.</p>
+
+                <h3>A Concrete Example: Italian Workers</h3>
+                <p>Suppose we have data on Italian workers. Among a large sample:</p>
+                <ul>
+                    <li>30% hold a university degree</li>
+                    <li>20% earn more than €50,000 per year</li>
+                    <li>15% have both a degree and earn >€50,000</li>
+                </ul>
+
+                <p>What is the probability that a worker earns >€50,000 <em>given that they hold a degree</em>?</p>
+
+                <p>Let $D$ = has degree, $H$ = earns >€50k. We know:</p>
+                <ul>
+                    <li>$\P(D) = 0.30$</li>
+                    <li>$\P(H) = 0.20$</li>
+                    <li>$\P(D \cap H) = 0.15$</li>
+                </ul>
+
+                <p>Then:</p>
+                $$\P(H \mid D) = \frac{\P(D \cap H)}{\P(D)} = \frac{0.15}{0.30} = 0.50$$
+
+                <p>Among degree-holders, 50% earn over €50k. That's higher than the 20% population baseline, suggesting that a degree is associated with higher earnings.</p>
+
+                <h3>Computing in Python</h3>
+
+<div class="code-block"><code><span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment"># Simulate Italian workers data</span>
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+n = <span class="code-number">10000</span>
+
+<span class="code-comment"># Create variables: degree (0/1) and high_earn (0/1)</span>
+degree = np.random.<span class="code-function">binomial</span>(n=<span class="code-number">1</span>, p=<span class="code-number">0.30</span>, size=n)
+<span class="code-comment"># Earnings depend on degree: base prob 0.15, higher if degree</span>
+p_earn = <span class="code-number">0.15</span> + degree * <span class="code-number">0.35</span>
+high_earn = np.random.<span class="code-function">binomial</span>(n=<span class="code-number">1</span>, p=p_earn, size=n)
+
+df = pd.<span class="code-function">DataFrame</span>({<span class="code-string">"degree"</span>: degree, <span class="code-string">"high_earn"</span>: high_earn})
+
+<span class="code-comment"># Marginal probabilities</span>
+p_degree = df[<span class="code-string">"degree"</span>].<span class="code-function">mean</span>()
+p_high = df[<span class="code-string">"high_earn"</span>].<span class="code-function">mean</span>()
+
+<span class="code-comment"># Joint probability</span>
+p_both = (df[<span class="code-string">"degree"</span>] == <span class="code-number">1</span>) & (df[<span class="code-string">"high_earn"</span>] == <span class="code-number">1</span>)
+p_both = p_both.<span class="code-function">mean</span>()
+
+<span class="code-comment"># Conditional probability P(high_earn | degree)</span>
+p_high_given_degree = p_both / p_degree
+
+<span class="code-function">print</span>(<span class="code-string">f"P(degree) = {p_degree:.3f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"P(high_earn) = {p_high:.3f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"P(degree AND high_earn) = {p_both:.3f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"P(high_earn | degree) = {p_high_given_degree:.3f}"</span>)</code></div>
+
+<div class="output-block">P(degree) = 0.300
+P(high_earn) = 0.255
+P(degree AND high_earn) = 0.152
+P(high_earn | degree) = 0.507</div>
+
+                <p>The conditional probability is 0.507: among degree-holders, about 50.7% earn over €50k. This is far higher than the unconditional probability of 0.255.</p>
+
+                <div class="key-concept">
+                    <h4>Conditional probability in regression</h4>
+                    <p>Regression is fundamentally about conditional expectations. When we fit $\mathbb{E}[Y \mid X]$, we are asking: given the values of X, what do we expect Y to be on average? Conditional probability is the same idea for discrete outcomes.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 1.4 BAYES' THEOREM ==================== -->
+            <section id="bayes">
+                <h2>1.4 &mdash; Bayes' Theorem: The Gold Standard</h2>
+                <p>Bayes' theorem is perhaps the most important formula in statistics. It tells us how to update our beliefs in light of new evidence.</p>
+
+                <h3>The Derivation</h3>
+                <p>Start with the definition of conditional probability applied twice:</p>
+                $$\P(A \mid B) = \frac{\P(A \cap B)}{\P(B)}$$
+
+                <p>We can also write:</p>
+                $$\P(B \mid A) = \frac{\P(A \cap B)}{\P(A)}$$
+
+                <p>Rearranging the second equation:</p>
+                $$\P(A \cap B) = \P(B \mid A) \cdot \P(A)$$
+
+                <p>Substitute into the first equation:</p>
+                $$\P(A \mid B) = \frac{\P(B \mid A) \cdot \P(A)}{\P(B)}$$
+
+                <p>This is <strong>Bayes' theorem</strong>. In its more general form, if we have competing hypotheses $H_1, H_2, \ldots$:</p>
+
+                $$\P(H_i \mid \text{Data}) = \frac{\P(\text{Data} \mid H_i) \cdot \P(H_i)}{\P(\text{Data})}$$
+
+                <p>where</p>
+                $$\P(\text{Data}) = \sum_j \P(\text{Data} \mid H_j) \cdot \P(H_j)$$
+
+                <h3>Terminology</h3>
+                <ul>
+                    <li><strong>Prior</strong> $\P(H_i)$: What we believed about the hypothesis before seeing data.</li>
+                    <li><strong>Likelihood</strong> $\P(\text{Data} \mid H_i)$: The probability of observing the data under hypothesis $H_i$.</li>
+                    <li><strong>Posterior</strong> $\P(H_i \mid \text{Data})$: What we believe after seeing data.</li>
+                    <li><strong>Marginal likelihood</strong> $\P(\text{Data})$: The average likelihood across all hypotheses.</li>
+                </ul>
+
+                <div class="key-concept">
+                    <h4>Why Bayes' theorem matters</h4>
+                    <p>It formalizes learning. You start with a prior belief, observe data, and compute a posterior that incorporates both. This is how scientists actually think: hypotheses are revised in light of evidence. Frequentist methods focus on the likelihood and ignore the prior, treating hypotheses symmetrically. Bayesian methods embrace both.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 1.5 INDEPENDENCE ==================== -->
+            <section id="independence">
+                <h2>1.5 &mdash; Independence: When Events Don't Influence Each Other</h2>
+                <p>Two events are <strong>independent</strong> if knowing the outcome of one tells you nothing about the other.</p>
+
+                <h3>Definition</h3>
+                <p>Events A and B are independent if:</p>
+                $$\P(A \cap B) = \P(A) \cdot \P(B)$$
+
+                <p>Equivalently, $\P(A \mid B) = \P(A)$ and $\P(B \mid A) = \P(B)$. Conditioning on B doesn't change the probability of A.</p>
+
+                <h3>The Italian Workers Example Revisited</h3>
+                <p>In our earlier example: $\P(D) = 0.30$, $\P(H) = 0.20$, $\P(D \cap H) = 0.15$.</p>
+
+                <p>If degree and earnings were <em>independent</em>, we would expect:</p>
+                $$\P(D \cap H) = 0.30 \times 0.20 = 0.06$$
+
+                <p>But we observed $\P(D \cap H) = 0.15$, which is <em>much higher</em>. Degree and high earnings are strongly associated &mdash; they are <strong>not independent</strong>.</p>
+
+                <p>This association is the entire point of regression! When we fit a model like:</p>
+                $$\text{earnings} = \beta_0 + \beta_1 \cdot \text{degree} + \epsilon$$
+
+                <p>we are quantifying the dependence between variables. A non-zero $\beta_1$ means degree and earnings are not independent.</p>
+
+                <h3>A Caution: Dependence Is Not Causation</h3>
+                <p>Just because D and H are dependent doesn't mean D <em>causes</em> H. Sector could be a confounder: high-paying sectors might require degrees. Conditional on sector, the dependence might disappear. This is the central problem of causal inference in observational data.</p>
+
+                <div class="key-concept">
+                    <h4>Confounding and statistical dependence</h4>
+                    <p>If a confounder C affects both D and H, then D and H will appear dependent even if D doesn't cause H. The fix: condition on C. We'll revisit this idea when we discuss confounders explicitly.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 1.6 CONFOUNDERS AND MEDIATORS ==================== -->
+            <section id="confounders">
+                <h2>1.6 &mdash; Confounders and Mediators: Two Types of Third Variables</h2>
+                <p>In the Italian workers example, we found that degree and earnings are dependent. But is the relationship causal? Not necessarily. A third variable could be driving both. Understanding the direction of causality (even conceptually) is crucial.</p>
+
+                <h3>Confounders</h3>
+                <p>A <strong>confounder</strong> affects both the treatment and the outcome. In our example, suppose sector is a confounder:</p>
+                <ul>
+                    <li>High-paying sectors (finance, tech) hire more degree-holders.</li>
+                    <li>High-paying sectors also pay more, regardless of degree.</li>
+                </ul>
+
+                <p>If we ignore sector and just compare earnings of degree-holders vs. non-degree-holders, we confound the effect of the degree with the effect of sector. The solution: stratify by sector or include sector as a control variable.</p>
+
+<div class="code-block"><code><span class="code-comment"># Simulating with sector as a confounder</span>
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+n = <span class="code-number">10000</span>
+
+<span class="code-comment"># Sector affects both degree-holding and earnings</span>
+sector = np.random.<span class="code-function">binomial</span>(n=<span class="code-number">1</span>, p=<span class="code-number">0.4</span>, size=n)  <span class="code-comment"># 1 = high-paying</span>
+
+<span class="code-comment"># Probability of degree depends on sector</span>
+p_degree = <span class="code-number">0.2</span> + sector * <span class="code-number">0.3</span>
+degree = np.random.<span class="code-function">binomial</span>(n=<span class="code-number">1</span>, p=p_degree, size=n)
+
+<span class="code-comment"># Earnings depend on sector, NOT on degree (after controlling for sector)</span>
+base_earn = <span class="code-number">30000</span> + sector * <span class="code-number">40000</span>
+earnings = base_earn + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">5000</span>, n)
+
+df = pd.<span class="code-function">DataFrame</span>({<span class="code-string">"degree"</span>: degree, <span class="code-string">"earnings"</span>: earnings, <span class="code-string">"sector"</span>: sector})
+
+<span class="code-comment"># Naive comparison (confounded)</span>
+naive_diff = df[df[<span class="code-string">"degree"</span>] == <span class="code-number">1</span>][<span class="code-string">"earnings"</span>].<span class="code-function">mean</span>() - df[df[<span class="code-string">"degree"</span>] == <span class="code-number">0</span>][<span class="code-string">"earnings"</span>].<span class="code-function">mean</span>()
+
+<span class="code-comment"># Stratified by sector (unconfounded)</span>
+diff_high_sector = df[(df[<span class="code-string">"sector"</span>] == <span class="code-number">1</span>)][<span class="code-string">"earnings"</span>].<span class="code-function">mean</span>() - df[(df[<span class="code-string">"sector"</span>] == <span class="code-number">0</span>)][<span class="code-string">"earnings"</span>].<span class="code-function">mean</span>()
+
+<span class="code-function">print</span>(<span class="code-string">f"Naive effect of degree: €{naive_diff:.0f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"True effect of degree (by sector): €{diff_high_sector:.0f}"</span>)</code></div>
+
+<div class="output-block">Naive effect of degree: €18234
+True effect of degree (by sector): €39765</div>
+
+                <p>The naive comparison suggests degrees add €18k, but that's confounded by sector. Stratifying by sector reveals that the real effect is sector choice, not the degree itself.</p>
+
+                <h3>Mediators</h3>
+                <p>A <strong>mediator</strong> lies on the causal pathway from treatment to outcome. Suppose degree causes sector choice, and sector choice causes earnings:</p>
+                <p>degree → sector → earnings</p>
+
+                <p>Sector is a mediator. If we control for sector, we "block" the causal pathway and estimate only the <em>direct</em> effect of degree on earnings. If we don't control for sector, we estimate the <em>total</em> effect (direct + indirect through sector).</p>
+
+                <p>Whether to control for a mediator depends on your research question. If you want the total effect of degree on earnings, don't control for sector. If you want to isolate the direct effect, do.</p>
+
+                <div class="key-concept">
+                    <h4>Confounders vs. Mediators: A Key Distinction</h4>
+                    <p><strong>Confounders</strong> bias estimates &mdash; you must control for them. <strong>Mediators</strong> are on the causal path &mdash; whether to control depends on your goal. If you control for a confounder, bias decreases. If you control for a mediator, you remove the indirect effect and isolate the direct effect.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 1.7 CONTINUOUS VARIABLES ==================== -->
+            <section id="continuous">
+                <h2>1.7 &mdash; Continuous Random Variables: Density and CDF</h2>
+                <p>For discrete events (degree: yes/no, sector: high/low), probability mass functions work fine. But most econometric variables are continuous: income, GDP growth, temperature. The mathematics changes subtly but importantly.</p>
+
+                <h3>Probability Density Function (PDF)</h3>
+                <p>For a continuous random variable $X$, the probability density function $f(x)$ describes the relative likelihood of different values. Unlike probability mass functions, $f(x)$ is not itself a probability &mdash; it's a density.</p>
+
+                <p>The probability that $X$ falls in an interval is the area under the curve:</p>
+                $$\P(a \leq X \leq b) = \int_a^b f(x) \, dx$$
+
+                <p>Crucially, $\P(X = x) = 0$ for any specific value $x$. This seems weird, but it's correct: there are uncountably many real numbers in any interval, so the probability of hitting exactly one is zero. This is why we always talk about ranges for continuous variables.</p>
+
+                <h3>Cumulative Distribution Function (CDF)</h3>
+                <p>The cumulative distribution function $F(x) = \P(X \leq x)$ is the probability that $X$ is at most $x$. It accumulates probability from $-\infty$ to $x$:</p>
+                $$F(x) = \int_{-\infty}^x f(u) \, du$$
+
+                <p>And therefore:</p>
+                $$\P(a \leq X \leq b) = F(b) - F(a)$$
+
+                <h3>Why the PDF Can Exceed 1</h3>
+                <p>A common source of confusion: if $f(x)$ is a probability, how can it exceed 1? The answer is that $f(x)$ is a <em>density</em>, not a probability. Consider the uniform distribution on [0, 0.1]:</p>
+
+                $$f(x) = 10 \text{ for } x \in [0, 0.1]$$
+
+                <p>The density is 10, which exceeds 1. But the probability is the area: $\int_0^{0.1} 10 \, dx = 1$. The density can be any non-negative number, as long as the total area under the curve is 1.</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> scipy.stats <span class="code-keyword">as</span> stats
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+
+<span class="code-comment"># Uniform distribution on [0, 0.1]</span>
+x = np.<span class="code-function">linspace</span>(<span class="code-number">-0.05</span>, <span class="code-number">0.15</span>, <span class="code-number">1000</span>)
+dist = stats.<span class="code-function">uniform</span>(loc=<span class="code-number">0</span>, scale=<span class="code-number">0.1</span>)
+pdf = dist.<span class="code-function">pdf</span>(x)
+cdf = dist.<span class="code-function">cdf</span>(x)
+
+<span class="code-comment"># Probability in [0.02, 0.08]</span>
+prob = dist.<span class="code-function">cdf</span>(<span class="code-number">0.08</span>) - dist.<span class="code-function">cdf</span>(<span class="code-number">0.02</span>)
+
+<span class="code-function">print</span>(<span class="code-string">f"PDF at x=0.05: {dist.pdf(0.05):.1f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"P(0.02 ≤ X ≤ 0.08) = {prob:.2f}"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Total area under PDF: {np.trapz(pdf, x):.2f}"</span>)</code></div>
+
+<div class="output-block">PDF at x=0.05: 10.0
+P(0.02 ≤ X ≤ 0.08) = 0.60
+Total area under PDF: 1.00</div>
+
+                <p>The density reaches 10 (exceeding 1), but the total area is exactly 1. The probability of landing in [0.02, 0.08] is 0.60 &mdash; the area of that region.</p>
+
+                <h3>Normal Distribution: The Workhorse</h3>
+                <p>The normal distribution, parameterized by mean $\mu$ and standard deviation $\sigma$, is ubiquitous in econometrics. Its PDF is:</p>
+                $$f(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp\left(-\frac{(x - \mu)^2}{2\sigma^2}\right)$$
+
+                <p>You don't need to memorize this. What matters: about 68% of data falls within $\mu \pm \sigma$, 95% within $\mu \pm 2\sigma$. Most regression relies on the assumption that errors are normally distributed. And the Central Limit Theorem (which we'll see later) ensures that sample means are approximately normal, even if the underlying data isn't.</p>
+
+                <div class="key-concept">
+                    <h4>Density vs. Probability: The Intuition</h4>
+                    <p>Think of density like a histogram with infinitesimal bins. The height of a bar is "density per unit width". To get probability, you multiply density by width (integrate). For a point, the width is zero, so probability is zero. This is why continuous distributions are defined by their CDF (which is a probability) rather than a PDF.</p>
+                </div>
+            </section>
+
+            <!-- ==================== EXERCISES ==================== -->
+            <section id="exercises">
+                <h2>Exercises</h2>
+                <p>Open the notebook in Colab or download it to work through these exercises with code.</p>
+
+                <div class="exercise">
+                    <h4>Exercise 1.1 &mdash; Conditional Probability from Data</h4>
+                    <p>Using the Italian workers dataset, compute $\P(\text{high\_earn} \mid \text{degree})$ and $\P(\text{high\_earn} \mid \neg \text{degree})$ (no degree). What is the difference? Does this suggest a causal effect of education?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 1.2 &mdash; Independence Test</h4>
+                    <p>In the workers dataset, are degree and high earnings independent? Check by computing $\P(D \cap H)$ and comparing to $\P(D) \cdot \P(H)$. If they're not independent, is sector a confounder? (Hint: condition on sector and recompute.)</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 1.3 &mdash; Bayes' Theorem Numerically</h4>
+                    <p>Imagine a diagnostic test for a rare disease: 99% sensitivity (detects disease if present), 95% specificity (correctly identifies healthy if healthy). The disease affects 1% of the population. If a person tests positive, what is the probability they actually have the disease? Use Bayes' theorem.</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 1.4 &mdash; CDF and Quantiles</h4>
+                    <p>For a normal distribution with $\mu = 100$ and $\sigma = 15$, compute the CDF at 85, 100, and 115. What is the 90th percentile? What is $\P(90 \leq X \leq 110)$? (Use <code>scipy.stats.norm</code>.)</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 1.5 &mdash; Mediation vs. Confounding</h4>
+                    <p>Consider three scenarios: (1) education → sector → earnings (mediation), (2) ability → education and ability → earnings (confounding), (3) education → earnings (direct). For each, explain whether you should control for sector in a regression of earnings on education, and what you'd learn by controlling vs. not controlling.</p>
+                </div>
+            </section>
+
+            <!-- ==================== KEY TAKEAWAYS ==================== -->
+            <section id="takeaways">
+                <div class="key-concept">
+                    <h4>Key Takeaways</h4>
+                    <p><strong>Probability is fundamental.</strong> Frequentists interpret it as long-run frequency; Bayesians as updated beliefs. This course is frequentist. <strong>Conditional probability</strong> $\P(A \mid B)$ is at the heart of regression. <strong>Bayes' theorem</strong> formalizes learning from data. <strong>Independence</strong> $\P(A \cap B) = \P(A) \cdot \P(B)$ is the null hypothesis of association. <strong>Confounders</strong> must be controlled; <strong>mediators</strong> are optional. <strong>Continuous variables</strong> have zero point probability and require integration to compute probabilities &mdash; use the CDF.</p>
+                </div>
+            </section>
+
+            <!-- ==================== NAV ==================== -->
+            <div class="chapter-nav">
+                <a href="ch00-descriptive-statistics.html">&larr; Module 00</a>
+                <span>Next: Module 02 (coming soon)</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>
