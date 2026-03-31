@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3: Externalities and Market Failure | Environmental Economics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 150px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover {
+            background: var(--color-primary-dark);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover {
+            color: var(--color-primary-dark);
+        }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Environmental Economics</h1>
+            </a>
+            <p class="site-subtitle">Chapter 3: Externalities and Market Failure</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 3</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#what-is-externality">3.1 What Is an Externality?</a></li>
+                <li><a href="#private-vs-social">3.2 Private vs Social Costs</a></li>
+                <li><a href="#social-optimum">3.3 The Social Optimum</a></li>
+                <li><a href="#dwl">3.4 Deadweight Loss</a></li>
+                <li><a href="#pigouvian-preview">3.5 A First Look at Correction</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: Why Does the Market Get Pollution Wrong?</h2>
+                <p>A steel mill produces steel that consumers value, but it also discharges pollutants into a river that flows past a downstream community. The mill bears the cost of labour, raw materials, and capital &mdash; but the respiratory illness, contaminated water, and ecological damage suffered by residents do not appear on the mill&rsquo;s balance sheet.</p>
+
+                <p>The mill is making a perfectly rational decision: it maximises its own profit. But the outcome is not efficient from society&rsquo;s perspective, because the full cost of production is higher than the cost the mill actually pays. The market, left to itself, produces <strong>too much steel and too much pollution</strong>.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The Central Question</h4>
+                    <p>If a firm does not bear the full cost of its production, the market equilibrium will not maximise social welfare. How large is the resulting inefficiency, and what can we do about it?</p>
+                </div>
+
+                <p>This chapter builds the analytical framework for answering that question. We start by defining externalities precisely, then show geometrically and algebraically how they create a wedge between the private optimum and the social optimum, and measure the welfare loss that results.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#what-is-externality">What Is an Externality?</a> &mdash; defining the concept and distinguishing positive from negative externalities</li>
+                    <li><a href="#private-vs-social">Private vs Social Costs</a> &mdash; why the firm&rsquo;s cost curve understates the true cost of production</li>
+                    <li><a href="#social-optimum">The Social Optimum</a> &mdash; the output level that maximises social welfare</li>
+                    <li><a href="#dwl">Deadweight Loss</a> &mdash; measuring the welfare cost of overproduction</li>
+                    <li><a href="#pigouvian-preview">A First Look at Correction</a> &mdash; how a tax can realign private incentives with social costs</li>
+                </ol>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- 3.1 WHAT IS AN EXTERNALITY                    -->
+            <!-- ============================================ -->
+            <section id="what-is-externality" class="lesson-section section-intuition">
+                <h2>3.1 What Is an Externality?</h2>
+
+                <h3>Intuition: Costs and Benefits That Spill Over</h3>
+                <p>When you buy a coffee, the transaction affects you (you get the coffee) and the seller (they get your money). No one else is meaningfully affected. The market price captures everything that matters.</p>
+
+                <p>Now consider a factory that emits sulphur dioxide. The factory&rsquo;s owner and its customers transact voluntarily, but the people living downwind &mdash; who were never consulted and received no compensation &mdash; suffer health costs. This is the hallmark of an externality: a cost (or benefit) imposed on a third party who is outside the market transaction.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Externality</h4>
+                    <p>An externality arises when an economic agent&rsquo;s action directly affects the well-being of another agent outside the market mechanism. A <strong>negative externality</strong> imposes an uncompensated cost (pollution, noise, congestion). A <strong>positive externality</strong> confers an uncompensated benefit (vaccination, education, a well-maintained garden).</p>
+                </div>
+
+                <p>Two features make externalities economically significant. First, the affected parties have no say in the decision: the factory chooses how much to produce without consulting its neighbours. Second, no price is charged for the damage (or benefit): there is no market for &ldquo;clean air&rdquo; that would force the factory to internalise the cost.</p>
+
+                <div class="callout callout-example">
+                    <h4>Negative vs Positive Externalities</h4>
+                    <p><strong>Negative:</strong> A cement plant emits particulate matter that causes respiratory illness in nearby households. The plant does not compensate them, so its production cost understates the true cost to society.</p>
+                    <p><strong>Positive:</strong> A beekeeper&rsquo;s hives pollinate a neighbouring farmer&rsquo;s crops. The beekeeper is not paid for this service, so she keeps fewer hives than would be socially optimal.</p>
+                </div>
+
+                <p>In this chapter we focus on <strong>negative production externalities</strong> &mdash; the most common case in environmental economics &mdash; where a firm&rsquo;s output generates damage that it does not pay for.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 3.2 PRIVATE VS SOCIAL COSTS                   -->
+            <!-- ============================================ -->
+            <section id="private-vs-social" class="lesson-section section-geometric">
+                <h2>3.2 Private vs Social Costs</h2>
+
+                <h3>Intuition: The Missing Cost</h3>
+                <p>A competitive firm decides how much to produce by comparing the market price it receives with its <strong>marginal private cost</strong> (MPC) &mdash; the cost of producing one more unit, including labour, materials, and capital. It produces up to the point where price equals marginal private cost.</p>
+
+                <p>But if production generates pollution, there is an additional cost that the firm ignores: the <strong>marginal damage</strong> (MD) inflicted on third parties. The <strong>marginal social cost</strong> (MSC) is the sum of both:</p>
+
+                <div class="callout callout-definition">
+                    <h4>Marginal Social Cost</h4>
+                    <p>The marginal social cost equals the marginal private cost plus the marginal damage:</p>
+                    <p>\[ \text{MSC} = \text{MPC} + \text{MD} \]</p>
+                    <p>The MSC captures the full cost to society of producing one additional unit.</p>
+                </div>
+
+                <p>Because the firm optimises against MPC alone, it acts as though the damage does not exist. It produces where \(P = \text{MPC}\), which is beyond the point where \(P = \text{MSC}\). The result: overproduction relative to what society would choose.</p>
+
+                <h3>Geometric Solution: The Wedge Between MPC and MSC</h3>
+
+                <div class="interactive-graph" id="externality-graph-container">
+                    <canvas id="externalityCanvas" width="600" height="420"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Marginal Damage: <span class="value-display" id="mdDisplay">&pound;2.00</span>
+                            <input type="range" id="mdSlider" min="0" max="5" step="0.25" value="2">
+                        </label>
+                        <button id="extResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="extInfo">
+                        With MD = &pound;2.00 per unit, the MSC curve sits above the MPC curve by &pound;2.00 at every output level. The firm produces at Q<sub>private</sub> = 80, but the socially efficient output is Q<sub>social</sub> = 60. Move the slider to see how the size of the externality affects the gap.
+                    </div>
+                    <p class="graph-caption">Figure 3.1 &mdash; The MPC&ndash;MSC wedge. The vertical distance between the two cost curves equals the marginal damage.</p>
+                </div>
+
+                <p>The key visual insight: the MSC curve is a <strong>parallel upward shift</strong> of the MPC curve when marginal damage is constant. Set the slider to zero and the two curves collapse into one &mdash; there is no externality, no market failure. As you increase marginal damage, the MSC separates from MPC, and the gap between the private and social quantities widens.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>Let us work with a concrete example. Suppose a competitive industry faces:</p>
+
+                <p>Inverse demand (marginal benefit to consumers):</p>
+                \[ P = 10 - 0.05Q \]
+
+                <p>Marginal private cost:</p>
+                \[ \text{MPC} = 2 + 0.05Q \]
+
+                <p>Marginal damage (constant per unit of output):</p>
+                \[ \text{MD} = d \]
+
+                <p>The <strong>private optimum</strong> occurs where the firm equates price to marginal private cost:</p>
+                \[ P = \text{MPC} \implies 10 - 0.05Q = 2 + 0.05Q \implies Q_{\text{priv}} = 80 \]
+
+                <p>Substituting back: \(P_{\text{priv}} = 10 - 0.05(80) = 6\).</p>
+
+                <p>The <strong>social optimum</strong> equates price to marginal social cost:</p>
+                \[ P = \text{MSC} \implies 10 - 0.05Q = 2 + 0.05Q + d \]
+                \[ Q_{\text{soc}} = \frac{8 - d}{0.10} = 80 - 10d \]
+
+                <p>With \(d = 2\): \(Q_{\text{soc}} = 60\) and \(P_{\text{soc}} = 10 - 0.05(60) = 7\). The market overproduces by 20 units.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 3.3 THE SOCIAL OPTIMUM                        -->
+            <!-- ============================================ -->
+            <section id="social-optimum" class="lesson-section section-geometric">
+                <h2>3.3 The Social Optimum</h2>
+
+                <h3>Intuition: Where Should Society Produce?</h3>
+                <p>The social optimum is the output level that maximises <strong>net social benefit</strong> &mdash; the total benefit consumers get from the good minus the total cost to society (including environmental damage).</p>
+
+                <p>Think of it this way. For each unit produced, there is a benefit (what consumers are willing to pay) and a cost (what it costs society, including pollution damage). As long as the benefit of the next unit exceeds its social cost, society gains from producing it. The moment the social cost overtakes the benefit, society is better off stopping.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Social Optimum</h4>
+                    <p>The socially optimal output \(Q^*\) is the quantity at which the marginal benefit to consumers (the demand curve) equals the marginal social cost:</p>
+                    <p>\[ \text{MB}(Q^*) = \text{MSC}(Q^*) \]</p>
+                    <p>At this point, net social benefit is maximised.</p>
+                </div>
+
+                <h3>Geometric Solution: Comparing the Two Equilibria</h3>
+
+                <div class="interactive-graph" id="optimum-graph-container">
+                    <canvas id="optimumCanvas" width="600" height="420"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Marginal Damage: <span class="value-display" id="optMdDisplay">&pound;2.00</span>
+                            <input type="range" id="optMdSlider" min="0" max="5" step="0.25" value="2">
+                        </label>
+                        <button id="optToggleDWL" data-state="off">Show Deadweight Loss</button>
+                        <button id="optResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="optInfo">
+                        The private optimum (E<sub>priv</sub>) is at Q = 80, P = &pound;6.00. The social optimum (E<sub>soc</sub>) is at Q = 60, P = &pound;7.00. The shaded triangle is the deadweight loss &mdash; the welfare society loses from overproduction.
+                    </div>
+                    <p class="graph-caption">Figure 3.2 &mdash; Private vs social optimum. Click &ldquo;Show Deadweight Loss&rdquo; to see the welfare triangle.</p>
+                </div>
+
+                <p>At the private optimum \(E_{\text{priv}}\), the firm produces where demand meets MPC. But for every unit between \(Q_{\text{soc}}\) and \(Q_{\text{priv}}\), the social cost exceeds the benefit &mdash; society is worse off for each of those extra units. The triangular area between the demand curve and the MSC curve, over this range, is the <strong>deadweight loss</strong>.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>Continuing with our example (\(d = 2\)), the two equilibria are:</p>
+
+                <p>Private optimum: \((Q_{\text{priv}}, P_{\text{priv}}) = (80, \; 6)\)</p>
+                <p>Social optimum: \((Q_{\text{soc}}, P_{\text{soc}}) = (60, \; 7)\)</p>
+
+                <p>At the social optimum, the MSC equals the price consumers pay: \(\text{MSC}(60) = 2 + 0.05(60) + 2 = 7\). At the private optimum, the MSC exceeds the demand price: \(\text{MSC}(80) = 2 + 0.05(80) + 2 = 8\), but \(P(80) = 6\). The &pound;2 gap represents the uncompensated damage per unit at that output.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 3.4 DEADWEIGHT LOSS                           -->
+            <!-- ============================================ -->
+            <section id="dwl" class="lesson-section section-mathematical">
+                <h2>3.4 Deadweight Loss</h2>
+
+                <h3>Intuition: The Cost of Getting It Wrong</h3>
+                <p>Deadweight loss is the <strong>net welfare that society forfeits</strong> because the market produces the wrong quantity. It is not a transfer from one group to another &mdash; it is value that simply vanishes. Nobody gets it.</p>
+
+                <p>Think of the units between \(Q_{\text{soc}} = 60\) and \(Q_{\text{priv}} = 80\). For each of these units, the marginal social cost exceeds what consumers are willing to pay. Producing them costs society more than they are worth. The cumulative excess cost is the deadweight loss.</p>
+
+                <h3>Geometric Interpretation</h3>
+                <p>The deadweight loss is the area of the triangle formed by three points: the social optimum \(E_{\text{soc}}\), the private optimum \(E_{\text{priv}}\), and the point on the MSC curve directly above \(Q_{\text{priv}}\). Use the &ldquo;Show Deadweight Loss&rdquo; button on Figure 3.2 above to see this triangle highlighted.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>The deadweight loss (DWL) can be calculated as the area of this triangle:</p>
+
+                \[ \text{DWL} = \frac{1}{2} \times \underbrace{(Q_{\text{priv}} - Q_{\text{soc}})}_{\text{base}} \times \underbrace{[\text{MSC}(Q_{\text{priv}}) - P(Q_{\text{priv}})]}_{\text{height}} \]
+
+                <p>Substituting our numbers:</p>
+
+                \[ \text{DWL} = \frac{1}{2} \times (80 - 60) \times (8 - 6) = \frac{1}{2} \times 20 \times 2 = \pounds 20 \]
+
+                <div class="callout callout-key-insight">
+                    <h4>DWL Grows with the Square of the Distortion</h4>
+                    <p>Notice that the base of the triangle (\(Q_{\text{priv}} - Q_{\text{soc}}\)) and its height both increase with marginal damage. As a result, the deadweight loss grows roughly with the <em>square</em> of the externality. Doubling the marginal damage from &pound;2 to &pound;4 does not merely double the DWL &mdash; it quadruples it (from &pound;20 to &pound;80). This is why large externalities are disproportionately costly.</p>
+                </div>
+
+                <p>More generally, with constant MD = \(d\):</p>
+                \[ Q_{\text{priv}} - Q_{\text{soc}} = 10d, \qquad \text{MSC}(Q_{\text{priv}}) - P(Q_{\text{priv}}) = d \]
+                \[ \text{DWL} = \frac{1}{2} \times 10d \times d = 5d^2 \]
+
+                <p>You can verify this on the interactive graph: set \(d = 1\) and the DWL is &pound;5; set \(d = 3\) and it jumps to &pound;45.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 3.5 A FIRST LOOK AT CORRECTION                -->
+            <!-- ============================================ -->
+            <section id="pigouvian-preview" class="lesson-section section-geometric">
+                <h2>3.5 A First Look at Correction: The Pigouvian Tax</h2>
+
+                <h3>Intuition: Making the Polluter Pay</h3>
+                <p>If the problem is that the firm ignores the damage it causes, the most direct solution is to make it pay for that damage. A <strong>Pigouvian tax</strong> is a per-unit tax set equal to the marginal damage at the socially optimal output. It forces the firm to &ldquo;internalise the externality&rdquo; &mdash; to treat the environmental damage as a genuine cost of production.</p>
+
+                <p>With the tax in place, the firm&rsquo;s effective cost curve shifts up to equal the MSC, and the firm voluntarily produces at the social optimum. No one commands the firm to reduce output; the price signal does the work.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Pigouvian Tax</h4>
+                    <p>A per-unit tax on output (or emissions) set equal to the marginal damage at the socially optimal level of output:</p>
+                    <p>\[ t^* = \text{MD}(Q^*_{\text{soc}}) \]</p>
+                    <p>Named after the economist Arthur Pigou, who first formalised this idea in 1920.</p>
+                </div>
+
+                <h3>Geometric Solution: Shifting the Cost Curve</h3>
+
+                <div class="interactive-graph" id="pigouvian-graph-container">
+                    <canvas id="pigouvianCanvas" width="600" height="420"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Tax rate: <span class="value-display" id="taxDisplay">&pound;0.00</span>
+                            <input type="range" id="taxSlider" min="0" max="5" step="0.25" value="0">
+                        </label>
+                        <button id="taxOptimalBtn">Set Optimal Tax</button>
+                        <button id="taxResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="taxInfo">
+                        The market equilibrium is at Q = 80 with no tax. Use the slider to impose a tax and observe how the firm&rsquo;s output adjusts. Click &ldquo;Set Optimal Tax&rdquo; to jump to the welfare-maximising rate.
+                    </div>
+                    <p class="graph-caption">Figure 3.3 &mdash; The Pigouvian Tax. Slide the tax rate upward to see the firm&rsquo;s cost curve shift and output fall towards the social optimum.</p>
+                </div>
+
+                <p>Drag the tax slider from zero. As the tax rises, the firm&rsquo;s effective marginal cost curve (\(\text{MPC} + t\)) shifts upward and output falls. When the tax hits &pound;2.00 &mdash; exactly equal to the marginal damage &mdash; the firm produces at \(Q = 60\), the social optimum. The deadweight loss vanishes entirely.</p>
+
+                <p>But notice what happens if you over-tax. Push the slider beyond &pound;2.00 and the firm produces <em>less</em> than the social optimum. The tax now creates its own inefficiency &mdash; too little production, too little of the good that consumers value. Getting the tax rate right matters.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>With a per-unit tax \(t\), the firm&rsquo;s profit-maximising condition becomes:</p>
+
+                \[ P = \text{MPC} + t \]
+                \[ 10 - 0.05Q = 2 + 0.05Q + t \]
+                \[ Q(t) = \frac{8 - t}{0.10} = 80 - 10t \]
+
+                <p>For the tax to achieve the social optimum \(Q^* = 60\), we need:</p>
+                \[ 60 = 80 - 10t^* \implies t^* = 2 \]
+
+                <p>This equals the marginal damage &mdash; exactly as Pigou&rsquo;s principle prescribes. At \(t^* = 2\), the firm behaves as though it faces the MSC, and the equilibrium output coincides with the social optimum.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Tax Revenue as a Bonus</h4>
+                    <p>The Pigouvian tax generates revenue of \(t^* \times Q^* = 2 \times 60 = \pounds 120\). This revenue can be used to compensate those harmed by the remaining pollution, to reduce other distortionary taxes, or to fund environmental remediation. The efficiency gain from correcting the externality is achieved regardless of how the revenue is spent &mdash; the revenue is a welcome side-effect, not the primary purpose.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>In this chapter, we built the fundamental framework for understanding why markets fail in the presence of externalities.</p>
+
+                <p>An <strong>externality</strong> arises when an economic agent&rsquo;s action imposes uncompensated costs (or benefits) on third parties outside the market transaction. With a negative production externality, the firm&rsquo;s marginal private cost understates the true <strong>marginal social cost</strong>, which includes the marginal damage from pollution.</p>
+
+                <p>Because the firm optimises against its private cost, the <strong>private optimum</strong> involves overproduction relative to the <strong>social optimum</strong>, where marginal benefit equals marginal social cost. The resulting <strong>deadweight loss</strong> &mdash; the triangle between the demand curve and MSC over the range of overproduction &mdash; grows with the square of the marginal damage, making large externalities disproportionately costly.</p>
+
+                <p>A <strong>Pigouvian tax</strong> set equal to the marginal damage at the social optimum can correct the market failure by making the firm internalise the externality. In the next chapters, we explore this instrument in detail and compare it with alternative approaches: tradeable permits, direct regulation, and private bargaining under the Coase theorem.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="../index.html">&larr; Home</a>
+                <span style="color: var(--color-text-lighter);">Chapter 4: Welfare Analysis &mdash; Coming Soon &rarr;</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        // ---- Theme-aware colour palette ----
+        const LIGHT_COLORS = {
+            mpc: '#3b82f6',        // blue
+            msc: '#ef4444',        // red
+            demand: '#10b981',     // green
+            md: '#f59e0b',         // amber
+            taxCurve: '#8b5cf6',   // purple
+            equilibrium: '#0a9396',// teal
+            dwl: 'rgba(239, 68, 68, 0.2)',
+            dwlStroke: 'rgba(239, 68, 68, 0.6)',
+            taxRevenue: 'rgba(139, 92, 246, 0.15)',
+            grid: '#e5e5e5',
+            axis: '#1a1a1a',
+            text: '#555555',
+            textBold: '#1a1a1a',
+            canvasBg: '#ffffff',
+            dashed: '#999999'
+        };
+
+        const DARK_COLORS = {
+            mpc: '#60a5fa',
+            msc: '#f87171',
+            demand: '#34d399',
+            md: '#fbbf24',
+            taxCurve: '#a78bfa',
+            equilibrium: '#2ec4c8',
+            dwl: 'rgba(248, 113, 113, 0.25)',
+            dwlStroke: 'rgba(248, 113, 113, 0.7)',
+            taxRevenue: 'rgba(167, 139, 250, 0.2)',
+            grid: '#4a4a4a',
+            axis: '#d0d0d0',
+            text: '#c0c0c0',
+            textBold: '#e0e0e0',
+            canvasBg: '#2d2d2d',
+            dashed: '#888888'
+        };
+
+        const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        let C = darkMQ.matches ? DARK_COLORS : LIGHT_COLORS;
+        darkMQ.addEventListener('change', function(e) {
+            C = e.matches ? DARK_COLORS : LIGHT_COLORS;
+            redrawAll();
+        });
+
+        // ---- Canvas helpers ----
+        const M = { top: 30, right: 40, bottom: 55, left: 65 };
+        const Q_MAX = 120;
+        const P_MAX = 12;
+
+        function getCtx(canvasId) {
+            var canvas = document.getElementById(canvasId);
+            var dpr = window.devicePixelRatio || 1;
+            var rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            var ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            return { ctx: ctx, w: rect.width, h: rect.height };
+        }
+
+        function toPixel(q, p, gw, gh) {
+            return {
+                x: M.left + (q / Q_MAX) * gw,
+                y: M.top + (1 - p / P_MAX) * gh
+            };
+        }
+
+        function drawAxes(ctx, w, h, gw, gh) {
+            ctx.fillStyle = C.canvasBg;
+            ctx.fillRect(0, 0, w, h);
+
+            // Grid
+            ctx.strokeStyle = C.grid;
+            ctx.lineWidth = 0.5;
+            for (var p = 0; p <= P_MAX; p += 2) {
+                var pt = toPixel(0, p, gw, gh);
+                ctx.beginPath();
+                ctx.moveTo(M.left, pt.y);
+                ctx.lineTo(M.left + gw, pt.y);
+                ctx.stroke();
+            }
+            for (var q = 0; q <= Q_MAX; q += 20) {
+                var pt2 = toPixel(q, 0, gw, gh);
+                ctx.beginPath();
+                ctx.moveTo(pt2.x, M.top);
+                ctx.lineTo(pt2.x, M.top + gh);
+                ctx.stroke();
+            }
+
+            // Axes
+            ctx.strokeStyle = C.axis;
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(M.left, M.top);
+            ctx.lineTo(M.left, M.top + gh);
+            ctx.lineTo(M.left + gw, M.top + gh);
+            ctx.stroke();
+
+            // Labels
+            ctx.fillStyle = C.text;
+            ctx.font = '13px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            for (var q = 0; q <= Q_MAX; q += 20) {
+                var pt3 = toPixel(q, 0, gw, gh);
+                ctx.fillText(q, pt3.x, M.top + gh + 18);
+            }
+            ctx.textAlign = 'right';
+            for (var p = 0; p <= P_MAX; p += 2) {
+                var pt4 = toPixel(0, p, gw, gh);
+                ctx.fillText(p, M.left - 8, pt4.y + 4);
+            }
+
+            // Axis titles
+            ctx.fillStyle = C.textBold;
+            ctx.font = '600 13px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('Quantity (Q)', M.left + gw / 2, M.top + gh + 42);
+            ctx.save();
+            ctx.translate(16, M.top + gh / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText('Price / Cost (\u00A3)', 0, 0);
+            ctx.restore();
+        }
+
+        function drawLine(ctx, q1, p1, q2, p2, gw, gh, color, width, dashed) {
+            var a = toPixel(q1, p1, gw, gh);
+            var b = toPixel(q2, p2, gw, gh);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = width || 2;
+            if (dashed) ctx.setLineDash([6, 4]);
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawDot(ctx, q, p, gw, gh, color, radius) {
+            var pt = toPixel(q, p, gw, gh);
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, radius || 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawLabel(ctx, q, p, gw, gh, text, color, offsetX, offsetY) {
+            var pt = toPixel(q, p, gw, gh);
+            ctx.fillStyle = color || C.textBold;
+            ctx.font = '600 12px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText(text, pt.x + (offsetX || 5), pt.y + (offsetY || -8));
+        }
+
+        function drawDashedLine(ctx, q, p, gw, gh) {
+            var pt = toPixel(q, p, gw, gh);
+            var origin = toPixel(0, 0, gw, gh);
+            var axisX = toPixel(q, 0, gw, gh);
+            ctx.strokeStyle = C.dashed;
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 3]);
+            // Horizontal to y-axis
+            ctx.beginPath();
+            ctx.moveTo(M.left, pt.y);
+            ctx.lineTo(pt.x, pt.y);
+            ctx.stroke();
+            // Vertical to x-axis
+            ctx.beginPath();
+            ctx.moveTo(pt.x, pt.y);
+            ctx.lineTo(pt.x, M.top + gh);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        // ---- Economic model ----
+        // Inverse demand: P = 10 - 0.05Q  => Q ranges 0..200 but we cap at Q_MAX
+        // MPC: P = 2 + 0.05Q
+        // MD: d (constant)
+        // MSC: P = 2 + 0.05Q + d
+
+        function demandP(q) { return 10 - 0.05 * q; }
+        function mpcP(q) { return 2 + 0.05 * q; }
+        function mscP(q, d) { return 2 + 0.05 * q + d; }
+
+        function qPriv() { return 80; }     // always 80 for this model
+        function qSoc(d) { return 80 - 10 * d; }
+        function pAtQ(q) { return 10 - 0.05 * q; }
+
+        // ============================================
+        // GRAPH 1: Externality — MPC vs MSC
+        // ============================================
+        var md1 = 2;
+
+        function drawExternalityGraph() {
+            var r = getCtx('externalityCanvas');
+            var ctx = r.ctx, w = r.w, h = r.h;
+            var gw = w - M.left - M.right;
+            var gh = h - M.top - M.bottom;
+
+            drawAxes(ctx, w, h, gw, gh);
+
+            // Demand curve
+            drawLine(ctx, 0, 10, Q_MAX, demandP(Q_MAX), gw, gh, C.demand, 2.5);
+            drawLabel(ctx, Q_MAX - 2, demandP(Q_MAX), gw, gh, 'D (MB)', C.demand, -50, -5);
+
+            // MPC
+            drawLine(ctx, 0, mpcP(0), Q_MAX, mpcP(Q_MAX), gw, gh, C.mpc, 2.5);
+            drawLabel(ctx, Q_MAX - 2, mpcP(Q_MAX), gw, gh, 'MPC', C.mpc, -40, 16);
+
+            // MSC
+            if (md1 > 0) {
+                drawLine(ctx, 0, mscP(0, md1), Q_MAX, mscP(Q_MAX, md1), gw, gh, C.msc, 2.5);
+                drawLabel(ctx, Q_MAX - 2, mscP(Q_MAX, md1), gw, gh, 'MSC', C.msc, -40, -5);
+            }
+
+            // MD arrow at Q=40
+            if (md1 > 0) {
+                var qMid = 40;
+                var ptBot = toPixel(qMid, mpcP(qMid), gw, gh);
+                var ptTop = toPixel(qMid, mscP(qMid, md1), gw, gh);
+                ctx.strokeStyle = C.md;
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 3]);
+                ctx.beginPath();
+                ctx.moveTo(ptBot.x, ptBot.y);
+                ctx.lineTo(ptTop.x, ptTop.y);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                // Arrow head
+                ctx.fillStyle = C.md;
+                ctx.beginPath();
+                ctx.moveTo(ptTop.x, ptTop.y);
+                ctx.lineTo(ptTop.x - 4, ptTop.y + 8);
+                ctx.lineTo(ptTop.x + 4, ptTop.y + 8);
+                ctx.fill();
+                drawLabel(ctx, qMid, (mpcP(qMid) + mscP(qMid, md1)) / 2, gw, gh, 'MD = \u00A3' + md1.toFixed(2), C.md, 8, 4);
+            }
+
+            // Private equilibrium
+            var qp = qPriv();
+            var pp = pAtQ(qp);
+            drawDashedLine(ctx, qp, pp, gw, gh);
+            drawDot(ctx, qp, pp, gw, gh, C.equilibrium, 6);
+            drawLabel(ctx, qp, pp, gw, gh, 'E_priv', C.equilibrium, 6, -6);
+
+            // Social equilibrium
+            if (md1 > 0) {
+                var qs = qSoc(md1);
+                if (qs > 0) {
+                    var ps = pAtQ(qs);
+                    drawDashedLine(ctx, qs, ps, gw, gh);
+                    drawDot(ctx, qs, ps, gw, gh, C.msc, 6);
+                    drawLabel(ctx, qs, ps, gw, gh, 'E_soc', C.msc, -45, -6);
+                }
+            }
+
+            // Update info
+            var qs2 = Math.max(0, qSoc(md1));
+            document.getElementById('extInfo').innerHTML =
+                'With MD = \u00A3' + md1.toFixed(2) + ' per unit, the MSC curve sits above the MPC curve by \u00A3' + md1.toFixed(2) +
+                ' at every output level. The firm produces at Q<sub>private</sub> = ' + qp +
+                ', but the socially efficient output is Q<sub>social</sub> = ' + qs2 +
+                '. Overproduction = ' + (qp - qs2) + ' units.';
+        }
+
+        // ============================================
+        // GRAPH 2: Social Optimum with DWL toggle
+        // ============================================
+        var md2 = 2;
+        var showDWL = false;
+
+        function drawOptimumGraph() {
+            var r = getCtx('optimumCanvas');
+            var ctx = r.ctx, w = r.w, h = r.h;
+            var gw = w - M.left - M.right;
+            var gh = h - M.top - M.bottom;
+
+            drawAxes(ctx, w, h, gw, gh);
+
+            var qs = Math.max(0, qSoc(md2));
+            var qp = qPriv();
+
+            // Draw DWL triangle if toggled
+            if (showDWL && md2 > 0 && qs < qp) {
+                var ptSoc = toPixel(qs, pAtQ(qs), gw, gh);
+                var ptPrivDemand = toPixel(qp, pAtQ(qp), gw, gh);
+                var ptPrivMSC = toPixel(qp, mscP(qp, md2), gw, gh);
+
+                ctx.fillStyle = C.dwl;
+                ctx.strokeStyle = C.dwlStroke;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(ptSoc.x, ptSoc.y);
+                ctx.lineTo(ptPrivDemand.x, ptPrivDemand.y);
+                ctx.lineTo(ptPrivMSC.x, ptPrivMSC.y);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // DWL label
+                var dwlVal = 0.5 * (qp - qs) * (mscP(qp, md2) - pAtQ(qp));
+                var midQ = (qs + qp) / 2 + 2;
+                var midP = (pAtQ(qs) + pAtQ(qp) + mscP(qp, md2)) / 3;
+                drawLabel(ctx, midQ, midP, gw, gh, 'DWL = \u00A3' + dwlVal.toFixed(0), C.msc, -20, 4);
+            }
+
+            // Demand curve
+            drawLine(ctx, 0, 10, Q_MAX, demandP(Q_MAX), gw, gh, C.demand, 2.5);
+            drawLabel(ctx, Q_MAX - 2, demandP(Q_MAX), gw, gh, 'D (MB)', C.demand, -50, -5);
+
+            // MPC
+            drawLine(ctx, 0, mpcP(0), Q_MAX, mpcP(Q_MAX), gw, gh, C.mpc, 2.5);
+            drawLabel(ctx, Q_MAX - 2, mpcP(Q_MAX), gw, gh, 'MPC', C.mpc, -40, 16);
+
+            // MSC
+            if (md2 > 0) {
+                drawLine(ctx, 0, mscP(0, md2), Q_MAX, mscP(Q_MAX, md2), gw, gh, C.msc, 2.5);
+                drawLabel(ctx, Q_MAX - 2, mscP(Q_MAX, md2), gw, gh, 'MSC', C.msc, -40, -5);
+            }
+
+            // Private equilibrium
+            drawDashedLine(ctx, qp, pAtQ(qp), gw, gh);
+            drawDot(ctx, qp, pAtQ(qp), gw, gh, C.equilibrium, 6);
+            drawLabel(ctx, qp, pAtQ(qp), gw, gh, 'E_priv (' + qp + ', \u00A3' + pAtQ(qp).toFixed(2) + ')', C.equilibrium, 6, 16);
+
+            // Social equilibrium
+            if (md2 > 0 && qs > 0) {
+                drawDashedLine(ctx, qs, pAtQ(qs), gw, gh);
+                drawDot(ctx, qs, pAtQ(qs), gw, gh, C.msc, 6);
+                drawLabel(ctx, qs, pAtQ(qs), gw, gh, 'E_soc (' + qs + ', \u00A3' + pAtQ(qs).toFixed(2) + ')', C.msc, -120, -10);
+            }
+
+            // Update info
+            var dwlVal2 = md2 > 0 ? 5 * md2 * md2 : 0;
+            document.getElementById('optInfo').innerHTML =
+                'The private optimum (E<sub>priv</sub>) is at Q = ' + qp + ', P = \u00A3' + pAtQ(qp).toFixed(2) +
+                '. The social optimum (E<sub>soc</sub>) is at Q = ' + qs + ', P = \u00A3' + pAtQ(qs).toFixed(2) +
+                '. Deadweight loss = \u00A3' + dwlVal2.toFixed(0) + '.';
+        }
+
+        // ============================================
+        // GRAPH 3: Pigouvian Tax
+        // ============================================
+        var taxRate = 0;
+
+        function drawPigouvianGraph() {
+            var r = getCtx('pigouvianCanvas');
+            var ctx = r.ctx, w = r.w, h = r.h;
+            var gw = w - M.left - M.right;
+            var gh = h - M.top - M.bottom;
+
+            drawAxes(ctx, w, h, gw, gh);
+
+            var d = 2; // fixed MD for this graph
+            var qTax = Math.max(0, 80 - 10 * taxRate);
+            var pTax = pAtQ(qTax);
+            var qSocial = qSoc(d);
+
+            // Tax revenue rectangle
+            if (taxRate > 0 && qTax > 0) {
+                var ptBL = toPixel(0, mpcP(0), gw, gh); // not used
+                var rectLeft = toPixel(0, 0, gw, gh).x;
+                var rectRight = toPixel(qTax, 0, gw, gh).x;
+                // Revenue is between MPC+t and MPC at Q output
+                // Simpler: shade rectangle from Q=0 to Q=qTax, between price (MPC(q)+t) and MPC(q)
+                // For visual clarity, shade a band
+                ctx.fillStyle = C.taxRevenue;
+                ctx.beginPath();
+                // Bottom edge: MPC from 0 to qTax
+                for (var qq = 0; qq <= qTax; qq += 2) {
+                    var pt = toPixel(qq, mpcP(qq), gw, gh);
+                    if (qq === 0) ctx.moveTo(pt.x, pt.y);
+                    else ctx.lineTo(pt.x, pt.y);
+                }
+                // Top edge: MPC+t from qTax to 0
+                for (var qq2 = qTax; qq2 >= 0; qq2 -= 2) {
+                    var pt2 = toPixel(qq2, mpcP(qq2) + taxRate, gw, gh);
+                    ctx.lineTo(pt2.x, pt2.y);
+                }
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            // Demand curve
+            drawLine(ctx, 0, 10, Q_MAX, demandP(Q_MAX), gw, gh, C.demand, 2.5);
+            drawLabel(ctx, Q_MAX - 2, demandP(Q_MAX), gw, gh, 'D (MB)', C.demand, -50, -5);
+
+            // MPC (original)
+            drawLine(ctx, 0, mpcP(0), Q_MAX, mpcP(Q_MAX), gw, gh, C.mpc, 2);
+            drawLabel(ctx, Q_MAX - 2, mpcP(Q_MAX), gw, gh, 'MPC', C.mpc, -40, 16);
+
+            // MSC (reference, dashed)
+            drawLine(ctx, 0, mscP(0, d), Q_MAX, mscP(Q_MAX, d), gw, gh, C.msc, 1.5, true);
+            drawLabel(ctx, Q_MAX - 2, mscP(Q_MAX, d), gw, gh, 'MSC', C.msc, -40, -5);
+
+            // MPC + tax
+            if (taxRate > 0) {
+                drawLine(ctx, 0, mpcP(0) + taxRate, Q_MAX, mpcP(Q_MAX) + taxRate, gw, gh, C.taxCurve, 2.5);
+                drawLabel(ctx, Q_MAX - 8, mpcP(Q_MAX) + taxRate, gw, gh, 'MPC + t', C.taxCurve, -55, -5);
+            }
+
+            // Current equilibrium with tax
+            if (qTax > 0 && qTax <= Q_MAX) {
+                drawDashedLine(ctx, qTax, pTax, gw, gh);
+                drawDot(ctx, qTax, pTax, gw, gh, C.taxCurve, 6);
+                drawLabel(ctx, qTax, pTax, gw, gh, 'Q = ' + qTax.toFixed(0), C.taxCurve, 6, -8);
+            }
+
+            // Social optimum marker
+            if (qSocial > 0) {
+                var ptSoc = toPixel(qSocial, 0, gw, gh);
+                ctx.strokeStyle = C.msc;
+                ctx.lineWidth = 1;
+                ctx.setLineDash([3, 3]);
+                ctx.beginPath();
+                ctx.moveTo(ptSoc.x, M.top);
+                ctx.lineTo(ptSoc.x, M.top + gh);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                drawLabel(ctx, qSocial, P_MAX - 0.5, gw, gh, 'Q* = ' + qSocial, C.msc, -15, 12);
+            }
+
+            // Info
+            var revenue = taxRate * qTax;
+            var status = '';
+            if (Math.abs(taxRate - d) < 0.01) {
+                status = ' This is the optimal Pigouvian tax \u2014 DWL = \u00A30.';
+            } else if (taxRate < d) {
+                var dwl = 0.5 * (qTax - qSocial) * Math.abs(mscP(qTax, d) - pAtQ(qTax));
+                status = ' The tax is below the optimal rate. Remaining DWL \u2248 \u00A3' + dwl.toFixed(0) + '.';
+            } else if (taxRate > d) {
+                status = ' The tax exceeds marginal damage \u2014 the firm underproduces, creating a new inefficiency.';
+            }
+
+            document.getElementById('taxInfo').innerHTML =
+                'Tax = \u00A3' + taxRate.toFixed(2) + '. Output = ' + qTax.toFixed(0) +
+                '. Price = \u00A3' + pTax.toFixed(2) +
+                '. Tax revenue = \u00A3' + revenue.toFixed(0) + '.' + status;
+        }
+
+        // ---- Redraw all ----
+        function redrawAll() {
+            drawExternalityGraph();
+            drawOptimumGraph();
+            drawPigouvianGraph();
+        }
+
+        // ---- Event listeners ----
+
+        // Graph 1
+        document.getElementById('mdSlider').addEventListener('input', function() {
+            md1 = parseFloat(this.value);
+            document.getElementById('mdDisplay').textContent = '\u00A3' + md1.toFixed(2);
+            drawExternalityGraph();
+        });
+        document.getElementById('extResetBtn').addEventListener('click', function() {
+            md1 = 2;
+            document.getElementById('mdSlider').value = 2;
+            document.getElementById('mdDisplay').textContent = '\u00A32.00';
+            drawExternalityGraph();
+        });
+
+        // Graph 2
+        document.getElementById('optMdSlider').addEventListener('input', function() {
+            md2 = parseFloat(this.value);
+            document.getElementById('optMdDisplay').textContent = '\u00A3' + md2.toFixed(2);
+            drawOptimumGraph();
+        });
+        document.getElementById('optToggleDWL').addEventListener('click', function() {
+            showDWL = !showDWL;
+            this.textContent = showDWL ? 'Hide Deadweight Loss' : 'Show Deadweight Loss';
+            this.setAttribute('data-state', showDWL ? 'on' : 'off');
+            drawOptimumGraph();
+        });
+        document.getElementById('optResetBtn').addEventListener('click', function() {
+            md2 = 2;
+            showDWL = false;
+            document.getElementById('optMdSlider').value = 2;
+            document.getElementById('optMdDisplay').textContent = '\u00A32.00';
+            document.getElementById('optToggleDWL').textContent = 'Show Deadweight Loss';
+            document.getElementById('optToggleDWL').setAttribute('data-state', 'off');
+            drawOptimumGraph();
+        });
+
+        // Graph 3
+        document.getElementById('taxSlider').addEventListener('input', function() {
+            taxRate = parseFloat(this.value);
+            document.getElementById('taxDisplay').textContent = '\u00A3' + taxRate.toFixed(2);
+            drawPigouvianGraph();
+        });
+        document.getElementById('taxOptimalBtn').addEventListener('click', function() {
+            taxRate = 2;
+            document.getElementById('taxSlider').value = 2;
+            document.getElementById('taxDisplay').textContent = '\u00A32.00';
+            drawPigouvianGraph();
+        });
+        document.getElementById('taxResetBtn').addEventListener('click', function() {
+            taxRate = 0;
+            document.getElementById('taxSlider').value = 0;
+            document.getElementById('taxDisplay').textContent = '\u00A30.00';
+            drawPigouvianGraph();
+        });
+
+        // ---- Handle window resize ----
+        var resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(redrawAll, 150);
+        });
+
+        // ---- Initial draw ----
+        redrawAll();
+    })();
+    </script>
+</body>
+</html>
