@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 00: What You Will Build | QGIS for Spatial Analysis</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .chapter-nav a,
+        .chapter-nav span {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .preview-box {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .preview-box h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+        .checkpoint {
+            background: rgba(59, 130, 246, 0.08);
+            border-left: 4px solid var(--color-info);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+        .checkpoint h4 {
+            margin-top: 0;
+            color: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">QGIS for Spatial Analysis</h1>
+            </a>
+            <p class="site-subtitle">Lesson 00: What You Will Build</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#goal">0.1 Final Project Goal</a></li>
+                <li><a href="#data">0.2 The Course Data</a></li>
+                <li><a href="#workflow">0.3 How You Will Learn</a></li>
+                <li><a href="#python">0.4 The Python Sidebar</a></li>
+                <li><a href="#task">Open Task</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="toc" id="toc">
+                <h3>What You Will Learn</h3>
+                <ol>
+                    <li><a href="#goal">The final project you will build</a></li>
+                    <li><a href="#data">The datasets used in the course</a></li>
+                    <li><a href="#workflow">How each lesson is structured</a></li>
+                    <li><a href="#python">How the Python sidebar fits in</a></li>
+                    <li><a href="#task">Your first open-ended task</a></li>
+                </ol>
+            </div>
+
+            <section id="goal">
+                <h2>0.1 &mdash; The Final Project Goal</h2>
+                <p>This course is designed around one cumulative QGIS project rather than a series of disconnected examples. By the end, you will have built a working GIS project based on real data from Padova, combining geocoded firm records with polygon layers such as zoning and territorial boundaries.</p>
+                <p>The aim is not simply to learn where QGIS tools are located, but to understand how those tools fit into a research workflow: importing data, checking that it is usable, mapping it clearly, asking location-based questions, and exporting outputs that can support reports, slides, or a website.</p>
+
+                <div class="preview-box">
+                    <h4>By the end of the course, you should be able to:</h4>
+                    <ul>
+                        <li>set up a clean QGIS project and keep it organised;</li>
+                        <li>load and inspect both tabular and spatial data;</li>
+                        <li>style firm points and polygon layers in a readable way;</li>
+                        <li>filter, join, and analyse data spatially;</li>
+                        <li>create a polished map layout for presentation or publication;</li>
+                        <li>automate selected tasks through the QGIS Python Console.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="data">
+                <h2>0.2 &mdash; The Course Data</h2>
+                <p>The course uses a deliberately small but realistic collection of files so that you can focus on understanding GIS workflows without becoming overwhelmed by too many layers at once.</p>
+                <p>The main materials are:</p>
+                <ul>
+                    <li><strong>Padova firm data</strong> in tabular form, including geocoded records that can be displayed as points on a map;</li>
+                    <li><strong>zoning layers</strong> (Zonizzazione Territoriale Omogenea), used to understand the spatial context of firms &mdash; residential, commercial, industrial, and agricultural zones;</li>
+                    <li><strong>perimeter layers</strong>, used for selections, clipping, and introductory spatial analysis;</li>
+                    <li><strong>supporting style and metadata files</strong>, which help explain how GIS datasets are structured behind the scenes.</li>
+                </ul>
+                <p>These files are suitable for beginners because they allow you to work with both attribute information and spatial geometry from the very beginning.</p>
+            </section>
+
+            <section id="workflow">
+                <h2>0.3 &mdash; How You Will Learn in This Course</h2>
+                <p>Each lesson follows the same teaching structure so that you always know what to expect.</p>
+
+                <h3>Guided replication</h3>
+                <p>You first reproduce the workflow step by step inside QGIS. This is where you learn the interface, the sequence of actions, and the expected result.</p>
+
+                <h3>Checkpoint</h3>
+                <p>At the end of the guided section, you compare your result with the expected outcome before moving on. This prevents small mistakes from accumulating across lessons.</p>
+
+                <h3>Open-ended task</h3>
+                <p>Each lesson then ends with a related challenge. At the beginning of the course, this task may feel very close to the guided replication. Later on, it will ask you to use a different or more powerful tool to achieve a related result.</p>
+
+                <div class="checkpoint">
+                    <h4>Pedagogical idea</h4>
+                    <p>The course begins by giving you confidence through replication. It then gradually shifts towards transfer: using similar methods on slightly different problems, and recognising when a stronger QGIS tool is preferable to a basic one.</p>
+                </div>
+            </section>
+
+            <section id="python">
+                <h2>0.4 &mdash; The Python Sidebar</h2>
+                <p>The main path through the course is fully graphical. You do not need to write code in order to complete the lessons or understand the core GIS workflow.</p>
+                <p>Every lesson includes a Python sidebar that progressively builds your ability to automate GIS tasks using the QGIS Python Console. If you follow the sidebar from the beginning, you will have a working scripted workflow by the end of the course. If you prefer to skip it entirely, the GUI path is self-contained.</p>
+                <p>For the Python sections, you should already feel comfortable with:</p>
+                <ul>
+                    <li>variables, lists, dictionaries, and functions;</li>
+                    <li><code>for</code> loops and <code>if</code> statements;</li>
+                    <li>imports and simple debugging;</li>
+                    <li>basic file paths and folder structures.</li>
+                </ul>
+            </section>
+
+            <section id="task">
+                <h2>Open Task</h2>
+                <div class="exercise">
+                    <h4>Your first challenge</h4>
+                    <p>Before Lesson 01, write a short note for yourself answering these two questions:</p>
+                    <ol>
+                        <li>What would you like to be able to do with QGIS by the end of this course?</li>
+                        <li>Which part feels most unfamiliar right now: spatial data, map design, coordinate systems, or analysis?</li>
+                    </ol>
+                    <p>This small reflection will give you a personal baseline. When you complete the course, you can compare your final skills with the uncertainty you started from.</p>
+                </div>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="../index.html">&larr; Back to Course Index</a>
+                <span>Next: Lesson 01 &mdash; Installing QGIS and Setting Up a Project Properly (coming soon)</span>
+            </div>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>

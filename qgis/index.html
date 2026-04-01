@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QGIS for Spatial Analysis | Beginner Course</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .resource-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0 2rem;
+            padding: 1rem 1.25rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .resource-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .resource-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.45rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .resource-actions a:hover {
+            background: var(--color-primary-dark);
+        }
+        .course-note {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.25rem;
+            margin: 1.25rem 0;
+        }
+        .course-note h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary-dark);
+            font-size: var(--font-size-base);
+        }
+        .course-note p,
+        .course-note ul {
+            margin-bottom: 0;
+        }
+        .course-note ul {
+            padding-left: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <h1 class="site-title">QGIS for Spatial Analysis</h1>
+            <p class="site-subtitle">A practical beginner's course in mapping, spatial analysis, and GIS workflow</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Main Site</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#lessons">Lessons</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <section id="about" class="intro-section">
+                <h2>About This Course</h2>
+                <p>This course teaches QGIS from the ground up by building one cumulative project with real Padova data &mdash; geocoded firm records, zoning polygons, and territorial boundaries. Each lesson adds a new part to the same working file, so you see how project setup, data loading, styling, spatial operations, and export fit together within a coherent workflow.</p>
+                <p>No prior knowledge of GIS is required. The course can be completed entirely through the QGIS graphical interface; an optional Python sidebar in each lesson offers a scripting route for learners who already know basic programming.</p>
+
+                <div class="resource-actions">
+                    <span>Before you start:</span>
+                    <a href="https://qgis.org/en/site/forusers/download.html" target="_blank" rel="noopener noreferrer">Download QGIS</a>
+                    <a href="downloads/padova-gis-course-data.zip" download>Download Course Files</a>
+                </div>
+
+                <h3>What You Will Build</h3>
+                <p>By the end of the course, you will be able to:</p>
+                <ol class="teaching-approach">
+                    <li><strong>Create and organise a QGIS project properly</strong>, with a clear folder structure, reusable styles, and sensible project settings.</li>
+                    <li><strong>Load and inspect tabular and spatial data</strong>, including geocoded firm records and polygon layers such as zoning and administrative perimeters.</li>
+                    <li><strong>Style layers clearly and produce readable maps</strong> that communicate a spatial question rather than merely display data.</li>
+                    <li><strong>Perform basic and intermediate spatial analysis</strong>, using filters, joins, location-based selections, overlays, and other core tools.</li>
+                    <li><strong>Export polished outputs</strong> for reports, presentations, or websites.</li>
+                    <li><strong>Automate selected workflows</strong> through the QGIS Python Console.</li>
+                </ol>
+
+                <h3>How This Course Works</h3>
+                <p>Each lesson combines four elements:</p>
+                <ol class="teaching-approach">
+                    <li><strong>Guided replication:</strong> you reproduce the workflow step by step inside QGIS, building confidence with the software and learning where the main tools are.</li>
+                    <li><strong>Checkpoint:</strong> at the end of the guided section, you verify that your project matches the expected result before moving on.</li>
+                    <li><strong>Open-ended task:</strong> each lesson ends with a related but slightly different challenge. Early tasks closely reinforce the guided work; later tasks ask you to solve a similar problem using a stronger or more flexible QGIS tool.</li>
+                    <li><strong>Python sidebar:</strong> every lesson includes a scripting component that progressively builds your ability to automate GIS tasks. These sections are optional but cumulative &mdash; if you follow them, you will have a working Python-based workflow by the end of the course.</li>
+                </ol>
+
+                <h3>Course Structure</h3>
+                <p>The course is organised in four progressive blocks:</p>
+                <ol class="teaching-approach">
+                    <li><strong>Foundations:</strong> installing QGIS, understanding the interface, setting up projects correctly, and learning how GIS data is structured.</li>
+                    <li><strong>Working with Layers and Attributes:</strong> loading spatial and tabular data, checking coordinate systems, styling maps, filtering features, and joining information across layers.</li>
+                    <li><strong>Spatial Analysis:</strong> using location-based tools such as selection by location, clipping, buffering, and overlays to answer real analytical questions.</li>
+                    <li><strong>Outputs and Automation:</strong> creating polished map layouts, exporting results, and automating repeated tasks through the QGIS Python Console.</li>
+                </ol>
+
+                <div class="course-note">
+                    <h4>Two paths through the course</h4>
+                    <p>The GUI path is self-contained: you can complete every lesson without writing a single line of code. The Python sidebar runs in parallel, building scripting skills lesson by lesson. You can follow either path independently, or both together.</p>
+                </div>
+            </section>
+
+            <section id="lessons" class="chapters-section">
+                <h2>Lesson Index</h2>
+                <p class="chapters-intro">Select a lesson below to begin. New lessons are added progressively as the course develops.</p>
+
+                <div class="chapters-grid">
+                    <div class="chapter-card active">
+                        <h3>Lesson 00</h3>
+                        <p class="chapter-title">What You Will Build</p>
+                        <a href="chapters/ch00-what-you-will-build.html" class="chapter-link">Start Lesson &rarr;</a>
+                    </div>
+
+                    <div class="chapter-card">
+                        <h3>Lesson 01</h3>
+                        <p class="chapter-title">Installing QGIS and Setting Up a Project Properly</p>
+                        <span class="coming-soon">Coming soon</span>
+                    </div>
+
+                    <div class="chapter-card">
+                        <h3>Lesson 02</h3>
+                        <p class="chapter-title">Understanding the Course Data</p>
+                        <span class="coming-soon">Coming soon</span>
+                    </div>
+
+                    <div class="chapter-card">
+                        <h3>Lesson 03</h3>
+                        <p class="chapter-title">Loading Layers and Checking Spatial Alignment</p>
+                        <span class="coming-soon">Coming soon</span>
+                    </div>
+
+                    <div class="chapter-card">
+                        <h3>Lesson 04</h3>
+                        <p class="chapter-title">Styling Layers and Making Readable Maps</p>
+                        <span class="coming-soon">Coming soon</span>
+                    </div>
+
+                    <div class="chapter-card">
+                        <h3>Lesson 05</h3>
+                        <p class="chapter-title">Attribute Tables, Filters, and Selections</p>
+                        <span class="coming-soon">Coming soon</span>
+                    </div>
+
+                    <div class="chapter-card">
+                        <h3>Lesson 06</h3>
+                        <p class="chapter-title">Joining Data and Building Richer Layers</p>
+                        <span class="coming-soon">Coming soon</span>
+                    </div>
+
+                    <div class="chapter-card">
+                        <h3>Lesson 07</h3>
+                        <p class="chapter-title">Core Spatial Analysis Tools</p>
+                        <span class="coming-soon">Coming soon</span>
+                    </div>
+
+                    <div class="chapter-card">
+                        <h3>Lesson 08</h3>
+                        <p class="chapter-title">Putting It Together: A Padova Synthesis Exercise</p>
+                        <span class="coming-soon">Coming soon</span>
+                    </div>
+
+                    <div class="chapter-card">
+                        <h3>Lesson 09</h3>
+                        <p class="chapter-title">Creating Map Layouts and Exporting Results</p>
+                        <span class="coming-soon">Coming soon</span>
+                    </div>
+
+                    <div class="chapter-card">
+                        <h3>Lesson 10</h3>
+                        <p class="chapter-title">Optional: Automating QGIS with Python</p>
+                        <span class="coming-soon">Coming soon</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>
