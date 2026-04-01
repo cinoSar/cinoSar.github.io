@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1: Competitive Markets Review | Environmental Economics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 150px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover {
+            background: var(--color-primary-dark);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover {
+            color: var(--color-primary-dark);
+        }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Environmental Economics</h1>
+            </a>
+            <p class="site-subtitle">Chapter 1: Competitive Markets Review</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 1</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#price-takers">1.1 Price-Taking Firms</a></li>
+                <li><a href="#equilibrium">1.2 Market Equilibrium</a></li>
+                <li><a href="#surplus">1.3 Consumer &amp; Producer Surplus</a></li>
+                <li><a href="#efficiency">1.4 Market Efficiency</a></li>
+                <li><a href="#preview">1.5 When Markets Fail</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: What Does an Efficient Market Look Like?</h2>
+                <p>Before we can understand why markets fail in the presence of pollution, we need to understand what success looks like. A <strong>competitive market</strong> &mdash; one with many small buyers and sellers, a homogeneous product, and free entry &mdash; has a remarkable property: it allocates resources efficiently, without anyone planning or coordinating the outcome.</p>
+
+                <p>This chapter reviews the mechanics of competitive equilibrium and, crucially, introduces the concept of <strong>surplus</strong> as a measure of welfare. Surplus is the yardstick we shall use throughout this course to evaluate whether a market is performing well or poorly, and to measure the cost of environmental externalities.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Why Start Here?</h4>
+                    <p>Environmental economics is fundamentally about market failure. But &ldquo;failure&rdquo; only makes sense relative to a benchmark. The competitive equilibrium is that benchmark &mdash; the outcome markets achieve when nothing goes wrong. Understanding it first is essential.</p>
+                </div>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#price-takers">Price-Taking Firms</a> &mdash; why individual producers cannot influence the market price</li>
+                    <li><a href="#equilibrium">Market Equilibrium</a> &mdash; where supply meets demand and the market clears</li>
+                    <li><a href="#surplus">Consumer &amp; Producer Surplus</a> &mdash; measuring who gains from trade, and by how much</li>
+                    <li><a href="#efficiency">Market Efficiency</a> &mdash; why the competitive equilibrium maximises total surplus</li>
+                    <li><a href="#preview">When Markets Fail</a> &mdash; a preview of why externalities break this result</li>
+                </ol>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- 1.1 PRICE-TAKING FIRMS                        -->
+            <!-- ============================================ -->
+            <section id="price-takers" class="lesson-section section-intuition">
+                <h2>1.1 Price-Taking Firms</h2>
+
+                <h3>Intuition: Why Can&rsquo;t a Firm Set Its Own Price?</h3>
+                <p>Imagine you are one of thousands of wheat farmers. Your wheat is identical to everyone else&rsquo;s. If you try to charge even slightly more than the going market price, buyers will simply purchase from your competitors. If you charge less, you sell everything instantly but leave money on the table. The only rational strategy is to accept the market price as given.</p>
+
+                <p>This is what economists mean by a <strong>price taker</strong>: an agent so small relative to the market that its decisions have no perceptible effect on the price. In a competitive market, every firm and every consumer is a price taker.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Price Taker</h4>
+                    <p>A firm (or consumer) that has no ability to influence the market price of a good. This occurs when the market is fragmented among many operators, none of whom controls a significant share. Each agent treats the price as an exogenous parameter.</p>
+                </div>
+
+                <h3>The Firm&rsquo;s Decision Rule</h3>
+                <p>A price-taking firm maximises profit by choosing the output level at which the market price equals its <strong>marginal cost</strong> &mdash; the cost of producing one additional unit. If price exceeds marginal cost, the firm can earn more profit by expanding output. If marginal cost exceeds price, the firm is losing money on the last unit and should cut back.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Profit Maximisation</h4>
+                    <p>A competitive firm maximises profit by producing the quantity \(q\) at which:</p>
+                    <p>\[ P = MC(q) \]</p>
+                    <p>This condition says: keep producing as long as the revenue from the next unit (\(P\)) covers its cost (\(MC\)). The firm&rsquo;s supply curve is, therefore, its marginal cost curve (above average variable cost).</p>
+                </div>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>The firm&rsquo;s profit function is:</p>
+                \[ \pi(q) = P \cdot q - C(q) \]
+                <p>Taking the first-order condition:</p>
+                \[ \frac{d\pi}{dq} = P - MC(q) = 0 \implies P = MC(q) \]
+
+                <p>This individual decision rule, aggregated across all firms in the market, produces the <strong>market supply curve</strong>: the relationship between price and the total quantity all firms are willing to sell.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 1.2 MARKET EQUILIBRIUM                        -->
+            <!-- ============================================ -->
+            <section id="equilibrium" class="lesson-section section-geometric">
+                <h2>1.2 Market Equilibrium</h2>
+
+                <h3>Intuition: Where Do Buyers and Sellers Agree?</h3>
+                <p>A market is in equilibrium when the quantity consumers wish to buy at the prevailing price exactly equals the quantity producers wish to sell. At any other price, there is either a shortage (excess demand, driving the price up) or a surplus (excess supply, driving the price down). The equilibrium is the only price at which no one has an incentive to change behaviour.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Market Equilibrium</h4>
+                    <p>A situation in which the quantity demanded equals the quantity supplied. The <strong>equilibrium price</strong> \(P^*\) clears the market: every unit produced finds a buyer, and every buyer finds a unit. No participant has reason to alter their decision.</p>
+                </div>
+
+                <h3>Geometric Solution: Supply Meets Demand</h3>
+
+                <div class="interactive-graph" id="eq-graph-container">
+                    <canvas id="eqCanvas" width="600" height="420"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Price: <span class="value-display" id="eqPriceDisplay">&pound;5.00</span>
+                            <input type="range" id="eqPriceSlider" min="0.5" max="9.5" step="0.25" value="5">
+                        </label>
+                        <button id="eqResetBtn">Reset to Equilibrium</button>
+                    </div>
+                    <div class="graph-info" id="eqInfo">
+                        At the equilibrium price of &pound;5.00, Q<sub>d</sub> = Q<sub>s</sub> = 5. The market clears with no excess demand or supply.
+                    </div>
+                    <p class="graph-caption">Figure 1.1 &mdash; Market Equilibrium. Move the price away from &pound;5.00 to see excess demand or supply emerge.</p>
+                </div>
+
+                <p>Drag the price slider below &pound;5.00 and a shortage appears: consumers want more than firms supply. Drag it above &pound;5.00 and a surplus emerges. Only at the equilibrium does the gap vanish.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>Consider a market with the following linear supply and demand curves:</p>
+
+                <p>Inverse supply (also the marginal cost curve): \(P^S = Q\)</p>
+                <p>Inverse demand (also the marginal benefit curve): \(P^D = 10 - Q\)</p>
+
+                <p>Setting supply equal to demand:</p>
+                \[ Q = 10 - Q \implies 2Q = 10 \implies Q^* = 5 \]
+                <p>Substituting back: \(P^* = 5\).</p>
+
+                <p>The equilibrium is at \((Q^*, P^*) = (5, \; 5)\). This is the point where the two curves cross in Figure 1.1.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 1.3 CONSUMER & PRODUCER SURPLUS               -->
+            <!-- ============================================ -->
+            <section id="surplus" class="lesson-section section-geometric">
+                <h2>1.3 Consumer and Producer Surplus</h2>
+
+                <h3>Intuition: Who Gains from Trade, and by How Much?</h3>
+                <p>When a market operates, both buyers and sellers typically gain. The buyer of the first unit would have been willing to pay nearly &pound;10 (the intercept of the demand curve), but only pays &pound;5. That difference &mdash; what the buyer was willing to pay minus what they actually paid &mdash; is the <strong>consumer surplus</strong> on that unit. Summed over all units, consumer surplus is the total &ldquo;bonus&rdquo; that buyers enjoy from participating in the market.</p>
+
+                <p>Similarly, the seller of the first unit could have sold it profitably at any price above nearly &pound;0 (the intercept of the supply curve), but receives &pound;5. The gap between the price received and the minimum the seller would have accepted is the <strong>producer surplus</strong>.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Consumer Surplus (CS)</h4>
+                    <p>The area below the demand curve and above the equilibrium price, from \(Q = 0\) to \(Q^*\). It measures the total net benefit to consumers from purchasing the good at the market price.</p>
+                </div>
+
+                <div class="callout callout-definition">
+                    <h4>Producer Surplus (PS)</h4>
+                    <p>The area above the supply curve and below the equilibrium price, from \(Q = 0\) to \(Q^*\). It measures the total net benefit to producers from selling the good at the market price.</p>
+                </div>
+
+                <h3>Geometric Solution: The Surplus Triangles</h3>
+
+                <div class="interactive-graph" id="surplus-graph-container">
+                    <canvas id="surplusCanvas" width="600" height="420"></canvas>
+                    <div class="graph-controls">
+                        <button id="surplusToggleCS" data-state="off">Show Consumer Surplus</button>
+                        <button id="surplusTogglePS" data-state="off">Show Producer Surplus</button>
+                        <button id="surplusToggleBoth" data-state="off">Show Total Surplus</button>
+                        <button id="surplusResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="surplusInfo">
+                        At equilibrium (Q* = 5, P* = &pound;5): Consumer Surplus = &pound;12.50, Producer Surplus = &pound;12.50. Total Surplus = &pound;25.00. Click the buttons to highlight each area.
+                    </div>
+                    <p class="graph-caption">Figure 1.2 &mdash; Consumer and Producer Surplus. Toggle the buttons to see the welfare areas.</p>
+                </div>
+
+                <p>The demand curve tells us consumers&rsquo; willingness to pay; the supply curve tells us firms&rsquo; minimum acceptable price. The triangular areas between these curves and the equilibrium price represent the surplus each side captures.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>With our linear functions, both surplus areas are triangles:</p>
+
+                \[ CS = \frac{1}{2} \times Q^* \times (P_{\max}^D - P^*) = \frac{1}{2} \times 5 \times (10 - 5) = 12.50 \]
+
+                \[ PS = \frac{1}{2} \times Q^* \times (P^* - P_{\min}^S) = \frac{1}{2} \times 5 \times (5 - 0) = 12.50 \]
+
+                \[ \text{Total Surplus (TS)} = CS + PS = 25.00 \]
+
+                <p>Total surplus measures the <strong>aggregate welfare</strong> generated by the market &mdash; the combined net benefit to all participants. This is the number we shall track throughout the course to evaluate whether a policy makes society better or worse off.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 1.4 MARKET EFFICIENCY                         -->
+            <!-- ============================================ -->
+            <section id="efficiency" class="lesson-section section-mathematical">
+                <h2>1.4 Market Efficiency</h2>
+
+                <h3>Intuition: Is the Competitive Outcome the Best Possible?</h3>
+                <p>The competitive equilibrium has a striking property: it maximises total surplus. No other output level generates more combined benefit for buyers and sellers.</p>
+
+                <p>To see why, consider producing one more unit beyond \(Q^* = 5\). At \(Q = 6\), the demand price (what consumers would pay) is \(10 - 6 = 4\), but the supply price (what it costs to produce) is \(6\). The cost exceeds the benefit by &pound;2. Producing that unit destroys value. Conversely, producing one unit fewer than \(Q^*\) means forgoing a unit whose benefit (&pound;5.50) exceeds its cost (&pound;4.50) &mdash; a missed opportunity.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The First Welfare Theorem (Informal)</h4>
+                    <p>A competitive market equilibrium, under certain conditions, maximises total surplus. The key conditions include: no externalities, no market power, no public goods, complete information, and no transaction costs. When any of these conditions fails, the equilibrium may no longer be efficient.</p>
+                </div>
+
+                <h3>Geometric Solution: Varying Output</h3>
+
+                <div class="interactive-graph" id="efficiency-graph-container">
+                    <canvas id="efficiencyCanvas" width="600" height="420"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Output level: <span class="value-display" id="effQDisplay">5</span>
+                            <input type="range" id="effQSlider" min="1" max="9" step="0.5" value="5">
+                        </label>
+                        <button id="effResetBtn">Reset to Q*</button>
+                    </div>
+                    <div class="graph-info" id="effInfo">
+                        At Q = 5 (the competitive equilibrium), total surplus is maximised at &pound;25.00. Drag the output slider to see how moving away from Q* reduces welfare.
+                    </div>
+                    <p class="graph-caption">Figure 1.3 &mdash; Efficiency of the competitive equilibrium. Move the output slider to see how deviating from Q* creates deadweight loss.</p>
+                </div>
+
+                <p>As you drag the output away from 5 in either direction, a red triangle appears &mdash; the <strong>deadweight loss</strong>. This is the surplus that is destroyed when output differs from the efficient level. At the competitive equilibrium, the deadweight loss is zero: every unit whose benefit exceeds its cost is produced, and no unit whose cost exceeds its benefit is produced.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>Total surplus as a function of output \(Q\) is:</p>
+                \[ TS(Q) = \int_0^{Q} \big[\underbrace{(10 - q)}_{\text{MB}} - \underbrace{q}_{\text{MC}}\big]\, dq = \int_0^{Q} (10 - 2q)\, dq = 10Q - Q^2 \]
+
+                <p>This is a downward-opening parabola maximised at:</p>
+                \[ \frac{dTS}{dQ} = 10 - 2Q = 0 \implies Q^* = 5 \]
+
+                <p>With \(TS(5) = 10(5) - 25 = 25\). Any other output level yields less. For example, \(TS(7) = 70 - 49 = 21\), a loss of &pound;4 relative to the optimum. This lost surplus is precisely the area of the deadweight loss triangle you see on the graph when you drag the slider to \(Q = 7\).</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 1.5 WHEN MARKETS FAIL                         -->
+            <!-- ============================================ -->
+            <section id="preview" class="lesson-section section-problem">
+                <h2>1.5 When Markets Fail: A Preview</h2>
+
+                <h3>The Conditions That Must Hold</h3>
+                <p>The efficiency result above depends on a critical assumption: that the supply curve reflects the <strong>full</strong> cost of production. In a competitive market without externalities, the firm&rsquo;s marginal cost captures everything. But what if production generates pollution that harms third parties?</p>
+
+                <p>In that case, the true cost to society is higher than what the firm pays. The supply curve understates the social cost, and the market produces too much. The equilibrium is no longer efficient: total surplus (properly measured to include the damage from pollution) could be increased by reducing output.</p>
+
+                <div class="callout callout-example">
+                    <h4>Preview: The Externality Problem</h4>
+                    <p>Suppose each unit of output in our market generates &pound;2 of environmental damage that the firm does not pay for. The firm still produces at \(Q = 5\), but the socially optimal output &mdash; accounting for the damage &mdash; is lower. The gap between the two is the source of market failure that we analyse in Chapter 3.</p>
+                </div>
+
+                <p>The remainder of this course is devoted to understanding these market failures and the policy instruments available to correct them. In Chapter 2, we examine public goods and free-riding. In Chapter 3, we tackle externalities directly, measuring the welfare loss and introducing the Pigouvian tax as a corrective mechanism.</p>
+
+                <p>The surplus framework you have learnt in this chapter &mdash; consumer surplus, producer surplus, deadweight loss &mdash; will be the language we use to evaluate every policy proposal that follows.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>This chapter established the competitive market as the benchmark for efficiency.</p>
+
+                <p>In a competitive market, firms are <strong>price takers</strong> who maximise profit by producing where price equals marginal cost. The <strong>market equilibrium</strong> occurs where supply meets demand, and no participant has reason to change behaviour. At this equilibrium, <strong>consumer surplus</strong> (the area below demand and above price) and <strong>producer surplus</strong> (the area above supply and below price) are both maximised, and their sum &mdash; <strong>total surplus</strong> &mdash; measures the aggregate welfare generated by the market.</p>
+
+                <p>The competitive equilibrium maximises total surplus under certain conditions: no externalities, no market power, complete information, and no public goods. When these conditions fail &mdash; as they do in the presence of pollution &mdash; the equilibrium is no longer efficient. Measuring the resulting welfare loss, and designing policies to correct it, is the subject of the chapters that follow.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="../index.html">&larr; Home</a>
+                <span style="color: var(--color-text-lighter);">Chapter 2: Public Goods and Free-Riding &mdash; Coming Soon &rarr;</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        // ---- Theme-aware colour palette ----
+        const LIGHT_COLORS = {
+            supply: '#ef4444',
+            demand: '#3b82f6',
+            equilibrium: '#0a9396',
+            cs: 'rgba(59, 130, 246, 0.2)',
+            csStroke: 'rgba(59, 130, 246, 0.6)',
+            ps: 'rgba(239, 68, 68, 0.2)',
+            psStroke: 'rgba(239, 68, 68, 0.6)',
+            ts: 'rgba(16, 185, 129, 0.2)',
+            tsStroke: 'rgba(16, 185, 129, 0.6)',
+            dwl: 'rgba(239, 68, 68, 0.25)',
+            dwlStroke: 'rgba(239, 68, 68, 0.7)',
+            surplus: 'rgba(16, 185, 129, 0.2)',
+            surplusStroke: 'rgba(16, 185, 129, 0.6)',
+            grid: '#e5e5e5',
+            axis: '#1a1a1a',
+            text: '#555555',
+            textBold: '#1a1a1a',
+            canvasBg: '#ffffff',
+            dashed: '#999999',
+            excess: 'rgba(239, 68, 68, 0.12)',
+            shortage: 'rgba(59, 130, 246, 0.12)',
+            priceLine: '#f59e0b'
+        };
+
+        const DARK_COLORS = {
+            supply: '#f87171',
+            demand: '#60a5fa',
+            equilibrium: '#2ec4c8',
+            cs: 'rgba(96, 165, 250, 0.25)',
+            csStroke: 'rgba(96, 165, 250, 0.7)',
+            ps: 'rgba(248, 113, 113, 0.25)',
+            psStroke: 'rgba(248, 113, 113, 0.7)',
+            ts: 'rgba(52, 211, 153, 0.25)',
+            tsStroke: 'rgba(52, 211, 153, 0.7)',
+            dwl: 'rgba(248, 113, 113, 0.3)',
+            dwlStroke: 'rgba(248, 113, 113, 0.8)',
+            surplus: 'rgba(52, 211, 153, 0.25)',
+            surplusStroke: 'rgba(52, 211, 153, 0.7)',
+            grid: '#4a4a4a',
+            axis: '#d0d0d0',
+            text: '#c0c0c0',
+            textBold: '#e0e0e0',
+            canvasBg: '#2d2d2d',
+            dashed: '#888888',
+            excess: 'rgba(248, 113, 113, 0.15)',
+            shortage: 'rgba(96, 165, 250, 0.15)',
+            priceLine: '#fbbf24'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK_COLORS : LIGHT_COLORS;
+        darkMQ.addEventListener('change', function(e) {
+            C = e.matches ? DARK_COLORS : LIGHT_COLORS;
+            redrawAll();
+        });
+
+        // ---- Canvas helpers ----
+        var M = { top: 30, right: 40, bottom: 55, left: 65 };
+        var Q_MAX = 12;
+        var P_MAX = 12;
+
+        function getCtx(canvasId) {
+            var canvas = document.getElementById(canvasId);
+            var dpr = window.devicePixelRatio || 1;
+            var rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            var ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            return { ctx: ctx, w: rect.width, h: rect.height };
+        }
+
+        function toPixel(q, p, gw, gh) {
+            return {
+                x: M.left + (q / Q_MAX) * gw,
+                y: M.top + (1 - p / P_MAX) * gh
+            };
+        }
+
+        function drawAxes(ctx, w, h, gw, gh) {
+            ctx.fillStyle = C.canvasBg;
+            ctx.fillRect(0, 0, w, h);
+            ctx.strokeStyle = C.grid;
+            ctx.lineWidth = 0.5;
+            for (var p = 0; p <= P_MAX; p += 2) {
+                var pt = toPixel(0, p, gw, gh);
+                ctx.beginPath(); ctx.moveTo(M.left, pt.y); ctx.lineTo(M.left + gw, pt.y); ctx.stroke();
+            }
+            for (var q = 0; q <= Q_MAX; q += 2) {
+                var pt2 = toPixel(q, 0, gw, gh);
+                ctx.beginPath(); ctx.moveTo(pt2.x, M.top); ctx.lineTo(pt2.x, M.top + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(M.left, M.top); ctx.lineTo(M.left, M.top + gh); ctx.lineTo(M.left + gw, M.top + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '13px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            for (var q = 0; q <= Q_MAX; q += 2) { var pt3 = toPixel(q, 0, gw, gh); ctx.fillText(q, pt3.x, M.top + gh + 18); }
+            ctx.textAlign = 'right';
+            for (var p = 0; p <= P_MAX; p += 2) { var pt4 = toPixel(0, p, gw, gh); ctx.fillText(p, M.left - 8, pt4.y + 4); }
+            ctx.fillStyle = C.textBold; ctx.font = '600 13px -apple-system, BlinkMacSystemFont, sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText('Quantity (Q)', M.left + gw / 2, M.top + gh + 42);
+            ctx.save(); ctx.translate(16, M.top + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText('Price (\u00A3)', 0, 0); ctx.restore();
+        }
+
+        function drawLine(ctx, q1, p1, q2, p2, gw, gh, color, width, dashed) {
+            var a = toPixel(q1, p1, gw, gh);
+            var b = toPixel(q2, p2, gw, gh);
+            ctx.strokeStyle = color; ctx.lineWidth = width || 2;
+            if (dashed) ctx.setLineDash([6, 4]);
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawDot(ctx, q, p, gw, gh, color, radius) {
+            var pt = toPixel(q, p, gw, gh);
+            ctx.fillStyle = color; ctx.beginPath(); ctx.arc(pt.x, pt.y, radius || 5, 0, Math.PI * 2); ctx.fill();
+        }
+
+        function drawLabel(ctx, q, p, gw, gh, text, color, ox, oy) {
+            var pt = toPixel(q, p, gw, gh);
+            ctx.fillStyle = color || C.textBold;
+            ctx.font = '600 12px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText(text, pt.x + (ox || 5), pt.y + (oy || -8));
+        }
+
+        function drawTriangle(ctx, q1, p1, q2, p2, q3, p3, gw, gh, fill, stroke) {
+            var a = toPixel(q1, p1, gw, gh);
+            var b = toPixel(q2, p2, gw, gh);
+            var c = toPixel(q3, p3, gw, gh);
+            ctx.fillStyle = fill; ctx.strokeStyle = stroke; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.lineTo(c.x, c.y); ctx.closePath();
+            ctx.fill(); ctx.stroke();
+        }
+
+        // ---- Economic model ----
+        // Supply: P = Q  => at Q, P = Q
+        // Demand: P = 10 - Q  => at Q, P = 10 - Q
+        // Equilibrium: Q* = 5, P* = 5
+        function supplyP(q) { return q; }
+        function demandP(q) { return 10 - q; }
+
+        // ============================================
+        // GRAPH 1: Market Equilibrium
+        // ============================================
+        var eqPrice = 5;
+
+        function drawEqGraph() {
+            var r = getCtx('eqCanvas');
+            var ctx = r.ctx, w = r.w, h = r.h;
+            var gw = w - M.left - M.right;
+            var gh = h - M.top - M.bottom;
+            drawAxes(ctx, w, h, gw, gh);
+
+            // At a given price, Qd = 10-P, Qs = P
+            var qd = Math.max(0, 10 - eqPrice);
+            var qs = Math.max(0, eqPrice);
+
+            // Shade excess
+            if (eqPrice < 5 && qd > qs) {
+                // Shortage: shade between qs and qd at price level
+                var pLeft = toPixel(qs, eqPrice, gw, gh);
+                var pRight = toPixel(qd, eqPrice, gw, gh);
+                ctx.fillStyle = C.shortage;
+                ctx.fillRect(pLeft.x, pLeft.y - 12, pRight.x - pLeft.x, 24);
+            } else if (eqPrice > 5 && qs > qd) {
+                // Surplus
+                var pLeft = toPixel(qd, eqPrice, gw, gh);
+                var pRight = toPixel(qs, eqPrice, gw, gh);
+                ctx.fillStyle = C.excess;
+                ctx.fillRect(pLeft.x, pLeft.y - 12, pRight.x - pLeft.x, 24);
+            }
+
+            // Supply line: from (0,0) to (10,10)
+            drawLine(ctx, 0, 0, 10, 10, gw, gh, C.supply, 2.5);
+            drawLabel(ctx, 10, 10, gw, gh, 'S (MC)', C.supply, -55, -5);
+
+            // Demand line: from (0,10) to (10,0)
+            drawLine(ctx, 0, 10, 10, 0, gw, gh, C.demand, 2.5);
+            drawLabel(ctx, 10, 0, gw, gh, 'D (MB)', C.demand, -55, 16);
+
+            // Price line
+            var pLineLeft = toPixel(0, eqPrice, gw, gh);
+            var pLineRight = toPixel(Q_MAX, eqPrice, gw, gh);
+            ctx.strokeStyle = C.priceLine; ctx.lineWidth = 1.5; ctx.setLineDash([5, 3]);
+            ctx.beginPath(); ctx.moveTo(pLineLeft.x, pLineLeft.y); ctx.lineTo(pLineRight.x, pLineRight.y); ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Equilibrium dot
+            drawDot(ctx, 5, 5, gw, gh, C.equilibrium, 7);
+            drawLabel(ctx, 5, 5, gw, gh, 'E* (5, \u00A35)', C.equilibrium, 6, -10);
+
+            // Qd and Qs markers
+            if (Math.abs(eqPrice - 5) > 0.3) {
+                drawDot(ctx, qd, eqPrice, gw, gh, C.demand, 5);
+                drawDot(ctx, qs, eqPrice, gw, gh, C.supply, 5);
+                drawLabel(ctx, qd, eqPrice, gw, gh, 'Q\u1D48=' + qd.toFixed(1), C.demand, 5, -8);
+                drawLabel(ctx, qs, eqPrice, gw, gh, 'Q\u02E2=' + qs.toFixed(1), C.supply, -55, -8);
+            }
+
+            // Info
+            if (Math.abs(eqPrice - 5) < 0.3) {
+                document.getElementById('eqInfo').innerHTML = 'At the equilibrium price of \u00A35.00, Q<sub>d</sub> = Q<sub>s</sub> = 5. The market clears with no excess demand or supply.';
+            } else if (eqPrice < 5) {
+                var shortage = (qd - qs).toFixed(1);
+                document.getElementById('eqInfo').innerHTML = 'At P = \u00A3' + eqPrice.toFixed(2) + ': Q<sub>d</sub> = ' + qd.toFixed(1) + ', Q<sub>s</sub> = ' + qs.toFixed(1) + '. <strong>Shortage</strong> of ' + shortage + ' units \u2014 consumers want more than firms supply. Price tends to rise.';
+            } else {
+                var surplus = (qs - qd).toFixed(1);
+                document.getElementById('eqInfo').innerHTML = 'At P = \u00A3' + eqPrice.toFixed(2) + ': Q<sub>d</sub> = ' + qd.toFixed(1) + ', Q<sub>s</sub> = ' + qs.toFixed(1) + '. <strong>Surplus</strong> of ' + surplus + ' units \u2014 firms produce more than consumers want. Price tends to fall.';
+            }
+        }
+
+        // ============================================
+        // GRAPH 2: Consumer & Producer Surplus
+        // ============================================
+        var showCS = false, showPS = false, showBoth = false;
+
+        function drawSurplusGraph() {
+            var r = getCtx('surplusCanvas');
+            var ctx = r.ctx, w = r.w, h = r.h;
+            var gw = w - M.left - M.right;
+            var gh = h - M.top - M.bottom;
+            drawAxes(ctx, w, h, gw, gh);
+
+            // CS: triangle (0,10) -> (0,5) -> (5,5)
+            if (showCS || showBoth) {
+                drawTriangle(ctx, 0, 10, 0, 5, 5, 5, gw, gh, showBoth ? C.ts : C.cs, showBoth ? C.tsStroke : C.csStroke);
+                if (!showBoth) drawLabel(ctx, 1.2, 7.5, gw, gh, 'CS = \u00A312.50', C.demand, 0, 4);
+            }
+
+            // PS: triangle (0,0) -> (0,5) -> (5,5)
+            if (showPS || showBoth) {
+                drawTriangle(ctx, 0, 0, 0, 5, 5, 5, gw, gh, showBoth ? C.ts : C.ps, showBoth ? C.tsStroke : C.psStroke);
+                if (!showBoth) drawLabel(ctx, 1.2, 2.5, gw, gh, 'PS = \u00A312.50', C.supply, 0, 4);
+            }
+
+            if (showBoth) {
+                drawLabel(ctx, 1.2, 5.5, gw, gh, 'TS = \u00A325.00', C.equilibrium, 0, 4);
+            }
+
+            // Supply and demand lines
+            drawLine(ctx, 0, 0, 10, 10, gw, gh, C.supply, 2.5);
+            drawLabel(ctx, 10, 10, gw, gh, 'S (MC)', C.supply, -55, -5);
+            drawLine(ctx, 0, 10, 10, 0, gw, gh, C.demand, 2.5);
+            drawLabel(ctx, 10, 0, gw, gh, 'D (MB)', C.demand, -55, 16);
+
+            // Equilibrium
+            // Dashed lines to axes
+            var pt = toPixel(5, 5, gw, gh);
+            ctx.strokeStyle = C.dashed; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(M.left, pt.y); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(pt.x, pt.y); ctx.lineTo(pt.x, M.top + gh); ctx.stroke();
+            ctx.setLineDash([]);
+            drawDot(ctx, 5, 5, gw, gh, C.equilibrium, 7);
+            drawLabel(ctx, 5, 5, gw, gh, 'E*', C.equilibrium, 6, -10);
+        }
+
+        // ============================================
+        // GRAPH 3: Efficiency — varying output
+        // ============================================
+        var effQ = 5;
+
+        function drawEfficiencyGraph() {
+            var r = getCtx('efficiencyCanvas');
+            var ctx = r.ctx, w = r.w, h = r.h;
+            var gw = w - M.left - M.right;
+            var gh = h - M.top - M.bottom;
+            drawAxes(ctx, w, h, gw, gh);
+
+            var qStar = 5;
+
+            // Total surplus area (green) from 0 to effQ
+            if (effQ > 0) {
+                ctx.fillStyle = C.surplus;
+                ctx.strokeStyle = C.surplusStroke;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                // Top edge: demand from 0 to effQ
+                for (var qq = 0; qq <= effQ; qq += 0.5) {
+                    var pt = toPixel(qq, demandP(qq), gw, gh);
+                    if (qq === 0) ctx.moveTo(pt.x, pt.y);
+                    else ctx.lineTo(pt.x, pt.y);
+                }
+                // Bottom edge: supply from effQ to 0
+                for (var qq2 = effQ; qq2 >= 0; qq2 -= 0.5) {
+                    var pt2 = toPixel(qq2, supplyP(qq2), gw, gh);
+                    ctx.lineTo(pt2.x, pt2.y);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            // DWL if overproduction (effQ > 5): triangle between demand and supply from 5 to effQ
+            if (effQ > qStar + 0.3) {
+                ctx.fillStyle = C.dwl;
+                ctx.strokeStyle = C.dwlStroke;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                var ptEq = toPixel(qStar, 5, gw, gh);
+                ctx.moveTo(ptEq.x, ptEq.y);
+                // Follow supply up to effQ
+                for (var qq = qStar; qq <= effQ; qq += 0.5) {
+                    var pt = toPixel(qq, supplyP(qq), gw, gh);
+                    ctx.lineTo(pt.x, pt.y);
+                }
+                // Follow demand back to qStar
+                for (var qq2 = effQ; qq2 >= qStar; qq2 -= 0.5) {
+                    var pt2 = toPixel(qq2, demandP(qq2), gw, gh);
+                    ctx.lineTo(pt2.x, pt2.y);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            // DWL if underproduction (effQ < 5): triangle between demand and supply from effQ to 5
+            if (effQ < qStar - 0.3) {
+                ctx.fillStyle = C.dwl;
+                ctx.strokeStyle = C.dwlStroke;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                var ptQ = toPixel(effQ, demandP(effQ), gw, gh);
+                ctx.moveTo(ptQ.x, ptQ.y);
+                // Down to supply at effQ
+                var ptQs = toPixel(effQ, supplyP(effQ), gw, gh);
+                ctx.lineTo(ptQs.x, ptQs.y);
+                // Along supply to qStar
+                for (var qq = effQ; qq <= qStar; qq += 0.5) {
+                    var pt = toPixel(qq, supplyP(qq), gw, gh);
+                    ctx.lineTo(pt.x, pt.y);
+                }
+                // Equilibrium point
+                ctx.lineTo(toPixel(qStar, qStar, gw, gh).x, toPixel(qStar, qStar, gw, gh).y);
+                // Along demand back
+                for (var qq2 = qStar; qq2 >= effQ; qq2 -= 0.5) {
+                    var pt2 = toPixel(qq2, demandP(qq2), gw, gh);
+                    ctx.lineTo(pt2.x, pt2.y);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            // Supply and demand
+            drawLine(ctx, 0, 0, 10, 10, gw, gh, C.supply, 2.5);
+            drawLabel(ctx, 10, 10, gw, gh, 'S (MC)', C.supply, -55, -5);
+            drawLine(ctx, 0, 10, 10, 0, gw, gh, C.demand, 2.5);
+            drawLabel(ctx, 10, 0, gw, gh, 'D (MB)', C.demand, -55, 16);
+
+            // Vertical line at chosen Q
+            var ptBot = toPixel(effQ, 0, gw, gh);
+            var ptTop = toPixel(effQ, P_MAX, gw, gh);
+            ctx.strokeStyle = C.priceLine; ctx.lineWidth = 1.5; ctx.setLineDash([5, 3]);
+            ctx.beginPath(); ctx.moveTo(ptBot.x, M.top); ctx.lineTo(ptBot.x, M.top + gh); ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Equilibrium dot
+            drawDot(ctx, 5, 5, gw, gh, C.equilibrium, 6);
+            drawLabel(ctx, 5, 5, gw, gh, 'Q*=5', C.equilibrium, 6, -10);
+
+            // Current Q dot
+            if (Math.abs(effQ - 5) > 0.3) {
+                var pD = demandP(effQ);
+                var pS = supplyP(effQ);
+                drawDot(ctx, effQ, pD, gw, gh, C.demand, 4);
+                drawDot(ctx, effQ, pS, gw, gh, C.supply, 4);
+            }
+
+            // TS and DWL calculation
+            var ts = 10 * effQ - effQ * effQ;
+            var tsMax = 25;
+            var dwl = tsMax - ts;
+
+            var msg = 'At Q = ' + effQ.toFixed(1) + ': Total Surplus = \u00A3' + ts.toFixed(2);
+            if (Math.abs(effQ - 5) < 0.3) {
+                msg += ' (maximum). No deadweight loss.';
+            } else {
+                msg += '. Deadweight Loss = \u00A3' + dwl.toFixed(2);
+                if (effQ > 5) msg += ' (overproduction \u2014 units where MC > MB).';
+                else msg += ' (underproduction \u2014 forgone units where MB > MC).';
+            }
+            document.getElementById('effInfo').innerHTML = msg;
+        }
+
+        // ---- Redraw all ----
+        function redrawAll() {
+            drawEqGraph();
+            drawSurplusGraph();
+            drawEfficiencyGraph();
+        }
+
+        // ---- Event listeners ----
+
+        // Graph 1: Equilibrium
+        document.getElementById('eqPriceSlider').addEventListener('input', function() {
+            eqPrice = parseFloat(this.value);
+            document.getElementById('eqPriceDisplay').textContent = '\u00A3' + eqPrice.toFixed(2);
+            drawEqGraph();
+        });
+        document.getElementById('eqResetBtn').addEventListener('click', function() {
+            eqPrice = 5;
+            document.getElementById('eqPriceSlider').value = 5;
+            document.getElementById('eqPriceDisplay').textContent = '\u00A35.00';
+            drawEqGraph();
+        });
+
+        // Graph 2: Surplus
+        function resetSurplusToggles() { showCS = false; showPS = false; showBoth = false; }
+        document.getElementById('surplusToggleCS').addEventListener('click', function() {
+            resetSurplusToggles(); showCS = true;
+            drawSurplusGraph();
+        });
+        document.getElementById('surplusTogglePS').addEventListener('click', function() {
+            resetSurplusToggles(); showPS = true;
+            drawSurplusGraph();
+        });
+        document.getElementById('surplusToggleBoth').addEventListener('click', function() {
+            resetSurplusToggles(); showBoth = true;
+            drawSurplusGraph();
+        });
+        document.getElementById('surplusResetBtn').addEventListener('click', function() {
+            resetSurplusToggles();
+            drawSurplusGraph();
+        });
+
+        // Graph 3: Efficiency
+        document.getElementById('effQSlider').addEventListener('input', function() {
+            effQ = parseFloat(this.value);
+            document.getElementById('effQDisplay').textContent = effQ.toFixed(1);
+            drawEfficiencyGraph();
+        });
+        document.getElementById('effResetBtn').addEventListener('click', function() {
+            effQ = 5;
+            document.getElementById('effQSlider').value = 5;
+            document.getElementById('effQDisplay').textContent = '5';
+            drawEfficiencyGraph();
+        });
+
+        // ---- Resize ----
+        var resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(redrawAll, 150);
+        });
+
+        // ---- Initial draw ----
+        redrawAll();
+    })();
+    </script>
+</body>
+</html>
