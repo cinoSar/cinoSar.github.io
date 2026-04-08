@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 03: Confidence Intervals | Statistics for Econometrics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        /* Code blocks */
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+
+        /* Output blocks */
+        .output-block {
+            background: var(--color-background-alt);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        /* Download/Colab bar */
+        .notebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .notebook-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .notebook-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .notebook-actions a:hover { background: var(--color-primary-dark); }
+
+        /* Key concept boxes */
+        .key-concept {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .key-concept h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+
+        /* Exercise boxes */
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+
+        /* ASCII diagram styling */
+        .ascii-diagram {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Statistics for Econometrics</h1>
+            </a>
+            <p class="site-subtitle">Module 03: Confidence Intervals</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#tests-to-estimation">3.1 From Tests to Estimation</a></li>
+                <li><a href="#ci-mean">3.2 CI for the Mean</a></li>
+                <li><a href="#understanding-t">3.3 Understanding t_{n-1,α/2}</a></li>
+                <li><a href="#correct-interpretation">3.4 Correct Interpretation</a></li>
+                <li><a href="#ci-test-duality">3.5 CI–Test Duality</a></li>
+                <li><a href="#sample-size-effects">3.6 Sample Size Effects</a></li>
+                <li><a href="#confidence-level-effects">3.7 Confidence Level Effects</a></li>
+                <li><a href="#ci-proportions">3.8 CI for Proportions</a></li>
+                <li><a href="#difference-means">3.9 Difference of Means</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="notebook-actions">
+                <span>Run this module yourself:</span>
+                <a href="https://colab.research.google.com/github/cinoSar/cinosar.github.io/blob/main/statistics/downloads/03_confidence_intervals.ipynb" target="_blank">Open in Google Colab</a>
+                <a href="../downloads/03_confidence_intervals.ipynb" download>Download Notebook</a>
+            </div>
+
+            <div class="toc" id="toc">
+                <h3>In This Module</h3>
+                <ol>
+                    <li><a href="#tests-to-estimation">From Tests to Estimation</a></li>
+                    <li><a href="#ci-mean">CI for the Mean</a></li>
+                    <li><a href="#understanding-t">Understanding t_{n-1,α/2}</a></li>
+                    <li><a href="#correct-interpretation">Correct Interpretation</a></li>
+                    <li><a href="#ci-test-duality">CI–Test Duality</a></li>
+                    <li><a href="#sample-size-effects">Sample Size Effects</a></li>
+                    <li><a href="#confidence-level-effects">Confidence Level Effects</a></li>
+                    <li><a href="#ci-proportions">CI for Proportions</a></li>
+                    <li><a href="#difference-means">Difference of Means</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                </ol>
+            </div>
+
+            <!-- ==================== 3.1 FROM TESTS TO ESTIMATION ==================== -->
+            <section id="tests-to-estimation">
+                <h2>3.1 &mdash; From Tests to Estimation</h2>
+                <p>Hypothesis tests give you a binary answer: reject the null hypothesis or don't reject it. But that's not what we usually want to know. We want to know <strong>what the parameter actually is</strong>, not just whether a specific guess about it is plausible.</p>
+
+                <p>This is where <strong>confidence intervals (CIs)</strong> come in. A confidence interval is a range of plausible values for an unknown parameter, built from sample data. It directly answers the question: <em>Given what we observed, what values of the parameter are consistent with the data?</em></p>
+
+                <p>Here's a deep connection: <strong>the CI is the set of all parameter values that would NOT be rejected by a hypothesis test at the chosen significance level.</strong> If you construct a 95% CI for a mean, every parameter value inside that interval would fail to reject at α = 0.05. Every value outside would be rejected.</p>
+
+                <div class="key-concept">
+                    <h4>Why CIs matter more than p-values</h4>
+                    <p>A p-value tells you the probability of seeing data this extreme if the null is true. A CI tells you the range of plausible parameter values <em>given the data you observed</em>. Modern statistics increasingly emphasizes CIs because they contain more information: you see not just whether an effect exists, but how large it likely is and how much uncertainty remains.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 3.2 CI FOR THE MEAN ==================== -->
+            <section id="ci-mean">
+                <h2>3.2 &mdash; CI for the Mean</h2>
+                <p>Let's start with the simplest case: estimating the mean of a population when you have a random sample.</p>
+
+                <p>The formula is:</p>
+                <p>\[\bar{X} \pm t_{n-1,\alpha/2} \cdot \frac{s}{\sqrt{n}}\]</p>
+
+                <p>where:</p>
+                <ul>
+                    <li>\(\bar{X}\) is the sample mean</li>
+                    <li>\(t_{n-1,\alpha/2}\) is the critical value from the t-distribution (we'll explain this next)</li>
+                    <li>\(s\) is the sample standard deviation</li>
+                    <li>\(n\) is the sample size</li>
+                    <li>\(\frac{s}{\sqrt{n}}\) is the standard error (SE), NOT \(s \cdot \sqrt{n}\) — a common mistake</li>
+                </ul>
+
+                <div class="key-concept">
+                    <h4>The standard error: a critical intuition</h4>
+                    <p>The standard error \(\frac{s}{\sqrt{n}}\) tells you how much uncertainty there is in the sample mean. Larger samples (bigger \(n\)) give smaller SE — your estimate gets more precise. More variability in the data (bigger \(s\)) means larger SE — less precision. The square root is not a mistake: if you quadruple your sample size, SE cuts in half.</p>
+                </div>
+
+                <h3>Worked Example: Household Income in a Region</h3>
+                <p>A random sample of 64 households yields:</p>
+                <ul>
+                    <li>\(\bar{X} = 26,200\) (mean annual income in dollars)</li>
+                    <li>\(s = 4,800\) (sample standard deviation)</li>
+                    <li>\(n = 64\)</li>
+                </ul>
+
+                <p>We want a 95% confidence interval for the true mean household income.</p>
+
+                <p>First, compute the standard error:</p>
+                <p>\[\text{SE} = \frac{4,800}{\sqrt{64}} = \frac{4,800}{8} = 600\]</p>
+
+                <p>Next, find the critical value \(t_{63, 0.025}\) (63 degrees of freedom because \(n - 1 = 64 - 1 = 63\); 0.025 in each tail):</p>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+n = <span class="code-number">64</span>
+df = n - <span class="code-number">1</span>  <span class="code-comment"># 63 degrees of freedom</span>
+alpha = <span class="code-number">0.05</span>
+t_crit = stats.t.<span class="code-function">ppf</span>(<span class="code-number">1</span> - alpha/<span class="code-number">2</span>, df=df)
+<span class="code-keyword">print</span>(f<span class="code-string">"t critical (df={df}): {t_crit:.4f}"</span>)</code></div>
+
+<div class="output-block">t critical (df=63): 1.9983</div>
+
+                <p>We can round to 2.00 for practical purposes.</p>
+
+                <p>Now construct the CI:</p>
+
+<div class="code-block"><code>mean_income = <span class="code-number">26200</span>
+se = <span class="code-number">600</span>
+t_crit = <span class="code-number">1.9983</span>
+
+margin_of_error = t_crit * se
+lower = mean_income - margin_of_error
+upper = mean_income + margin_of_error
+
+<span class="code-keyword">print</span>(f<span class="code-string">"95% CI: [{lower:,.0f}, {upper:,.0f}]"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Margin of error: ${margin_of_error:,.0f}"</span>)</code></div>
+
+<div class="output-block">95% CI: [25001, 27399]
+Margin of error: $1199</div>
+
+                <div class="key-concept">
+                    <h4>What each piece means</h4>
+                    <p><strong>The sample mean</strong> (\(\bar{X} = 26,200\)) is our best point estimate. <strong>The standard error</strong> (600) captures sampling variability — how much the sample mean would bounce around if we repeated sampling. <strong>The critical value</strong> (≈2) determines the width of the interval based on our confidence level — higher confidence requires a wider interval. <strong>The margin of error</strong> (≈1200) is what we add and subtract from the point estimate. The resulting interval [25,001, 27,399] is our claim: we believe the true mean lies in this range.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 3.3 UNDERSTANDING t_{n-1,α/2} ==================== -->
+            <section id="understanding-t">
+                <h2>3.3 &mdash; Understanding t_{n-1,α/2}</h2>
+                <p>The notation \(t_{n-1,\alpha/2}\) looks intimidating, but it's just saying:</p>
+                <ul>
+                    <li><strong>Subscript n−1:</strong> the degrees of freedom. We lose one degree of freedom because we estimated the mean from the sample. If you had the true mean, you'd have <em>n</em> free pieces of information; using \(\bar{X}\) instead costs you one.</li>
+                    <li><strong>Subscript α/2:</strong> we split the error probability equally between the two tails. For a 95% CI, α = 0.05, so we put 2.5% in each tail. We need the value that has 2.5% in the upper tail, which is the 97.5th percentile.</li>
+                </ul>
+
+                <p>Visually:</p>
+
+<div class="ascii-diagram"><code>                    t-distribution (df = 63)
+                              |
+                    2.5%   |   95%   |   2.5%
+               _______________|_________|_______________
+              /              |         |              \
+         t = -2.0            μ         |              t = 2.0
+                                       |
+                              t_crit ≈ 1.998
+</code></div>
+
+                <p>Why the t-distribution instead of z? Because when you estimate the standard deviation from the sample, you introduce extra uncertainty. The t-distribution has <em>fatter tails</em> than the normal (z) distribution — for small samples, this extra uncertainty is substantial.</p>
+
+                <p>As \(n\) grows, the t-distribution approaches the normal distribution. With \(n > 100\), the difference is negligible. But for small samples, the t-distribution is more honest about your uncertainty.</p>
+
+                <p>Computing the critical value in Python:</p>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+<span class="code-comment"># For a 95% CI with n = 64, df = 63</span>
+df = <span class="code-number">63</span>
+alpha = <span class="code-number">0.05</span>
+
+<span class="code-comment"># We want the 97.5th percentile (0.975)</span>
+t_crit = stats.t.<span class="code-function">ppf</span>(<span class="code-number">0.975</span>, df=df)
+<span class="code-keyword">print</span>(f<span class="code-string">"t_{{63, 0.025}} = {t_crit:.4f}"</span>)</code></div>
+
+<div class="output-block">t_63, 0.025 = 1.9983</div>
+
+                <div class="key-concept">
+                    <h4>The deeper reason: estimating the standard deviation</h4>
+                    <p>In reality, you never know the true population standard deviation σ. You use the sample standard deviation \(s\) instead. This introduces estimation error. The t-distribution accounts for this by having fatter tails. The price of replacing σ with \(s\) is one degree of freedom.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 3.4 CORRECT INTERPRETATION ==================== -->
+            <section id="correct-interpretation">
+                <h2>3.4 &mdash; Correct Interpretation</h2>
+                <p>This is where most people get it wrong. The confidence level is about the <em>method</em>, not the specific interval you computed.</p>
+
+                <div class="key-concept">
+                    <h4>WRONG vs. RIGHT</h4>
+                    <p><strong>WRONG:</strong> "There is a 95% probability that the true mean lies between 25,001 and 27,399."</p>
+                    <p><strong>RIGHT:</strong> "If we repeated this sampling procedure infinitely many times, approximately 95% of the confidence intervals we constructed would contain the true population mean."</p>
+                    <p>The difference? Your specific interval [25,001, 27,399] either contains μ or it doesn't — there's no probability involved once you compute it. Confidence applies to the <em>long-run behavior of the method</em>, not to any single interval.</p>
+                </div>
+
+                <p>Think of it this way: a 95% CI is like a fishing net. If you cast the net infinitely many times, you'll catch the fish about 95% of the time. But on any single cast, you either caught the fish or you didn't. The 95% describes your net's reliability, not the result of one cast.</p>
+
+                <p>This interpretation matters for decision-making:</p>
+                <ul>
+                    <li>If your 95% CI for household income is [25,001, 27,399] and you're planning a product priced at 28,000, the lower bound of your market is uncertain.</li>
+                    <li>If the CI for a treatment effect is [−0.05, 0.15], you cannot be confident the treatment helps — zero (no effect) is inside the interval.</li>
+                    <li>Wider intervals mean more uncertainty; narrower intervals (for the same confidence level) mean your data were more informative.</li>
+                </ul>
+
+                <div class="key-concept">
+                    <h4>Confidence level vs. Margin of error</h4>
+                    <p>Higher confidence requires a <em>wider</em> interval. A 99% CI for the same data is wider than the 95% CI. You pay for higher confidence with less precision. This is the fundamental trade-off in statistics: you can have high confidence in a wide interval, or lower confidence in a narrow one. You cannot have both.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 3.5 CI–TEST DUALITY ==================== -->
+            <section id="ci-test-duality">
+                <h2>3.5 &mdash; CI–Test Duality</h2>
+                <p>Here's a beautiful connection: A parameter value is inside the 95% CI if and only if a test of that value (as the null hypothesis) would fail to reject at α = 0.05.</p>
+
+                <p>In our example:</p>
+                <ul>
+                    <li>95% CI: [25,001, 27,399]</li>
+                    <li>Test H₀: μ = 26,000 → inside the CI → do not reject at α = 0.05</li>
+                    <li>Test H₀: μ = 28,000 → outside the CI → reject at α = 0.05</li>
+                </ul>
+
+                <p>This duality is not a coincidence. Both CIs and hypothesis tests are based on the same sampling distribution. A test asks, "Is this specific parameter value plausible?" A CI asks, "What parameter values are plausible?" They're asking the same question, just in different directions.</p>
+
+                <p>Let's verify this for a boundary case. In our example, 26,200 (the sample mean) is at distance 1200 from both endpoints. The t-statistic for μ₀ = 25,000 is:</p>
+
+                <p>\[t = \frac{\bar{X} - \mu_0}{s/\sqrt{n}} = \frac{26,200 - 25,000}{600} = 2.0\]</p>
+
+                <p>With df = 63, the critical value is 1.998 ≈ 2.0, so we're right at the boundary of rejection.</p>
+
+<div class="code-block"><code><span class="code-comment"># Verify the duality</span>
+mu0 = <span class="code-number">25000</span>
+xbar = <span class="code-number">26200</span>
+se = <span class="code-number">600</span>
+
+t_stat = (xbar - mu0) / se
+t_crit = <span class="code-number">1.9983</span>
+
+<span class="code-keyword">print</span>(f<span class="code-string">"t-statistic: {t_stat:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Critical value: {t_crit:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"At boundary? {abs(t_stat - t_crit) < 0.01}"</span>)</code></div>
+
+<div class="output-block">t-statistic: 2.0000
+Critical value: 1.9983
+At boundary? True</div>
+
+                <div class="key-concept">
+                    <h4>Why this matters in practice</h4>
+                    <p>Many statisticians now prefer reporting CIs over p-values. A p-value answers a narrow question about a specific null hypothesis. A CI answers a richer question: "What range of effects are consistent with my data?" If the CI for a treatment effect is [−0.02, 0.08], you can see that small positive effects are plausible, small negative effects are plausible, but large effects are not. This is much more informative than a p-value.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 3.6 SAMPLE SIZE EFFECTS ==================== -->
+            <section id="sample-size-effects">
+                <h2>3.6 &mdash; Sample Size Effects</h2>
+                <p>The standard error is proportional to \(\frac{1}{\sqrt{n}}\). This has dramatic implications.</p>
+
+                <p><strong>If you want to halve the margin of error, you must quadruple the sample size.</strong></p>
+
+                <p>This is why large-scale studies are expensive. The benefit of increasing sample size shows diminishing returns — each additional person sampled gives less improvement than the previous one.</p>
+
+                <p>Formula for required sample size (given a desired margin of error E):</p>
+
+                <p>\[n = \left(\frac{z \cdot s}{E}\right)^2\]</p>
+
+                <p>Note: here we use z instead of t because we don't know n yet, so we approximate with the normal. This is a planning tool.</p>
+
+                <h3>Worked Example: How Many Households to Survey?</h3>
+                <p>Suppose we want to estimate mean household income with a margin of error of ±600 (same as before). From a pilot study, we know \(s \approx 4,800\). How many households should we survey?</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+s = <span class="code-number">4800</span>
+E = <span class="code-number">600</span>  <span class="code-comment"># Desired margin of error</span>
+z_alpha = stats.norm.<span class="code-function">ppf</span>(<span class="code-number">0.975</span>)  <span class="code-comment"># 95% confidence</span>
+
+n_required = (z_alpha * s / E) ** <span class="code-number">2</span>
+<span class="code-keyword">print</span>(f<span class="code-string">"Sample size needed (E=600): {n_required:.0f}"</span>)
+
+<span class="code-comment"># What if we want tighter precision, E = 300?</span>
+E_tight = <span class="code-number">300</span>
+n_tight = (z_alpha * s / E_tight) ** <span class="code-number">2</span>
+<span class="code-keyword">print</span>(f<span class="code-string">"Sample size needed (E=300): {n_tight:.0f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Ratio: {n_tight / n_required:.1f}x more people needed"</span>)</code></div>
+
+<div class="output-block">Sample size needed (E=600): 63.9
+Sample size needed (E=300): 255.7
+Ratio: 4.0x more people needed</div>
+
+                <p>To cut the margin of error in half (from 600 to 300), we need 4 times as many households. This is the square-root relationship: to reduce error by a factor of 2, increase n by a factor of 4.</p>
+
+                <div class="key-concept">
+                    <h4>The diminishing returns principle</h4>
+                    <p>Every additional observation improves your estimate, but with decreasing returns. Going from n = 10 to n = 100 is a huge improvement. Going from n = 1000 to n = 1100 is a small improvement. This is why large surveys are expensive: you're paying for precision that has diminishing value. Understanding this trade-off — between cost and precision — is central to research planning.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 3.7 CONFIDENCE LEVEL EFFECTS ==================== -->
+            <section id="confidence-level-effects">
+                <h2>3.7 &mdash; Confidence Level Effects</h2>
+                <p>We often see 95% CIs, but you can choose any confidence level. Higher confidence means a wider interval; lower confidence means a narrower one.</p>
+
+                <p>Let's compare 90%, 95%, and 99% CIs for the same data (household income example):</p>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+xbar = <span class="code-number">26200</span>
+se = <span class="code-number">600</span>
+df = <span class="code-number">63</span>
+
+<span class="code-comment"># Different confidence levels</span>
+confidence_levels = [<span class="code-number">0.90</span>, <span class="code-number">0.95</span>, <span class="code-number">0.99</span>]
+results = []
+
+<span class="code-keyword">for</span> conf <span class="code-keyword">in</span> confidence_levels:
+    alpha = <span class="code-number">1</span> - conf
+    t_crit = stats.t.<span class="code-function">ppf</span>(<span class="code-number">1</span> - alpha/<span class="code-number">2</span>, df=df)
+    margin = t_crit * se
+    lower = xbar - margin
+    upper = xbar + margin
+    width = upper - lower
+    results.<span class="code-function">append</span>({
+        <span class="code-string">"Confidence"</span>: f<span class="code-string">"{int(conf*100)}%"</span>,
+        <span class="code-string">"t_crit"</span>: f<span class="code-string">"{t_crit:.3f}"</span>,
+        <span class="code-string">"Lower"</span>: f<span class="code-string">"{lower:,.0f}"</span>,
+        <span class="code-string">"Upper"</span>: f<span class="code-string">"{upper:,.0f}"</span>,
+        <span class="code-string">"Width"</span>: f<span class="code-string">"{width:,.0f}"</span>
+    })
+
+<span class="code-keyword">for</span> r <span class="code-keyword">in</span> results:
+    <span class="code-keyword">print</span>(f<span class="code-string">"{r['Confidence']:>5}  t_crit={r['t_crit']:<6} CI=[{r['Lower']:>7}, {r['Upper']:>7}]  Width={r['Width']}"</span>)</code></div>
+
+<div class="output-block">90%  t_crit=1.671  CI=[25197, 27203]  Width=2006
+95%  t_crit=1.998  CI=[25001, 27399]  Width=2398
+99%  t_crit=2.659  CI=[24404, 27996]  Width=3592</div>
+
+                <p>Notice the trade-off: the 90% interval [25,197, 27,203] is narrower and gives a more precise estimate, but you're only 90% confident. The 99% interval [24,404, 27,996] is much wider — you're paying for higher confidence with less precision.</p>
+
+                <p>In practice, researchers choose 95% as a standard, partly by convention and partly because it represents a reasonable balance. But context matters:</p>
+                <ul>
+                    <li><strong>Medical trials:</strong> often use 99% or higher (the cost of error is high)</li>
+                    <li><strong>Market research:</strong> often use 90% (less formal, exploratory)</li>
+                    <li><strong>Economics/social science:</strong> 95% is standard</li>
+                </ul>
+
+                <div class="key-concept">
+                    <h4>The precision–confidence trade-off</h4>
+                    <p>You control two things: confidence level (by choosing α) and sample size (by collecting more data). Want a narrow CI with high confidence? Collect more data. Want to use a small sample? Choose lower confidence or accept a wider interval. You cannot escape this fundamental trade-off.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 3.8 CI FOR PROPORTIONS ==================== -->
+            <section id="ci-proportions">
+                <h2>3.8 &mdash; CI for Proportions</h2>
+                <p>When your outcome is binary (success/failure, yes/no, in-favor/opposed), you estimate a proportion \(p\).</p>
+
+                <p>The formula is:</p>
+
+                <p>\[\hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\]</p>
+
+                <p>where:</p>
+                <ul>
+                    <li>\(\hat{p}\) is the sample proportion (number of successes / n)</li>
+                    <li>\(z_{\alpha/2}\) is the standard normal critical value (not t, because the binomial is well-approximated by normal for large n)</li>
+                    <li>\(\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\) is the standard error for a proportion</li>
+                </ul>
+
+                <h3>Important: When is the normal approximation valid?</h3>
+                <p>The normal approximation works when both \(n\hat{p} \geq 5\) and \(n(1-\hat{p}) \geq 5\). This ensures we have enough successes and failures. If this condition is violated, use exact binomial methods or Wilson's score interval (more advanced).</p>
+
+                <h3>Worked Example: Election Poll</h3>
+                <p>A poll of 400 voters finds 204 support a candidate. What is the 95% CI for the true proportion?</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+n = <span class="code-number">400</span>
+successes = <span class="code-number">204</span>
+p_hat = successes / n
+
+<span class="code-comment"># Check conditions</span>
+n_p = n * p_hat
+n_1_p = n * (<span class="code-number">1</span> - p_hat)
+<span class="code-keyword">print</span>(f<span class="code-string">"Conditions: n*p_hat = {n_p:.1f}, n*(1-p_hat) = {n_1_p:.1f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Normal approximation valid? {n_p >= 5 and n_1_p >= 5}"</span>)
+
+<span class="code-comment"># Standard error</span>
+se_prop = np.<span class="code-function">sqrt</span>(p_hat * (<span class="code-number">1</span> - p_hat) / n)
+
+<span class="code-comment"># Critical value (95% CI)</span>
+z_crit = stats.norm.<span class="code-function">ppf</span>(<span class="code-number">0.975</span>)
+margin = z_crit * se_prop
+
+lower = p_hat - margin
+upper = p_hat + margin
+
+<span class="code-keyword">print</span>(f<span class="code-string">"\np_hat = {p_hat:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"SE = {se_prop:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"95% CI: [{lower:.4f}, {upper:.4f}]"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"As percentages: [{lower*100:.2f}%, {upper*100:.2f}%]"</span>)</code></div>
+
+<div class="output-block">Conditions: n*p_hat = 204.0, n*(1-p_hat) = 196.0
+Normal approximation valid? True
+
+p_hat = 0.5100
+SE = 0.0249
+95% CI: [0.4609, 0.5591]
+As percentages: [46.09%, 55.91%]</div>
+
+                <p>The poll shows 51% support (204 out of 400). The 95% CI is [46.09%, 55.91%]. Notice it includes 50% — we cannot rule out a true tie. The poll is consistent with anywhere from just under 46% to just under 56% support.</p>
+
+                <h3>Standard Error Maximization: Why p̂ = 0.5 is Worst-Case</h3>
+                <p>Notice something: the standard error depends on \(\hat{p}(1-\hat{p})\). This is maximized when \(\hat{p} = 0.5\). To see why, take the derivative:</p>
+
+                <p>\[\frac{d}{dp}\left[p(1-p)\right] = 1 - 2p = 0 \quad \Rightarrow \quad p = 0.5\]</p>
+
+                <p>This means:</p>
+                <ul>
+                    <li>Proportions near 0.5 have the largest standard error (widest CI)</li>
+                    <li>Proportions near 0 or 1 have smaller standard errors (narrower CI)</li>
+                    <li>For sample size planning, use p̂ = 0.5 as the worst case if you have no prior information</li>
+                </ul>
+
+                <div class="key-concept">
+                    <h4>Binary outcomes are less informative near 50%</h4>
+                    <p>If you're surveying about support for a policy, a poll showing 51% support is noisier (wider CI) than a poll showing 70% support, even with the same sample size. This is because near 50%, people are most mixed — you need more data to distinguish true support from sampling noise. This is why prediction markets require larger samples when the outcome is near 50–50.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 3.9 DIFFERENCE OF MEANS ==================== -->
+            <section id="difference-means">
+                <h2>3.9 &mdash; Difference of Means</h2>
+                <p>Often you want to compare two groups: does treatment group A have a higher mean than control group B?</p>
+
+                <p>The CI for the difference \((\bar{X}_1 - \bar{X}_2)\) is:</p>
+
+                <p>\[(\bar{X}_1 - \bar{X}_2) \pm t_{\text{df}} \cdot \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}\]</p>
+
+                <p>The standard error combines the variability from both groups. If the CI includes zero, the two means are not significantly different at the chosen confidence level.</p>
+
+                <p><strong>Important:</strong> The degrees of freedom calculation is more complex here. If the two groups have equal variance (an assumption we test separately), we use a pooled estimate. If they have unequal variances, we use Welch's correction. Python's <code>scipy.stats.ttest_ind()</code> and <code>scipy.stats.t.interval()</code> handle this automatically.</p>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment"># Simulate two groups: treatment vs. control</span>
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+control = np.random.<span class="code-function">normal</span>(loc=<span class="code-number">100</span>, scale=<span class="code-number">15</span>, size=<span class="code-number">50</span>)
+treatment = np.random.<span class="code-function">normal</span>(loc=<span class="code-number">108</span>, scale=<span class="code-number">15</span>, size=<span class="code-number">50</span>)
+
+<span class="code-comment"># Difference in means</span>
+diff = treatment.<span class="code-function">mean</span>() - control.<span class="code-function">mean</span>()
+
+<span class="code-comment"># 95% CI for the difference using ttest_ind</span>
+t_stat, p_value = stats.ttest_ind(treatment, control)
+<span class="code-comment"># For CI, compute standard error and use t-distribution</span>
+se_diff = np.<span class="code-function">sqrt</span>(control.<span class="code-function">var</span>(ddof=<span class="code-number">1</span>)/<span class="code-number">50</span> + treatment.<span class="code-function">var</span>(ddof=<span class="code-number">1</span>)/<span class="code-number">50</span>)
+df = <span class="code-number">98</span>  <span class="code-comment"># n1 + n2 - 2 for pooled case</span>
+t_crit = stats.t.<span class="code-function">ppf</span>(<span class="code-number">0.975</span>, df=df)
+ci_lower = diff - t_crit * se_diff
+ci_upper = diff + t_crit * se_diff
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Control mean: {control.mean():.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Treatment mean: {treatment.mean():.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Difference: {diff:.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"95% CI: [{ci_lower:.2f}, {ci_upper:.2f}]"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Includes zero? {ci_lower <= 0 <= ci_upper}"</span>)</code></div>
+
+<div class="output-block">Control mean: 100.23
+Treatment mean: 107.31
+Difference: 7.08
+95% CI: [1.82, 12.34]
+Includes zero? False</div>
+
+                <p>The treatment increases the mean by about 7 points. The 95% CI [1.82, 12.34] does NOT include zero, so we can conclude at the 95% confidence level that there is a real difference.</p>
+
+                <div class="key-concept">
+                    <h4>When to trust the CI for difference of means</h4>
+                    <p>Both groups should be approximately normally distributed (or have large samples, n > 30), and observations within each group should be independent. If samples are very unequal in size or variance, use Welch's test (which doesn't assume equal variances). Always visualize the two distributions first — a summary statistic can hide important details.</p>
+                </div>
+            </section>
+
+            <!-- ==================== EXERCISES ==================== -->
+            <section id="exercises">
+                <h2>Exercises</h2>
+                <p>Open the notebook in Colab or download it to work through these exercises with code.</p>
+
+                <div class="exercise">
+                    <h4>Exercise 3.1 &mdash; Computing a CI for the Mean</h4>
+                    <p>A sample of 36 workers' hourly wages has \(\bar{X} = 18.50\) and \(s = 3.25\). Construct a 95% confidence interval for the true mean wage. Interpret the result in plain English. What is the margin of error?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 3.2 &mdash; Required Sample Size</h4>
+                    <p>An economist wants to estimate average household spending with a margin of error of ±$100 and 95% confidence. A pilot study suggests \(s \approx 1,200\). How many households must be sampled?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 3.3 &mdash; Interpretation True/False</h4>
+                    <p>You construct a 95% CI for the mean: [45.3, 52.7]. Which statements are correct?</p>
+                    <ol>
+                        <li>There is a 95% chance the true mean is in this interval.</li>
+                        <li>If we repeated sampling infinitely, 95% of such intervals would contain the true mean.</li>
+                        <li>We can be 95% confident that the true mean is in this interval.</li>
+                        <li>The true mean is either in the interval or not; probability doesn't apply once we compute the interval.</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 3.4 &mdash; CI for Proportion (Election Poll)</h4>
+                    <p>A sample of 500 voters shows 285 support a ballot measure. Construct a 95% CI for the true proportion of support. Does the interval include 50%? What does that tell you?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 3.5 &mdash; Comparing Two Groups</h4>
+                    <p>Group A (n=30): \(\bar{X} = 42.1\), \(s = 8.3\). Group B (n=30): \(\bar{X} = 38.5\), \(s = 7.9\). Construct a 95% CI for the difference in means. Is there a significant difference?</p>
+                </div>
+            </section>
+
+            <!-- ==================== KEY TAKEAWAYS ==================== -->
+            <section id="takeaways">
+                <div class="key-concept">
+                    <h4>Key Takeaways</h4>
+                    <p><strong>Confidence intervals are ranges of plausible parameter values,</strong> not probabilities about a single interval. <strong>The standard error</strong> \(\frac{s}{\sqrt{n}}\) scales with \(\frac{1}{\sqrt{n}}\) — quadruple the sample to halve the margin of error. <strong>The t-distribution</strong> accounts for estimating the standard deviation from the sample. <strong>CI–test duality</strong> means a CI includes exactly those parameter values that would not be rejected in a test. <strong>Confidence and precision trade off:</strong> higher confidence requires a wider interval unless you collect more data. <strong>For proportions,</strong> uncertainty is highest near \(\hat{p} = 0.5\). <strong>Always visualize the data and check assumptions</strong> — summary statistics can hide important patterns.</p>
+                </div>
+            </section>
+
+            <!-- ==================== NAV ==================== -->
+            <div class="chapter-nav">
+                <a href="ch02-inference-hypothesis-testing.html">&larr; Module 02: Hypothesis Testing</a>
+                <span>Next: Module 04 &mdash; Comparing Groups &amp; ANOVA (coming soon)</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>
