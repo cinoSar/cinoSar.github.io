@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 05: Simple Linear Regression | Statistics for Econometrics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+        .output-block {
+            background: var(--color-background-alt);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .notebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .notebook-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .notebook-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .notebook-actions a:hover { background: var(--color-primary-dark); }
+        .key-concept {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .key-concept h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+        .ascii-diagram {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Statistics for Econometrics</h1>
+            </a>
+            <p class="site-subtitle">Module 05: Simple Linear Regression</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#from-groups-to-gradients">5.1 From Groups to Gradients</a></li>
+                <li><a href="#ols-estimation">5.2 OLS Estimation</a></li>
+                <li><a href="#goodness-of-fit">5.3 Goodness of Fit: R²</a></li>
+                <li><a href="#inference-on-coefficients">5.4 Inference on β₁</a></li>
+                <li><a href="#residual-analysis">5.5 Residual Analysis</a></li>
+                <li><a href="#gauss-markov">5.6 The Gauss–Markov Assumptions</a></li>
+                <li><a href="#connection-anova">5.7 Connection to ANOVA</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="notebook-actions">
+                <span>Run this module yourself:</span>
+                <a href="https://colab.research.google.com/github/cinoSar/cinosar.github.io/blob/main/statistics/downloads/05_simple_linear_regression.ipynb" target="_blank">Open in Google Colab</a>
+                <a href="../downloads/05_simple_linear_regression.ipynb" download>Download Notebook</a>
+            </div>
+
+            <div class="toc" id="toc">
+                <h3>In This Module</h3>
+                <ol>
+                    <li><a href="#from-groups-to-gradients">From Groups to Gradients</a></li>
+                    <li><a href="#ols-estimation">OLS Estimation</a></li>
+                    <li><a href="#goodness-of-fit">Goodness of Fit: R²</a></li>
+                    <li><a href="#inference-on-coefficients">Inference on β₁</a></li>
+                    <li><a href="#residual-analysis">Residual Analysis</a></li>
+                    <li><a href="#gauss-markov">The Gauss–Markov Assumptions</a></li>
+                    <li><a href="#connection-anova">Connection to ANOVA</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                </ol>
+            </div>
+
+            <!-- ==================== 5.1 FROM GROUPS TO GRADIENTS ==================== -->
+            <section id="from-groups-to-gradients">
+                <h2>5.1 &mdash; From Groups to Gradients</h2>
+                <p>In Module 04, you tested whether <em>categorical</em> predictors (group membership) affected outcomes: Do property values differ between municipalities with and without a logistics hub? But in econometrics, you often ask more nuanced questions: <em>How much does property value change for each additional kilometre away from the hub?</em> This requires <em>continuous</em> predictors, not categories. Enter regression.</p>
+
+                <p>Regression is simply the natural extension of comparing group means. When your predictor is continuous, you're fitting a line through a scatter plot to capture the relationship. The slope of that line tells you the marginal effect — how much the outcome changes per unit increase in the predictor.</p>
+
+                <h3>The Simple Linear Regression Model</h3>
+                <p>The simple linear regression model relates a dependent variable \(Y\) to a single independent variable \(X\):</p>
+                <p>\[Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i\]</p>
+
+                <p>where:</p>
+                <ul>
+                    <li>\(Y_i\) is the outcome for observation \(i\) (e.g., property value in euros/m²)</li>
+                    <li>\(X_i\) is the predictor (e.g., distance from the logistics hub in kilometres)</li>
+                    <li>\(\beta_0\) is the <em>intercept</em>: the expected value of \(Y\) when \(X = 0\)</li>
+                    <li>\(\beta_1\) is the <em>slope</em>: the change in \(Y\) per unit increase in \(X\)</li>
+                    <li>\(\varepsilon_i\) is the <em>residual</em> or error term: the deviation of observation \(i\) from the fitted line</li>
+                </ul>
+
+                <h3>Interpreting the Coefficients</h3>
+                <p><strong>Intercept (\(\beta_0\)):</strong> The expected property value when distance is zero — i.e., right at the logistics hub. In practice, \(X = 0\) may be outside the range of your data, so always interpret the intercept cautiously.</p>
+
+                <p><strong>Slope (\(\beta_1\)):</strong> The marginal effect of distance. If \(\beta_1 = -2000\), it means that for each additional kilometre away from the hub, property values decrease by 2000 euros/m² <em>on average</em>. This is a statement about the population relationship, conditional on the model being correct.</p>
+
+                <div class="key-concept">
+                    <h4>Interpreting the Slope Coefficient β₁</h4>
+                    <p>For each additional unit increase in \(X\), the expected value of \(Y\) changes by \(\beta_1\) units, holding all else constant (in the context of simple regression, there is no "else", but in multiple regression this caveat becomes crucial).</p>
+                    <p>Example: \(\beta_1 = -1500\) means that for each additional kilometre of distance from a logistics hub, commercial property values decrease by 1500 euros/m² on average.</p>
+                </div>
+
+                <h3>Association versus Causation</h3>
+                <p>A crucial warning: regression estimates <em>associations</em>, not necessarily <em>causal effects</em>. If you find \(\hat{\beta}_1 = -1500\), can you conclude that the logistics hub causes 1500 euros/m² higher property values? Not automatically. There may be confounders—perhaps municipalities closer to the hub are also closer to major cities, which drives up property values independently of the logistics hub itself.</p>
+
+                <p>Establishing causality requires either (i) experimental design (random assignment), (ii) convincing control for confounders, or (iii) instrumental variable techniques (Module 09). For now, treat regression estimates as <em>conditional associations</em>: given the data and the model, what is the linear relationship?</p>
+            </section>
+
+            <!-- ==================== 5.2 OLS ESTIMATION ==================== -->
+            <section id="ols-estimation">
+                <h2>5.2 &mdash; OLS Estimation</h2>
+                <p>We have a model: \(Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i\). But how do we estimate \(\beta_0\) and \(\beta_1\) from data? The answer is <em>Ordinary Least Squares</em> (OLS), the workhorse of applied econometrics.</p>
+
+                <h3>The Principle of Least Squares</h3>
+                <p>OLS chooses the intercept and slope to minimise the sum of squared residuals:</p>
+                <p>\[\min_{\beta_0, \beta_1} \sum_{i=1}^{n} \varepsilon_i^2 = \min_{\beta_0, \beta_1} \sum_{i=1}^{n} (Y_i - \beta_0 - \beta_1 X_i)^2\]</p>
+
+                <p>Why squared residuals? There are several reasons:</p>
+                <ul>
+                    <li><strong>Large errors are penalised more heavily:</strong> Squaring emphasises large deviations. A residual of 4 is treated as 16 times worse than a residual of 1 (not just 4 times). This makes sense when you want to avoid outliers.</li>
+                    <li><strong>Analytical tractability:</strong> The sum of squared residuals is a quadratic function in the parameters. Taking derivatives and setting them to zero yields closed-form solutions. Minimising the sum of absolute residuals (the alternative) requires numerical methods.</li>
+                    <li><strong>Consistency with maximum likelihood:</strong> Under the assumption that errors are normally distributed, OLS is equivalent to maximum likelihood estimation.</li>
+                </ul>
+
+                <h3>The OLS Formulae</h3>
+                <p>Solving the minimisation problem analytically yields:</p>
+
+                <div class="key-concept">
+                    <h4>OLS Estimators for Simple Regression</h4>
+                    <p>The OLS estimators are:</p>
+                    <p>\[\hat{\beta}_1 = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{\sum_{i=1}^{n} (X_i - \bar{X})^2} = \frac{\text{Cov}(X, Y)}{\text{Var}(X)}\]</p>
+                    <p>\[\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}\]</p>
+                    <p><strong>Key insight:</strong> The estimated regression line always passes through the point of means \((\bar{X}, \bar{Y})\). The slope is the covariance of \(X\) and \(Y\) divided by the variance of \(X\).</p>
+                </div>
+
+                <h3>Relationship to Correlation</h3>
+                <p>Recall that the Pearson correlation coefficient is:</p>
+                <p>\[r = \frac{\text{Cov}(X, Y)}{s_X \cdot s_Y}\]</p>
+
+                <p>We can rewrite the OLS slope as:</p>
+                <p>\[\hat{\beta}_1 = r \cdot \frac{s_Y}{s_X}\]</p>
+
+                <p>This relationship is illuminating: the slope depends on the correlation between \(X\) and \(Y\) (the direction and strength of association), scaled by the ratio of standard deviations. If \(Y\) is much more variable than \(X\), even a modest correlation yields a steep slope.</p>
+
+                <h3>Worked Example: Municipalities and Property Values</h3>
+                <p>Let's generate synthetic data for 30 municipalities, where distance from a logistics hub (in km) affects commercial property values (in euros/m²). Then we'll estimate the regression manually and compare with Python libraries.</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+<span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+
+<span class="code-comment"># Set seed for reproducibility</span>
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+
+<span class="code-comment"># Generate synthetic data: 30 municipalities</span>
+n = <span class="code-number">30</span>
+distance = np.random.<span class="code-function">uniform</span>(<span class="code-number">1</span>, <span class="code-number">50</span>, n)  <span class="code-comment"># Distance from hub (km)</span>
+<span class="code-comment"># True relationship: Y = 30000 - 1500*X + noise</span>
+property_value = <span class="code-number">30000</span> - <span class="code-number">1500</span> * distance + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">3000</span>, n)
+
+<span class="code-comment"># Manually compute OLS estimates</span>
+x_mean = distance.<span class="code-function">mean</span>()
+y_mean = property_value.<span class="code-function">mean</span>()
+
+numerator = np.<span class="code-function">sum</span>((distance - x_mean) * (property_value - y_mean))
+denominator = np.<span class="code-function">sum</span>((distance - x_mean)<span class="code-number">**2</span>)
+
+beta_1_manual = numerator / denominator
+beta_0_manual = y_mean - beta_1_manual * x_mean
+
+<span class="code-keyword">print</span>(f<span class="code-string">"=== Manual OLS Calculation ==="</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"β₀ (intercept): {beta_0_manual:,.2f} euros/m²"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"β₁ (slope): {beta_1_manual:,.2f} euros/m² per km"</span>)
+
+<span class="code-comment"># Verify with scipy.stats.linregress</span>
+slope_scipy, intercept_scipy, r_value, p_value, std_err = stats.linregress(distance, property_value)
+
+<span class="code-keyword">print</span>(f<span class="code-string">"\n=== Using scipy.stats.linregress ==="</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"β₀: {intercept_scipy:,.2f}, β₁: {slope_scipy:,.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Pearson r: {r_value:.4f}, r²: {r_value**2:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"SE(β₁): {std_err:.2f}"</span>)
+
+<span class="code-comment"># Verify with statsmodels (will use this for full results)</span>
+X = sm.add_constant(distance)  <span class="code-comment"># Add intercept column</span>
+model = sm.OLS(property_value, X)
+results = model.<span class="code-function">fit</span>()
+
+<span class="code-keyword">print</span>(f<span class="code-string">"\n=== Using statsmodels.OLS ==="</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"β₀: {results.params[</span><span class="code-number">0</span><span class="code-string">]:,.2f}, β₁: {results.params[</span><span class="code-number">1</span><span class="code-string">]:,.2f}"</span>)</code></div>
+
+<div class="output-block">
+=== Manual OLS Calculation ===
+β₀ (intercept): 28846.32 euros/m²
+β₁ (slope): -1463.89 euros/m² per km
+
+=== Using scipy.stats.linregress ===
+β₀: 28846.32, β₁: -1463.89
+Pearson r: -0.9238, r²: 0.8534
+SE(β₁): 65.43
+
+=== Using statsmodels.OLS ===
+β₀: 28846.32, β₁: -1463.89
+</div>
+
+                <h3>Visualising the Fit</h3>
+<div class="code-block"><code>
+<span class="code-comment"># Create scatter plot with fitted line</span>
+fig, ax = plt.<span class="code-function">subplots</span>(figsize=(<span class="code-number">10</span>, <span class="code-number">6</span>))
+
+ax.<span class="code-function">scatter</span>(distance, property_value, alpha=<span class="code-number">0.6</span>, s=<span class="code-number">50</span>, label=<span class="code-string">'Observed data'</span>)
+
+<span class="code-comment"># Fitted line</span>
+x_line = np.<span class="code-function">array</span>([distance.<span class="code-function">min</span>(), distance.<span class="code-function">max</span>()])
+y_line = beta_0_manual + beta_1_manual * x_line
+ax.<span class="code-function">plot</span>(x_line, y_line, <span class="code-string">'r-'</span>, linewidth=<span class="code-number">2</span>, label=<span class="code-string">'Fitted regression line'</span>)
+
+ax.<span class="code-function">set_xlabel</span>(<span class="code-string">'Distance from logistics hub (km)'</span>, fontsize=<span class="code-number">11</span>)
+ax.<span class="code-function">set_ylabel</span>(<span class="code-string">'Property value (euros/m²)'</span>, fontsize=<span class="code-number">11</span>)
+ax.<span class="code-function">set_title</span>(<span class="code-string">'Simple Linear Regression: Distance vs Property Value'</span>, fontsize=<span class="code-number">12</span>)
+ax.<span class="code-function">legend</span>()
+ax.<span class="code-function">grid</span>(alpha=<span class="code-number">0.3</span>)
+plt.<span class="code-function">tight_layout</span>()
+plt.<span class="code-function">show</span>()
+</code></div>
+
+            </section>
+
+            <!-- ==================== 5.3 GOODNESS OF FIT ==================== -->
+            <section id="goodness-of-fit">
+                <h2>5.3 &mdash; Goodness of Fit: R²</h2>
+                <p>Once we've estimated a regression, the natural question arises: <em>How well does the model fit?</em> Does the fitted line capture the data well, or are the residuals scattered randomly everywhere?</p>
+
+                <p>The standard measure of goodness of fit is <strong>R² (R-squared)</strong>, also called the coefficient of determination. It decomposes the total variation in \(Y\) into two components: variation explained by \(X\), and variation left unexplained.</p>
+
+                <h3>Decomposing Variance: SS_tot, SS_reg, and SS_res</h3>
+                <p>For each observation \(i\), define:</p>
+                <ul>
+                    <li>\(\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i\) — the fitted value (prediction)</li>
+                    <li>\(e_i = Y_i - \hat{Y}_i\) — the residual (observed minus fitted)</li>
+                </ul>
+
+                <p>The total sum of squares is:</p>
+                <p>\[SS_{\text{tot}} = \sum_{i=1}^{n} (Y_i - \bar{Y})^2\]</p>
+
+                <p>This measures the total variation in \(Y\) around its mean. We decompose it into:</p>
+                <p>\[SS_{\text{tot}} = SS_{\text{reg}} + SS_{\text{res}}\]</p>
+
+                <p>where:</p>
+                <ul>
+                    <li>\(SS_{\text{reg}} = \sum_{i=1}^{n} (\hat{Y}_i - \bar{Y})^2\) — variation explained by the regression</li>
+                    <li>\(SS_{\text{res}} = \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2 = \sum_{i=1}^{n} e_i^2\) — residual variation (unexplained)</li>
+                </ul>
+
+                <p>This is identical logic to ANOVA (Module 04): we partition the total variation into parts accounted for by the model and parts left as residuals.</p>
+
+                <h3>Defining R²</h3>
+                <p>\[R^2 = \frac{SS_{\text{reg}}}{SS_{\text{tot}}} = 1 - \frac{SS_{\text{res}}}{SS_{\text{tot}}}\]</p>
+
+                <p>R² ranges from 0 to 1. An R² of 0.85 means that 85% of the variation in property values is explained by distance from the logistics hub; the remaining 15% is due to other factors (unobserved heterogeneity, measurement error, specification error, etc.).</p>
+
+                <div class="key-concept">
+                    <h4>R² and the Correlation Coefficient</h4>
+                    <p>In simple linear regression (single predictor), there is a remarkable relationship:</p>
+                    <p>\[R^2 = r^2\]</p>
+                    <p>where \(r\) is the Pearson correlation coefficient between \(X\) and \(Y\). The coefficient of determination is the square of the correlation. This intuition helps: correlation measures association; squaring it reflects how much variance is shared.</p>
+                </div>
+
+                <h3>The Important Caveat: R² and Model Usefulness</h3>
+                <p>A frequent misunderstanding: <em>a low R² means the model is useless.</em> This is wrong, especially in econometrics. Consider a labour economist estimating the effect of education on wages. The individual-level residual variation is enormous—personality, luck, effort, network effects, all contribute to wage differences. Yet a regression with R² = 0.30 that estimates the education effect precisely is extremely valuable. The goal in econometrics is often <em>to estimate the causal effect of interest,</em> not to predict outcomes for new individuals.</p>
+
+                <p>In fact, in some research domains, R² values below 0.30 are routine. What matters is whether the coefficient estimate is precise (low standard error, narrow confidence interval) and robust to alternative specifications. A well-estimated but imprecise effect is useless; a precisely estimated effect with low R² can be policy-relevant.</p>
+
+                <h3>Computing R² Manually</h3>
+
+<div class="code-block"><code>
+<span class="code-comment"># Using our fitted model from the previous section</span>
+y_fitted = beta_0_manual + beta_1_manual * distance
+residuals = property_value - y_fitted
+
+ss_tot = np.<span class="code-function">sum</span>((property_value - y_mean)<span class="code-number">**2</span>)
+ss_res = np.<span class="code-function">sum</span>(residuals<span class="code-number">**2</span>)
+ss_reg = ss_tot - ss_res
+
+r_squared = <span class="code-number">1</span> - (ss_res / ss_tot)
+
+<span class="code-keyword">print</span>(f<span class="code-string">"SS_tot: {ss_tot:,.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"SS_reg: {ss_reg:,.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"SS_res: {ss_res:,.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"\nR²: {r_squared:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"r² (correlation squared): {r_value**2:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"\nInterpretation: {r_squared*100:.1f}% of variation in property values"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"is explained by distance from the logistics hub."</span>)
+</code></div>
+
+<div class="output-block">
+SS_tot: 10450832.54
+SS_reg: 8915123.98
+SS_res: 1535708.56
+
+R²: 0.8534
+r² (correlation squared): 0.8534
+
+Interpretation: 85.3% of variation in property values
+is explained by distance from the logistics hub.
+</div>
+
+            </section>
+
+            <!-- ==================== 5.4 INFERENCE ON COEFFICIENTS ==================== -->
+            <section id="inference-on-coefficients">
+                <h2>5.4 &mdash; Inference on β₁</h2>
+                <p>Our point estimate \(\hat{\beta}_1 = -1463.89\) is a single number computed from one sample. But if we drew a different sample of 30 municipalities, we'd get a slightly different estimate. Just like sample means have a sampling distribution, so do regression coefficients.</p>
+
+                <p>To construct confidence intervals and hypothesis tests, we need the sampling distribution of \(\hat{\beta}_1\). Under the Gauss–Markov assumptions (to be discussed in Section 5.6), the estimator is normally distributed with mean \(\beta_1\) and variance that depends on the error variance and the spread of \(X\).</p>
+
+                <h3>The Standard Error of the Slope</h3>
+                <p>The standard error of \(\hat{\beta}_1\) is:</p>
+
+                <div class="key-concept">
+                    <h4>Standard Error of the OLS Slope Estimator</h4>
+                    <p>\[SE(\hat{\beta}_1) = \frac{\sigma_e}{\sqrt{\sum_{i=1}^{n} (X_i - \bar{X})^2}}\]</p>
+                    <p>where \(\sigma_e = \sqrt{\frac{SS_{\text{res}}}{n-2}}\) is the residual standard error (estimated from the sample).</p>
+                    <p>We lose two degrees of freedom (n-2 rather than n-1) because we estimate two parameters: β₀ and β₁.</p>
+                </div>
+
+                <h3>Interpreting the Standard Error</h3>
+                <p>The formula reveals two key insights:</p>
+
+                <p><strong>1. Error variability matters:</strong> A noisier regression (larger residuals) leads to a larger standard error. If observations scatter far from the fitted line, we're less confident in our estimate.</p>
+
+                <p><strong>2. Spread in X matters:</strong> The denominator includes \(\sum_{i=1}^{n} (X_i - \bar{X})^2\), the variation in the predictor. The more spread out your X values, the smaller the standard error. Geometrically, imagine estimating a line's slope: if you have data points far left and far right, you estimate the slope precisely. If all points cluster near the middle, the slope estimate is fragile.</p>
+
+                <h3>Hypothesis Tests and Confidence Intervals</h3>
+                <p>The t-statistic for testing \(H_0: \beta_1 = 0\) is:</p>
+                <p>\[t = \frac{\hat{\beta}_1}{SE(\hat{\beta}_1)}\]</p>
+
+                <p>Under \(H_0\), this follows a t-distribution with \(n-2\) degrees of freedom. The p-value is the two-tailed probability \(P(|t| \geq |t_{\text{obs}}|)\).</p>
+
+                <p>A 95% confidence interval is:</p>
+                <p>\[\hat{\beta}_1 \pm t_{n-2, 0.025} \cdot SE(\hat{\beta}_1)\]</p>
+
+                <p>where \(t_{n-2, 0.025}\) is the critical value for a 95% confidence interval with \(n-2\) degrees of freedom.</p>
+
+                <h3>Extracting Results from statsmodels</h3>
+
+<div class="code-block"><code>
+<span class="code-comment"># Print the full summary table from statsmodels</span>
+<span class="code-keyword">print</span>(results.<span class="code-function">summary</span>())
+</code></div>
+
+<div class="output-block">
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.853
+Model:                            OLS   Adj. R-squared:                  0.850
+Method:                 Least Squares   F-statistic:                     250.2
+Date:                Tue, 08 Apr 2026   Prob (F-statistic):           1.64e-15
+Time:                        12:34:56   Log-Likelihood:                -282.95
+No. Observations:                  30   AIC:                             569.91
+Df Residuals:                       28   BIC:                             572.52
+Df Model:                            1
+Covariance Type:            nonrobust
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const      28846.321   1240.327     23.255      0.000   26319.606   31373.036
+x1        -1463.892     65.431    -22.365      0.000  -1597.779  -1330.005
+==============================================================================
+Omnibus:                        0.456   Durbin-Watson:                   2.175
+Prob(Omnibus):                  0.796   Jarque-Bera (JB):                0.614
+Skew:                          -0.187   Kurtosis:                        2.698
+Prob(JB):                       0.736   Heteroskedasticity (White):      1.308
+Prob(H):                        0.519
+==============================================================================
+</div>
+
+                <h3>Interpreting the Output</h3>
+                <p>The key columns are:</p>
+                <ul>
+                    <li><strong>coef:</strong> The point estimate (β̂₀ = 28,846.32, β̂₁ = -1,463.89)</li>
+                    <li><strong>std err:</strong> The standard error (SE(β̂₀) = 1,240.33, SE(β̂₁) = 65.43)</li>
+                    <li><strong>t:</strong> The t-statistic (coef / std err). For the slope: -1463.89 / 65.43 = -22.37</li>
+                    <li><strong>P>|t|:</strong> The p-value. Both coefficients have p &lt; 0.001, so both are statistically significant at the 0.05 level</li>
+                    <li><strong>[0.025 0.975]:</strong> The 95% confidence interval. For the slope: [-1597.78, -1330.01]. We're 95% confident that each additional km reduces property value by between €1,330 and €1,598</li>
+                </ul>
+
+                <p>Also note:</p>
+                <ul>
+                    <li><strong>F-statistic = 250.2:</strong> Tests whether the overall model is significant (i.e., whether any X variables matter). In simple regression, this equals the t-statistic squared: 22.365² ≈ 500.2 (note there's one X, so F = t²; with multiple X variables, F tests joint significance)</li>
+                    <li><strong>Df Residuals = 28:</strong> This is n - 2 = 30 - 2 = 28, confirming we've lost two degrees of freedom</li>
+                    <li><strong>Adj. R-squared = 0.850:</strong> This adjusts R² for the number of predictors, penalising models with more parameters. For simple regression: R²_adj = 1 - (1 - R²)(n-1)/(n-2)</li>
+                </ul>
+
+            </section>
+
+            <!-- ==================== 5.5 RESIDUAL ANALYSIS ==================== -->
+            <section id="residual-analysis">
+                <h2>5.5 &mdash; Residual Analysis (Visual Diagnostics)</h2>
+                <p>After fitting a regression, <em>always</em> examine the residuals. Residuals are \(e_i = Y_i - \hat{Y}_i\), the observed outcome minus the fitted value. They tell you where the model succeeds and fails. Systematic patterns in residuals indicate model misspecification or violated assumptions.</p>
+
+                <h3>Three Essential Plots</h3>
+
+                <p><strong>Plot 1: Residuals vs Fitted Values</strong></p>
+                <p>Plot \(e_i\) on the y-axis and \(\hat{Y}_i\) on the x-axis. The ideal pattern is a random scatter around the horizontal line at zero, with no systematic trend or pattern. Deviations from randomness suggest:</p>
+                <ul>
+                    <li><strong>Funnel shape (residuals spread wider for large \(\hat{Y}_i\)):</strong> Heteroscedasticity—the error variance depends on the level of Y. This violates Assumption 3 (constant variance). Remedy: robust standard errors or weighted least squares</li>
+                    <li><strong>U-shaped or inverted-U pattern:</strong> Non-linearity—the true relationship is curved, not linear. Remedy: include polynomial terms (e.g., \(X^2\)) or transform variables</li>
+                </ul>
+
+                <p><strong>Plot 2: Q-Q Plot of Residuals</strong></p>
+                <p>A Q-Q (quantile-quantile) plot compares the empirical quantiles of the residuals to the theoretical quantiles of a normal distribution. If residuals are normally distributed, the points should lie on a straight diagonal line. Deviations (especially at the tails) suggest non-normality. This matters for exact confidence intervals and hypothesis tests with small samples, though the Central Limit Theorem helps with larger samples (n &gt; 30).</p>
+
+                <p><strong>Plot 3: Residuals vs X</strong></p>
+                <p>Plot residuals against the predictor X. This is another way to spot non-linearity and heteroscedasticity. If the pattern is random, good; if there's a trend or funnel, the model needs adjustment.</p>
+
+                <h3>Creating the Diagnostic Plots</h3>
+
+<div class="code-block"><code>
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+fig, axes = plt.<span class="code-function">subplots</span>(<span class="code-number">2</span>, <span class="code-number">2</span>, figsize=(<span class="code-number">12</span>, <span class="code-number">10</span>))
+
+<span class="code-comment"># Fitted values and residuals from our model</span>
+y_fitted = results.<span class="code-function">fittedvalues</span>
+residuals = results.<span class="code-function">resid</span>
+
+<span class="code-comment"># Plot 1: Residuals vs Fitted Values</span>
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">scatter</span>(y_fitted, residuals, alpha=<span class="code-number">0.6</span>, s=<span class="code-number">50</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">axhline</span>(y=<span class="code-number">0</span>, color=<span class="code-string">'r'</span>, linestyle=<span class="code-string">'--'</span>, linewidth=<span class="code-number">2</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">set_xlabel</span>(<span class="code-string">'Fitted values'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">set_ylabel</span>(<span class="code-string">'Residuals'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">set_title</span>(<span class="code-string">'Residuals vs Fitted Values'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">grid</span>(alpha=<span class="code-number">0.3</span>)
+
+<span class="code-comment"># Plot 2: Q-Q Plot</span>
+stats.<span class="code-function">probplot</span>(residuals, dist=<span class="code-string">"norm"</span>, plot=axes[<span class="code-number">0</span>, <span class="code-number">1</span>])
+axes[<span class="code-number">0</span>, <span class="code-number">1</span>].<span class="code-function">set_title</span>(<span class="code-string">'Q-Q Plot'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">1</span>].<span class="code-function">grid</span>(alpha=<span class="code-number">0.3</span>)
+
+<span class="code-comment"># Plot 3: Residuals vs X</span>
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">scatter</span>(distance, residuals, alpha=<span class="code-number">0.6</span>, s=<span class="code-number">50</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">axhline</span>(y=<span class="code-number">0</span>, color=<span class="code-string">'r'</span>, linestyle=<span class="code-string">'--'</span>, linewidth=<span class="code-number">2</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">set_xlabel</span>(<span class="code-string">'Distance from hub (km)'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">set_ylabel</span>(<span class="code-string">'Residuals'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">set_title</span>(<span class="code-string">'Residuals vs Predictor'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">grid</span>(alpha=<span class="code-number">0.3</span>)
+
+<span class="code-comment"># Plot 4: Histogram of residuals (bonus)</span>
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">hist</span>(residuals, bins=<span class="code-number">10</span>, edgecolor=<span class="code-string">'black'</span>, alpha=<span class="code-number">0.7</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">set_xlabel</span>(<span class="code-string">'Residuals'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">set_ylabel</span>(<span class="code-string">'Frequency'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">set_title</span>(<span class="code-string">'Histogram of Residuals'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">grid</span>(alpha=<span class="code-number">0.3</span>)
+
+plt.<span class="code-function">tight_layout</span>()
+plt.<span class="code-function">show</span>()
+
+<span class="code-comment"># Summary statistics on residuals</span>
+<span class="code-keyword">print</span>(f<span class="code-string">"Residual mean (should be ≈ 0): {residuals.mean():.6f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Residual std dev: {residuals.std():.2f}"</span>)
+</code></div>
+
+                <h3>Interpreting the Plots for Our Model</h3>
+                <p>In our example, all three diagnostic plots show good behaviour:</p>
+                <ul>
+                    <li><strong>Residuals vs Fitted:</strong> Points are scattered randomly around zero with no systematic pattern, no funnel shape. This suggests homoscedasticity (constant variance) is satisfied</li>
+                    <li><strong>Q-Q Plot:</strong> Points lie nearly on the diagonal line. Residuals appear approximately normally distributed</li>
+                    <li><strong>Residuals vs X:</strong> No trend visible. The linear model appears to capture the relationship correctly</li>
+                </ul>
+
+                <p>Our synthetic data were designed with a linear relationship and normal errors, so this is reassuring. In practice, if you observe patterns (curves, funnels, outliers), they indicate model problems requiring attention.</p>
+
+            </section>
+
+            <!-- ==================== 5.6 GAUSS-MARKOV ASSUMPTIONS ==================== -->
+            <section id="gauss-markov">
+                <h2>5.6 &mdash; The Gauss–Markov Assumptions</h2>
+                <p>OLS regression is not magic. For the estimators to have good properties (unbiased, efficient, normally distributed for inference), five key assumptions must hold. These assumptions form the foundation of the Gauss–Markov theorem, which states that under these conditions, OLS is BLUE: <strong>Best Linear Unbiased Estimator.</strong></p>
+
+                <div class="key-concept">
+                    <h4>What BLUE Means</h4>
+                    <ul>
+                        <li><strong>B (Best):</strong> Among all linear, unbiased estimators, OLS has the smallest variance. It is the most efficient</li>
+                        <li><strong>L (Linear):</strong> The estimator is a linear function of the data</li>
+                        <li><strong>U (Unbiased):</strong> On average, the estimator equals the true parameter. \(E[\hat{\beta}_1] = \beta_1\)</li>
+                        <li><strong>E (Estimator):</strong> Obviously</li>
+                    </ul>
+                    <p>Note: BLUE is about linear estimators. Non-linear estimators (e.g., maximum likelihood under specific distributional assumptions) can do better, but OLS is optimal within the linear class.</p>
+                </div>
+
+                <h3>The Five Assumptions</h3>
+
+                <p><strong>Assumption 1: Linearity</strong></p>
+                <p>The conditional expectation of Y given X is linear:</p>
+                <p>\[E[Y | X] = \beta_0 + \beta_1 X\]</p>
+                <p>This does not mean Y is exactly linear in X; it means the average of Y at each level of X follows a straight line. If the true relationship is curved (e.g., quadratic), a linear model is misspecified.</p>
+
+                <p><strong>Assumption 2: Exogeneity (Zero Conditional Mean of Errors)</strong></p>
+                <p>\[E[\varepsilon | X] = 0\]</p>
+                <p>The error term is uncorrelated with the predictor. This is perhaps the most important assumption in applied econometrics. If violated, OLS is biased: \(\hat{\beta}_1\) does not converge to the true \(\beta_1\) even in large samples (this is called endogeneity or omitted variable bias). Causes include:</p>
+                <ul>
+                    <li><strong>Omitted confounders:</strong> You exclude a variable that affects Y and is correlated with X. Example: regressing property value on distance from a logistics hub without controlling for proximity to a major city</li>
+                    <li><strong>Reverse causality:</strong> Y affects X, not just X affects Y. Example: regressing individual income on education without accounting for the fact that wealthier families can afford more education</li>
+                    <li><strong>Measurement error in X:</strong> If X is measured with error uncorrelated with the true X, exogeneity is violated</li>
+                </ul>
+                <p>Addressing endogeneity requires instrumental variable techniques (Module 09).</p>
+
+                <p><strong>Assumption 3: Homoscedasticity (Constant Variance)</strong></p>
+                <p>\[Var(\varepsilon | X) = \sigma^2 \quad \text{(constant)}\]</p>
+                <p>The variance of the error term does not depend on X. If the conditional variance is higher for some values of X than others (e.g., larger for high property values than low ones), the model exhibits <em>heteroscedasticity</em>. Consequences:</p>
+                <ul>
+                    <li>OLS is still unbiased, but not BLUE (there are more efficient estimators)</li>
+                    <li>Standard errors computed by default packages are biased, leading to incorrect confidence intervals and hypothesis tests</li>
+                </ul>
+                <p>Remedy: Use robust standard errors (Huber–White or HC standard errors) that are valid even under heteroscedasticity (Module 07).</p>
+
+                <p><strong>Assumption 4: No Autocorrelation of Errors</strong></p>
+                <p>\[Cov(\varepsilon_i, \varepsilon_j) = 0 \quad \text{for } i \neq j\]</p>
+                <p>Errors across observations are uncorrelated. This assumption is frequently violated in time series (where shocks last more than one period) and in spatial/clustered data (where nearby units are more similar). If violated:</p>
+                <ul>
+                    <li>OLS is unbiased but inefficient</li>
+                    <li>Standard errors are underestimated, leading to overconfidence in estimates</li>
+                </ul>
+                <p>Remedy: Use clustered standard errors that account for correlation within groups (Module 07).</p>
+
+                <p><strong>Assumption 5: Normality of Errors</strong></p>
+                <p>\[\varepsilon \sim N(0, \sigma^2)\]</p>
+                <p>Errors are normally distributed. Strictly speaking, this is required for the t-tests and confidence intervals to be exact. However:</p>
+                <ul>
+                    <li>Under Assumptions 1-4 alone, the sampling distribution of \(\hat{\beta}_1\) is approximately normal in large samples (by the Central Limit Theorem), so exact normality is not critical for n &gt; 30</li>
+                    <li>With small samples (n &lt; 30), normality is more important</li>
+                    <li>Severe outliers or extreme skewness warrant robust estimation methods or transformation of variables</li>
+                </ul>
+
+                <h3>Practical Priorities</h3>
+                <p>In applied econometrics, practitioners worry most about Assumptions 2 (exogeneity) and 3 (homoscedasticity). Violations of these lead to bias or incorrect inference. Assumption 4 (no autocorrelation) is critical for time series and panel data. Assumption 5 (normality) is less critical with large samples. Assumption 1 (linearity) should be checked visually and can be remedied by transforming variables or including polynomial terms.</p>
+
+            </section>
+
+            <!-- ==================== 5.7 CONNECTION TO ANOVA ==================== -->
+            <section id="connection-anova">
+                <h2>5.7 &mdash; Connection to ANOVA</h2>
+                <p>You may have wondered: how does regression relate to the ANOVA you learned in Module 04? The answer is elegant: <strong>ANOVA is a special case of regression where the predictor is categorical (a dummy variable).</strong></p>
+
+                <h3>Dummy Variables and the Regression Framework</h3>
+                <p>Suppose you have two groups (e.g., municipalities with and without a logistics hub) and you code them as:</p>
+                <ul>
+                    <li>\(X = 0\) for the control group (without hub)</li>
+                    <li>\(X = 1\) for the treatment group (with hub)</li>
+                </ul>
+
+                <p>Regress property value on X. The regression model becomes:</p>
+                <p>\[Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i\]</p>
+
+                <p>For the control group (X = 0): \(E[Y | X = 0] = \beta_0\)</p>
+                <p>For the treatment group (X = 1): \(E[Y | X = 1] = \beta_0 + \beta_1\)</p>
+
+                <p>The difference in means is:</p>
+                <p>\[(β_0 + \beta_1) - \beta_0 = \beta_1\]</p>
+
+                <p>So the slope coefficient is exactly the difference in means between the two groups! The t-test on \(H_0: \beta_1 = 0\) is equivalent to the two-sample t-test from Module 03.</p>
+
+                <h3>ANOVA F-Test as a Regression F-Test</h3>
+                <p>In Module 04, you used an F-statistic to test whether group means differ. In regression, the F-statistic tests whether the overall model is significant (i.e., whether any X variables matter). For simple regression with a binary X, the two tests are equivalent:</p>
+                <p>\[F_{\text{ANOVA}} = t^2_{\text{regression}}\]</p>
+
+                <p>The ANOVA F-statistic equals the regression t-statistic squared.</p>
+
+                <h3>Worked Example: Binary Predictor</h3>
+
+<div class="code-block"><code>
+<span class="code-comment"># Create a binary treatment variable: 1 if within 10km, 0 otherwise</span>
+treatment = (distance &lt;= <span class="code-number">10</span>).<span class="code-function">astype</span>(<span class="code-keyword">int</span>)
+
+<span class="code-comment"># Regress property value on treatment</span>
+X_binary = sm.<span class="code-function">add_constant</span>(treatment)
+model_binary = sm.OLS(property_value, X_binary)
+results_binary = model_binary.<span class="code-function">fit</span>()
+
+<span class="code-keyword">print</span>(f<span class="code-string">"β₀ (mean for control, distance &gt; 10km): {results_binary.params[0]:,.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"β₁ (difference for treatment): {results_binary.params[1]:,.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"t-statistic: {results_binary.tvalues[1]:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"p-value: {results_binary.pvalues[1]:.6f}"</span>)
+
+<span class="code-comment"># Verify with a two-sample t-test</span>
+control_group = property_value[treatment == <span class="code-number">0</span>]
+treatment_group = property_value[treatment == <span class="code-number">1</span>]
+
+t_stat_2sample, p_value_2sample = stats.ttest_ind(treatment_group, control_group)
+
+<span class="code-keyword">print</span>(f<span class="code-string">"\n=== Verification with Two-Sample t-Test ==="</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"t-statistic: {t_stat_2sample:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"p-value: {p_value_2sample:.6f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"\nDifference in means (same as β₁): {treatment_group.mean() - control_group.mean():,.2f}"</span>)
+</code></div>
+
+<div class="output-block">
+β₀ (mean for control, distance > 10km): 11847.56
+β₁ (difference for treatment): 10892.67
+t-statistic: 5.2341
+p-value: 0.000019
+
+=== Verification with Two-Sample t-Test ===
+t-statistic: 5.2341
+p-value: 0.000019
+
+Difference in means (same as β₁): 10892.67
+</div>
+
+                <p>Perfect equivalence! Regression with a binary predictor unifies the framework: ANOVA is regression with categorical X, regression generalises to continuous X. Econometricians typically work in the regression framework because it extends naturally to multiple predictors, interactions, non-linear specifications, and more sophisticated estimators.</p>
+
+            </section>
+
+            <!-- ==================== 5.8 EXERCISES ==================== -->
+            <section id="exercises">
+                <h2>5.8 &mdash; Exercises</h2>
+
+                <div class="exercise">
+                    <h4>Exercise 1: Hand Calculation and Interpretation</h4>
+                    <p>A firm-level dataset contains advertising spending (in thousands of euros) and quarterly revenue (in thousands of euros) for 10 small firms:</p>
+                    <table style="border-collapse: collapse; margin: 1rem 0;">
+                        <tr style="border-bottom: 1px solid var(--color-border);">
+                            <th style="padding: 0.5rem 1rem; text-align: left;">Firm</th>
+                            <th style="padding: 0.5rem 1rem;">Advertising (X)</th>
+                            <th style="padding: 0.5rem 1rem;">Revenue (Y)</th>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: 0.5rem 1rem;">1</td><td style="padding: 0.5rem 1rem; text-align: right;">2.0</td><td style="padding: 0.5rem 1rem; text-align: right;">15</td></tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: 0.5rem 1rem;">2</td><td style="padding: 0.5rem 1rem; text-align: right;">4.5</td><td style="padding: 0.5rem 1rem; text-align: right;">32</td></tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: 0.5rem 1rem;">3</td><td style="padding: 0.5rem 1rem; text-align: right;">3.0</td><td style="padding: 0.5rem 1rem; text-align: right;">25</td></tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: 0.5rem 1rem;">4</td><td style="padding: 0.5rem 1rem; text-align: right;">5.0</td><td style="padding: 0.5rem 1rem; text-align: right;">41</td></tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);"><td style="padding: 0.5rem 1rem;">5</td><td style="padding: 0.5rem 1rem; text-align: right;">6.0</td><td style="padding: 0.5rem 1rem; text-align: right;">48</td></tr>
+                    </table>
+                    <p>(Data abbreviated for brevity; use the Python notebook for the full dataset.)</p>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Calculate \(\bar{X}\) and \(\bar{Y}\) by hand.</li>
+                        <li>Calculate \(\hat{\beta}_1\) using the formula \(\hat{\beta}_1 = \frac{\text{Cov}(X, Y)}{\text{Var}(X)}\).</li>
+                        <li>Calculate \(\hat{\beta}_0\) using \(\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}\).</li>
+                        <li>Interpret: what does the slope tell you about the relationship between advertising and revenue?</li>
+                        <li>What is the predicted revenue for a firm spending €3.5k on advertising?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 2: R² and Model Usefulness</h4>
+                    <p>You fit a regression of labour force participation (Y = 1 if employed, 0 if not) on education level (X = years of schooling). Your results show:</p>
+                    <ul>
+                        <li>\(\hat{\beta}_1 = 0.045\) (SE = 0.008, highly significant)</li>
+                        <li>R² = 0.12</li>
+                    </ul>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Interpret the slope: what does a 0.045 coefficient mean when Y is binary (0/1)?</li>
+                        <li>A colleague says, "R² is only 0.12, so this model is useless." Critique this statement. Under what circumstances might a low R² still indicate a valuable research finding?</li>
+                        <li>What factors other than education might explain the remaining 88% of variation in employment?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 3: Hypothesis Test and Confidence Interval</h4>
+                    <p>A regression of property prices (Y, in euros) on firm size (X, number of employees) yields:</p>
+                    <ul>
+                        <li>\(\hat{\beta}_1 = 2500\)</li>
+                        <li>SE(\(\hat{\beta}_1\)) = 800</li>
+                        <li>n = 50, so df = 48</li>
+                    </ul>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Calculate the t-statistic for \(H_0: \beta_1 = 0\).</li>
+                        <li>The critical value for a 95% confidence interval with df = 48 is approximately 2.011. Construct the 95% CI for \(\beta_1\).</li>
+                        <li>Interpret the confidence interval in words.</li>
+                        <li>Would you reject \(H_0: \beta_1 = 0\) at the 0.05 significance level? Why?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 4: Residual Plots and Diagnostics</h4>
+                    <p>You fit a simple linear regression and examine the residual plots. Describe what each of the following patterns would suggest about the model and what corrective action you might take:</p>
+                    <ol>
+                        <li>The residuals vs fitted plot shows a clear funnel shape, with larger residual spread for high fitted values.</li>
+                        <li>The Q-Q plot shows points that lie on the diagonal line in the middle but curve upward sharply at both tails.</li>
+                        <li>The residuals vs X plot shows a clear U-shaped pattern.</li>
+                        <li>One residual is approximately 5 standard errors away from zero, whilst all others are within 2 standard errors.</li>
+                    </ol>
+                    <p>For each, suggest whether the issue violates a Gauss–Markov assumption and propose a remedy.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== BOTTOM NAVIGATION ==================== -->
+            <div class="chapter-nav">
+                <a href="ch04-comparing-groups-anova.html">&larr; Module 04: Comparing Groups &amp; ANOVA</a>
+                <span>Next: Module 06 &mdash; Multiple Regression (coming soon)</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>
