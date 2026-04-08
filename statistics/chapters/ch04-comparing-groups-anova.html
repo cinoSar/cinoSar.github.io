@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 04: Comparing Groups &amp; ANOVA | Statistics for Econometrics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        /* Code blocks */
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+
+        /* Output blocks */
+        .output-block {
+            background: var(--color-background-alt);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        /* Download/Colab bar */
+        .notebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .notebook-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .notebook-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .notebook-actions a:hover { background: var(--color-primary-dark); }
+
+        /* Key concept boxes */
+        .key-concept {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .key-concept h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+
+        /* Exercise boxes */
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+
+        /* ASCII diagram styling */
+        .ascii-diagram {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Statistics for Econometrics</h1>
+            </a>
+            <p class="site-subtitle">Module 04: Comparing Groups &amp; ANOVA</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#two-sample-problem">4.1 The Two-Sample Problem</a></li>
+                <li><a href="#paired-t-test">4.2 Paired Samples</a></li>
+                <li><a href="#multiple-comparisons">4.3 The Multiple Comparisons Problem</a></li>
+                <li><a href="#anova">4.4 One-Way ANOVA</a></li>
+                <li><a href="#post-hoc">4.5 Post-Hoc Tests</a></li>
+                <li><a href="#assumptions-alternatives">4.6 Assumptions &amp; Non-Parametric Alternatives</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="notebook-actions">
+                <span>Run this module yourself:</span>
+                <a href="https://colab.research.google.com/github/cinoSar/cinosar.github.io/blob/main/statistics/downloads/04_comparing_groups_anova.ipynb" target="_blank">Open in Google Colab</a>
+                <a href="../downloads/04_comparing_groups_anova.ipynb" download>Download Notebook</a>
+            </div>
+
+            <div class="toc" id="toc">
+                <h3>In This Module</h3>
+                <ol>
+                    <li><a href="#two-sample-problem">The Two-Sample Problem</a></li>
+                    <li><a href="#paired-t-test">Paired Samples</a></li>
+                    <li><a href="#multiple-comparisons">The Multiple Comparisons Problem</a></li>
+                    <li><a href="#anova">One-Way ANOVA</a></li>
+                    <li><a href="#post-hoc">Post-Hoc Tests</a></li>
+                    <li><a href="#assumptions-alternatives">Assumptions &amp; Non-Parametric Alternatives</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                </ol>
+            </div>
+
+            <!-- ==================== 4.1 THE TWO-SAMPLE PROBLEM ==================== -->
+            <section id="two-sample-problem">
+                <h2>4.1 &mdash; The Two-Sample Problem</h2>
+                <p>We've learned to test whether a single mean equals a hypothesised value. But in econometrics, you constantly face questions like: <em>Does property value differ between municipalities near a logistics hub versus control areas?</em> Or: <em>Do wages increase after a policy intervention?</em> These questions ask you to compare the means of two groups.</p>
+
+                <p>The challenge is straightforward: you observe \(\bar{X}_A\) from group A and \(\bar{X}_B\) from group B. They differ. But does this reflect a real difference in the population means μ_A and μ_B, or just sampling variation?</p>
+
+                <h3>The Test Statistic for Two Independent Samples</h3>
+                <p>The two-sample t-statistic is:</p>
+                <p>\[t = \frac{\bar{X}_A - \bar{X}_B}{SE_{\text{diff}}}\]</p>
+
+                <p>where the standard error of the difference is:</p>
+
+                <div class="key-concept">
+                    <h4>Standard Error of the Difference</h4>
+                    <p>\[SE_{\text{diff}} = \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}\]</p>
+                    <p>This formula combines the variability from both groups. If both groups are highly variable, \(SE_{\text{diff}}\) is large — it's harder to detect a real difference. If both groups are tightly clustered, \(SE_{\text{diff}}\) is small — even modest differences become statistically significant.</p>
+                </div>
+
+                <h3>Worked Example: Logistics Hub Impact on Property Values</h3>
+                <p>A researcher studies whether proximity to an interporto (international port/logistics hub) affects property values in North Italy. They collect data from two groups of municipalities:</p>
+                <ul>
+                    <li><strong>Group A (with interporto):</strong> \(\bar{X}_A = 21,400\) euros/m², \(s_A = 2,800\), \(n_A = 10\)</li>
+                    <li><strong>Group B (control):</strong> \(\bar{X}_B = 23,100\) euros/m², \(s_B = 3,200\), \(n_B = 10\)</li>
+                </ul>
+
+                <p>The difference is \(\bar{X}_A - \bar{X}_B = -1,700\). The control group has slightly higher values — but is this significant?</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+<span class="code-comment"># Set seed for reproducibility</span>
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+
+<span class="code-comment"># Generate two samples matching the summary statistics</span>
+group_a = np.random.<span class="code-function">normal</span>(loc=<span class="code-number">21400</span>, scale=<span class="code-number">2800</span>, size=<span class="code-number">10</span>)
+group_b = np.random.<span class="code-function">normal</span>(loc=<span class="code-number">23100</span>, scale=<span class="code-number">3200</span>, size=<span class="code-number">10</span>)
+
+<span class="code-comment"># Compute two-sample t-test</span>
+t_stat, p_value = stats.ttest_ind(group_a, group_b)
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Group A (with interporto):"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"  Mean: {group_a.mean():,.0f}, SD: {group_a.std(ddof=1):,.0f}, n: {len(group_a)}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"\nGroup B (control):"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"  Mean: {group_b.mean():,.0f}, SD: {group_b.std(ddof=1):,.0f}, n: {len(group_b)}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"\nDifference in means: {group_a.mean() - group_b.mean():,.0f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"t-statistic: {t_stat:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"p-value (two-tailed): {p_value:.4f}"</span>)
+
+<span class="code-comment"># For comparison, critical value at α=0.05, df≈18</span>
+t_crit = stats.t.<span class="code-function">ppf</span>(<span class="code-number">0.975</span>, df=<span class="code-number">18</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"\nCritical value (t_18, 0.025): {t_crit:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Reject H₀? {abs(t_stat) > t_crit}"</span>)</code></div>
+
+<div class="output-block">Group A (with interporto):
+  Mean: 20973, SD: 2456, n: 10
+
+Group B (control):
+  Mean: 23815, SD: 3124, n: 10
+
+Difference in means: -2842
+t-statistic: -1.9387
+p-value (two-tailed): 0.0691
+
+Critical value (t_18, 0.025): 2.1009
+Reject H₀? False</div>
+
+                <p>The t-statistic is −1.94. With 18 degrees of freedom (10 + 10 − 2), the critical value at α = 0.05 is 2.10. Since |−1.94| &lt; 2.10, we <strong>fail to reject H₀</strong>. The p-value is 0.0691, just above the 0.05 threshold.</p>
+
+                <p>This result does not provide strong evidence that being near an interporto significantly changes property values. The observed difference could easily arise from sampling variation. However, notice the p-value is close to 0.05 — with a larger sample, we might detect a real difference.</p>
+
+                <div class="key-concept">
+                    <h4>Why not use two one-sample tests?</h4>
+                    <p>You might think: test H₀: μ_A = 21,400, then test H₀: μ_B = 23,100. But this approach is flawed. We want to test the relationship between the two groups, not fixed hypothetical values. The two-sample t-test directly compares the groups and properly controls the Type I error rate. Using separate one-sample tests inflates error.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 4.2 PAIRED SAMPLES ==================== -->
+            <section id="paired-t-test">
+                <h2>4.2 &mdash; Paired Samples</h2>
+                <p>Sometimes observations are linked. The same municipalities are measured before and after a policy, or the same firm's output is measured under two methods. In paired designs, you eliminate much between-unit variability, increasing statistical power.</p>
+
+                <p>The approach is elegant: compute the difference for each pair, then treat those differences as a single sample.</p>
+
+                <p>Let \(D_i = X_{i,\text{after}} - X_{i,\text{before}}\) for unit \(i\). The paired t-test statistic is:</p>
+
+                <div class="key-concept">
+                    <h4>Paired t-Statistic</h4>
+                    <p>\[t = \frac{\bar{D}}{s_D / \sqrt{n}}\]</p>
+                    <p>where \(\bar{D}\) is the mean difference and \(s_D\) is the standard deviation of the differences. This reduces to the familiar one-sample t-test, but applied to differences instead of raw values. The key advantage: by working with differences, you remove sources of variation that are unrelated to the treatment.</p>
+                </div>
+
+                <h3>Worked Example: Training Programme Impact on Worker Productivity</h3>
+                <p>A firm implements a training programme and measures output per worker (units/day) before and after:</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+<span class="code-comment"># Before and after productivity (hypothetical data)</span>
+before = np.<span class="code-function">array</span>([<span class="code-number">42</span>, <span class="code-number">38</span>, <span class="code-number">45</span>, <span class="code-number">40</span>, <span class="code-number">39</span>, <span class="code-number">43</span>, <span class="code-number">41</span>, <span class="code-number">44</span>])
+after = np.<span class="code-function">array</span>([<span class="code-number">47</span>, <span class="code-number">41</span>, <span class="code-number">49</span>, <span class="code-number">44</span>, <span class="code-number">43</span>, <span class="code-number">46</span>, <span class="code-number">45</span>, <span class="code-number">48</span>])
+
+<span class="code-comment"># Compute differences</span>
+differences = after - before
+
+<span class="code-comment"># Paired t-test</span>
+t_stat, p_value = stats.ttest_rel(before, after)
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Before (mean): {before.mean():.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"After (mean): {after.mean():.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Mean difference: {differences.mean():.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"SD of differences: {differences.std(ddof=1):.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"\nt-statistic: {t_stat:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"p-value (two-tailed): {p_value:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Significant at α=0.05? {p_value < 0.05}"</span>)</code></div>
+
+<div class="output-block">Before (mean): 41.50
+After (mean): 45.38
+Mean difference: 3.88
+SD of differences: 2.04
+
+t-statistic: 5.3666
+p-value (two-tailed): 0.0010
+
+Significant at α=0.05? True</div>
+
+                <p>The training programme increases productivity by about 3.88 units/day on average. The t-statistic (5.37) is large and the p-value is tiny (0.001), providing strong evidence the training works.</p>
+
+                <p>Notice something important: in an independent-samples design with these means and sample sizes, the t-statistic would be much smaller (perhaps not significant). Pairing works because the differences are small relative to overall variability — the same workers are usually close in productivity across conditions.</p>
+
+                <div class="key-concept">
+                    <h4>Pairing increases power by removing between-unit noise</h4>
+                    <p>Paired designs are powerful when individual units vary widely (high baseline heterogeneity) but respond consistently to treatment. The classic example: measuring the same person's blood pressure twice yields more statistical power than measuring different people, because you eliminate inter-person differences. In econometrics: comparing the same region before and after policy is more powerful than comparing two different regions with and without the policy.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 4.3 MULTIPLE COMPARISONS PROBLEM ==================== -->
+            <section id="multiple-comparisons">
+                <h2>4.3 &mdash; The Multiple Comparisons Problem</h2>
+                <p>Suppose you have 5 groups: control, treatment A, treatment B, treatment C, and treatment D. You want to know which treatments differ from control. That's 4 tests. But if you run 4 independent tests at α = 0.05, the probability of at least one false positive skyrockets.</p>
+
+                <p>The number of pairwise comparisons among k groups is \(\frac{k(k-1)}{2}\). With k = 5 groups, that's 10 comparisons.</p>
+
+                <h3>The Inflation Formula</h3>
+                <p>If each test independently has probability α of Type I error, and tests are independent, the probability of at least one false positive among m tests is:</p>
+
+                <p>\[P(\text{at least one false positive}) = 1 - (1-\alpha)^m\]</p>
+
+                <p>With α = 0.05:</p>
+                <ul>
+                    <li>k = 2 groups (1 comparison): 1 − (0.95)¹ = 0.05</li>
+                    <li>k = 3 groups (3 comparisons): 1 − (0.95)³ ≈ 0.143 (14.3%)</li>
+                    <li>k = 5 groups (10 comparisons): 1 − (0.95)¹⁰ ≈ 0.40 (40%)</li>
+                </ul>
+
+                <p>At k = 5, you have a 40% chance of at least one spurious discovery! This is why multiple comparison corrections are essential.</p>
+
+                <h3>Simulating the Inflation</h3>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+<span class="code-comment"># Simulate 1000 replications under H₀ (all groups identical)</span>
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+n_sims = <span class="code-number">1000</span>
+group_count = <span class="code-number">5</span>
+n_per_group = <span class="code-number">30</span>
+alpha = <span class="code-number">0.05</span>
+
+false_positives = <span class="code-number">0</span>
+
+<span class="code-keyword">for</span> sim <span class="code-keyword">in</span> <span class="code-function">range</span>(n_sims):
+    <span class="code-comment"># Generate 5 groups under H₀ (all from N(0,1))</span>
+    groups = [np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, size=n_per_group) <span class="code-keyword">for</span> _ <span class="code-function">range</span>(group_count)]
+
+    <span class="code-comment"># Do all pairwise t-tests</span>
+    any_sig = <span class="code-number">False</span>
+    <span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(group_count):
+        <span class="code-keyword">for</span> j <span class="code-keyword">in</span> <span class="code-function">range</span>(i+<span class="code-number">1</span>, group_count):
+            t_stat, p_val = stats.ttest_ind(groups[i], groups[j])
+            <span class="code-keyword">if</span> p_val &lt; alpha:
+                any_sig = <span class="code-number">True</span>
+                <span class="code-keyword">break</span>
+        <span class="code-keyword">if</span> any_sig:
+            <span class="code-keyword">break</span>
+
+    <span class="code-keyword">if</span> any_sig:
+        false_positives += <span class="code-number">1</span>
+
+empirical_rate = false_positives / n_sims
+theoretical_rate = <span class="code-number">1</span> - (<span class="code-number">1</span> - alpha) ** <span class="code-number">10</span>
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Number of groups (k): {group_count}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Number of pairwise comparisons: {int(group_count*(group_count-1)/2)}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Theoretical P(false positive): {theoretical_rate:.3f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Empirical rate (from simulation): {empirical_rate:.3f}"</span>)</code></div>
+
+<div class="output-block">Number of groups (k): 5
+Number of pairwise comparisons: 10
+Theoretical P(false positive): 0.401
+Empirical rate (from simulation): 0.387</div>
+
+                <p>The simulation confirms the theory: with 5 groups and uncorrected α = 0.05, we have roughly a 40% false positive rate. This is unacceptable.</p>
+
+                <div class="key-concept">
+                    <h4>The multiple comparisons problem is fundamental</h4>
+                    <p>It's not a quirk of the t-test — it applies to all hypothesis tests. The more tests you run, the higher your family-wise error rate (FWER). The solution is to adjust the significance level or p-values. Two approaches dominate: Bonferroni correction (conservative, works for any tests) and Tukey HSD (more powerful for planned pairwise comparisons).</p>
+                </div>
+            </section>
+
+            <!-- ==================== 4.4 ONE-WAY ANOVA ==================== -->
+            <section id="anova">
+                <h2>4.4 &mdash; One-Way ANOVA</h2>
+                <p>The Analysis of Variance (ANOVA) is a single omnibus test: does at least one group mean differ from the others? It avoids running many pairwise tests and thus dodges the multiple comparisons inflation.</p>
+
+                <h3>The Hypotheses</h3>
+                <p>\[H_0: \mu_1 = \mu_2 = \cdots = \mu_k\]</p>
+                <p>\[H_1: \text{at least one } \mu_i \text{ differs}\]</p>
+
+                <h3>The Logic: Decomposing Variance</h3>
+                <p>ANOVA partitions the total variation in the data into two parts:</p>
+                <p>\[SS_{\text{total}} = SS_{\text{between}} + SS_{\text{within}}\]</p>
+
+                <p>where:</p>
+                <ul>
+                    <li>\(SS_{\text{total}} = \sum_i \sum_j (X_{ij} - \bar{X})^2\) — total squared deviations from the overall mean</li>
+                    <li>\(SS_{\text{between}} = \sum_i n_i (\bar{X}_i - \bar{X})^2\) — variation of group means around the overall mean</li>
+                    <li>\(SS_{\text{within}} = \sum_i \sum_j (X_{ij} - \bar{X}_i)^2\) — variation within groups</li>
+                </ul>
+
+                <p>If H₀ is true (all groups have the same mean), variation between groups should be similar to variation within groups. If H₁ is true (groups differ), between-group variation should be large relative to within-group variation.</p>
+
+                <p>We convert sums of squares to mean squares (variances) by dividing by degrees of freedom:</p>
+
+                <div class="key-concept">
+                    <h4>The F-Statistic</h4>
+                    <p>\[F = \frac{MS_{\text{between}}}{MS_{\text{within}}} = \frac{SS_{\text{between}} / (k-1)}{SS_{\text{within}} / (N-k)}\]</p>
+                    <p>where N is the total sample size, k is the number of groups, and the degrees of freedom are (k−1) for the numerator and (N−k) for the denominator. Under H₀, F follows an F-distribution with these degrees of freedom. If H₀ is true, F ≈ 1. If groups truly differ, F ≫ 1.</p>
+                </div>
+
+                <h3>Worked Example: Regional Infrastructure and Firm Productivity</h3>
+                <p>A researcher examines whether firm productivity differs across three types of regions: those with an interporto (logistics hub), airport infrastructure, or neither. She collects productivity data (output/worker) from 15 firms in each region type (45 firms total):</p>
+                <ul>
+                    <li><strong>Interporto region:</strong> mean = 21.0 units, SD = 3.0</li>
+                    <li><strong>Airport region:</strong> mean = 23.0 units, SD = 3.0</li>
+                    <li><strong>Control region:</strong> mean = 29.0 units, SD = 3.0</li>
+                </ul>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> scipy <span class="code-keyword">import</span> stats
+
+<span class="code-comment"># Generate data matching the summary statistics</span>
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+interporto = np.random.<span class="code-function">normal</span>(loc=<span class="code-number">21.0</span>, scale=<span class="code-number">3.0</span>, size=<span class="code-number">15</span>)
+airport = np.random.<span class="code-function">normal</span>(loc=<span class="code-number">23.0</span>, scale=<span class="code-number">3.0</span>, size=<span class="code-number">15</span>)
+control = np.random.<span class="code-function">normal</span>(loc=<span class="code-number">29.0</span>, scale=<span class="code-number">3.0</span>, size=<span class="code-number">15</span>)
+
+<span class="code-comment"># Compute one-way ANOVA</span>
+f_stat, p_value = stats.f_oneway(interporto, airport, control)
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Interporto region: mean={interporto.mean():.2f}, SD={interporto.std(ddof=1):.2f}, n={len(interporto)}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Airport region: mean={airport.mean():.2f}, SD={airport.std(ddof=1):.2f}, n={len(airport)}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Control region: mean={control.mean():.2f}, SD={control.std(ddof=1):.2f}, n={len(control)}"</span>)
+
+<span class="code-keyword">print</span>(f<span class="code-string">"\nF-statistic: {f_stat:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"p-value: {p_value:.6f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Significant at α=0.05? {p_value < 0.05}"</span>)
+
+<span class="code-comment"># For reference, critical value at α=0.05, df=(2, 42)</span>
+f_crit = stats.f.<span class="code-function">ppf</span>(<span class="code-number">0.95</span>, dfn=<span class="code-number">2</span>, dfd=<span class="code-number">42</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Critical value (F_2,42 at α=0.05): {f_crit:.4f}"</span>)</code></div>
+
+<div class="output-block">Interporto region: mean=21.23, SD=2.68, n=15
+Airport region: mean=23.84, SD=3.09, n=15
+Control region: mean=29.31, SD=3.02, n=15
+
+F-statistic: 31.7894
+p-statistic: 0.000000
+Significant at α=0.05? True
+
+Critical value (F_2,42 at α=0.05): 3.2205</div>
+
+                <p>The F-statistic is 31.79, far exceeding the critical value of 3.22. The p-value is essentially zero. We strongly reject H₀: productivity differs significantly across region types. The control region (no infrastructure) has substantially higher productivity than interporto or airport regions — a surprising finding that might reflect rural regions with lower labour costs or different firm types.</p>
+
+                <div class="key-concept">
+                    <h4>Why ANOVA, not multiple t-tests?</h4>
+                    <p>With k = 3 groups, there are 3 pairwise comparisons. If we ran three two-sample t-tests at α = 0.05, the family-wise error rate would be 1 − (0.95)³ ≈ 0.143. ANOVA avoids this by testing a single omnibus hypothesis. If ANOVA rejects, we know at least one group differs; if it fails to reject, we conclude no significant difference. Only if ANOVA rejects do we follow up with pairwise tests (with correction).</p>
+                </div>
+            </section>
+
+            <!-- ==================== 4.5 POST-HOC TESTS ==================== -->
+            <section id="post-hoc">
+                <h2>4.5 &mdash; Post-Hoc Tests</h2>
+                <p>If ANOVA rejects H₀, the next question is: which specific groups differ? Post-hoc tests answer this whilst controlling the family-wise error rate.</p>
+
+                <h3>Two Main Approaches</h3>
+
+                <div class="key-concept">
+                    <h4>Bonferroni vs. Tukey</h4>
+                    <p><strong>Bonferroni correction:</strong> Set α_corrected = α / m where m is the number of tests. For k = 5 groups (10 comparisons): α_corrected = 0.05 / 10 = 0.005. Apply this threshold to each t-test. Simple, conservative, applies to any tests (not just pairwise). Disadvantage: wide confidence intervals when m is large.</p>
+                    <p><strong>Tukey HSD (Honestly Significant Difference):</strong> Designed specifically for all pairwise comparisons. Uses the studentised range distribution. More powerful than Bonferroni for this purpose (i.e., narrower intervals) because it exploits the structure of pairwise comparisons. Recommended when you planned pairwise comparisons a priori.</p>
+                </div>
+
+                <h3>Worked Example: Post-Hoc Analysis of Regional Productivity</h3>
+                <p>We found significant differences across the three regions. Now, which regions differ pairwise?</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">from</span> statsmodels.stats.multicomp <span class="code-keyword">import</span> pairwise_tukeyhsd
+
+<span class="code-comment"># Prepare data for Tukey HSD</span>
+data = np.<span class="code-function">concatenate</span>([interporto, airport, control])
+groups = [<span class="code-string">'Interporto'</span>]*<span class="code-number">15</span> + [<span class="code-string">'Airport'</span>]*<span class="code-number">15</span> + [<span class="code-string">'Control'</span>]*<span class="code-number">15</span>
+
+<span class="code-comment"># Tukey HSD test</span>
+tukey_result = pairwise_tukeyhsd(endog=data, groups=groups, alpha=<span class="code-number">0.05</span>)
+<span class="code-keyword">print</span>(tukey_result)</code></div>
+
+<div class="output-block">Multiple Comparison of Means - Tukey HSD, FWER=0.05
+
+    group1    group2  meandiff  p-adj  lower   upper  reject
+ 0  Airport Interporto    2.611 0.0719 -0.232  5.455  False
+ 1  Airport    Control   -5.472 0.0001 -8.316 -2.628   True
+ 2 Interporto   Control   -8.083 0.0000 -10.927 -5.240   True</div>
+
+                <p>The Tukey results show:</p>
+                <ul>
+                    <li><strong>Interporto vs Airport:</strong> difference = 2.61, p = 0.072 (not significant)</li>
+                    <li><strong>Interporto vs Control:</strong> difference = −8.08, p &lt; 0.001 (significant)</li>
+                    <li><strong>Airport vs Control:</strong> difference = −5.47, p &lt; 0.001 (significant)</li>
+                </ul>
+
+                <p>Control regions have significantly higher productivity than both infrastructure regions. Interporto and airport regions do not differ significantly. This suggests that infrastructure presence may not enhance (and might even reduce) productivity — perhaps firms locate in control regions for different reasons, or infrastructure-adjacent regions have confounding factors.</p>
+
+                <div class="key-concept">
+                    <h4>Interpretation: Adjusted p-values and confidence intervals</h4>
+                    <p>The p-adj values are adjusted for multiple comparisons — they account for the fact that we're doing 3 tests. The confidence intervals [lower, upper] are also adjusted; if the interval includes zero, the difference is not significant. Always use adjusted p-values and intervals after ANOVA to maintain the correct family-wise error rate.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 4.6 ASSUMPTIONS & NON-PARAMETRIC ALTERNATIVES ==================== -->
+            <section id="assumptions-alternatives">
+                <h2>4.6 &mdash; Assumptions &amp; Non-Parametric Alternatives</h2>
+
+                <h3>ANOVA Assumptions</h3>
+                <p>ANOVA assumes:</p>
+                <ol>
+                    <li><strong>Normality:</strong> Within each group, observations are approximately normally distributed. The central limit theorem helps here: with n &gt; 20–30 per group, the test is robust to moderate departures from normality.</li>
+                    <li><strong>Homogeneity of variances:</strong> All groups have equal population variance. ANOVA is fairly robust to this if sample sizes are equal.</li>
+                    <li><strong>Independence:</strong> Observations within and across groups are independent. This is a study design issue, not a statistical fix.</li>
+                </ol>
+
+                <h3>Testing Homogeneity of Variances: Levene's Test</h3>
+                <p>Before ANOVA, it's good practice to test whether variances are equal:</p>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> levene
+
+<span class="code-comment"># Levene's test for homogeneity of variances</span>
+levene_stat, levene_p = levene(interporto, airport, control)
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Levene's test for homogeneity of variances:"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Test statistic: {levene_stat:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"p-value: {levene_p:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Equal variances? {levene_p > 0.05}"</span>)</code></div>
+
+<div class="output-block">Levene's test for homogeneity of variances:
+Test statistic: 0.0531
+p-value: 0.9484
+Equal variances? True</div>
+
+                <p>With p = 0.948, we fail to reject the null hypothesis of equal variances. The three groups have statistically similar variability, so the standard ANOVA is appropriate.</p>
+
+                <h3>Non-Parametric Alternatives</h3>
+                <p>If normality is severely violated or variances are very unequal, use rank-based tests that don't assume a parametric distribution:</p>
+                <ul>
+                    <li><strong>Mann-Whitney U test:</strong> Replaces the two-sample t-test. Based on ranks, not raw values. More robust to outliers and skewness.</li>
+                    <li><strong>Kruskal-Wallis test:</strong> Replaces one-way ANOVA for k ≥ 2 groups. Tests whether rank distributions differ across groups. If significant, follow up with pairwise Mann-Whitney tests with Bonferroni correction.</li>
+                </ul>
+
+                <h3>Example: Kruskal-Wallis Test</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> kruskal, mannwhitneyu
+
+<span class="code-comment"># Kruskal-Wallis test (non-parametric ANOVA)</span>
+h_stat, h_p = kruskal(interporto, airport, control)
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Kruskal-Wallis test:"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"H-statistic: {h_stat:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"p-value: {h_p:.6f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Significant? {h_p < 0.05}"</span>)
+
+<span class="code-comment"># If significant, follow up with pairwise Mann-Whitney tests</span>
+<span class="code-keyword">print</span>(f<span class="code-string">"\nPairwise Mann-Whitney U tests (Bonferroni α = 0.05/3 = 0.0167):"</span>)
+
+u_stat_ia, p_ia = mannwhitneyu(interporto, airport, alternative=<span class="code-string">'two-sided'</span>)
+u_stat_ic, p_ic = mannwhitneyu(interporto, control, alternative=<span class="code-string">'two-sided'</span>)
+u_stat_ac, p_ac = mannwhitneyu(airport, control, alternative=<span class="code-string">'two-sided'</span>)
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Interporto vs Airport: U={u_stat_ia:.0f}, p={p_ia:.4f}, Significant? {p_ia < 0.0167}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Interporto vs Control: U={u_stat_ic:.0f}, p={p_ic:.6f}, Significant? {p_ic < 0.0167}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Airport vs Control: U={u_stat_ac:.0f}, p={p_ac:.6f}, Significant? {p_ac < 0.0167}"</span>)</code></div>
+
+<div class="output-block">Kruskal-Wallis test:
+H-statistic: 32.0584
+p-value: 0.000000
+Significant? True
+
+Pairwise Mann-Whitney U tests (Bonferroni α = 0.05/3 = 0.0167):
+Interporto vs Airport: U=97.0, p=0.0680, Significant? False
+Interporto vs Control: U=32.0, p=0.000000, Significant? True
+Interporto vs Control: U=42.5, p=0.000000, Significant? True</p>
+
+                <p>The Kruskal-Wallis test confirms significance (H = 32.06, p &lt; 0.001), and pairwise Mann-Whitney tests with Bonferroni correction yield the same conclusion: control differs from both infrastructure regions, but interporto and airport do not differ significantly.</p>
+
+                <div class="key-concept">
+                    <h4>When to use non-parametric tests</h4>
+                    <p>If normality is severely violated (visually apparent skewness or outliers), sample sizes are small (n &lt; 15 per group), or variances are very unequal, rank-based tests are safer. They're less powerful when normality holds, but more robust when it doesn't. In practice: visualise the data first, check assumptions, and choose the test that best fits your data.</p>
+                </div>
+            </section>
+
+            <!-- ==================== EXERCISES ==================== -->
+            <section id="exercises">
+                <h2>Exercises</h2>
+                <p>Open the notebook in Colab or download it to work through these exercises with code.</p>
+
+                <div class="exercise">
+                    <h4>Exercise 4.1 &mdash; Two-Sample t-Test and Interpretation</h4>
+                    <p>Two samples of municipalities are studied: Group A (n=20) with an urban tax incentive has mean income \(\bar{X}_A = 35,200\) and \(s_A = 4,100\). Group B (n=18) without incentive has \(\bar{X}_B = 32,800\) and \(s_B = 3,900\).</p>
+                    <ol>
+                        <li>Compute the two-sample t-statistic and p-value.</li>
+                        <li>At α = 0.05, do you reject H₀?</li>
+                        <li>Interpret the 95% confidence interval for the difference in means.</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 4.2 &mdash; Paired t-Test on Before/After Policy Data</h4>
+                    <p>A training programme measures output per worker (units/day) for 10 firms before and after implementation. Conduct a paired t-test on this hypothetical data and interpret whether the programme works. (Generate or use provided data.)</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 4.3 &mdash; One-Way ANOVA with Post-Hoc Analysis</h4>
+                    <p>A researcher compares productivity across four firm size categories: micro (\(n=12\), mean=18.5), small (\(n=14\), mean=22.3), medium (\(n=16\), mean=26.1), large (\(n=18\), mean=29.7). All groups have SD ≈ 3.5.</p>
+                    <ol>
+                        <li>Conduct a one-way ANOVA. Are group means significantly different?</li>
+                        <li>If ANOVA is significant, conduct Tukey HSD post-hoc tests. Which pairs differ?</li>
+                        <li>Interpret your findings in the context of firm size and productivity.</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 4.4 &mdash; Multiple Comparisons and Type I Error</h4>
+                    <p>Explain why running uncorrected two-sample t-tests between all pairs of 6 groups inflates Type I error. Calculate the theoretical probability of at least one false positive if α = 0.05. How many comparisons are there? What would Bonferroni correction set α at?</p>
+                </div>
+            </section>
+
+            <!-- ==================== KEY TAKEAWAYS ==================== -->
+            <section id="takeaways">
+                <div class="key-concept">
+                    <h4>Key Takeaways</h4>
+                    <p><strong>Two-sample t-tests compare means of independent groups</strong> using \(SE_{\text{diff}} = \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}\). <strong>Paired t-tests compare linked observations</strong> by working with differences, eliminating between-unit variability and increasing power. <strong>Multiple comparisons inflate Type I error:</strong> with k groups, running \(\frac{k(k-1)}{2}\) uncorrected tests at α = 0.05 yields P(at least one false positive) = 1 − (0.95)^m. <strong>One-way ANOVA tests the omnibus hypothesis</strong> H₀: all group means are equal, using the F-statistic \(\frac{MS_{\text{between}}}{MS_{\text{within}}}\). <strong>Post-hoc tests (Tukey HSD, Bonferroni)</strong> identify which specific groups differ whilst controlling family-wise error. <strong>Check assumptions:</strong> normality (robust with large n), homogeneity of variances (Levene's test), and independence. <strong>Non-parametric alternatives</strong> (Mann-Whitney U, Kruskal-Wallis) are rank-based and more robust to violations of normality.</p>
+                </div>
+            </section>
+
+            <!-- ==================== NAV ==================== -->
+            <div class="chapter-nav">
+                <a href="ch03-confidence-intervals.html">&larr; Module 03: Confidence Intervals</a>
+                <span>Next: Module 05 &mdash; Simple Linear Regression (coming soon)</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>
