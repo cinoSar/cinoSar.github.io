@@ -560,6 +560,16 @@ Equal variances? True</div>
 
                 <p>With p = 0.948, we fail to reject the null hypothesis of equal variances. The three groups have statistically similar variability, so the standard ANOVA is appropriate.</p>
 
+                <div class="key-concept">
+                    <h4>Practical decision workflow</h4>
+                    <p>In practice, equal variances are the exception rather than the rule. A useful rule of thumb: if the ratio of the largest group variance to the smallest is below roughly 3:1, classical ANOVA remains reliable &mdash; especially when group sizes are similar. When Levene's test rejects, you have two main options:</p>
+                    <ol>
+                        <li><strong>Welch's ANOVA:</strong> Generalises the familiar Welch's t-test to multiple groups. It does not assume equal variances and adjusts degrees of freedom accordingly. In Python you can use <code>scipy.stats.alexandergovern()</code> or <code>pingouin.welch_anova()</code>.</li>
+                        <li><strong>Non-parametric tests:</strong> Kruskal-Wallis, discussed below, avoids both the normality and the equal-variance assumptions entirely.</li>
+                    </ol>
+                    <p><strong>Looking ahead:</strong> When you reach regression (Module 05 onwards), you will see that one-way ANOVA is mathematically equivalent to a regression with dummy variables. Econometricians often skip ANOVA altogether and run the regression directly with <strong>robust (Huber-White) standard errors</strong>, which handle heteroscedasticity by default. The conceptual decomposition (between vs within) remains the same; the practical tooling simply becomes more flexible.</p>
+                </div>
+
                 <h3>Non-Parametric Alternatives</h3>
                 <p>If normality is severely violated or variances are very unequal, use rank-based tests that don't assume a parametric distribution:</p>
                 <ul>
