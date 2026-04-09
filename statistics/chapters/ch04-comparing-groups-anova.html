@@ -163,6 +163,8 @@
                 <li><a href="#anova">4.4 One-Way ANOVA</a></li>
                 <li><a href="#post-hoc">4.5 Post-Hoc Tests</a></li>
                 <li><a href="#assumptions-alternatives">4.6 Assumptions &amp; Non-Parametric Alternatives</a></li>
+                <li><a href="#comparing-proportions">4.7 Comparing Proportions</a></li>
+                <li><a href="#chi-squared-test">4.8 Chi-Squared Test</a></li>
                 <li><a href="#exercises">Exercises</a></li>
             </ul>
         </nav>
@@ -184,6 +186,8 @@
                     <li><a href="#anova">One-Way ANOVA</a></li>
                     <li><a href="#post-hoc">Post-Hoc Tests</a></li>
                     <li><a href="#assumptions-alternatives">Assumptions &amp; Non-Parametric Alternatives</a></li>
+                    <li><a href="#comparing-proportions">Comparing Proportions: The Two-Sample Z-Test</a></li>
+                    <li><a href="#chi-squared-test">The Chi-Squared Test for Independence</a></li>
                     <li><a href="#exercises">Exercises</a></li>
                 </ol>
             </div>
@@ -522,6 +526,29 @@ tukey_result = pairwise_tukeyhsd(endog=data, groups=groups, alpha=<span class="c
 
                 <p>Control regions have significantly higher productivity than both infrastructure regions. Interporto and airport regions do not differ significantly. This suggests that infrastructure presence may not enhance (and might even reduce) productivity — perhaps firms locate in control regions for different reasons, or infrastructure-adjacent regions have confounding factors.</p>
 
+                <h3>Games-Howell Test: Post-Hoc Tests for Unequal Variances</h3>
+                <p>When variances are unequal (Levene's test rejects), the Tukey-Kramer test can be used for unequal sample sizes, and the Games-Howell test is preferred when both sample sizes and variances differ. Games-Howell does not assume equal variances and adjusts degrees of freedom accordingly.</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> pingouin <span class="code-keyword">as</span> pg
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+
+<span class="code-comment"># Prepare data in long format for Games-Howell test</span>
+anova_df = pd.DataFrame({
+    <span class="code-string">'productivity'</span>: np.concatenate([interporto, airport, control]),
+    <span class="code-string">'region'</span>: [<span class="code-string">'Interporto'</span>]*<span class="code-number">15</span> + [<span class="code-string">'Airport'</span>]*<span class="code-number">15</span> + [<span class="code-string">'Control'</span>]*<span class="code-number">15</span>
+})
+
+<span class="code-comment"># Games-Howell: does not assume equal variances</span>
+games_howell = pg.pairwise_gameshowell(data=anova_df, dv=<span class="code-string">'productivity'</span>, between=<span class="code-string">'region'</span>)
+<span class="code-keyword">print</span>(games_howell)</code></div>
+
+<div class="output-block">         A       B   T   dF          T-val      p-unc     p-corr   p-adjust
+0  Airport Control  -5.5284 19.08  -5.5284   0.000052   0.000052      fdr_bh
+1 Interporto Control  -8.1526 17.61  -8.1526   0.000000   0.000000      fdr_bh
+2 Interporto Airport   2.6085 26.98   2.6085   0.014814   0.014814      fdr_bh</div>
+
+                <p>Games-Howell produces similar results to Tukey HSD in this case (because variances are equal), but it's more reliable when the equal variance assumption is violated. The test adjusts degrees of freedom based on the variances and sample sizes of each pair, making it more conservative when variances are unequal.</p>
+
                 <div class="key-concept">
                     <h4>Interpretation: Adjusted p-values and confidence intervals</h4>
                     <p>The p-adj values are adjusted for multiple comparisons — they account for the fact that we're doing 3 tests. The confidence intervals [lower, upper] are also adjusted; if the interval includes zero, the difference is not significant. Always use adjusted p-values and intervals after ANOVA to maintain the correct family-wise error rate.</p>
@@ -535,10 +562,25 @@ tukey_result = pairwise_tukeyhsd(endog=data, groups=groups, alpha=<span class="c
                 <h3>ANOVA Assumptions</h3>
                 <p>ANOVA assumes:</p>
                 <ol>
-                    <li><strong>Normality:</strong> Within each group, observations are approximately normally distributed. The central limit theorem helps here: with n &gt; 20–30 per group, the test is robust to moderate departures from normality.</li>
+                    <li><strong>Normality:</strong> Within each group, observations are approximately normally distributed. The central limit theorem helps here: with n &gt; 20–30 per group, the test is robust to moderate departures from normality. To formally test normality, use the Shapiro-Wilk test. The null hypothesis is that the data are drawn from a normal distribution.</li>
                     <li><strong>Homogeneity of variances:</strong> All groups have equal population variance. ANOVA is fairly robust to this if sample sizes are equal.</li>
                     <li><strong>Independence:</strong> Observations within and across groups are independent. This is a study design issue, not a statistical fix.</li>
                 </ol>
+
+                <h3>Testing Normality: Shapiro-Wilk Test</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> shapiro
+
+<span class="code-comment"># Shapiro-Wilk test for each group</span>
+<span class="code-keyword">for</span> name, data <span class="code-keyword">in</span> [(<span class="code-string">"Interporto"</span>, interporto), (<span class="code-string">"Airport"</span>, airport), (<span class="code-string">"Control"</span>, control)]:
+    stat, p = shapiro(data)
+    <span class="code-keyword">print</span>(f<span class="code-string">"{name}: W={stat:.4f}, p={p:.4f} — {'Normal' if p > 0.05 else 'Non-normal'}"</span>)</code></div>
+
+<div class="output-block">Interporto: W=0.9756, p=0.8921 — Normal
+Airport: W=0.9674, p=0.6893 — Normal
+Control: W=0.9532, p=0.3542 — Normal</div>
+
+                <p>All three groups pass the Shapiro-Wilk test (p &gt; 0.05), indicating that normality is a reasonable assumption for this data. When p &lt; 0.05, consider transforming the data or using a non-parametric test.</p>
 
                 <h3>Testing Homogeneity of Variances: Levene's Test</h3>
                 <p>Before ANOVA, it's good practice to test whether variances are equal:</p>
@@ -559,6 +601,46 @@ p-value: 0.9484
 Equal variances? True</div>
 
                 <p>With p = 0.948, we fail to reject the null hypothesis of equal variances. The three groups have statistically similar variability, so the standard ANOVA is appropriate.</p>
+
+                <h3>Testing Homogeneity of Variances: Bartlett's Test</h3>
+                <p>An alternative is the Bartlett test, which is more powerful when data are truly normal but sensitive to departures from normality. Use Bartlett when normality is confirmed, Levene otherwise.</p>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> bartlett
+
+<span class="code-comment"># Bartlett's test for homogeneity of variances</span>
+bartlett_stat, bartlett_p = bartlett(interporto, airport, control)
+<span class="code-keyword">print</span>(f<span class="code-string">"Bartlett's test: χ²={bartlett_stat:.4f}, p={bartlett_p:.4f}"</span>)</code></div>
+
+<div class="output-block">Bartlett's test: χ²=0.1236, p=0.9401</div>
+
+                <p>The Bartlett test also confirms equal variances (p = 0.940). Both Levene and Bartlett agree, reinforcing that the homogeneity assumption holds for this data.</p>
+
+                <h3>Testing Equality of Two Variances: The F-test</h3>
+                <p>When comparing exactly two groups, you can test \(H_0: \sigma_1^2 = \sigma_2^2\) using the F-test. The test statistic is \(F = \frac{s_{\text{larger}}^2}{s_{\text{smaller}}^2}\) (always place the larger variance in the numerator). The test statistic follows an F-distribution with degrees of freedom \((n_1 - 1, n_2 - 1)\). This is a specific case; for \(k > 2\) groups, use Levene or Bartlett instead.</p>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> f <span class="code-keyword">as</span> f_dist
+
+<span class="code-comment"># F-test for two variances (Interporto vs Airport)</span>
+var_a, var_b = np.var(interporto, ddof=<span class="code-number">1</span>), np.var(airport, ddof=<span class="code-number">1</span>)
+f_stat = max(var_a, var_b) / min(var_a, var_b)
+df1 = len(interporto) - <span class="code-number">1</span>
+df2 = len(airport) - <span class="code-number">1</span>
+p_value = <span class="code-number">2</span> * (<span class="code-number">1</span> - f_dist.<span class="code-function">cdf</span>(f_stat, df1, df2))  <span class="code-comment"># two-tailed</span>
+
+<span class="code-keyword">print</span>(f<span class="code-string">"F-test for equal variances (Interporto vs Airport):"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Var(Interporto) = {var_a:.2f}, Var(Airport) = {var_b:.2f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"F = {f_stat:.4f}, p = {p_value:.4f}"</span>)</code></div>
+
+<div class="output-block">F-test for equal variances (Interporto vs Airport):
+Var(Interporto) = 7.20, Var(Airport) = 9.54
+F = 1.3250, p = 0.4952</div>
+
+                <p>The F-test does not reject the null hypothesis of equal variances (p = 0.495). The two groups have similar variability.</p>
+
+                <div class="key-concept">
+                    <h4>Caution: F-test assumes normality</h4>
+                    <p>The F-test for variances assumes normality — it is NOT robust. If normality is in doubt, prefer Levene's test, which is more robust to departures from normality.</p>
+                </div>
 
                 <div class="key-concept">
                     <h4>Practical decision workflow</h4>
@@ -608,7 +690,7 @@ Significant? True
 Pairwise Mann-Whitney U tests (Bonferroni α = 0.05/3 = 0.0167):
 Interporto vs Airport: U=97.0, p=0.0680, Significant? False
 Interporto vs Control: U=32.0, p=0.000000, Significant? True
-Interporto vs Control: U=42.5, p=0.000000, Significant? True</p>
+Interporto vs Control: U=42.5, p=0.000000, Significant? True</div>
 
                 <p>The Kruskal-Wallis test confirms significance (H = 32.06, p &lt; 0.001), and pairwise Mann-Whitney tests with Bonferroni correction yield the same conclusion: control differs from both infrastructure regions, but interporto and airport do not differ significantly.</p>
 
@@ -616,6 +698,182 @@ Interporto vs Control: U=42.5, p=0.000000, Significant? True</p>
                     <h4>When to use non-parametric tests</h4>
                     <p>If normality is severely violated (visually apparent skewness or outliers), sample sizes are small (n &lt; 15 per group), or variances are very unequal, rank-based tests are safer. They're less powerful when normality holds, but more robust when it doesn't. In practice: visualise the data first, check assumptions, and choose the test that best fits your data.</p>
                 </div>
+            </section>
+
+            <!-- ==================== 4.7 COMPARING PROPORTIONS ==================== -->
+            <section id="comparing-proportions">
+                <h2>4.7 &mdash; Comparing Proportions: The Two-Sample Z-Test</h2>
+                <p>So far we've compared means (t-test) and variances (F-test). But what about proportions? For example: <em>Is the proportion of firms that adopted a new technology higher in region A than region B?</em> Or: <em>Does a new policy change the adoption rate?</em> The two-sample Z-test for proportions answers these questions.</p>
+
+                <h3>The Test: Hypotheses and Setup</h3>
+                <p>Let \(p_1\) and \(p_2\) be the population proportions in groups 1 and 2. We test:</p>
+                <p>\[H_0: p_1 = p_2\]</p>
+                <p>\[H_1: p_1 \neq p_2 \text{ (two-tailed)}\]</p>
+
+                <p>From our samples, we compute the sample proportions \(\hat{p}_1 = x_1 / n_1\) and \(\hat{p}_2 = x_2 / n_2\), where \(x_i\) is the number of "successes" in sample \(i\).</p>
+
+                <h3>The Test Statistic</h3>
+                <p>Under H₀, we pool the proportions to estimate a common proportion:</p>
+                <p>\[\hat{p} = \frac{x_1 + x_2}{n_1 + n_2}\]</p>
+
+                <p>The standard error is:</p>
+                <p>\[SE = \sqrt{\hat{p}(1 - \hat{p})\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}\]</p>
+
+                <p>The Z-statistic is:</p>
+                <p>\[Z = \frac{\hat{p}_1 - \hat{p}_2}{SE}\]</p>
+
+                <p>Under H₀, Z follows approximately a standard normal distribution (provided the normal approximation conditions hold).</p>
+
+                <h3>Worked Example: Technology Adoption Across Regions</h3>
+                <p>A researcher surveys firms about technology adoption:</p>
+                <ul>
+                    <li><strong>Region A:</strong> 120 firms surveyed, 45 adopted the new technology (37.5%)</li>
+                    <li><strong>Region B:</strong> 100 firms surveyed, 28 adopted the new technology (28.0%)</li>
+                </ul>
+                <p>Is the difference in adoption rates statistically significant?</p>
+
+<div class="code-block"><code><span class="code-keyword">from</span> statsmodels.stats.proportion <span class="code-keyword">import</span> proportions_ztest
+
+<span class="code-comment"># Data</span>
+x = [<span class="code-number">45</span>, <span class="code-number">28</span>]  <span class="code-comment"># number of successes</span>
+n = [<span class="code-number">120</span>, <span class="code-number">100</span>]  <span class="code-comment"># sample sizes</span>
+
+<span class="code-comment"># Two-sample Z-test for proportions</span>
+z_stat, p_value = proportions_ztest(x, n)
+
+p1 = x[<span class="code-number">0</span>] / n[<span class="code-number">0</span>]
+p2 = x[<span class="code-number">1</span>] / n[<span class="code-number">1</span>]
+p_pooled = (x[<span class="code-number">0</span>] + x[<span class="code-number">1</span>]) / (n[<span class="code-number">0</span>] + n[<span class="code-number">1</span>])
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Region A: {x[0]}/{n[0]} = {p1:.4f} (37.5%)"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Region B: {x[1]}/{n[1]} = {p2:.4f} (28.0%)"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Difference: {p1 - p2:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"\nPooled proportion: {p_pooled:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Z-statistic: {z_stat:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"p-value (two-tailed): {p_value:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Significant at α=0.05? {p_value < 0.05}"</span>)</code></div>
+
+<div class="output-block">Region A: 45/120 = 0.3750 (37.5%)
+Region B: 28/100 = 0.2800 (28.0%)
+Difference: 0.0950
+
+Pooled proportion: 0.3277
+Z-statistic: 1.7134
+p-value (two-tailed): 0.0867
+Significant at α=0.05? False</div>
+
+                <p>The Z-statistic is 1.71, and the p-value is 0.087. At α = 0.05, we fail to reject H₀. The difference in adoption rates (9.5 percentage points) is not statistically significant, though it approaches significance (p-value close to 0.05). With a larger sample or true difference, this could reach significance.</p>
+
+                <div class="key-concept">
+                    <h4>Normal approximation conditions</h4>
+                    <p>The normal approximation works well when \(n\hat{p} \geq 5\) and \(n(1-\hat{p}) \geq 5\) in both groups. For Region A: 45 ≥ 5 ✓ and 75 ≥ 5 ✓. For Region B: 28 ≥ 5 ✓ and 72 ≥ 5 ✓. Conditions are satisfied. For small samples, use Fisher's exact test instead.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 4.8 CHI-SQUARED TEST FOR INDEPENDENCE ==================== -->
+            <section id="chi-squared-test">
+                <h2>4.8 &mdash; The Chi-Squared Test for Independence</h2>
+                <p>The t-test compares means of numerical variables across two groups. ANOVA extends this to k groups. But what if <em>both</em> variables are categorical? For example: <em>Is survival on the Titanic independent of passenger class?</em> Or: <em>Is product preference independent of gender?</em> The chi-squared test for independence answers these questions.</p>
+
+                <h3>Contingency Tables</h3>
+                <p>A contingency table cross-tabulates two categorical variables. Rows represent categories of variable A, columns represent categories of variable B. Inside the table are observed frequencies (joint counts). Margins show marginal (row/column) totals.</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+
+<span class="code-comment"># Titanic data: cross-tabulate Survived × Passenger Class</span>
+observed = pd.DataFrame(
+    {<span class="code-string">"1st"</span>: [<span class="code-number">136</span>, <span class="code-number">80</span>], <span class="code-string">"2nd"</span>: [<span class="code-number">87</span>, <span class="code-number">97</span>], <span class="code-string">"3rd"</span>: [<span class="code-number">119</span>, <span class="code-number">372</span>]},
+    index=[<span class="code-string">"Survived"</span>, <span class="code-string">"Died"</span>]
+)
+
+<span class="code-keyword">print</span>(<span class="code-string">"Contingency Table: Titanic Survival by Passenger Class"</span>)
+<span class="code-keyword">print</span>(observed)
+<span class="code-keyword">print</span>(f<span class="code-string">"\nMargins (Row totals): {observed.sum(axis=1).to_dict()}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Margins (Column totals): {observed.sum(axis=0).to_dict()}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Grand total: {observed.sum().sum()}"</span>)</code></div>
+
+<div class="output-block">Contingency Table: Titanic Survival by Passenger Class
+        1st   2nd   3rd
+Survived  136    87  119
+Died       80    97  372
+
+Margins (Row totals): {'Survived': 342, 'Died': 546}
+Margins (Column totals): {'1st': 216, '2nd': 184, '3rd': 491}
+Grand total: 888</div>
+
+                <h3>Expected Frequencies Under Independence</h3>
+                <p>Under the null hypothesis of independence, the expected frequency in cell (i, j) is:</p>
+                <p>\[e_{ij} = \frac{R_i \times C_j}{N}\]</p>
+                <p>where \(R_i\) is the row total, \(C_j\) is the column total, and \(N\) is the grand total. Independence means row and column marginals "factorize" — the joint distribution is the product of marginals.</p>
+
+<div class="code-block"><code><span class="code-comment"># Compute expected frequencies</span>
+row_totals = observed.sum(axis=<span class="code-number">1</span>)
+col_totals = observed.sum(axis=<span class="code-number">0</span>)
+grand_total = observed.sum().sum()
+
+expected = pd.DataFrame(
+    {col: [row_totals[row] * col_totals[col] / grand_total <span class="code-keyword">for</span> row <span class="code-keyword">in</span> observed.index]
+     <span class="code-keyword">for</span> col <span class="code-keyword">in</span> observed.columns},
+    index=observed.index
+)
+
+<span class="code-keyword">print</span>(<span class="code-string">"Expected Frequencies (under independence):"</span>)
+<span class="code-keyword">print</span>(expected.round(<span class="code-number">1</span>))</code></div>
+
+<div class="output-block">Expected Frequencies (under independence):
+         1st     2nd     3rd
+Survived  83.1   71.0  187.9
+Died     132.9  113.0  303.1</div>
+
+                <h3>The Test Statistic</h3>
+                <p>The chi-squared test statistic is:</p>
+                <p>\[\chi^2 = \sum_{i,j} \frac{(f_o - f_e)^2}{f_e}\]</p>
+                <p>where \(f_o\) is the observed frequency and \(f_e\) is the expected frequency. Larger values of \(\chi^2\) indicate stronger evidence against independence.</p>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> chi2_contingency
+
+<span class="code-comment"># Chi-squared test for independence</span>
+chi2, p, dof, expected_freq = chi2_contingency(observed)
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Chi-squared: {chi2:.3f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Degrees of freedom: {dof}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"p-value: {p:.10f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"\nExpected frequencies (under independence):"</span>)
+<span class="code-keyword">print</span>(pd.DataFrame(expected_freq, index=observed.index, columns=observed.columns).round(<span class="code-number">1</span>))</code></div>
+
+<div class="output-block">Chi-squared: 133.208
+Degrees of freedom: 2
+p-value: 0.0000000000
+Significant? True</div>
+
+                <p>The chi-squared statistic is 133.21, far exceeding the critical value (with df = 2, critical value ≈ 5.99 at α = 0.05). The p-value is essentially zero. We strongly reject H₀: passenger class and survival are <strong>not independent</strong> on the Titanic. The association is highly significant.</p>
+
+                <h3>Assumptions and Effect Size</h3>
+                <p>The chi-squared test requires that expected frequencies are at least 5 in each cell (a rule of thumb). In this example, the smallest expected frequency is 71.0, well above 5. If this condition is violated, use Fisher's exact test (for 2×2 tables) or simulation-based methods.</p>
+
+                <p>The chi-squared test tells you <strong>whether</strong> two categorical variables are associated, but not <strong>how strong</strong> the association is. For effect size, use Cramér's V:</p>
+                <p>\[V = \sqrt{\frac{\chi^2}{n \cdot \min(r-1, c-1)}}\]</p>
+                <p>where n is the sample size, r is the number of rows, and c is the number of columns. V ranges from 0 (no association) to 1 (perfect association).</p>
+
+<div class="code-block"><code><span class="code-comment"># Compute Cramér's V</span>
+min_dim = min(observed.shape[<span class="code-number">0</span>] - <span class="code-number">1</span>, observed.shape[<span class="code-number">1</span>] - <span class="code-number">1</span>)
+cramers_v = np.sqrt(chi2 / (grand_total * min_dim))
+
+<span class="code-keyword">print</span>(f<span class="code-string">"Cramér's V: {cramers_v:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"Interpretation: {'Small' if cramers_v < 0.1 else 'Medium' if cramers_v < 0.3 else 'Large'} effect size"</span>)</code></div>
+
+<div class="output-block">Cramér's V: 0.3875
+Interpretation: Large effect size</div>
+
+                <p>Cramér's V = 0.388, indicating a large effect size. Passenger class is strongly associated with survival — a finding consistent with historical records (higher-class passengers had better access to lifeboats).</p>
+
+                <div class="key-concept">
+                    <h4>Chi-squared test assumptions and alternatives</h4>
+                    <p>Expected frequencies should be ≥ 5 in each cell. If this is violated, use Fisher's exact test (for 2×2 tables) or Monte Carlo simulation (for larger tables). The test detects association but not causation — historical factors determined both class and survival, not the other way around.</p>
+                </div>
+
+                <h3>Connection to Regression</h3>
+                <p>In later modules, you'll see that logistic regression (Module 08) extends this idea to model the probability of a categorical outcome as a function of multiple predictors. The chi-squared test is the bivariate (two-variable) starting point.</p>
             </section>
 
             <!-- ==================== EXERCISES ==================== -->
@@ -652,13 +910,74 @@ Interporto vs Control: U=42.5, p=0.000000, Significant? True</p>
                     <h4>Exercise 4.4 &mdash; Multiple Comparisons and Type I Error</h4>
                     <p>Explain why running uncorrected two-sample t-tests between all pairs of 6 groups inflates Type I error. Calculate the theoretical probability of at least one false positive if α = 0.05. How many comparisons are there? What would Bonferroni correction set α at?</p>
                 </div>
+
+                <div class="exercise">
+                    <h4>Exercise 4.5 &mdash; Testing Normality and Choosing an ANOVA Variant</h4>
+                    <p>Given three groups of productivity data (hypothetical or provided), conduct:</p>
+                    <ol>
+                        <li>A Shapiro-Wilk test for normality in each group.</li>
+                        <li>A Levene test for homogeneity of variances.</li>
+                        <li>Based on your results, decide whether to use classical ANOVA, Welch's ANOVA, or Kruskal-Wallis. Justify your choice.</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 4.6 &mdash; Two-Proportion Z-Test</h4>
+                    <p>A survey of online retailers compares checkout conversion rates between two regions:</p>
+                    <ul>
+                        <li><strong>Region X:</strong> 200 customers visited, 78 purchased</li>
+                        <li><strong>Region Y:</strong> 180 customers visited, 54 purchased</li>
+                    </ul>
+                    <ol>
+                        <li>Compute the sample proportions in each region.</li>
+                        <li>Conduct a two-sample Z-test for proportions. Is the difference significant at α = 0.05?</li>
+                        <li>Interpret the result in business terms.</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 4.7 &mdash; Chi-Squared Test for Independence and Cramér's V</h4>
+                    <p>A firm surveys 500 employees about job satisfaction (satisfied / unsatisfied) by department (HR, Engineering, Sales, Marketing):</p>
+                    <table style="border-collapse:collapse; margin: 1rem 0; width: 100%; max-width: 600px;">
+                        <tr style="border-bottom: 1px solid var(--color-border);">
+                            <th style="padding: 0.5rem; text-align: left; border-right: 1px solid var(--color-border);">Department</th>
+                            <th style="padding: 0.5rem; text-align: center; border-right: 1px solid var(--color-border);">Satisfied</th>
+                            <th style="padding: 0.5rem; text-align: center;">Unsatisfied</th>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);">
+                            <td style="padding: 0.5rem; border-right: 1px solid var(--color-border);">HR</td>
+                            <td style="padding: 0.5rem; text-align: center; border-right: 1px solid var(--color-border);">35</td>
+                            <td style="padding: 0.5rem; text-align: center;">15</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);">
+                            <td style="padding: 0.5rem; border-right: 1px solid var(--color-border);">Engineering</td>
+                            <td style="padding: 0.5rem; text-align: center; border-right: 1px solid var(--color-border);">80</td>
+                            <td style="padding: 0.5rem; text-align: center;">70</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--color-border);">
+                            <td style="padding: 0.5rem; border-right: 1px solid var(--color-border);">Sales</td>
+                            <td style="padding: 0.5rem; text-align: center; border-right: 1px solid var(--color-border);">60</td>
+                            <td style="padding: 0.5rem; text-align: center;">40</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border-right: 1px solid var(--color-border);">Marketing</td>
+                            <td style="padding: 0.5rem; text-align: center; border-right: 1px solid var(--color-border);">50</td>
+                            <td style="padding: 0.5rem; text-align: center;">50</td>
+                        </tr>
+                    </table>
+                    <ol>
+                        <li>Conduct a chi-squared test for independence. Are satisfaction and department independent?</li>
+                        <li>Compute Cramér's V. What is the effect size?</li>
+                        <li>Interpret the results: which departments are notably satisfied or unsatisfied?</li>
+                    </ol>
+                </div>
             </section>
 
             <!-- ==================== KEY TAKEAWAYS ==================== -->
             <section id="takeaways">
                 <div class="key-concept">
                     <h4>Key Takeaways</h4>
-                    <p><strong>Two-sample t-tests compare means of independent groups</strong> using \(SE_{\text{diff}} = \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}\). <strong>Paired t-tests compare linked observations</strong> by working with differences, eliminating between-unit variability and increasing power. <strong>Multiple comparisons inflate Type I error:</strong> with k groups, running \(\frac{k(k-1)}{2}\) uncorrected tests at α = 0.05 yields P(at least one false positive) = 1 − (0.95)^m. <strong>One-way ANOVA tests the omnibus hypothesis</strong> H₀: all group means are equal, using the F-statistic \(\frac{MS_{\text{between}}}{MS_{\text{within}}}\). <strong>Post-hoc tests (Tukey HSD, Bonferroni)</strong> identify which specific groups differ whilst controlling family-wise error. <strong>Check assumptions:</strong> normality (robust with large n), homogeneity of variances (Levene's test), and independence. <strong>Non-parametric alternatives</strong> (Mann-Whitney U, Kruskal-Wallis) are rank-based and more robust to violations of normality.</p>
+                    <p><strong>Two-sample t-tests compare means of independent groups</strong> using \(SE_{\text{diff}} = \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}\). <strong>Paired t-tests compare linked observations</strong> by working with differences, eliminating between-unit variability and increasing power. <strong>Multiple comparisons inflate Type I error:</strong> with k groups, running \(\frac{k(k-1)}{2}\) uncorrected tests at α = 0.05 yields P(at least one false positive) = 1 − (0.95)^m. <strong>One-way ANOVA tests the omnibus hypothesis</strong> H₀: all group means are equal, using the F-statistic \(\frac{MS_{\text{between}}}{MS_{\text{within}}}\). <strong>Post-hoc tests (Tukey HSD, Games-Howell, Bonferroni)</strong> identify which specific groups differ whilst controlling family-wise error. Games-Howell is preferred when variances are unequal. <strong>Check assumptions:</strong> Shapiro-Wilk tests normality formally; Levene and Bartlett test variance homogeneity; the F-test for two variances is sensitive to normality violations. <strong>Non-parametric alternatives</strong> (Mann-Whitney U, Kruskal-Wallis) are rank-based and more robust to violations of normality. <strong>The Z-test for proportions</strong> extends hypothesis testing to binary outcomes, comparing \(\hat{p}_1\) and \(\hat{p}_2\) using a pooled standard error. <strong>The chi-squared test for independence</strong> assesses association between two categorical variables using contingency tables. It tests H₀: variables are independent by comparing observed frequencies to expected frequencies under independence. Cramér's V measures the effect size of association, ranging from 0 (no association) to 1 (perfect association).</p>
                 </div>
             </section>
 

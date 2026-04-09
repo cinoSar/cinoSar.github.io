@@ -145,12 +145,14 @@
                 <li><a href="../index.html">&larr; Course Index</a></li>
                 <li><a href="#toc">Contents</a></li>
                 <li><a href="#setup">0.1 Setup</a></li>
-                <li><a href="#data">0.2 Data</a></li>
-                <li><a href="#central-tendency">0.3 Central Tendency</a></li>
-                <li><a href="#variability">0.4 Variability</a></li>
-                <li><a href="#shape">0.5 Shape</a></li>
-                <li><a href="#correlation">0.6 Correlation</a></li>
-                <li><a href="#groups">0.7 Groups</a></li>
+                <li><a href="#variables">0.2 Variables</a></li>
+                <li><a href="#data">0.3 Data</a></li>
+                <li><a href="#frequencies">0.4 Frequencies</a></li>
+                <li><a href="#central-tendency">0.5 Central Tendency</a></li>
+                <li><a href="#variability">0.6 Variability</a></li>
+                <li><a href="#shape">0.7 Shape</a></li>
+                <li><a href="#correlation">0.8 Correlation</a></li>
+                <li><a href="#groups">0.9 Groups</a></li>
                 <li><a href="#exercises">Exercises</a></li>
             </ul>
         </nav>
@@ -167,12 +169,15 @@
                 <h3>In This Module</h3>
                 <ol>
                     <li><a href="#setup">Imports and Setup</a></li>
+                    <li><a href="#variables">Types of Variables</a></li>
                     <li><a href="#data">Loading Data: A Macroeconomic Dataset</a></li>
+                    <li><a href="#frequencies">Frequency Tables and Data Visualisation</a></li>
                     <li><a href="#central-tendency">Measures of Central Tendency</a></li>
                     <li><a href="#variability">Measures of Variability</a></li>
                     <li><a href="#shape">The Shape of Distributions</a></li>
                     <li><a href="#correlation">Relationships Between Variables</a></li>
                     <li><a href="#groups">Group Comparisons</a></li>
+                    <li><a href="#cheatsheet">Pandas Essentials Cheatsheet</a></li>
                     <li><a href="#exercises">Exercises</a></li>
                 </ol>
             </div>
@@ -199,9 +204,51 @@ pd.<span class="code-function">set_option</span>(<span class="code-string">"disp
                 <p>If you don't have these packages installed, run <code>pip install pandas numpy matplotlib seaborn scipy statsmodels</code> in your terminal.</p>
             </section>
 
-            <!-- ==================== 0.2 DATA ==================== -->
+            <!-- ==================== 0.2 TYPES OF VARIABLES ==================== -->
+            <section id="variables">
+                <h2>0.2 &mdash; Types of Variables</h2>
+                <p>Before you compute statistics or build visualisations, you must understand <strong>what kind of data you're working with</strong>. The type of variable determines which tools are appropriate, which statistics are meaningful, and which graphs will illuminate versus mislead.</p>
+
+                <h3>The Taxonomy: From Data to Specific Types</h3>
+                <p>All data falls into two broad categories:</p>
+                <p style="margin-left: 1.5rem;"><strong>Qualitative (Categorical)</strong> variables describe <em>categories</em> or <em>qualities</em>. They answer "which group?"</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Nominal:</strong> Categories with no inherent order. Examples: industry sector (tech, manufacturing, finance), country, brand, region. You can count frequencies but cannot compute a mean.</li>
+                    <li><strong>Ordinal:</strong> Categories with a natural order. Examples: product quality rating (poor, fair, good, excellent), Likert scales (strongly disagree → strongly agree), educational attainment (high school, bachelor's, master's, PhD). Order matters, but the spacing between categories is not uniform.</li>
+                </ul>
+                <p style="margin-left: 1.5rem;"><strong>Quantitative (Numerical)</strong> variables measure <em>quantities</em>. They answer "how much?" or "how many?"</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Discrete:</strong> Whole numbers with gaps; you can list all possible values. Examples: number of employees, number of defects, number of transactions, count of countries per region.</li>
+                    <li><strong>Continuous:</strong> Any value in a range; infinitely many possibilities. Examples: weight, voltage, revenue, GDP per capita, temperature, time.</li>
+                </ul>
+
+                <h3>Practical Examples from Economics and Business</h3>
+                <p>Consider a dataset of manufacturing firms:</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Nominal:</strong> industry sector, location country, parent company</li>
+                    <li><strong>Ordinal:</strong> credit rating (AAA, AA, A, BBB, ...), ISO certification level (none, basic, advanced, certified)</li>
+                    <li><strong>Discrete:</strong> number of employees, number of production facilities, number of patents filed</li>
+                    <li><strong>Continuous:</strong> annual revenue (in USD), profit margin (%), energy cost per unit, time to break-even (years)</li>
+                </ul>
+
+                <div class="key-concept">
+                    <h4>Why this matters: Your analytical toolkit depends on variable type</h4>
+                    <p>The type of variable dictates what you can compute and visualise:</p>
+                    <ul>
+                        <li><strong>Nominal variables:</strong> Can compute frequency, mode, and contingency tables. Cannot compute mean, median, or standard deviation. Best visualised with pie charts or bar charts (ordered by frequency).</li>
+                        <li><strong>Ordinal variables:</strong> Can compute mode, median, and quantiles. Should NOT compute mean (the spacing between categories is unknown). Bar charts are appropriate; pie charts less so.</li>
+                        <li><strong>Discrete and continuous quantitative:</strong> Can compute all statistics: mean, median, mode, SD, range, IQR. Histograms, boxplots, and scatter plots are appropriate.</li>
+                    </ul>
+                    <p>Breaking this rule leads to nonsense: the mean of {poor, fair, good, excellent} is meaningless, even though you could compute it if you assign arbitrary numbers.</p>
+                </div>
+
+                <h3>A Practical Caveat: Ordinal Variables with Many Levels</h3>
+                <p>In practice, ordinal variables with many levels (7 or more) are sometimes treated as continuous. A 10-point Likert scale (e.g., "On a scale of 1 to 10, how satisfied are you?") is technically ordinal, but researchers often compute the mean. This is an <strong>approximation</strong>, justified by the large number of levels and the assumption that the intervals are approximately equal. Just be aware: this violates the strict definition, and the results should be interpreted cautiously.</p>
+            </section>
+
+            <!-- ==================== 0.3 DATA ==================== -->
             <section id="data">
-                <h2>0.2 &mdash; Loading Data: A Macroeconomic Dataset</h2>
+                <h2>0.3 &mdash; Loading Data: A Macroeconomic Dataset</h2>
                 <p>Rather than fabricating toy data, we work with a realistic cross-sectional dataset of 120 countries: GDP per capita, life expectancy, population, and the Gini inequality index. These are the kinds of variables you encounter in econometric research.</p>
 
 <div class="code-block"><code>np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)  <span class="code-comment"># Reproducibility</span>
@@ -230,10 +277,140 @@ df = pd.<span class="code-function">DataFrame</span>({
                 </div>
             </section>
 
-            <!-- ==================== 0.3 CENTRAL TENDENCY ==================== -->
+            <!-- ==================== 0.4 FREQUENCY TABLES ==================== -->
+            <section id="frequencies">
+                <h2>0.4 &mdash; Frequency Tables and Data Visualisation</h2>
+                <p>Once you understand your data and variable types, the next step is <strong>summarisation</strong>. Frequency tables and visualisations transform raw data into actionable summaries.</p>
+
+                <h3>Frequency Tables: The Foundation of Data Reduction</h3>
+                <p>A frequency table counts how often each value (or range of values) appears in your data. For continuous variables like GDP per capita, we typically <strong>bin</strong> the data into ranges and count observations within each bin.</p>
+
+                <p>A complete frequency table has <strong>four columns</strong>:</p>
+                <ol style="margin-left: 1.5rem;">
+                    <li><strong>Absolute frequency:</strong> The raw count of observations in each bin.</li>
+                    <li><strong>Relative frequency:</strong> The proportion: absolute frequency ÷ total observations. Ranges from 0 to 1 (or 0% to 100%).</li>
+                    <li><strong>Cumulative absolute frequency:</strong> The running total of observations up to and including that bin.</li>
+                    <li><strong>Cumulative relative frequency:</strong> The running proportion. This is the <strong>empirical cumulative distribution function (CDF)</strong> &mdash; it answers "what fraction of observations fall below this threshold?"</li>
+                </ol>
+
+                <h3>Building a Frequency Table in Pandas</h3>
+                <p>Use <code>pd.cut()</code> to bin continuous variables, then <code>.value_counts()</code> to count:</p>
+
+<div class="code-block"><code><span class="code-comment"># Bin GDP per capita into ranges</span>
+bins = [<span class="code-number">0</span>, <span class="code-number">2000</span>, <span class="code-number">5000</span>, <span class="code-number">10000</span>, <span class="code-number">20000</span>, <span class="code-number">50000</span>]
+gdp_binned = pd.<span class="code-function">cut</span>(df[<span class="code-string">"gdp_per_capita"</span>], bins=bins)
+
+<span class="code-comment"># Count observations in each bin</span>
+abs_freq = gdp_binned.<span class="code-function">value_counts</span>().<span class="code-function">sort_index</span>()
+rel_freq = abs_freq / len(df)
+
+<span class="code-comment"># Cumulative frequencies</span>
+cum_abs = abs_freq.<span class="code-function">cumsum</span>()
+cum_rel = rel_freq.<span class="code-function">cumsum</span>()
+
+<span class="code-comment"># Build the table</span>
+freq_table = pd.<span class="code-function">DataFrame</span>({
+    <span class="code-string">"Absolute Freq."</span>: abs_freq,
+    <span class="code-string">"Relative Freq."</span>: rel_freq.<span class="code-function">round</span>(<span class="code-number">3</span>),
+    <span class="code-string">"Cumulative Abs."</span>: cum_abs,
+    <span class="code-string">"Cumulative Rel."</span>: cum_rel.<span class="code-function">round</span>(<span class="code-number">3</span>)
+})</code></div>
+
+<div class="output-block">                      Absolute Freq.  Relative Freq.  Cumulative Abs.  Cumulative Rel.
+(0, 2000]                         18             0.150              18              0.150
+(2000, 5000]                       32             0.267              50              0.417
+(5000, 10000]                      38             0.317              88              0.734
+(10000, 20000]                     22             0.183             110              0.917
+(20000, 50000]                     10             0.083             120              1.000</div>
+
+                <p>Read this table: 15% of countries have GDP per capita below $2,000. About 42% fall below $5,000. The cumulative relative frequency directly connects to the <strong>CDF</strong> that you'll see in Module 01 on probability.</p>
+
+                <div class="key-concept">
+                    <h4>Cumulative relative frequency = the empirical CDF</h4>
+                    <p>The cumulative relative frequency column answers the question: "What fraction of the data falls at or below this value?" This is exactly the empirical cumulative distribution function (ECDF) &mdash; a non-parametric estimate of the population CDF. When you plot cumulative relative frequency against bin values, you get the ECDF curve.</p>
+                </div>
+
+                <h3>Visualising Data: Matching Graph Types to Variable Types</h3>
+                <p>The type of variable determines the best graph:</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Nominal variables:</strong> Use a <strong>bar chart</strong> (ordered by descending frequency) or <strong>pie chart</strong>. Pie charts work here because there is no order.</li>
+                    <li><strong>Ordinal variables:</strong> Use a <strong>bar chart</strong> with categories in their natural order. Do not use pie charts (order matters).</li>
+                    <li><strong>Discrete variables:</strong> Use a <strong>bar chart</strong> (if few distinct values) or a <strong>stick plot</strong> (vertical lines at each discrete value).</li>
+                    <li><strong>Continuous variables:</strong> Use a <strong>histogram</strong> (bars for binned ranges, showing the distribution shape) or a <strong>density plot</strong> (smooth curve).</li>
+                </ul>
+
+                <div class="key-concept">
+                    <h4>Why graph type matters</h4>
+                    <p>A pie chart implies that categories form a complete "whole" and have no order &mdash; appropriate for nominal data (market share by firm, budget allocation). A histogram shows the <em>shape</em> of a continuous distribution (where is the data concentrated? Is it symmetric or skewed?). A bar chart is flexible and works for ordinal and discrete data. Choosing the wrong graph type misrepresents your data.</p>
+                </div>
+
+                <h3>The Pareto Chart: Ordering Frequency by Importance</h3>
+                <p>A <strong>Pareto chart</strong> combines a bar chart (absolute frequencies sorted in <em>descending</em> order) with a cumulative relative frequency line (overlay on a secondary y-axis). It reveals the "80/20 principle": often, 20% of categories account for 80% of the total.</p>
+
+<div class="code-block"><code><span class="code-comment"># Count countries by region (nominal variable)</span>
+region_counts = df[<span class="code-string">"region"</span>].<span class="code-function">value_counts</span>()
+rel_freq = region_counts / len(df)
+cum_rel_freq = rel_freq.<span class="code-function">cumsum</span>()
+
+<span class="code-comment"># Create figure with two y-axes</span>
+fig, ax1 = plt.<span class="code-function">subplots</span>(figsize=(<span class="code-number">10</span>, <span class="code-number">6</span>))
+
+<span class="code-comment"># Bar chart on primary axis</span>
+ax1.<span class="code-function">bar</span>(range(len(region_counts)), region_counts.<span class="code-function">values</span>, color=<span class="code-string">"steelblue"</span>, alpha=<span class="code-number">0.7</span>)
+ax1.<span class="code-function">set_ylabel</span>(<span class="code-string">"Absolute Frequency"</span>, fontsize=<span class="code-number">11</span>)
+ax1.<span class="code-function">set_xticks</span>(range(len(region_counts)))
+ax1.<span class="code-function">set_xticklabels</span>(region_counts.<span class="code-function">index</span>, rotation=<span class="code-number">45</span>)
+
+<span class="code-comment"># Cumulative line on secondary axis</span>
+ax2 = ax1.<span class="code-function">twinx</span>()
+ax2.<span class="code-function">plot</span>(range(len(cum_rel_freq)), cum_rel_freq.<span class="code-function">values</span>,
+     color=<span class="code-string">"darkred"</span>, marker=<span class="code-string">"o"</span>, linewidth=<span class="code-number">2</span>, label=<span class="code-string">"Cumulative %"</span>)
+ax2.<span class="code-function">set_ylabel</span>(<span class="code-string">"Cumulative Relative Frequency"</span>, fontsize=<span class="code-number">11</span>)
+ax2.<span class="code-function">set_ylim</span>([<span class="code-number">0</span>, <span class="code-number">1.05</span>])
+
+plt.<span class="code-function">title</span>(<span class="code-string">"Pareto Chart: Countries by Region"</span>)</code></div>
+
+                <p>In the Pareto chart above, the bar heights show the frequency of each region (in descending order), and the red line shows what cumulative percentage of all countries is accounted for as we move left to right. If the line reaches 80% with only 2 regions, those regions contain most of the data.</p>
+
+                <h3>The Boxplot: A Diagnostic Tool for Understanding Distributions</h3>
+                <p>The boxplot is one of the most powerful diagnostic tools in statistics. It visualises five key numbers:</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>The box:</strong> Spans the interquartile range (IQR), from Q1 (25th percentile) to Q3 (75th percentile). It contains the middle 50% of data.</li>
+                    <li><strong>The line inside the box:</strong> The median (Q2, 50th percentile).</li>
+                    <li><strong>The whiskers:</strong> Extend from Q1 and Q3 to 1.5 × IQR beyond each quartile. Data beyond the whiskers are marked as points (potential outliers).</li>
+                    <li><strong>Position of the median line within the box:</strong> Reveals skewness. If the line is off-centre, the distribution is skewed.</li>
+                </ul>
+
+<div class="code-block"><code><span class="code-comment"># Create boxplots of GDP per capita by region</span>
+fig, ax = plt.<span class="code-function">subplots</span>(figsize=(<span class="code-number">10</span>, <span class="code-number">6</span>))
+sns.<span class="code-function">boxplot</span>(data=df, x=<span class="code-string">"region"</span>, y=<span class="code-string">"gdp_per_capita"</span>, ax=ax)
+ax.<span class="code-function">set_ylabel</span>(<span class="code-string">"GDP per Capita (USD)"</span>)
+ax.<span class="code-function">set_title</span>(<span class="code-string">"GDP per Capita Distribution by Region"</span>)
+plt.<span class="code-function">xticks</span>(rotation=<span class="code-number">45</span>)</code></div>
+
+                <div class="key-concept">
+                    <h4>Why the boxplot is powerful</h4>
+                    <p>The boxplot compresses the entire distribution into five numbers, making it easy to compare groups visually. The position of the median line reveals skewness at a glance. Outliers (points beyond the whiskers) are immediately visible. The IQR (box height) shows spread without being distorted by extreme values, unlike standard deviation. When comparing multiple groups, boxplots side-by-side are far more informative than bar charts with error bars.</p>
+                </div>
+            </section>
+
+            <!-- ==================== 0.5 CENTRAL TENDENCY ==================== -->
             <section id="central-tendency">
-                <h2>0.3 &mdash; Measures of Central Tendency</h2>
+                <h2>0.5 &mdash; Measures of Central Tendency</h2>
                 <p>You already know what mean, median, and mode are. The interesting question is: <strong>when does each one tell you something useful, and when does it mislead you?</strong></p>
+
+                <h3>The Mode: The Most Frequent Value</h3>
+                <p>The <strong>mode</strong> is the value that appears most often. It's the <em>only</em> measure of central tendency that is meaningful for <strong>nominal variables</strong>. You cannot compute the mean of {tech, manufacturing, finance}, but you can find the most common industry sector.</p>
+
+<div class="code-block"><code><span class="code-comment"># Mode of a categorical variable</span>
+most_common_region = df[<span class="code-string">"region"</span>].<span class="code-function">mode</span>()[<span class="code-number">0</span>]  <span class="code-comment"># .mode() returns a Series; take first value</span>
+print(f<span class="code-string">"Most common region: {most_common_region}"</span>)
+
+<span class="code-comment"># For continuous variables, the mode is less useful</span>
+<span class="code-comment"># but pandas can still compute it (often on binned data)</span>
+mode_gdp = df[<span class="code-string">"gdp_per_capita"</span>].<span class="code-function">mode</span>()</code></div>
+
+                <p>For continuous data, the mode is rarely reported in isolation. Instead, we focus on the distribution's shape (where is it concentrated?) using histograms and kernel density plots. But for categorical data, the mode is essential.</p>
 
                 <h3>The Mean&ndash;Median Gap as a Diagnostic Tool</h3>
                 <p>When mean &asymp; median, the distribution is roughly symmetric. When they diverge, something interesting is happening &mdash; usually skewness. For a researcher, that divergence is a <em>signal</em>, not just a number.</p>
@@ -257,10 +434,18 @@ gini_index          34.47     32.30      6.7%</div>
                 </div>
             </section>
 
-            <!-- ==================== 0.4 VARIABILITY ==================== -->
+            <!-- ==================== 0.6 VARIABILITY ==================== -->
             <section id="variability">
-                <h2>0.4 &mdash; Measures of Variability</h2>
+                <h2>0.6 &mdash; Measures of Variability</h2>
                 <p>Variability is <em>at least</em> as important as central tendency. Two datasets can have the same mean but tell completely different stories.</p>
+
+                <h3>Range: The Simplest Measure</h3>
+                <p>The <strong>range</strong> is simply the difference between the maximum and minimum values: range = max − min. It's the easiest to compute and to understand, but it has a critical weakness: <strong>it is extremely sensitive to outliers</strong>. A single extreme value can inflate the range dramatically, making it a poor measure of typical variability.</p>
+
+<div class="code-block"><code><span class="code-comment"># Compute range</span>
+range_gdp = df[<span class="code-string">"gdp_per_capita"</span>].<span class="code-function">max</span>() - df[<span class="code-string">"gdp_per_capita"</span>].<span class="code-function">min</span>()</code></div>
+
+                <p>Use range as a quick-and-dirty check ("our data spans from $X to $Y"), but do not rely on it for decision-making. The IQR and standard deviation are more robust.</p>
 
                 <h3>Standard Deviation: What It Actually Means</h3>
                 <p>SD is the <strong>typical distance</strong> of observations from the mean. Not the maximum distance, not a boundary &mdash; a <em>typical</em> distance. For a normal distribution, about 68% of data falls within &plusmn;1 SD of the mean.</p>
@@ -279,11 +464,14 @@ gini_index          11.57     15.60     33.6</div>
                     <h4>When SD is misleading: enter the IQR</h4>
                     <p>Just as the mean is sensitive to outliers, so is the standard deviation. The <strong>Interquartile Range (IQR)</strong> &mdash; the range covering the middle 50% of data &mdash; is a robust alternative. When SD and IQR tell different stories, you likely have outliers or heavy tails.</p>
                 </div>
+
+                <h3>The Boxplot: Visual Companion to Variability</h3>
+                <p>The boxplot, introduced in section 0.4, is the visual representation of these variability measures. The box height is the IQR, the whiskers extend to 1.5 × IQR, and individual points beyond represent outliers. When you're exploring variability, always pair numerical summaries (SD, IQR, range) with a boxplot. The visual immediately shows whether your data is symmetric, skewed, or contains outliers.</p>
             </section>
 
-            <!-- ==================== 0.5 SHAPE ==================== -->
+            <!-- ==================== 0.7 SHAPE ==================== -->
             <section id="shape">
-                <h2>0.5 &mdash; The Shape of Distributions: Skewness and Kurtosis</h2>
+                <h2>0.7 &mdash; The Shape of Distributions: Skewness and Kurtosis</h2>
                 <p>Beyond centre and spread, distributions have <strong>shape</strong>. Two key descriptors:</p>
                 <p><strong>Skewness</strong> measures asymmetry. Positive skewness means the right tail is longer (income, house prices). Negative skewness means the left tail is longer (exam scores near the maximum).</p>
                 <p><strong>Kurtosis</strong> measures the heaviness of tails. High kurtosis means more extreme values than a normal distribution would predict. In finance and econometrics, this is crucial: financial returns have <em>fat tails</em>, which is why models assuming normality underestimate risk.</p>
@@ -301,9 +489,9 @@ gini_index          0.75     -0.09</div>
                 <p>GDP per capita has extreme skewness (5.54) and kurtosis (40.09) &mdash; this distribution is far from normal. Life expectancy is nearly symmetric (skewness &asymp; 0) with slightly lighter tails than normal (negative kurtosis). Rules of thumb: skewness near 0 is symmetric; kurtosis near 0 is normal-like (pandas reports <em>excess</em> kurtosis).</p>
             </section>
 
-            <!-- ==================== 0.6 CORRELATION ==================== -->
+            <!-- ==================== 0.8 CORRELATION ==================== -->
             <section id="correlation">
-                <h2>0.6 &mdash; Relationships Between Variables: Correlation</h2>
+                <h2>0.8 &mdash; Relationships Between Variables: Correlation</h2>
                 <p>In econometrics, we are almost always interested in relationships: does X affect Y? Before running regressions, we <strong>explore</strong> relationships visually and with correlation.</p>
 
                 <h3>Pearson Correlation</h3>
@@ -323,9 +511,9 @@ gini_index          0.75     -0.09</div>
                 </div>
             </section>
 
-            <!-- ==================== 0.7 GROUPS ==================== -->
+            <!-- ==================== 0.9 GROUPS ==================== -->
             <section id="groups">
-                <h2>0.7 &mdash; Group Comparisons</h2>
+                <h2>0.9 &mdash; Group Comparisons</h2>
                 <p>In research, we rarely look at data as a monolith. We compare <strong>groups</strong>: countries by region, firms by sector, patients by treatment. The pandas <code>groupby()</code> method is the workhorse here.</p>
 
 <div class="code-block"><code>regional = df.<span class="code-function">groupby</span>(<span class="code-string">"region"</span>)[[<span class="code-string">"gdp_per_capita"</span>, <span class="code-string">"life_expectancy"</span>]].<span class="code-function">agg</span>(
@@ -335,9 +523,9 @@ gini_index          0.75     -0.09</div>
                 <p>Violin plots show the <em>full distribution</em> within each group, not just summary statistics &mdash; always prefer them over bar charts with error bars.</p>
             </section>
 
-            <!-- ==================== 0.8 CHEATSHEET ==================== -->
+            <!-- ==================== APPENDIX: CHEATSHEET ==================== -->
             <section id="cheatsheet">
-                <h2>0.8 &mdash; Pandas Essentials Cheatsheet</h2>
+                <h2>Appendix &mdash; Pandas Essentials Cheatsheet</h2>
                 <table style="width:100%; font-size:var(--font-size-sm); border-collapse:collapse;">
                     <thead>
                         <tr style="border-bottom:2px solid var(--color-border);">
@@ -387,13 +575,23 @@ gini_index          0.75     -0.09</div>
                     <h4>Exercise 0.5 &mdash; Correlation &ne; Causation</h4>
                     <p>GDP per capita and life expectancy are positively correlated. List at least <strong>three</strong> reasons why we cannot conclude that higher GDP <em>causes</em> longer life. For each, identify whether it's a confounding variable, reverse causation, or selection bias.</p>
                 </div>
+
+                <div class="exercise">
+                    <h4>Exercise 0.6 &mdash; Frequency Tables</h4>
+                    <p>Create a frequency table for life expectancy binned into 5-year intervals (45&ndash;50, 50&ndash;55, ..., 85&ndash;90). Include all four columns: absolute frequency, relative frequency, cumulative absolute frequency, and cumulative relative frequency. What percentage of countries have life expectancy below 60?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 0.7 &mdash; Pareto Chart</h4>
+                    <p>Create a Pareto chart of the <code>region</code> variable (absolute frequency bars in descending order, with cumulative relative frequency line). Which two regions account for the largest share of countries in the dataset? At what cumulative percentage?</p>
+                </div>
             </section>
 
             <!-- ==================== KEY TAKEAWAYS ==================== -->
             <section id="takeaways">
                 <div class="key-concept">
                     <h4>Key Takeaways</h4>
-                    <p><strong>Always inspect your data first</strong> with <code>.shape</code>, <code>.dtypes</code>, <code>.describe()</code>, <code>.head()</code>. The <strong>mean&ndash;median gap</strong> is a diagnostic for skewness. <strong>Log transformations</strong> tame right-skewed variables and are standard in econometrics. The <strong>Coefficient of Variation</strong> lets you compare variability across scales. <strong>Visualise before computing</strong> &mdash; a correlation coefficient hides patterns that scatter plots reveal. And always remember: <strong>correlation &ne; causation</strong>.</p>
+                    <p><strong>Data types determine your toolkit:</strong> The type of variable (nominal, ordinal, discrete, continuous) dictates which statistics and visualisations are appropriate. <strong>Always inspect your data first</strong> with <code>.shape</code>, <code>.dtypes</code>, <code>.describe()</code>, <code>.head()</code>. <strong>Frequency tables and cumulative distributions</strong> are the foundation of data reduction and connect directly to the CDF in probability. <strong>The boxplot is a key diagnostic tool</strong> &mdash; it reveals skewness, outliers, and spread visually. The <strong>mean&ndash;median gap</strong> is a diagnostic for skewness. <strong>Log transformations</strong> tame right-skewed variables and are standard in econometrics. The <strong>Coefficient of Variation</strong> lets you compare variability across scales. <strong>Visualise before computing</strong> &mdash; a correlation coefficient hides patterns that scatter plots reveal. And always remember: <strong>correlation &ne; causation</strong>.</p>
                 </div>
             </section>
 
