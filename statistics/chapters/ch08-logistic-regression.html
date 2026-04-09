@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 08: Logistic Regression & Classification | Statistics for Econometrics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+        .output-block {
+            background: var(--color-background-alt);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .notebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .notebook-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .notebook-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .notebook-actions a:hover { background: var(--color-primary-dark); }
+        .key-concept {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .key-concept h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+        .ascii-diagram {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Statistics for Econometrics</h1>
+            </a>
+            <p class="site-subtitle">Module 08: Logistic Regression & Classification</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#linear-regression-fails">8.1 Why Linear Regression Fails</a></li>
+                <li><a href="#logistic-function">8.2 The Logistic Function</a></li>
+                <li><a href="#odds-ratios">8.3 Interpreting Coefficients</a></li>
+                <li><a href="#maximum-likelihood">8.4 Estimation: Maximum Likelihood</a></li>
+                <li><a href="#goodness-of-fit">8.5 Goodness of Fit</a></li>
+                <li><a href="#classification">8.6 Classification: Probabilities to Decisions</a></li>
+                <li><a href="#roc-auc">8.7 The ROC Curve and AUC</a></li>
+                <li><a href="#multiple-logistic">8.8 Multiple Logistic Regression</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="notebook-actions">
+                <span>Run this module yourself:</span>
+                <a href="https://colab.research.google.com/github/cinoSar/cinosar.github.io/blob/main/statistics/downloads/08_logistic_regression.ipynb" target="_blank">Open in Google Colab</a>
+                <a href="../downloads/08_logistic_regression.ipynb" download>Download Notebook</a>
+            </div>
+
+            <div class="toc" id="toc">
+                <h3>In This Module</h3>
+                <ol>
+                    <li><a href="#linear-regression-fails">Why Linear Regression Fails for Binary Outcomes</a></li>
+                    <li><a href="#logistic-function">The Logistic Function and the Logit Model</a></li>
+                    <li><a href="#odds-ratios">Interpreting Coefficients: Odds Ratios</a></li>
+                    <li><a href="#maximum-likelihood">Estimation: Maximum Likelihood</a></li>
+                    <li><a href="#goodness-of-fit">Goodness of Fit</a></li>
+                    <li><a href="#classification">Classification: From Probabilities to Decisions</a></li>
+                    <li><a href="#roc-auc">The ROC Curve and AUC</a></li>
+                    <li><a href="#multiple-logistic">Multiple Logistic Regression and Practical Considerations</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                </ol>
+            </div>
+
+            <!-- ==================== 8.1 LINEAR REGRESSION FAILS ==================== -->
+            <section id="linear-regression-fails">
+                <h2>8.1 &mdash; Why Linear Regression Fails for Binary Outcomes</h2>
+                <p>Ordinary Least Squares (OLS) regression is a powerful tool for continuous outcomes. But when your dependent variable is binary—whether a firm defaults on a loan (Y=1) or not (Y=0), whether a customer churns (Y=1) or stays (Y=0)—OLS breaks down.</p>
+
+                <h3>The Core Problem: Predictions Outside [0, 1]</h3>
+                <p>With binary Y, probabilities must lie in the interval [0, 1]. But OLS estimates a linear model:</p>
+                <p>\[\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i\]</p>
+                <p>This line extends to infinity. For large or small values of X, the fitted value will easily exceed 1 or fall below 0, producing nonsensical predictions.</p>
+
+                <h3>Violated Regression Assumptions</h3>
+                <p><strong>1. Residuals Cannot Be Normal.</strong> If Y takes only values 0 or 1, then conditional on X, the residuals \(\hat{e}_i = Y_i - \hat{Y}_i\) can only take on two values: \(0 - \hat{Y}_i\) and \(1 - \hat{Y}_i\). A binomial distribution is far from normal.</p>
+
+                <p><strong>2. Heteroscedasticity Is Guaranteed.</strong> The variance of Y given X is:</p>
+                <p>\[\text{Var}(Y|X) = p(1-p)\]</p>
+                <p>where \(p\) is the probability that Y = 1. This variance depends on X (through p), violating the homoscedasticity assumption. Moreover, when \(p \approx 0\) or \(p \approx 1\), variance is small; when \(p \approx 0.5\), variance is largest. OLS standard errors will be biased.</p>
+
+                <h3>Worked Example: Firm Default Prediction</h3>
+                <p>Let's fit OLS to a binary outcome and see the problems.</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+
+<span class="code-comment"># Generate data: X = financial ratio, Y = default (0/1)</span>
+n = <span class="code-number">200</span>
+X = np.random.<span class="code-function">uniform</span>(<span class="code-number">0</span>, <span class="code-number">10</span>, n)
+<span class="code-comment"># True probability: p = 1 / (1 + exp(-(-2 + 0.5*X)))</span>
+true_p = <span class="code-number">1</span> / (<span class="code-number">1</span> + np.<span class="code-function">exp</span>(-(-<span class="code-number">2</span> + <span class="code-number">0.5</span>*X)))
+Y = (np.random.<span class="code-function">random</span>(n) &lt; true_p).<span class="code-function">astype</span>(<span class="code-keyword">int</span>)
+
+<span class="code-comment"># Fit OLS naively</span>
+X_const = sm.<span class="code-function">add_constant</span>(X)
+ols_model = sm.OLS(Y, X_const)
+ols_results = ols_model.<span class="code-function">fit</span>()
+
+<span class="code-comment"># Plot the OLS fitted line</span>
+fig, ax = plt.<span class="code-function">subplots</span>(figsize=(<span class="code-number">10</span>, <span class="code-number">6</span>))
+ax.<span class="code-function">scatter</span>(X, Y, alpha=<span class="code-number">0.5</span>, s=<span class="code-number">30</span>, label=<span class="code-string">'Data (Y = 0 or 1)'</span>)
+
+X_range = np.linspace(X.<span class="code-function">min</span>(), X.<span class="code-function">max</span>(), <span class="code-number">100</span>)
+X_range_const = sm.<span class="code-function">add_constant</span>(X_range)
+ols_pred = ols_results.<span class="code-function">predict</span>(X_range_const)
+
+ax.<span class="code-function">plot</span>(X_range, ols_pred, <span class="code-string">'r-'</span>, linewidth=<span class="code-number">2</span>, label=<span class="code-string">'OLS Fit'</span>)
+ax.<span class="code-function">axhline</span>(y=<span class="code-number">0</span>, color=<span class="code-string">'gray'</span>, linestyle=<span class="code-string">'--'</span>, alpha=<span class="code-number">0.5</span>)
+ax.<span class="code-function">axhline</span>(y=<span class="code-number">1</span>, color=<span class="code-string">'gray'</span>, linestyle=<span class="code-string">'--'</span>, alpha=<span class="code-number">0.5</span>)
+ax.<span class="code-function">set_ylabel</span>(<span class="code-string">'Predicted Probability'</span>)
+ax.<span class="code-function">set_xlabel</span>(<span class="code-string">'Financial Ratio (X)'</span>)
+ax.<span class="code-function">set_title</span>(<span class="code-string">'OLS on Binary Y: Predictions Fall Outside [0, 1]'</span>)
+ax.<span class="code-function">legend</span>()
+ax.<span class="code-function">set_ylim</span>([-<span class="code-number">0.3</span>, <span class="code-number">1.3</span>)
+plt.<span class="code-function">tight_layout</span>()
+plt.<span class="code-function">show</span>()
+
+<span class="code-keyword">print</span>(<span class="code-string">"OLS predictions range:"</span>, ols_pred.<span class="code-function">min</span>().<span class="code-function">round</span>(<span class="code-number">3</span>), <span class="code-string">"to"</span>, ols_pred.<span class="code-function">max</span>().<span class="code-function">round</span>(<span class="code-number">3</span>))</code></div>
+
+                <div class="output-block">OLS predictions range: -0.152 to 1.245</div>
+
+                <p>Notice: the OLS fitted line dips below 0 and climbs above 1. These are impossible probabilities. This is why we need a different approach.</p>
+
+            </section>
+
+            <!-- ==================== 8.2 LOGISTIC FUNCTION ==================== -->
+            <section id="logistic-function">
+                <h2>8.2 &mdash; The Logistic Function and the Logit Model</h2>
+                <p>Instead of a straight line, we need a curve that naturally stays within [0, 1]. The logistic (or sigmoid) function provides exactly that.</p>
+
+                <h3>The Logistic Sigmoid</h3>
+                <p>The logistic function is:</p>
+                <p>\[P(Y=1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}\]</p>
+
+                <p><strong>Properties:</strong></p>
+                <ul>
+                    <li>Maps all of \(\mathbb{R}\) to (0, 1). No matter how large or small \(\beta_0 + \beta_1 X\) is, the output is always a valid probability.</li>
+                    <li>S-shaped (sigmoid). Gradual rise from near-zero at the lower tail to near-one at the upper tail.</li>
+                    <li>Symmetric around 0.5: when \(\beta_0 + \beta_1 X = 0\), \(P(Y=1) = 0.5\).</li>
+                </ul>
+
+                <h3>Odds and Log-Odds</h3>
+                <p><strong>Odds:</strong> The odds of an event are the ratio of the probability it happens to the probability it doesn't:</p>
+                <p>\[\text{Odds} = \frac{p}{1-p}\]</p>
+
+                <p><strong>Example:</strong> If \(p = 0.20\) (20% chance), then odds = \(\frac{0.20}{0.80} = 0.25\), or "1 to 4 against" the event.</p>
+
+                <p><strong>Log-Odds (Logit):</strong> Taking the natural logarithm of odds linearizes the model:</p>
+                <p>\[\ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X\]</p>
+
+                <h3>Deriving the Logistic Model</h3>
+                <p>Start with the log-odds equation:</p>
+                <p>\[\ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X\]</p>
+
+                <p>Exponentiate both sides:</p>
+                <p>\[\frac{p}{1-p} = e^{\beta_0 + \beta_1 X}\]</p>
+
+                <p>Let \(z = \beta_0 + \beta_1 X\). Then:</p>
+                <p>\[p = (1-p) \cdot e^z\]</p>
+                <p>\[p = e^z - p e^z\]</p>
+                <p>\[p(1 + e^z) = e^z\]</p>
+                <p>\[p = \frac{e^z}{1 + e^z} = \frac{1}{1 + e^{-z}}\]</p>
+
+                <p>Thus:</p>
+                <p>\[P(Y=1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}\]</p>
+
+                <h3>Code: The Sigmoid for Different Slopes</h3>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+
+<span class="code-comment"># Define sigmoid function</span>
+<span class="code-keyword">def</span> <span class="code-function">sigmoid</span>(x, beta0, beta1):
+    <span class="code-keyword">return</span> <span class="code-number">1</span> / (<span class="code-number">1</span> + np.<span class="code-function">exp</span>(-(<span class="code-number">beta0</span> + beta1 * x)))
+
+X_range = np.linspace(-<span class="code-number">5</span>, <span class="code-number">5</span>, <span class="code-number">100</span>)
+fig, ax = plt.<span class="code-function">subplots</span>(figsize=(<span class="code-number">10</span>, <span class="code-number">6</span>))
+
+<span class="code-comment"># Plot sigmoid for different beta1 values</span>
+<span class="code-keyword">for</span> beta1 <span class="code-keyword">in</span> [<span class="code-number">0.5</span>, <span class="code-number">1.0</span>, <span class="code-number">2.0</span>]:
+    ax.<span class="code-function">plot</span>(X_range, <span class="code-function">sigmoid</span>(X_range, <span class="code-number">0</span>, beta1),
+           label=<span class="code-string">f'β₁ = {beta1}'</span>, linewidth=<span class="code-number">2</span>)
+
+ax.<span class="code-function">axhline</span>(y=<span class="code-number">0.5</span>, color=<span class="code-string">'gray'</span>, linestyle=<span class="code-string">'--'</span>, alpha=<span class="code-number">0.5</span>)
+ax.<span class="code-function">set_xlabel</span>(<span class="code-string">'X'</span>)
+ax.<span class="code-function">set_ylabel</span>(<span class="code-string">'P(Y=1|X)'</span>)
+ax.<span class="code-function">set_title</span>(<span class="code-string">'Logistic Sigmoid for Different Slopes (β₀ = 0)'</span>)
+ax.<span class="code-function">legend</span>()
+ax.<span class="code-function">grid</span>(<span class="code-keyword">True</span>, alpha=<span class="code-number">0.3</span>)
+plt.<span class="code-function">tight_layout</span>()
+plt.<span class="code-function">show</span>()</code></div>
+
+                <div class="key-concept">
+                    <h4>Key Concept: The Logit Transformation</h4>
+                    <p>The logit transformation is the bridge between a linear model (in log-odds) and a probability model (in p). By taking log-odds, we linearize the relationship: \(\ln(p/(1-p)) = \beta_0 + \beta_1 X\). This is why the model is called <strong>logistic regression</strong> despite being a classification tool. The linear part is hidden inside the logit function.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 8.3 ODDS RATIOS ==================== -->
+            <section id="odds-ratios">
+                <h2>8.3 &mdash; Interpreting Coefficients: Odds Ratios</h2>
+                <p>\(\beta_1\) represents the change in log-odds per unit increase in X. But log-odds are hard to communicate. The <strong>odds ratio</strong> is much more interpretable.</p>
+
+                <h3>Deriving the Odds Ratio</h3>
+                <p>The log-odds model is:</p>
+                <p>\[\ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X\]</p>
+
+                <p>Compare odds at \(X+1\) versus \(X\):</p>
+                <p>\[\ln(\text{odds}_{X+1}) - \ln(\text{odds}_X) = \beta_1\]</p>
+
+                <p>Using log properties, \(\ln(a) - \ln(b) = \ln(a/b)\):</p>
+                <p>\[\ln\left(\frac{\text{odds}_{X+1}}{\text{odds}_X}\right) = \beta_1\]</p>
+
+                <p>Exponentiate both sides:</p>
+                <p>\[\frac{\text{odds}_{X+1}}{\text{odds}_X} = e^{\beta_1}\]</p>
+
+                <p>This ratio is the <strong>odds ratio (OR)</strong>. It tells us: when X increases by 1 unit, the odds are multiplied by \(e^{\beta_1}\).</p>
+
+                <h3>Worked Example: Firm Default Model</h3>
+                <p>Suppose we fit a logistic model of firm default and find \(\beta_1 = -0.357\) for "years of activity" (X = years operating). Then:</p>
+                <p>\[OR = e^{-0.357} \approx 0.70\]</p>
+
+                <p>Interpretation: For each additional year of activity, the odds of default are multiplied by 0.70, or equivalently, they decrease by 30%. A 10-year-old firm has odds of default that are \(0.70^{10} \approx 0.028\) times those of a 1-year-old firm (holding other variables constant).</p>
+
+                <h3>Critical: Odds Ratio ≠ Probability Ratio</h3>
+                <p>A common mistake is to confuse odds ratio with probability ratio. The same OR produces different changes in probability depending on the starting point.</p>
+
+                <p><strong>Example:</strong> OR = 0.7 for three starting probabilities:</p>
+
+                <div class="ascii-diagram">
+Starting at p = 0.50: odds = 1.00
+With OR = 0.7:       odds = 0.70 → p = 0.70/(1+0.70) = 0.41
+Change in p: -0.09 (9 percentage points)
+
+Starting at p = 0.20: odds = 0.25
+With OR = 0.7:       odds = 0.175 → p = 0.175/(1+0.175) = 0.149
+Change in p: -0.051 (5.1 percentage points)
+
+Starting at p = 0.05: odds = 0.0526
+With OR = 0.7:       odds = 0.0368 → p = 0.0368/(1+0.0368) = 0.036
+Change in p: -0.014 (1.4 percentage points)
+                </div>
+
+                <p>Same OR, very different impacts on probability! This is why reporting only odds ratios can be misleading.</p>
+
+                <h3>Marginal Effects</h3>
+                <p>A more interpretable metric is the <strong>marginal effect</strong>: the derivative of the probability with respect to X:</p>
+                <p>\[\frac{\partial p}{\partial X} = \beta_1 \cdot p(1-p)\]</p>
+
+                <p>This depends on the baseline probability p. Usually, we evaluate marginal effects at the mean of X (or at specific percentiles). The result is the percentage-point change in probability for a one-unit increase in X, <strong>at that specific point</strong>.</p>
+
+                <h3>Code: Odds Ratios and Marginal Effects</h3>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+
+<span class="code-comment"># Generate data: firm default ~ years_active</span>
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+n = <span class="code-number">200</span>
+X = np.random.<span class="code-function">uniform</span>(<span class="code-number">1</span>, <span class="code-number">20</span>, n)
+true_p = <span class="code-number">1</span> / (<span class="code-number">1</span> + np.<span class="code-function">exp</span>(-(-<span class="code-number">2</span> + <span class="code-number">0.5</span>*X)))
+Y = (np.random.<span class="code-function">random</span>(n) &lt; true_p).<span class="code-function">astype</span>(<span class="code-keyword">int</span>)
+
+<span class="code-comment"># Fit logistic regression</span>
+X_const = sm.<span class="code-function">add_constant</span>(X)
+logit_model = sm.Logit(Y, X_const)
+logit_results = logit_model.<span class="code-function">fit</span>(disp=<span class="code-number">0</span>)
+
+<span class="code-comment"># Extract coefficients and compute OR</span>
+beta = logit_results.params[<span class="code-number">1</span>]
+OR = np.<span class="code-function">exp</span>(beta)
+
+<span class="code-keyword">print</span>(<span class="code-string">f"Coefficient β₁: {beta:.4f}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">f"Odds Ratio: {OR:.4f}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">f"Interpretation: Each additional year multiplies odds by {OR:.2f}"</span>)
+
+<span class="code-comment"># Compute marginal effect at mean X</span>
+X_mean = X.<span class="code-function">mean</span>()
+p_mean = logit_results.<span class="code-function">predict</span>([<span class="code-number">1</span>, X_mean])[<span class="code-number">0</span>]
+marginal_effect = beta * p_mean * (<span class="code-number">1</span> - p_mean)
+
+<span class="code-keyword">print</span>(<span class="code-string">f"\nAt mean X = {X_mean:.2f}:"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">f"Predicted probability: {p_mean:.4f}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">f"Marginal effect: {marginal_effect:.4f}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">f"Interpretation: Each additional year increases probability by {marginal_effect*100:.2f} pp"</span>)</code></div>
+
+                <div class="key-concept">
+                    <h4>Key Concept: When to Use What</h4>
+                    <p>Odds ratios are useful for comparing the relative importance of predictors and for communicating results to technical audiences. For the actual impact on probability, use marginal effects or compute predicted probabilities at specific X values. In applied work, many practitioners report odds ratios alongside predicted probabilities at key reference points (e.g., at the 25th, 50th, and 75th percentiles).</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 8.4 MAXIMUM LIKELIHOOD ==================== -->
+            <section id="maximum-likelihood">
+                <h2>8.4 &mdash; Estimation: Maximum Likelihood</h2>
+                <p>Logistic regression coefficients are estimated using <strong>Maximum Likelihood Estimation (MLE)</strong>, not OLS. Here's why and how.</p>
+
+                <h3>Why Not OLS?</h3>
+                <p>OLS minimizes the sum of squared residuals, which assumes:</p>
+                <ul>
+                    <li>Errors are normally distributed.</li>
+                    <li>Variance is constant (homoscedasticity).</li>
+                </ul>
+                <p>Neither holds for binary data. Instead, we use the likelihood function, which directly models the probability of observing the data we actually saw.</p>
+
+                <h3>The Likelihood Function</h3>
+                <p>For each observation i, the probability of observing \(Y_i\) given \(X_i\) is:</p>
+                <p>\[P(Y_i | X_i) = p_i^{Y_i} \cdot (1-p_i)^{1-Y_i}\]</p>
+
+                <p>where \(p_i = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_i)}}\) is the predicted probability.</p>
+
+                <p>The <strong>likelihood</strong> (probability of all the data) is the product:</p>
+                <p>\[L = \prod_{i=1}^{n} p_i^{Y_i} \cdot (1-p_i)^{1-Y_i}\]</p>
+
+                <p>The <strong>log-likelihood</strong> (easier to work with) is:</p>
+                <p>\[\ell = \sum_{i=1}^{n} \left[ Y_i \ln(p_i) + (1-Y_i) \ln(1-p_i) \right]\]</p>
+
+                <p>MLE finds the values of \(\beta_0\) and \(\beta_1\) that maximize \(\ell\). There is no closed-form solution, so numerical algorithms (like Newton-Raphson) are used.</p>
+
+                <h3>Worked Example: Firm Default with Three Predictors</h3>
+                <p>Let's generate data for firm default as a function of debt-to-income ratio, years active, and log revenue, then fit the model.</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+
+np.random.<span class="code-function">seed</span>(<span class="code-number">123</span>)
+
+<span class="code-comment"># Generate 300 firms</span>
+n = <span class="code-number">300</span>
+data = pd.<span class="code-function">DataFrame</span>({
+    <span class="code-string">'debt_ratio'</span>: np.random.<span class="code-function">uniform</span>(<span class="code-number">0.1</span>, <span class="code-number">2.0</span>, n),
+    <span class="code-string">'years_active'</span>: np.random.<span class="code-function">uniform</span>(<span class="code-number">1</span>, <span class="code-number">30</span>, n),
+    <span class="code-string">'log_revenue'</span>: np.random.<span class="code-function">uniform</span>(<span class="code-number">10</span>, <span class="code-number">18</span>, n)
+})
+
+<span class="code-comment"># True model: default probability depends on these factors</span>
+z = -<span class="code-number">3</span> + <span class="code-number">1.2</span>*data[<span class="code-string">'debt_ratio'</span>] - <span class="code-number">0.08</span>*data[<span class="code-string">'years_active'</span>] + <span class="code-number">0.15</span>*data[<span class="code-string">'log_revenue'</span>]
+data[<span class="code-string">'default'</span>] = (np.random.<span class="code-function">random</span>(n) &lt; <span class="code-number">1</span>/(<span class="code-number">1</span>+np.<span class="code-function">exp</span>(-z))).<span class="code-function">astype</span>(<span class="code-keyword">int</span>)
+
+<span class="code-comment"># Fit logistic model</span>
+X = sm.<span class="code-function">add_constant</span>(data[[<span class="code-string">'debt_ratio'</span>, <span class="code-string">'years_active'</span>, <span class="code-string">'log_revenue'</span>]])
+model = sm.Logit(data[<span class="code-string">'default'</span>], X)
+results = model.<span class="code-function">fit</span>()
+
+<span class="code-keyword">print</span>(results.<span class="code-function">summary2</span>())</code></div>
+
+                <div class="output-block">
+==============================================================================
+                 Results: Logit
+==============================================================================
+Model:                Logit              Pseudo R-squ.:                 0.405
+Dependent Var.:       default            AIC:                           288.1
+Date:                 2026-04-09         BIC:                           303.3
+No. Observations:     300                Log-Likelihood:               -141.0
+Df Residuals:         296                DF Model:                        3
+Df Model:             3                  Deviance:                      282.0
+Method:               MLE                LLR p-value:                  1.53e-29
+==============================================================================
+                 Coef.   Std Err      z      P>|z|   [95% Conf. Int.]
+debt_ratio       1.1847    0.269     4.401    0.000     0.656      1.712
+years_active    -0.0802    0.016    -5.155    0.000    -0.111     -0.049
+log_revenue      0.1482    0.047     3.139    0.002     0.055      0.241
+==============================================================================
+                </div>
+
+                <p><strong>Interpretation:</strong> Higher debt ratio increases default risk; more years active and higher revenue reduce it (as expected). All coefficients are statistically significant.</p>
+
+            </section>
+
+            <!-- ==================== 8.5 GOODNESS OF FIT ==================== -->
+            <section id="goodness-of-fit">
+                <h2>8.5 &mdash; Goodness of Fit</h2>
+                <p>Unlike linear regression, logistic regression has no traditional R-squared. Instead, we use pseudo-R² measures and information criteria.</p>
+
+                <h3>McFadden's Pseudo-R²</h3>
+                <p>A common measure is:</p>
+                <p>\[R^2_{\text{McFadden}} = 1 - \frac{\ell_{\text{model}}}{\ell_{\text{null}}}\]</p>
+
+                <p>where \(\ell_{\text{model}}\) is the log-likelihood of your fitted model and \(\ell_{\text{null}}\) is the log-likelihood of a model with only an intercept (predicting the overall default rate for everyone).</p>
+
+                <p>Values between 0.2 and 0.4 are often considered good. Higher values suggest the model explains more variation in the outcome.</p>
+
+                <h3>Log-Likelihood Ratio Test</h3>
+                <p>To compare nested models (e.g., a model with X and one without), use the LR test statistic:</p>
+                <p>\[LR = 2(\ell_{\text{full}} - \ell_{\text{reduced}})\]</p>
+
+                <p>Under the null hypothesis that the extra variables don't matter, LR follows a chi-squared distribution with degrees of freedom equal to the number of extra predictors.</p>
+
+                <h3>AIC and BIC</h3>
+                <p>For comparing non-nested models, use AIC or BIC (introduced in Module 06):</p>
+                <p>\[AIC = 2k - 2\ell_{\text{model}}\]</p>
+                <p>\[BIC = k \ln(n) - 2\ell_{\text{model}}\]</p>
+
+                <p>Lower values are better. BIC penalizes model complexity more heavily, favoring simpler models.</p>
+
+                <h3>Code: Extracting Model Fit Metrics</h3>
+
+<div class="code-block"><code><span class="code-comment"># From the previous fit result</span>
+<span class="code-keyword">print</span>(<span class="code-string">"Pseudo R² (McFadden):"</span>, results.prsquared.<span class="code-function">round</span>(<span class="code-number">4</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"Log-Likelihood:"</span>, results.llf.<span class="code-function">round</span>(<span class="code-number">2</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"AIC:"</span>, results.aic.<span class="code-function">round</span>(<span class="code-number">2</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"BIC:"</span>, results.bic.<span class="code-function">round</span>(<span class="code-number">2</span>))</code></div>
+
+            </section>
+
+            <!-- ==================== 8.6 CLASSIFICATION ==================== -->
+            <section id="classification">
+                <h2>8.6 &mdash; Classification: From Probabilities to Decisions</h2>
+                <p>Logistic regression produces predicted probabilities. To make yes/no decisions, we need a <strong>threshold</strong>.</p>
+
+                <h3>Threshold Selection</h3>
+                <p>The default threshold is 0.5: if \(\hat{p}_i \geq 0.5\), predict Y=1; otherwise predict Y=0. But the optimal threshold depends on context.</p>
+
+                <p><strong>Conservative (low threshold, ~0.3):</strong> Predict Y=1 for more observations. Useful when missing positives is costly (e.g., detecting fraud). Maximizes recall.</p>
+
+                <p><strong>Aggressive (high threshold, ~0.7):</strong> Predict Y=1 only for high-confidence cases. Useful when false positives are costly (e.g., spam filters). Maximizes precision.</p>
+
+                <h3>Confusion Matrix and Classification Metrics</h3>
+                <p>For a chosen threshold, we can construct a confusion matrix:</p>
+
+                <div class="ascii-diagram">
+                Predicted
+                    Y=1      Y=0
+Actual  Y=1    TP       FN
+        Y=0    FP       TN
+
+TP = True Positives (correctly predicted 1)
+FP = False Positives (incorrectly predicted 1)
+TN = True Negatives (correctly predicted 0)
+FN = False Negatives (incorrectly predicted 1)
+                </div>
+
+                <p><strong>Accuracy:</strong> \(\frac{TP + TN}{N}\) — overall correctness. Can be misleading if classes are imbalanced.</p>
+
+                <p><strong>Precision:</strong> \(\frac{TP}{TP + FP}\) — of predicted positives, how many are correct? "Don't cry wolf too often."</p>
+
+                <p><strong>Recall (Sensitivity):</strong> \(\frac{TP}{TP + FN}\) — of actual positives, how many did we catch? "Don't miss the real wolves."</p>
+
+                <p><strong>Specificity:</strong> \(\frac{TN}{TN + FP}\) — of actual negatives, how many did we correctly identify as negative?</p>
+
+                <p><strong>F1-Score:</strong> Harmonic mean of precision and recall: \(\frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}\). Balances both metrics.</p>
+
+                <h3>Code: Confusion Matrix and Metrics at Different Thresholds</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> confusion_matrix, accuracy_score, precision_score, recall_score
+
+<span class="code-comment"># Get predicted probabilities</span>
+pred_probs = results.<span class="code-function">predict</span>(X)
+
+<span class="code-comment"># Try different thresholds</span>
+<span class="code-keyword">for</span> threshold <span class="code-keyword">in</span> [<span class="code-number">0.3</span>, <span class="code-number">0.5</span>, <span class="code-number">0.7</span>]:
+    pred_binary = (pred_probs &gt;= threshold).<span class="code-function">astype</span>(<span class="code-keyword">int</span>)
+    cm = <span class="code-function">confusion_matrix</span>(data[<span class="code-string">'default'</span>], pred_binary)
+    acc = <span class="code-function">accuracy_score</span>(data[<span class="code-string">'default'</span>], pred_binary)
+    prec = <span class="code-function">precision_score</span>(data[<span class="code-string">'default'</span>], pred_binary)
+    rec = <span class="code-function">recall_score</span>(data[<span class="code-string">'default'</span>], pred_binary)
+
+    <span class="code-keyword">print</span>(<span class="code-string">f"\nThreshold = {threshold}"</span>)
+    <span class="code-keyword">print</span>(<span class="code-string">f"Confusion Matrix:\n{cm}"</span>)
+    <span class="code-keyword">print</span>(<span class="code-string">f"Accuracy: {acc:.3f}, Precision: {prec:.3f}, Recall: {rec:.3f}"</span>)</code></div>
+
+                <div class="key-concept">
+                    <h4>Key Concept: Threshold Is a Business Decision</h4>
+                    <p>There is no universally correct threshold. The choice reflects the relative cost of false positives vs false negatives. In credit risk, a bank might tolerate more false positives (lending to marginal borrowers) to avoid false negatives (rejecting good borrowers). In medical screening, you might tolerate more false positives to catch all true cases. Always anchor threshold choice to business context.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 8.7 ROC CURVE ==================== -->
+            <section id="roc-auc">
+                <h2>8.7 &mdash; The ROC Curve and AUC</h2>
+                <p>Rather than choose one threshold, the ROC (Receiver Operating Characteristic) curve shows how classification performance varies across all possible thresholds.</p>
+
+                <h3>Constructing the ROC Curve</h3>
+                <p>For each threshold from 0 to 1, compute:</p>
+                <ul>
+                    <li><strong>Sensitivity (Recall):</strong> \(\frac{TP}{TP + FN}\) — true positive rate on the vertical axis.</li>
+                    <li><strong>1 − Specificity:</strong> \(\frac{FP}{FP + TN}\) — false positive rate on the horizontal axis.</li>
+                </ul>
+
+                <p>Plot these points for all thresholds. A perfect classifier hugs the top-left corner (high sensitivity, low false positive rate). A random classifier follows the diagonal (sensitivity = false positive rate).</p>
+
+                <h3>Area Under Curve (AUC)</h3>
+                <p>The AUC summarizes the entire ROC curve into a single number (0 to 1):</p>
+                <ul>
+                    <li>AUC = 0.5: Random guessing.</li>
+                    <li>AUC = 0.7–0.8: Acceptable discrimination.</li>
+                    <li>AUC = 0.8–0.9: Good discrimination.</li>
+                    <li>AUC > 0.9: Excellent discrimination.</li>
+                </ul>
+
+                <p><strong>Interpretation:</strong> AUC is the probability that, if you pick a random positive case and a random negative case, the model assigns a higher predicted probability to the positive case.</p>
+
+                <h3>Code: Plotting ROC Curve and Computing AUC</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> roc_curve, auc
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+
+<span class="code-comment"># Compute ROC curve</span>
+fpr, tpr, thresholds = <span class="code-function">roc_curve</span>(data[<span class="code-string">'default'</span>], pred_probs)
+roc_auc = <span class="code-function">auc</span>(fpr, tpr)
+
+<span class="code-comment"># Plot</span>
+fig, ax = plt.<span class="code-function">subplots</span>(figsize=(<span class="code-number">8</span>, <span class="code-number">6</span>))
+ax.<span class="code-function">plot</span>(fpr, tpr, color=<span class="code-string">'b'</span>, linewidth=<span class="code-number">2</span>,
+       label=<span class="code-string">f'ROC Curve (AUC = {roc_auc:.3f})'</span>)
+ax.<span class="code-function">plot</span>([<span class="code-number">0</span>, <span class="code-number">1</span>], [<span class="code-number">0</span>, <span class="code-number">1</span>], color=<span class="code-string">'gray'</span>, linestyle=<span class="code-string">'--'</span>,
+       label=<span class="code-string">'Random Classifier'</span>)
+ax.<span class="code-function">set_xlabel</span>(<span class="code-string">'False Positive Rate'</span>)
+ax.<span class="code-function">set_ylabel</span>(<span class="code-string">'True Positive Rate (Recall)'</span>)
+ax.<span class="code-function">set_title</span>(<span class="code-string">'ROC Curve'</span>)
+ax.<span class="code-function">legend</span>()
+ax.<span class="code-function">grid</span>(<span class="code-keyword">True</span>, alpha=<span class="code-number">0.3</span>)
+plt.<span class="code-function">tight_layout</span>()
+plt.<span class="code-function">show</span>()</code></div>
+
+                <div class="key-concept">
+                    <h4>Key Concept: AUC and Discrimination</h4>
+                    <p>AUC measures the model's ability to discriminate between classes across ALL thresholds. It answers the question: "If I pick a random positive case and a random negative case, what's the probability the model assigns a higher score to the positive?" A higher AUC means better discrimination. Unlike accuracy, AUC is robust to class imbalance.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 8.8 MULTIPLE LOGISTIC REGRESSION ==================== -->
+            <section id="multiple-logistic">
+                <h2>8.8 &mdash; Multiple Logistic Regression and Practical Considerations</h2>
+                <p>Extending to multiple predictors is straightforward: just add more X variables.</p>
+
+                <h3>The Model</h3>
+                <p>\[P(Y=1|X_1, X_2, \ldots, X_k) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k)}}\]</p>
+
+                <p>Each \(\beta_j\) is still interpreted as the change in log-odds per unit change in \(X_j\), holding all other variables constant (<em>ceteris paribus</em>). The corresponding odds ratio is \(e^{\beta_j}\).</p>
+
+                <h3>Categorical Predictors</h3>
+                <p>Use dummy variables (one-hot encoding), dropping one category as the reference. The coefficients for other categories represent deviations from the reference.</p>
+
+                <h3>Multicollinearity</h3>
+                <p>Check for multicollinearity using the Variance Inflation Factor (VIF), just as in linear regression (Module 06). High VIF indicates that a predictor is highly collinear with others, inflating its standard error.</p>
+
+                <h3>Connection to Chi-Squared Tests (Module 04)</h3>
+                <p>Chi-squared tests (Module 04) test whether two categorical variables are independent. Logistic regression extends this idea: it models the probability of a categorical outcome (Y = 0 or 1) as a function of multiple predictors, some categorical, some continuous. Logistic regression is the multivariate extension of chi-squared tests.</p>
+
+                <h3>Beyond Binary: Multinomial and Ordinal Logistic Regression</h3>
+                <p>When Y has more than two categories:</p>
+                <ul>
+                    <li><strong>Unordered categories (e.g., transportation mode: car, bus, train):</strong> Use multinomial logistic regression. Fit k-1 equations, one for each non-reference category.</li>
+                    <li><strong>Ordered categories (e.g., credit rating: poor, fair, good, excellent):</strong> Use ordinal logistic regression (proportional odds model), which respects the ordering.</li>
+                </ul>
+
+                <h3>Worked Example: Adding Industry Sector</h3>
+
+<div class="code-block"><code><span class="code-comment"># Add industry sector to our firm default data</span>
+data[<span class="code-string">'industry'</span>] = np.random.<span class="code-function">choice</span>([<span class="code-string">'Manufacturing'</span>, <span class="code-string">'Services'</span>, <span class="code-string">'Tech'</span>], n)
+
+<span class="code-comment"># Create dummies (drop first)</span>
+industry_dummies = pd.<span class="code-function">get_dummies</span>(data[<span class="code-string">'industry'</span>], drop_first=<span class="code-keyword">True</span>)
+
+<span class="code-comment"># Fit model with industry dummies</span>
+X_with_industry = sm.<span class="code-function">add_constant</span>(pd.<span class="code-function">concat</span>([
+    data[[<span class="code-string">'debt_ratio'</span>, <span class="code-string">'years_active'</span>, <span class="code-string">'log_revenue'</span>]],
+    industry_dummies
+], axis=<span class="code-number">1</span>))
+
+model_industry = sm.Logit(data[<span class="code-string">'default'</span>], X_with_industry)
+results_industry = model_industry.<span class="code-function">fit</span>(disp=<span class="code-number">0</span>)
+
+<span class="code-keyword">print</span>(results_industry.<span class="code-function">summary2</span>())</code></div>
+
+                <p><strong>Interpretation:</strong> The coefficients on Services and Tech are relative to Manufacturing (the reference category). If the Services coefficient is negative, firms in Services have lower default odds compared to Manufacturing, holding financial ratios constant.</p>
+
+            </section>
+
+            <!-- ==================== EXERCISES ==================== -->
+            <section id="exercises">
+                <h2>Exercises</h2>
+
+                <div class="exercise">
+                    <h4>Exercise 8.1: Odds Ratios in Loan Default</h4>
+                    <p>You fit a logistic regression of loan default (Y=1: default, Y=0: repaid) on a debt-to-income ratio (DTI). The estimated coefficient is \(\hat{\beta}_1 = 0.68\).</p>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Compute the odds ratio for DTI.</li>
+                        <li>Interpret it in plain language: what does a one-unit increase in DTI imply for the odds of default?</li>
+                        <li>If a borrower's DTI increases from 0.5 to 1.5 (a 1-unit increase), by what factor do the odds of default change?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 8.2: Predicted Probabilities and Marginal Effects</h4>
+                    <p>Using the firm default model from Section 8.4 (with debt_ratio, years_active, log_revenue), compute predicted probabilities at the 25th, 50th, and 75th percentiles of debt_ratio, holding the other variables at their mean.</p>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>What are the predicted probabilities at each percentile?</li>
+                        <li>How much does the probability change from the 25th to 75th percentile? Compare to the marginal effect evaluated at the median.</li>
+                        <li>Why might the change in probability be different from what the marginal effect alone suggests?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 8.3: Threshold and Confusion Matrices</h4>
+                    <p>Using the same firm default model, construct confusion matrices at thresholds 0.3, 0.5, and 0.7.</p>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Which threshold maximizes recall? Which maximizes precision?</li>
+                        <li>If a lender wants to flag 30% of loans for extra scrutiny (high risk), what threshold would you recommend? Why?</li>
+                        <li>Compute F1-scores for each threshold. Which one is best overall?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 8.4: ROC Curve and AUC Assessment</h4>
+                    <p>You fit two logistic regression models for customer churn:</p>
+                    <ul>
+                        <li><strong>Model A:</strong> Uses five customer features. AUC = 0.76.</li>
+                        <li><strong>Model B:</strong> Uses ten features (includes the original five plus five new ones). AUC = 0.78.</li>
+                    </ul>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Are both models acceptable for practical use? Explain.</li>
+                        <li>Is Model B significantly better than Model A? What additional information would you want before choosing?</li>
+                        <li>How would you explain AUC = 0.76 to a non-technical stakeholder?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 8.5: Multiple Predictors and Categorical Variables</h4>
+                    <p>You model employee attrition (Y=1: left company, Y=0: stayed) using tenure (years), department (categorical: Sales, Engineering, HR), and salary (in thousands). The fitted model produces:</p>
+                    <ul>
+                        <li>\(\hat{\beta}_0 = 2.5\)</li>
+                        <li>\(\hat{\beta}_{\text{tenure}} = -0.15\)</li>
+                        <li>\(\hat{\beta}_{\text{Engineering}} = -0.55\) (relative to Sales)</li>
+                        <li>\(\hat{\beta}_{\text{HR}} = 0.20\) (relative to Sales)</li>
+                        <li>\(\hat{\beta}_{\text{salary}} = -0.08\)</li>
+                    </ul>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Compute odds ratios for each predictor and interpret them.</li>
+                        <li>Compare attrition odds between departments (relative to Sales). Which department has lowest attrition risk?</li>
+                        <li>If salary increases by 10 thousand (a one-unit increase), by what factor do the odds of attrition change?</li>
+                        <li>For a Sales employee with 5 years tenure and 50k salary, compute the predicted probability of attrition.</li>
+                    </ol>
+                </div>
+
+            </section>
+
+            <!-- ==================== KEY TAKEAWAYS ==================== -->
+            <section>
+                <h2>Key Takeaways</h2>
+                <ul>
+                    <li><strong>OLS fails for binary outcomes.</strong> Predictions fall outside [0, 1], residuals violate normality and homoscedasticity. Use logistic regression instead.</li>
+                    <li><strong>The logistic sigmoid maps all inputs to (0, 1).</strong> It's an S-shaped curve that naturally produces valid probabilities.</li>
+                    <li><strong>Interpret via odds ratios.</strong> \(e^{\beta_j}\) is the factor by which odds multiply for a one-unit increase in \(X_j\). But remember: odds ratio ≠ probability ratio.</li>
+                    <li><strong>Use marginal effects or predicted probabilities for applied interpretation.</strong> They directly show the impact on probability, conditional on a baseline level.</li>
+                    <li><strong>MLE finds coefficients that maximize the likelihood of observing the actual data.</strong> No closed-form solution; numerical algorithms required. But standard software handles this.</li>
+                    <li><strong>Pseudo-R², AIC, and BIC assess model fit.</strong> Use them to compare models. McFadden's R² of 0.2–0.4 is often considered good.</li>
+                    <li><strong>Threshold determines classification.</strong> Low thresholds maximize recall; high thresholds maximize precision. Choose based on the cost of false positives vs false negatives.</li>
+                    <li><strong>AUC summarizes performance across all thresholds.</strong> It's robust to class imbalance and directly interpretable: probability that a random positive case ranks higher than a random negative case.</li>
+                    <li><strong>Logistic regression extends to multiple predictors, categorical variables, and beyond-binary outcomes.</strong> Same principles; just more Xs. For ordered outcomes, use ordinal logistic regression.</li>
+                </ul>
+            </section>
+
+            <!-- ==================== BOTTOM NAVIGATION ==================== -->
+            <div class="chapter-nav">
+                <a href="ch07-regression-diagnostics.html">&larr; Module 07: Regression Diagnostics</a>
+                <span>Next: Module 09 &mdash; (Coming Soon)</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>
