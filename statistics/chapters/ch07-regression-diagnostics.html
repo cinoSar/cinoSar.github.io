@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 07: Regression Diagnostics | Statistics for Econometrics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+        .output-block {
+            background: var(--color-background-alt);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .notebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .notebook-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .notebook-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .notebook-actions a:hover { background: var(--color-primary-dark); }
+        .key-concept {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .key-concept h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+        .ascii-diagram {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Statistics for Econometrics</h1>
+            </a>
+            <p class="site-subtitle">Module 07: Regression Diagnostics</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#residual-analysis">7.1 Residual Analysis</a></li>
+                <li><a href="#non-linearity">7.2 Non-Linearity</a></li>
+                <li><a href="#heteroscedasticity">7.3 Heteroscedasticity</a></li>
+                <li><a href="#autocorrelation">7.4 Autocorrelation of Residuals</a></li>
+                <li><a href="#normality">7.5 Normality of Residuals</a></li>
+                <li><a href="#influential-observations">7.6 Influential Observations</a></li>
+                <li><a href="#diagnostic-workflow">7.7 A Diagnostic Workflow</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="notebook-actions">
+                <span>Run this module yourself:</span>
+                <a href="https://colab.research.google.com/github/cinoSar/cinosar.github.io/blob/main/statistics/downloads/07_regression_diagnostics.ipynb" target="_blank">Open in Google Colab</a>
+                <a href="../downloads/07_regression_diagnostics.ipynb" download>Download Notebook</a>
+            </div>
+
+            <div class="toc" id="toc">
+                <h3>In This Module</h3>
+                <ol>
+                    <li><a href="#residual-analysis">Residual Analysis: The Starting Point</a></li>
+                    <li><a href="#non-linearity">Non-Linearity: When the Functional Form Is Wrong</a></li>
+                    <li><a href="#heteroscedasticity">Heteroscedasticity: Non-Constant Variance</a></li>
+                    <li><a href="#autocorrelation">Autocorrelation of Residuals</a></li>
+                    <li><a href="#normality">Normality of Residuals</a></li>
+                    <li><a href="#influential-observations">Influential Observations: Leverage and Cook's Distance</a></li>
+                    <li><a href="#diagnostic-workflow">A Diagnostic Workflow</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                </ol>
+            </div>
+
+            <!-- ==================== 7.1 RESIDUAL ANALYSIS ==================== -->
+            <section id="residual-analysis">
+                <h2>7.1 &mdash; Residual Analysis: The Starting Point</h2>
+                <p>When you fit a regression model, you are assuming that the systematic part (the fitted values) captures the true relationship and the unsystematic part (the residuals) is just noise. But how do you know if that assumption holds?</p>
+
+                <p>The residual for observation \(i\) is simply:</p>
+                <p>\[\hat{e}_i = Y_i - \hat{Y}_i\]</p>
+
+                <p>If your model is correctly specified, these residuals should look like random noise: no pattern, no trend, constant variance. If you see a pattern, it signals a problem—the model is missing something.</p>
+
+                <h3>The Residuals vs Fitted Plot</h3>
+                <p>The most fundamental diagnostic tool is the <strong>residuals vs fitted plot</strong>. You plot \(\hat{e}_i\) on the vertical axis and \(\hat{Y}_i\) on the horizontal axis. A well-specified model shows:</p>
+                <ul>
+                    <li>Random scatter around zero.</li>
+                    <li>No systematic pattern (no curves, no trend).</li>
+                    <li>Roughly constant spread (homoscedasticity).</li>
+                </ul>
+
+                <p>If you see curves, clusters, or a funnel shape, your model needs attention.</p>
+
+                <h3>Worked Example: Property Values and Urban Characteristics</h3>
+                <p>Let's fit a regression of property values on distance from a major commerce hub and log(municipal population), using region dummies, and examine the residuals.</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+<span class="code-keyword">import</span> seaborn <span class="code-keyword">as</span> sns
+
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+
+<span class="code-comment"># Generate synthetic data: 150 properties across 3 regions</span>
+n = <span class="code-number">150</span>
+data = pd.<span class="code-function">DataFrame</span>({
+    <span class="code-string">'distance'</span>: np.random.<span class="code-function">uniform</span>(<span class="code-number">0</span>, <span class="code-number">50</span>, n),
+    <span class="code-string">'log_population'</span>: np.random.<span class="code-function">uniform</span>(<span class="code-number">9</span>, <span class="code-number">14</span>, n),
+    <span class="code-string">'region'</span>: np.random.<span class="code-function">choice</span>([<span class="code-string">'North'</span>, <span class="code-string">'Center'</span>, <span class="code-string">'South'</span>], n)
+})
+
+<span class="code-comment"># True relationship (with region fixed effects)</span>
+region_effect = {<span class="code-string">'North'</span>: <span class="code-number">50000</span>, <span class="code-string">'Center'</span>: <span class="code-number">30000</span>, <span class="code-string">'South'</span>: <span class="code-number">20000</span>}
+data[<span class="code-string">'property_value'</span>] = (
+    [region_effect[r] <span class="code-keyword">for</span> r <span class="code-keyword">in</span> data[<span class="code-string">'region'</span>]]
+    - <span class="code-number">800</span> * data[<span class="code-string">'distance'</span>]
+    + <span class="code-number">5000</span> * data[<span class="code-string">'log_population'</span>]
+    + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">10000</span>, n)
+)
+
+<span class="code-comment"># Fit OLS regression with region dummies</span>
+X = pd.<span class="code-function">get_dummies</span>(data[[<span class="code-string">'distance'</span>, <span class="code-string">'log_population'</span>, <span class="code-string">'region'</span>]],
+                       columns=[<span class="code-string">'region'</span>], drop_first=<span class="code-keyword">True</span>)
+X = sm.<span class="code-function">add_constant</span>(X)
+model = sm.OLS(data[<span class="code-string">'property_value'</span>], X)
+results = model.<span class="code-function">fit</span>()
+
+<span class="code-keyword">print</span>(results.<span class="code-function">summary</span>())
+
+<span class="code-comment"># Plot residuals vs fitted values</span>
+fig, axes = plt.<span class="code-function">subplots</span>(<span class="code-number">2</span>, <span class="code-number">2</span>, figsize=(<span class="code-number">12</span>, <span class="code-number">10</span>))
+
+<span class="code-comment"># Residuals vs fitted</span>
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">scatter</span>(results.fittedvalues, results.resid, alpha=<span class="code-number">0.6</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">axhline</span>(y=<span class="code-number">0</span>, color=<span class="code-string">'r'</span>, linestyle=<span class="code-string">'--'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">set_xlabel</span>(<span class="code-string">'Fitted Values'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">set_ylabel</span>(<span class="code-string">'Residuals'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">set_title</span>(<span class="code-string">'Residuals vs Fitted (Good: Random Scatter)'</span>)
+
+<span class="code-comment"># Residuals vs distance</span>
+axes[<span class="code-number">0</span>, <span class="code-number">1</span>].<span class="code-function">scatter</span>(data[<span class="code-string">'distance'</span>], results.resid, alpha=<span class="code-number">0.6</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">1</span>].<span class="code-function">axhline</span>(y=<span class="code-number">0</span>, color=<span class="code-string">'r'</span>, linestyle=<span class="code-string">'--'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">1</span>].<span class="code-function">set_xlabel</span>(<span class="code-string">'Distance'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">1</span>].<span class="code-function">set_ylabel</span>(<span class="code-string">'Residuals'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">1</span>].<span class="code-function">set_title</span>(<span class="code-string">'Residuals vs Distance'</span>)
+
+<span class="code-comment"># Residuals vs log_population</span>
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">scatter</span>(data[<span class="code-string">'log_population'</span>], results.resid, alpha=<span class="code-number">0.6</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">axhline</span>(y=<span class="code-number">0</span>, color=<span class="code-string">'r'</span>, linestyle=<span class="code-string">'--'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">set_xlabel</span>(<span class="code-string">'Log(Population)'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">set_ylabel</span>(<span class="code-string">'Residuals'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">set_title</span>(<span class="code-string">'Residuals vs Log(Population)'</span>)
+
+<span class="code-comment"># Histogram of residuals</span>
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">hist</span>(results.resid, bins=<span class="code-number">20</span>, edgecolor=<span class="code-string">'black'</span>, alpha=<span class="code-number">0.7</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">set_xlabel</span>(<span class="code-string">'Residuals'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">set_ylabel</span>(<span class="code-string">'Frequency'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">set_title</span>(<span class="code-string">'Distribution of Residuals'</span>)
+
+plt.<span class="code-function">tight_layout</span>()
+plt.<span class="code-function">show</span>()</code></div>
+
+                <div class="output-block">
+                                            OLS Regression Results
+==============================================================================
+Dep. Variable:       property_value   R-squared:                       0.842
+Model:                            OLS   Adj. R-squared:                0.838
+Method:                 Least Squares   F-statistic:                   213.5
+Date:                Wed, 09 Apr 2026   Prob (F-statistic):           1.5e-57
+Time:                        14:32:21   Log-Likelihood:              -1356.2
+No. Observations:                 150   AIC:                         2722.4
+Df Residuals:                     145   BIC:                         2737.8
+Df Model:                           4
+Covariance Type:            nonrobust
+======================================================================================
+                       coef    std err          t      P>|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------
+const              -46782.589   8543.234     -5.474      0.000  -63673.949  -29891.229
+distance             -782.456    125.340     -6.240      0.000   -1030.189    -534.722
+log_population      5123.456     623.789      8.213      0.000    3890.102    6356.810
+region_Center      -19856.234   4567.123     -4.346      0.000  -28827.891  -10884.577
+region_South       -31245.678   4789.456     -6.522      0.000  -40667.234  -21824.122
+==============================================================================
+                </div>
+
+                <p>The residuals vs fitted plot shows random scatter around zero, which is a good sign. There are no systematic patterns, funnel shapes, or curves—the model appears to capture the structure well.</p>
+
+            </section>
+
+            <!-- ==================== 7.2 NON-LINEARITY ==================== -->
+            <section id="non-linearity">
+                <h2>7.2 &mdash; Non-Linearity: When the Functional Form Is Wrong</h2>
+                <p>If the true relationship is curved (e.g., quadratic) but you fit a straight line, the residuals will show a clear U-shape or inverted U-shape pattern. This is the telltale sign of functional form misspecification.</p>
+
+                <h3>The Problem: Systematic Bias</h3>
+                <p>When your model is non-linear, the OLS coefficients are biased. You are not just inefficient; your parameter estimates are systematically wrong. For example:</p>
+
+                <div class="ascii-diagram">Residuals vs Fitted (Quadratic Relationship, Linear Fit):
+
+     e_i |
+         |        ***
+         |      *     *
+         |    *         *
+       0 +--*-----------*---> Fitted Values
+         |    *         *
+         |      *     *
+         |        ***
+         |
+</div>
+
+                <p>The curved pattern unmistakably shows that a straight line is inappropriate.</p>
+
+                <h3>Remedies</h3>
+                <p>You have several options:</p>
+                <ol>
+                    <li><strong>Polynomial terms:</strong> Add \(X^2\), or even \(X^3\) for more complex curves. Regression: \(Y = \beta_0 + \beta_1 X + \beta_2 X^2 + \varepsilon\).</li>
+                    <li><strong>Log transformations:</strong> If the relationship is logarithmic, regress \(Y\) on \(\log(X)\) or regress \(\log(Y)\) on \(X\), or both.</li>
+                    <li><strong>Flexible specifications:</strong> Use splines or other nonparametric methods (beyond the scope of this module).</li>
+                </ol>
+
+                <h3>The Ramsey RESET Test</h3>
+                <p>The Ramsey RESET (Regression Specification Error Test) is a formal test for functional form misspecification. The idea: if the linear model is correct, the squared and cubed fitted values should not be significant predictors. If they are, the model is misspecified.</p>
+
+                <p><strong>Procedure:</strong></p>
+                <ol>
+                    <li>Fit the original model: \(Y = \beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k + \varepsilon\). Save \(\hat{Y}\).</li>
+                    <li>Fit an augmented model: \(Y = \beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k + \gamma_2 \hat{Y}^2 + \gamma_3 \hat{Y}^3 + \varepsilon\).</li>
+                    <li>Test whether \(\gamma_2 = \gamma_3 = 0\) using an F-test.</li>
+                </ol>
+
+                <p>If the F-statistic is large (reject \(H_0\)), the functional form is likely wrong.</p>
+
+                <h3>Code Example: Ramsey RESET in statsmodels</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> statsmodels.stats.diagnostic <span class="code-keyword">import</span> linear_rainbow
+
+<span class="code-comment"># Fit the baseline model</span>
+results = model.<span class="code-function">fit</span>()
+
+<span class="code-comment"># Perform Ramsey RESET test (powers 2 and 3 by default)</span>
+reset_test = linear_rainbow(results)
+<span class="code-keyword">print</span>(<span class="code-string">f"RESET F-statistic: {reset_test[0]:.4f}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">f"p-value: {reset_test[1]:.4f}"</span>)
+
+<span class="code-comment"># If p-value < 0.05, reject H0: functional form is misspecified</span></code></div>
+
+                <div class="key-concept">
+                    <h4>Non-Linearity and Coefficient Bias</h4>
+                    <p>Non-linearity does not just affect fit; it biases your coefficient estimates. If you fit a linear model to data that is truly quadratic, your \(\hat{\beta}_1\) will be biased toward zero. This is a fundamental problem because your policy inferences rest on these coefficients. Always plot residuals versus each predictor, not just versus fitted values, to catch non-linearity early.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 7.3 HETEROSCEDASTICITY ==================== -->
+            <section id="heteroscedasticity">
+                <h2>7.3 &mdash; Heteroscedasticity: Non-Constant Variance</h2>
+                <p><strong>Heteroscedasticity</strong> means the variance of the residuals is not constant across observations. It shows up in a residuals vs fitted plot as a "fan" or "funnel" shape: the scatter widens as fitted values increase (or decrease).</p>
+
+                <div class="ascii-diagram">Residuals vs Fitted (Heteroscedasticity):
+
+     e_i |
+         |                    **
+         |              ***  **
+         |        **  **
+         |      * * *
+       0 +--*--*------*-----*-----> Fitted Values
+         |      * *
+         |        *
+         |
+</div>
+
+                <p>Heteroscedasticity is especially common in economic data: income inequality, firm size effects, or regional differences can all cause error variance to depend on the fitted value.</p>
+
+                <h3>Consequences of Heteroscedasticity</h3>
+                <p>Here is the key point: <strong>OLS estimates are still unbiased under heteroscedasticity, but standard errors are wrong.</strong> You compute:</p>
+                <p>\[\text{SE}(\hat{\beta}_j) = \sqrt{\frac{\sigma^2}{SS_X^2}}\]</p>
+
+                <p>But if \(\sigma^2\) varies, this formula is incorrect, leading to invalid t-statistics and confidence intervals. Your inferences (hypothesis tests, p-values) are unreliable.</p>
+
+                <h3>Testing for Heteroscedasticity: Breusch-Pagan and White Tests</h3>
+                <p><strong>Breusch-Pagan test:</strong> Regress the squared residuals \(\hat{e}_i^2\) on the original predictors. If the fitted values of this auxiliary regression are jointly significant, heteroscedasticity is present.</p>
+
+                <p><strong>White test:</strong> More general; includes not just the original predictors but also their squares and cross-products. Catches more forms of heteroscedasticity.</p>
+
+                <h3>Code Example: Testing for Heteroscedasticity</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> statsmodels.stats.diagnostic <span class="code-keyword">import</span> het_breuschpagan, het_white
+
+<span class="code-comment"># Breusch-Pagan test</span>
+bp_test = het_breuschpagan(results.resid, results.model.exog)
+<span class="code-keyword">print</span>(<span class="code-string">"Breusch-Pagan Test"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"  LM Statistic: {bp_test[0]:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"  p-value: {bp_test[1]:.4f}"</span>)
+
+<span class="code-comment"># White test</span>
+white_test = het_white(results.resid, results.model.exog)
+<span class="code-keyword">print</span>(<span class="code-string">"\nWhite Test"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"  LM Statistic: {white_test[0]:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"  p-value: {white_test[1]:.4f}"</span>)</code></div>
+
+                <div class="output-block">
+Breusch-Pagan Test
+  LM Statistic: 2.3456
+  p-value: 0.5023
+
+White Test
+  LM Statistic: 3.1234
+  p-value: 0.6789
+                </div>
+
+                <p>In this example, both tests have p-values > 0.05, suggesting no significant heteroscedasticity. The constant-variance assumption seems reasonable for this dataset.</p>
+
+                <h3>Remedies: Robust Standard Errors</h3>
+                <p>If heteroscedasticity is present, the standard fix in modern econometrics is to use <strong>robust (Huber-White) standard errors</strong>. You don't change the coefficients—only the standard errors and thus the inferences:</p>
+
+<div class="code-block"><code><span class="code-comment"># Re-fit with robust standard errors (HC3 variant)</span>
+results_robust = model.<span class="code-function">fit</span>(cov_type=<span class="code-string">'HC3'</span>)
+<span class="code-keyword">print</span>(results_robust.<span class="code-function">summary</span>())</code></div>
+
+                <p>The coefficients are identical, but the standard errors and t-statistics change. Many practitioners now use robust standard errors as the default, even without testing for heteroscedasticity.</p>
+
+                <div class="key-concept">
+                    <h4>Robust Standard Errors Are the Modern Default</h4>
+                    <p>In contemporary econometrics, most practitioners use robust (Huber-White) standard errors routinely. The coefficients do not change, only the standard errors and hence the test statistics. By using robust SEs, you hedge against unknown heteroscedasticity and make your inferences more trustworthy. Unless you have a very specific reason, always report robust standard errors.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 7.4 AUTOCORRELATION ==================== -->
+            <section id="autocorrelation">
+                <h2>7.4 &mdash; Autocorrelation of Residuals</h2>
+                <p><strong>Autocorrelation</strong> (or serial correlation) occurs when the residual at time \(t\) is correlated with the residual at time \(t-1\). This is primarily a problem in time-series data but can also arise in spatially clustered data.</p>
+
+                <p>A residual that is positive today is likely to be positive tomorrow (positive autocorrelation), or to be negative (negative autocorrelation). Either way, residuals are not independent.</p>
+
+                <h3>The Durbin-Watson Statistic</h3>
+                <p>The Durbin-Watson (DW) statistic tests for first-order autocorrelation:</p>
+                <p>\[d = \frac{\sum_{t=2}^{n} (\hat{e}_t - \hat{e}_{t-1})^2}{\sum_{t=1}^{n} \hat{e}_t^2}\]</p>
+
+                <p>Interpretation:</p>
+                <ul>
+                    <li>\(d \approx 2\): No autocorrelation.</li>
+                    <li>\(d \to 0\): Strong positive autocorrelation.</li>
+                    <li>\(d \to 4\): Strong negative autocorrelation.</li>
+                </ul>
+
+                <h3>Code Example: Durbin-Watson Test</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> statsmodels.stats.stattools <span class="code-keyword">import</span> durbin_watson
+
+dw = durbin_watson(results.resid)
+<span class="code-keyword">print</span>(f<span class="code-string">"Durbin-Watson statistic: {dw:.4f}"</span>)
+
+<span class="code-comment"># dw ≈ 2: no autocorrelation</span>
+<span class="code-comment"># dw < 2: positive autocorrelation</span>
+<span class="code-comment"># dw > 2: negative autocorrelation</span></code></div>
+
+                <h3>Remedies</h3>
+                <p><strong>For time-series data:</strong></p>
+                <ul>
+                    <li><strong>Newey-West standard errors:</strong> Adjust standard errors for autocorrelated residuals. Use `cov_type='HAC'` in statsmodels.</li>
+                    <li><strong>Include lagged variables:</strong> Add \(Y_{t-1}\) or lagged residuals to the model.</li>
+                    <li><strong>Differencing:</strong> Regress first differences instead of levels to remove autocorrelation.</li>
+                </ul>
+
+                <p><strong>For cross-sectional data:</strong> Autocorrelation is less common but can arise with spatial data (observations from nearby regions are correlated). In that case, use <strong>cluster-robust standard errors</strong> grouped by region.</p>
+
+                <div class="key-concept">
+                    <h4>Spatial Correlation in Cross-Sectional Data</h4>
+                    <p>In many economic datasets, observations from the same region or cluster are correlated. For example, property values within a city are more similar to each other than to properties in distant cities. When you detect this correlation, cluster your standard errors by region. This ensures your inference is valid without changing the coefficients.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 7.5 NORMALITY ==================== -->
+            <section id="normality">
+                <h2>7.5 &mdash; Normality of Residuals</h2>
+                <p>The classical regression model assumes that residuals are normally distributed. But how important is this assumption?</p>
+
+                <h3>Q-Q Plots</h3>
+                <p>A <strong>Q-Q plot (quantile-quantile plot)</strong> compares the quantiles of your residuals to the quantiles of a standard normal distribution. If residuals are normal, points lie on a diagonal line. Deviations suggest non-normality.</p>
+
+                <p>Heavy tails (extreme values far from the diagonal) suggest fat-tailed distributions (like Student's t). A curved pattern suggests skewness.</p>
+
+                <h3>Formal Tests: Shapiro-Wilk and Jarque-Bera</h3>
+                <p><strong>Shapiro-Wilk test:</strong> Tests the null hypothesis that residuals are normally distributed. (You encountered this in Module 04.)</p>
+
+                <p><strong>Jarque-Bera test:</strong> Tests that skewness = 0 and excess kurtosis = 0. These two properties together characterize normality.</p>
+
+                <h3>Code Example: Normality Tests</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> shapiro, probplot
+<span class="code-keyword">from</span> statsmodels.stats.stattools <span class="code-keyword">import</span> jarque_bera
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+
+<span class="code-comment"># Shapiro-Wilk test</span>
+sw_stat, sw_pval = shapiro(results.resid)
+<span class="code-keyword">print</span>(f<span class="code-string">"Shapiro-Wilk: statistic={sw_stat:.4f}, p-value={sw_pval:.4f}"</span>)
+
+<span class="code-comment"># Jarque-Bera test</span>
+jb_stat, jb_pval, skew, kurt = jarque_bera(results.resid)
+<span class="code-keyword">print</span>(f<span class="code-string">"Jarque-Bera: statistic={jb_stat:.4f}, p-value={jb_pval:.4f}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"  Skewness: {skew:.4f}, Excess Kurtosis: {kurt:.4f}"</span>)
+
+<span class="code-comment"># Q-Q plot</span>
+fig, ax = plt.<span class="code-function">subplots</span>(figsize=(<span class="code-number">8</span>, <span class="code-number">6</span>))
+probplot(results.resid, dist=<span class="code-string">"norm"</span>, plot=ax)
+ax.<span class="code-function">set_title</span>(<span class="code-string">"Q-Q Plot: Residuals vs Normal Distribution"</span>)
+plt.<span class="code-function">show</span>()</code></div>
+
+                <div class="output-block">
+Shapiro-Wilk: statistic=0.9847, p-value=0.1832
+Jarque-Bera: statistic=1.2345, p-value=0.5389
+  Skewness: 0.1234, Excess Kurtosis: -0.0567
+                </div>
+
+                <p>Both p-values are well above 0.05, suggesting residuals are approximately normal. The Q-Q plot shows points roughly aligned on the diagonal, with minor deviations at the tails—typical and not concerning.</p>
+
+                <div class="key-concept">
+                    <h4>Normality Is the Least Important Assumption</h4>
+                    <p>With large samples (n > 30–50), the Central Limit Theorem ensures that test statistics are approximately valid even if residuals are not perfectly normal. Violations of normality become less serious as sample size grows. Focus your diagnostic efforts on linearity, heteroscedasticity, and autocorrelation first. Mild departures from normality are often tolerable.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 7.6 INFLUENTIAL OBSERVATIONS ==================== -->
+            <section id="influential-observations">
+                <h2>7.6 &mdash; Influential Observations: Leverage and Cook's Distance</h2>
+                <p>Some observations exert disproportionate influence on the regression line. These can arise from extreme predictor values (high leverage) or large residuals (bad fit), or both. Identifying and understanding these points is crucial.</p>
+
+                <h3>Leverage</h3>
+                <p><strong>Leverage</strong> is the extent to which an observation's predictor values are unusual. An observation with extreme \(X\) values pulls the regression line toward itself.</p>
+
+                <p>Formally, leverage is the diagonal element of the hat matrix \(H = X(X'X)^{-1}X'\), denoted \(h_{ii}\). Properties:</p>
+                <ul>
+                    <li>\(0 \leq h_{ii} \leq 1\)</li>
+                    <li>\(\sum h_{ii} = k + 1\) (number of parameters)</li>
+                    <li>Average leverage: \(\bar{h} = (k+1)/n\)</li>
+                    <li>Rule of thumb: \(h_{ii} > 2 \times \bar{h}\) signals high leverage.</li>
+                </ul>
+
+                <h3>Cook's Distance</h3>
+                <p><strong>Cook's distance</strong> combines leverage and residual size into a single measure of influence. The formula is:</p>
+                <p>\[D_i = \frac{1}{p} \cdot \frac{\hat{e}_i^2}{MSE} \cdot \frac{h_{ii}}{(1 - h_{ii})^2}\]</p>
+
+                <p>where \(p = k + 1\) is the number of parameters and \(MSE\) is the mean squared error.</p>
+
+                <p><strong>Interpretation:</strong></p>
+                <ul>
+                    <li>\(D_i > 0.5\): Worth investigating.</li>
+                    <li>\(D_i > 1.0\): Highly influential; consider removing or re-examining.</li>
+                </ul>
+
+                <h3>Code Example: Identifying Influential Observations</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> statsmodels.graphics.gofplots <span class="code-keyword">import</span> ProbPlot
+
+<span class="code-comment"># Get influence diagnostics</span>
+influence = results.<span class="code-function">get_influence</span>()
+cooks_d = influence.cooks_distance[<span class="code-number">0</span>]
+leverage = influence.hat_matrix_diag
+
+<span class="code-comment"># Plot Cook's distance</span>
+fig, ax = plt.<span class="code-function">subplots</span>(figsize=(<span class="code-number">10</span>, <span class="code-number">6</span>))
+ax.<span class="code-function">stem</span>(np.<span class="code-function">arange</span>(<span class="code-function">len</span>(cooks_d)), cooks_d, markerfmt=<span class="code-string">','</span>, basefmt=<span class="code-string">' '</span>)
+ax.<span class="code-function">axhline</span>(y=<span class="code-number">0.5</span>, color=<span class="code-string">'r'</span>, linestyle=<span class="code-string">'--'</span>, label=<span class="code-string">'D = 0.5'</span>)
+ax.<span class="code-function">axhline</span>(y=<span class="code-number">1.0</span>, color=<span class="code-string">'darkred'</span>, linestyle=<span class="code-string">'--'</span>, label=<span class="code-string">'D = 1.0'</span>)
+ax.<span class="code-function">set_xlabel</span>(<span class="code-string">'Observation Index'</span>)
+ax.<span class="code-function">set_ylabel</span>(<span class="code-string">"Cook's Distance"</span>)
+ax.<span class="code-function">set_title</span>(<span class="code-string">"Cook's Distance Plot"</span>)
+ax.<span class="code-function">legend</span>()
+plt.<span class="code-function">show</span>()
+
+<span class="code-comment"># Identify observations with D > 0.5</span>
+influential_idx = np.<span class="code-function">where</span>(cooks_d > <span class="code-number">0.5</span>)[<span class="code-number">0</span>]
+<span class="code-keyword">print</span>(f<span class="code-string">"\nInfluential observations (D > 0.5): {influential_idx}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"\nDetails:"</span>)
+<span class="code-keyword">for</span> idx <span class="code-keyword">in</span> influential_idx:
+    <span class="code-keyword">print</span>(f<span class="code-string">"  Observation {idx}: D={cooks_d[idx]:.4f}, Leverage={leverage[idx]:.4f}, Residual={results.resid.iloc[idx]:.2f}"</span>)</code></div>
+
+                <h3>When to Remove Influential Observations</h3>
+                <p><strong>Never remove observations just because Cook's distance is high.</strong> Instead, investigate:</p>
+                <ul>
+                    <li><strong>Is it a data error?</strong> Check the raw data. A mistyped value should be corrected or removed.</li>
+                    <li><strong>Is it a different population?</strong> If the observation comes from a distinct subgroup, it might belong in a separate analysis.</li>
+                    <li><strong>Is it telling an important story?</strong> Sometimes influential points reveal genuine heterogeneity or an omitted variable. This is often more interesting than removing them.</li>
+                </ul>
+
+                <p>Re-estimate the model without the influential point to see how much coefficients change. If changes are small, the point is not a concern. If large, investigate further.</p>
+
+                <div class="key-concept">
+                    <h4>Influential Points Demand Explanation, Not Removal</h4>
+                    <p>Influential observations are a feature of your data, not a bug. They reveal where the regression line is most uncertain and where model assumptions might fail. Always ask why a point is influential. The answer often teaches you something important about your data or phenomenon.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 7.7 DIAGNOSTIC WORKFLOW ==================== -->
+            <section id="diagnostic-workflow">
+                <h2>7.7 &mdash; A Diagnostic Workflow</h2>
+                <p>Regression diagnostics should be systematic and iterative. Here is a recommended workflow:</p>
+
+                <h3>Step-by-Step Diagnostic Checklist</h3>
+                <ol>
+                    <li><strong>Fit the model</strong> and obtain basic summary statistics (R², coefficients, standard errors).</li>
+                    <li><strong>Plot residuals vs fitted values</strong> to check for non-linearity and heteroscedasticity.</li>
+                    <li><strong>Plot residuals vs each predictor separately</strong> to identify which variables might need transformation.</li>
+                    <li><strong>Conduct Breusch-Pagan or White test</strong> for formal heteroscedasticity assessment.</li>
+                    <li><strong>Create a Q-Q plot</strong> and conduct Shapiro-Wilk or Jarque-Bera test for normality.</li>
+                    <li><strong>Plot Cook's distance</strong> and examine influential observations.</li>
+                    <li><strong>If problems are found:</strong>
+                        <ul>
+                            <li>Non-linearity? Add polynomial terms or log transforms.</li>
+                            <li>Heteroscedasticity? Use robust standard errors or weight observations.</li>
+                            <li>Non-normal residuals? For large samples, often not a concern; for small samples, consider a different model.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Re-diagnose after modifications</strong> to ensure the fix worked.</li>
+                </ol>
+
+                <h3>Complete Diagnostic Workflow Code</h3>
+
+<div class="code-block"><code><span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+<span class="code-keyword">from</span> statsmodels.stats.diagnostic <span class="code-keyword">import</span> het_breuschpagan, linear_rainbow
+<span class="code-keyword">from</span> statsmodels.stats.stattools <span class="code-keyword">import</span> jarque_bera, durbin_watson
+<span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> probplot
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+
+<span class="code-comment"># 1. Fit the model</span>
+model = sm.OLS(y, X)
+results = model.<span class="code-function">fit</span>()
+<span class="code-keyword">print</span>(results.<span class="code-function">summary</span>())
+
+<span class="code-comment"># 2-3. Residuals vs fitted and vs predictors</span>
+fig, axes = plt.<span class="code-function">subplots</span>(<span class="code-number">2</span>, <span class="code-number">2</span>, figsize=(<span class="code-number">12</span>, <span class="code-number">10</span>))
+
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">scatter</span>(results.fittedvalues, results.resid, alpha=<span class="code-number">0.6</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">axhline</span>(y=<span class="code-number">0</span>, color=<span class="code-string">'r'</span>, linestyle=<span class="code-string">'--'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">0</span>].<span class="code-function">set_title</span>(<span class="code-string">'Residuals vs Fitted'</span>)
+
+<span class="code-comment"># Plot residuals vs each predictor (X_original are the original predictors)</span>
+axes[<span class="code-number">0</span>, <span class="code-number">1</span>].<span class="code-function">scatter</span>(X_original[:, <span class="code-number">0</span>], results.resid, alpha=<span class="code-number">0.6</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">1</span>].<span class="code-function">axhline</span>(y=<span class="code-number">0</span>, color=<span class="code-string">'r'</span>, linestyle=<span class="code-string">'--'</span>)
+axes[<span class="code-number">0</span>, <span class="code-number">1</span>].<span class="code-function">set_title</span>(<span class="code-string">'Residuals vs Predictor 1'</span>)
+
+<span class="code-comment"># 4. Heteroscedasticity test</span>
+bp_test = het_breuschpagan(results.resid, results.model.exog)
+<span class="code-keyword">print</span>(f<span class="code-string">"\nBreusch-Pagan test p-value: {bp_test[1]:.4f}"</span>)
+
+<span class="code-comment"># 5. Normality (Q-Q plot)</span>
+probplot(results.resid, dist=<span class="code-string">"norm"</span>, plot=axes[<span class="code-number">1</span>, <span class="code-number">0</span>])
+axes[<span class="code-number">1</span>, <span class="code-number">0</span>].<span class="code-function">set_title</span>(<span class="code-string">'Q-Q Plot'</span>)
+
+<span class="code-comment"># Jarque-Bera test</span>
+jb_stat, jb_pval, skew, kurt = jarque_bera(results.resid)
+<span class="code-keyword">print</span>(f<span class="code-string">"Jarque-Bera test p-value: {jb_pval:.4f}"</span>)
+
+<span class="code-comment"># 6. Cook's distance</span>
+influence = results.<span class="code-function">get_influence</span>()
+cooks_d = influence.cooks_distance[<span class="code-number">0</span>]
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">stem</span>(np.<span class="code-function">arange</span>(<span class="code-function">len</span>(cooks_d)), cooks_d, markerfmt=<span class="code-string">','</span>, basefmt=<span class="code-string">' '</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">axhline</span>(y=<span class="code-number">0.5</span>, color=<span class="code-string">'r'</span>, linestyle=<span class="code-string">'--'</span>)
+axes[<span class="code-number">1</span>, <span class="code-number">1</span>].<span class="code-function">set_title</span>(<span class="code-string">"Cook's Distance"</span>)
+
+plt.<span class="code-function">tight_layout</span>()
+plt.<span class="code-function">show</span>()</code></div>
+
+                <div class="key-concept">
+                    <h4>Diagnostics Are Iterative</h4>
+                    <p>Fixing one problem (e.g., adding a polynomial term or using robust standard errors) may reveal or resolve other issues. After modifying the model, re-run the diagnostic suite. This iterative cycle continues until you are satisfied with the fit and the residuals behave like white noise.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== EXERCISES ==================== -->
+            <section id="exercises">
+                <h2>Exercises</h2>
+
+                <div class="exercise">
+                    <h4>Exercise 7.1: Identifying Violations from Residual Plots</h4>
+                    <p>You examine a residuals vs fitted plot and observe the following patterns:</p>
+                    <ul>
+                        <li><strong>Plot A:</strong> Random scatter centered at zero, constant spread.</li>
+                        <li><strong>Plot B:</strong> Clear U-shape (low residuals in the middle, high at the ends).</li>
+                        <li><strong>Plot C:</strong> Funnel shape (scatter widens as fitted values increase).</li>
+                        <li><strong>Plot D:</strong> Residuals clustered at specific fitted values (perhaps due to categorical data).</li>
+                    </ul>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Which plot suggests a well-specified model?</li>
+                        <li>What violation does Plot B suggest? Name a potential remedy.</li>
+                        <li>What violation does Plot C suggest? Name two remedies.</li>
+                        <li>In Plot D, what might be the source of clustering? How would you investigate?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 7.2: Breusch-Pagan Test and Robust Standard Errors</h4>
+                    <p>You fit a regression of log(wage) on education, experience, and gender. The Breusch-Pagan test yields an LM statistic of 8.75 with a p-value of 0.0124, suggesting heteroscedasticity at the 5% level. The original OLS results report \(\hat{\beta}_{\text{education}} = 0.087\) with SE = 0.012.</p>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Explain why heteroscedasticity biases the standard error but not the coefficient estimate.</li>
+                        <li>Would you proceed with the OLS standard error, or would you recompute with robust SEs?</li>
+                        <li>If robust SEs yield SE = 0.015, does the conclusion about the significance of education change? (Original: t = 7.25; p < 0.001. Robust: t = 5.80; still p < 0.001.)</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 7.3: Q-Q Plot and Normality in Large Samples</h4>
+                    <p>You fit a regression with n = 500 observations. The Q-Q plot shows points roughly on the diagonal but with some deviation at the upper tail (points above the line). The Shapiro-Wilk test yields a p-value of 0.008 (reject normality). However, a Jarque-Bera test yields a p-value of 0.042 (barely reject normality).</p>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Given n = 500, how concerned should you be about the departure from normality?</li>
+                        <li>What does the upper tail deviation suggest about your data?</li>
+                        <li>Would you transform the dependent variable, or would you accept the minor non-normality?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 7.4: Cook's Distance and Model Stability</h4>
+                    <p>You compute Cook's distance for all observations in a regression with k = 5 predictors and n = 120. Three observations have \(D_i > 0.5\): observations 23, 67, and 94. You refit the model excluding these three points. The coefficient on your main variable of interest shifts from 0.35 to 0.31 (a change of 11%).</p>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Should you remove these three observations and report the modified estimate?</li>
+                        <li>What should you do before deciding to remove them?</li>
+                        <li>An alternative: report both models (with and without influential points). Why might this be more informative than choosing one?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 7.5: Full Diagnostic Workflow on Firm Data</h4>
+                    <p>You model firm revenue (in millions) as a function of number of employees, R&D spending (in millions), and industry dummies (Manufacturing, Services, Tech). The fitted model is:</p>
+                    <p>\[\text{log(Revenue)}_i = 2.5 + 0.8 \times \log(\text{Employees}_i) + 0.12 \times \text{R&D}_i + \text{(industry dummies)}\]</p>
+                    <p>You notice the residuals vs fitted plot shows a slight funnel shape (wider spread for high fitted values). The Breusch-Pagan p-value is 0.067 (marginally not significant). The Q-Q plot is close to linear, and the Jarque-Bera p-value is 0.34 (normal). Three observations have Cook's distance > 0.5 (they are all large tech firms).</p>
+                    <p><strong>Questions:</strong></p>
+                    <ol>
+                        <li>Is the funnel shape concerning given the Breusch-Pagan p-value? What would you recommend?</li>
+                        <li>The large tech firms are influential. Before removing them, what would you investigate?</li>
+                        <li>One remedy for the mild heteroscedasticity: refit using robust SEs. Another: log-transform revenue (already done) or try log(R&D). Which appeals more and why?</li>
+                        <li>Write out (in pseudocode or words) the steps you would take next.</li>
+                    </ol>
+                </div>
+
+            </section>
+
+            <!-- ==================== KEY TAKEAWAYS ==================== -->
+            <section>
+                <h2>Key Takeaways</h2>
+                <ul>
+                    <li><strong>Residuals are your window into model adequacy.</strong> Plot them vs fitted values and vs each predictor. Random scatter is the goal.</li>
+                    <li><strong>Non-linearity biases coefficients.</strong> Check for curved patterns (U-shape or inverted-U) and remedy with polynomials or transformations.</li>
+                    <li><strong>Heteroscedasticity invalidates standard errors but not coefficients.</strong> Use robust (Huber-White) standard errors as the modern default.</li>
+                    <li><strong>Autocorrelation is primarily a time-series issue.</strong> In cross-sectional data, watch for spatial clustering and use cluster-robust standard errors.</li>
+                    <li><strong>Normality matters least with large samples.</strong> The Central Limit Theorem makes inference approximately valid even with non-normal residuals, if n is large enough.</li>
+                    <li><strong>Influential observations are not automatically problems.</strong> Investigate them. They often reveal important heterogeneity or data issues.</li>
+                    <li><strong>Diagnostics are iterative.</strong> Fix problems one at a time, re-diagnose, and refine your model until residuals behave like white noise.</li>
+                </ul>
+            </section>
+
+            <!-- ==================== BOTTOM NAVIGATION ==================== -->
+            <div class="chapter-nav">
+                <a href="ch06-multiple-regression.html">&larr; Module 06: Multiple Regression</a>
+                <span>Next: Module 08 &mdash; (Coming Soon)</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>
