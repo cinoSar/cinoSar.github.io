@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 10: Panel Data Methods | Statistics for Econometrics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+        .output-block {
+            background: var(--color-background-alt);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .notebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .notebook-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .notebook-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .notebook-actions a:hover { background: var(--color-primary-dark); }
+        .key-concept {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .key-concept h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+        .ascii-diagram {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Statistics for Econometrics</h1>
+            </a>
+            <p class="site-subtitle">Module 10: Panel Data Methods</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#what-are-panel-data">10.1 What Are Panel Data?</a></li>
+                <li><a href="#unobserved-heterogeneity">10.2 The Problem: Unobserved Heterogeneity</a></li>
+                <li><a href="#fixed-effects">10.3 Fixed Effects Estimator</a></li>
+                <li><a href="#random-effects">10.4 Random Effects Estimator</a></li>
+                <li><a href="#hausman-test">10.5 Fixed vs Random Effects: The Hausman Test</a></li>
+                <li><a href="#time-effects">10.6 Time Fixed Effects</a></li>
+                <li><a href="#clustered-errors">10.7 Clustered Standard Errors</a></li>
+                <li><a href="#workflow">10.8 Practical Workflow for Panel Data</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="notebook-actions">
+                <span>Run this module yourself:</span>
+                <a href="https://colab.research.google.com/github/cinoSar/cinosar.github.io/blob/main/statistics/downloads/10_panel_data.ipynb" target="_blank">Open in Google Colab</a>
+                <a href="../downloads/10_panel_data.ipynb" download>Download Notebook</a>
+            </div>
+
+            <div class="toc" id="toc">
+                <h3>In This Module</h3>
+                <ol>
+                    <li><a href="#what-are-panel-data">What Are Panel Data?</a></li>
+                    <li><a href="#unobserved-heterogeneity">The Problem: Unobserved Heterogeneity</a></li>
+                    <li><a href="#fixed-effects">Fixed Effects Estimator</a></li>
+                    <li><a href="#random-effects">Random Effects Estimator</a></li>
+                    <li><a href="#hausman-test">Fixed vs Random Effects: The Hausman Test</a></li>
+                    <li><a href="#time-effects">Time Fixed Effects</a></li>
+                    <li><a href="#clustered-errors">Clustered Standard Errors</a></li>
+                    <li><a href="#workflow">Practical Workflow for Panel Data</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                </ol>
+            </div>
+
+            <!-- ==================== 10.1 WHAT ARE PANEL DATA ==================== -->
+            <section id="what-are-panel-data">
+                <h2>10.1 &mdash; What Are Panel Data?</h2>
+
+                <p><strong>Panel data</strong> (also called <strong>longitudinal data</strong>) track multiple units over multiple time periods. Unlike cross-sectional data (many units, one period) or time-series data (one unit, many periods), panel data combine both dimensions: many units observed repeatedly.</p>
+
+                <h3>Data Structures: A Comparison</h3>
+
+                <p><strong>Cross-sectional:</strong> One snapshot in time. Example: wages of workers in 2024.</p>
+<div class="ascii-diagram"><code>Worker 1: Y₁, X₁
+Worker 2: Y₂, X₂
+Worker 3: Y₃, X₃
+...</code></div>
+
+                <p><strong>Time-series:</strong> One unit over many periods. Example: GDP of France from 1980–2024.</p>
+<div class="ascii-diagram"><code>Year 1980: Y₁₉₈₀
+Year 1981: Y₁₉₈₁
+...
+Year 2024: Y₂₀₂₄</code></div>
+
+                <p><strong>Panel:</strong> Many units, many periods. Example: firm revenue for 100 firms from 2015–2024.</p>
+<div class="ascii-diagram"><code>Firm 1, 2015: Y₁,₂₀₁₅, X₁,₂₀₁₅
+Firm 1, 2016: Y₁,₂₀₁₆, X₁,₂₀₁₆
+...
+Firm 2, 2015: Y₂,₂₀₁₅, X₂,₂₀₁₅
+...
+Firm 100, 2024: Y₁₀₀,₂₀₂₄, X₁₀₀,₂₀₂₄</code></div>
+
+                <h3>Notation</h3>
+
+                <p>We denote the outcome for unit \(i\) at time \(t\) as \(Y_{it}\), and the regressor as \(X_{it}\). With \(N\) units and \(T\) periods, we have \(N \times T\) total observations. For balanced panels, each unit appears in every time period; for unbalanced panels, some units drop out or enter later.</p>
+
+                <h3>Panel Data in Practice</h3>
+
+                <p><strong>Firm performance over years:</strong> Track 500 firms' revenue, R&D spending, and profitability from 2010–2023 (N=500, T=14).</p>
+
+                <p><strong>Country GDP across decades:</strong> Track 180 countries' GDP, trade openness, and governance quality from 1960–2024 (N=180, T=65).</p>
+
+                <p><strong>Student test scores across semesters:</strong> Track 10,000 students' test scores and study hours across 8 semesters (N=10,000, T=8).</p>
+
+                <h3>Creating Panel Data with Pandas MultiIndex</h3>
+
+<div class="code-block"><code><span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment"># Create a simple panel dataset: 5 firms, 4 years</span>
+n_firms = <span class="code-number">5</span>
+n_years = <span class="code-number">4</span>
+years = [<span class="code-number">2020</span>, <span class="code-number">2021</span>, <span class="code-number">2022</span>, <span class="code-number">2023</span>]
+
+<span class="code-comment"># Create MultiIndex</span>
+index = pd.MultiIndex.<span class="code-function">from_product</span>(
+    [[<span class="code-string">'Firm_A'</span>, <span class="code-string">'Firm_B'</span>, <span class="code-string">'Firm_C'</span>, <span class="code-string">'Firm_D'</span>, <span class="code-string">'Firm_E'</span>], years],
+    names=[<span class="code-string">'firm_id'</span>, <span class="code-string">'year'</span>]
+)
+
+<span class="code-comment"># Generate random data</span>
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+data = {
+    <span class="code-string">'revenue'</span>: np.random.<span class="code-function">uniform</span>(<span class="code-number">100</span>, <span class="code-number">1000</span>, <span class="code-number">20</span>),
+    <span class="code-string">'rd_spending'</span>: np.random.<span class="code-function">uniform</span>(<span class="code-number">10</span>, <span class="code-number">100</span>, <span class="code-number">20</span>),
+    <span class="code-string">'employees'</span>: np.random.<span class="code-function">uniform</span>(<span class="code-number">100</span>, <span class="code-number">5000</span>, <span class="code-number">20</span>)
+}
+
+df = pd.DataFrame(data, index=index)
+<span class="code-keyword">print</span>(df)
+<span class="code-keyword">print</span>(<span class="code-string">"\nShape:"</span>, df.<span class="code-function">shape</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"N =</span> <span class="code-string">"</span>, n_firms, <span class="code-string">", T =</span> <span class="code-string">"</span>, n_years)
+</code></div>
+
+                <div class="key-concept">
+                    <h4>Key Concept: Panel Data Are the Gold Standard in Applied Microeconometrics</h4>
+                    <p>Panel data are uniquely powerful because they let you control for unobserved heterogeneity without needing to find an instrument. By following the same units over time, you can eliminate time-invariant confounders (firm quality, ability, geography) and isolate causal effects with confidence. This is why panel data are so valuable in applied econometrics.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 10.2 UNOBSERVED HETEROGENEITY ==================== -->
+            <section id="unobserved-heterogeneity">
+                <h2>10.2 &mdash; The Problem: Unobserved Heterogeneity</h2>
+
+                <p>Suppose we want to estimate the effect of R&D spending on firm productivity. A naive approach: run OLS on a cross-section of firms.</p>
+
+                <p>\[Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i\]</p>
+
+                <p>where \(Y_i\) is firm productivity and \(X_i\) is R&D spending. But this creates a fundamental problem: <strong>better-managed firms both spend more on R&D and have higher productivity</strong>. Management quality is unobserved but correlated with both variables, causing omitted variable bias.</p>
+
+                <h3>The Fixed Effects Model</h3>
+
+                <p>With panel data, we can write:</p>
+
+                <p>\[Y_{it} = \beta_0 + \beta_1 X_{it} + \alpha_i + \varepsilon_{it}\]</p>
+
+                <p>The term \(\alpha_i\) is the <strong>individual effect</strong> (or <strong>entity effect</strong>): everything about unit \(i\) that is constant over time. This includes management quality, institutional culture, innate ability, geographic advantages—all the unobserved heterogeneity that doesn't change within the observation window.</p>
+
+                <h3>Why OVB Still Occurs</h3>
+
+                <p>If \(\text{Cov}(\alpha_i, X_{it}) \neq 0\)—that is, the time-invariant unobserved effect correlates with the regressor—then pooled OLS is biased. In our example, high-quality management (high \(\alpha_i\)) correlates with high R&D spending (\(X_{it}\)), inflating the estimated effect of R&D.</p>
+
+                <h3>Simulation: Pooled OLS Is Biased</h3>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+
+np.random.<span class="code-function">seed</span>(<span class="code-number">123</span>)
+
+<span class="code-comment"># True model: Y_it = 2 + 0.5*X_it + alpha_i + epsilon_it</span>
+<span class="code-comment"># True beta_1 = 0.5</span>
+<span class="code-comment"># alpha_i ~ N(0, 1), correlated with X_it</span>
+
+n_firms = <span class="code-number">50</span>
+n_years = <span class="code-number">10</span>
+
+<span class="code-comment"># Create panel structure</span>
+firm_ids = np.<span class="code-function">repeat</span>(np.<span class="code-function">arange</span>(n_firms), n_years)
+year_ids = np.<span class="code-function">tile</span>(np.<span class="code-function">arange</span>(n_years), n_firms)
+
+<span class="code-comment"># Unobserved heterogeneity (constant over time for each firm)</span>
+alpha = np.<span class="code-function">random</span>.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n_firms)
+
+<span class="code-comment"># X correlated with alpha: X_it = alpha_i + noise_it</span>
+X = alpha[firm_ids] + np.<span class="code-function">random</span>.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">0.5</span>, n_firms * n_years)
+
+<span class="code-comment"># Y: true effect of X is 0.5</span>
+Y = <span class="code-number">2</span> + <span class="code-number">0.5</span> * X + alpha[firm_ids] + np.<span class="code-function">random</span>.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">0.3</span>, n_firms * n_years)
+
+<span class="code-comment"># Pooled OLS (biased)</span>
+X_const = sm.<span class="code-function">add_constant</span>(X)
+ols_model = sm.OLS(Y, X_const).<span class="code-function">fit</span>()
+
+<span class="code-keyword">print</span>(<span class="code-string">"Pooled OLS (BIASED):"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"Coefficient on X:"</span>, ols_model.<span class="code-function">params</span>[<span class="code-number">1</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"True beta_1 = 0.5, but we estimated ~1.2 due to unobserved heterogeneity"</span>)
+</code></div>
+
+                <p><strong>Result:</strong> The pooled OLS coefficient is ~1.2, far above the true value of 0.5. This is upward bias due to unobserved heterogeneity: high-quality firms spend more on R&D and are more productive, so the coefficient inflates.</p>
+
+            </section>
+
+            <!-- ==================== 10.3 FIXED EFFECTS ==================== -->
+            <section id="fixed-effects">
+                <h2>10.3 &mdash; Fixed Effects (FE) Estimator</h2>
+
+                <h3>The Idea: Eliminate \(\alpha_i\) with Dummies</h3>
+
+                <p>The simplest approach to deal with unobserved heterogeneity: add a dummy variable for each unit. The model becomes:</p>
+
+                <p>\[Y_{it} = \beta_0 + \beta_1 X_{it} + \sum_{i=1}^{N} \gamma_i D_i + \varepsilon_{it}\]</p>
+
+                <p>where \(D_i\) is a dummy variable equal to 1 for unit \(i\) and 0 otherwise. The dummies absorb all time-invariant differences between units, including \(\alpha_i\). Any time-invariant confounder is now "controlled for" by the dummies.</p>
+
+                <h3>The Within Transformation (Demeaning)</h3>
+
+                <p>An equivalent and computationally efficient approach: subtract unit means from all variables. This is called the <strong>within transformation</strong>.</p>
+
+                <p>\[\tilde{Y}_{it} = Y_{it} - \bar{Y}_i\]</p>
+
+                <p>\[\tilde{X}_{it} = X_{it} - \bar{X}_i\]</p>
+
+                <p>where \(\bar{Y}_i = \frac{1}{T} \sum_t Y_{it}\) and \(\bar{X}_i = \frac{1}{T} \sum_t X_{it}\) are unit means.</p>
+
+                <p>The model becomes:</p>
+
+                <p>\[\tilde{Y}_{it} = \beta_1 \tilde{X}_{it} + (\tilde{\varepsilon}_{it})\]</p>
+
+                <p>Notice that \(\alpha_i\) disappears! Since \(\alpha_i\) is constant over time, subtracting the unit mean eliminates it. This is the heart of fixed effects estimation: FE uses only <strong>within-unit variation</strong>—how variables change over time for the same unit—to identify \(\beta_1\).</p>
+
+                <h3>Key Insight: Within-Unit Causal Logic</h3>
+
+                <p>Fixed effects answer a different question than cross-sectional OLS:</p>
+
+                <p><strong>Cross-sectional OLS:</strong> "Do firms that spend more on R&D tend to be more productive?" (Confounded by firm quality.)</p>
+
+                <p><strong>Fixed Effects:</strong> "When a specific firm increases its R&D spending, what happens to its productivity?" (Causal: compares the same firm to itself over time.)</p>
+
+                <p>This is a much more credible causal estimate.</p>
+
+                <h3>Important Limitation: Time-Invariant Variables</h3>
+
+                <p>You cannot estimate the effect of any variable that does not change over time. For example, if you include gender (constant for each person) or industry sector (constant for each firm), these variables are absorbed by the fixed effects and drop out. If you need to estimate effects of time-invariant variables, you must use random effects (Section 10.4) or assume they are exogenous.</p>
+
+                <h3>Estimating Fixed Effects with linearmodels</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> linearmodels.panel <span class="code-keyword">import</span> PanelOLS
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+
+<span class="code-comment"># Assuming df is a panel dataset with MultiIndex (firm_id, year)</span>
+<span class="code-comment"># and columns: revenue, rd_spending, employees</span>
+
+<span class="code-comment"># Set up the model with entity fixed effects</span>
+model_fe = PanelOLS(
+    df[<span class="code-string">'revenue'</span>],
+    df[[<span class="code-string">'rd_spending'</span>, <span class="code-string">'employees'</span>]],
+    entity_effects=<span class="code-keyword">True</span>  <span class="code-comment"># Entity (firm) fixed effects</span>
+)
+
+results_fe = model_fe.<span class="code-function">fit</span>(cov_type=<span class="code-string">'robust'</span>)
+<span class="code-keyword">print</span>(results_fe)
+
+<span class="code-comment"># Compare with pooled OLS (no fixed effects)</span>
+import statsmodels.api <span class="code-keyword">as</span> sm
+X = sm.<span class="code-function">add_constant</span>(df[[<span class="code-string">'rd_spending'</span>, <span class="code-string">'employees'</span>]])
+model_ols = sm.OLS(df[<span class="code-string">'revenue'</span>], X)
+results_ols = model_ols.<span class="code-function">fit</span>()
+<span class="code-keyword">print</span>(<span class="code-string">"\nCoefficient on rd_spending:"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"  OLS (pooled):"</span>, results_ols.<span class="code-function">params</span>[<span class="code-number">1</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"  FE (within):"</span>, results_fe.<span class="code-function">params</span>[<span class="code-number">0</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+</code></div>
+
+                <div class="key-concept">
+                    <h4>Key Concept: Fixed Effects Isolate Within-Unit Variation</h4>
+                    <p>The fixed effects estimator answers: "When a specific firm increases its R&D spending by 1 unit, how much does its productivity increase?" rather than "Do firms that spend more on R&D tend to be more productive?" The distinction is crucial. The first question has causal interpretation; the second is confounded by unobserved firm quality. Fixed effects eliminate time-invariant confounders and allow credible causal inference.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 10.4 RANDOM EFFECTS ==================== -->
+            <section id="random-effects">
+                <h2>10.4 &mdash; Random Effects (RE) Estimator</h2>
+
+                <h3>The RE Model</h3>
+
+                <p>Random effects offers an alternative assumption: treat \(\alpha_i\) as a random variable that is <strong>uncorrelated with the regressors</strong>.</p>
+
+                <p>\[\text{Cov}(\alpha_i, X_{it}) = 0\]</p>
+
+                <p>This is a strong assumption, but if it holds, RE is more efficient (has smaller standard errors) than FE because it uses both within-unit and between-unit variation.</p>
+
+                <h3>The RE Estimator</h3>
+
+                <p>RE uses a Generalized Least Squares (GLS) approach: a weighted combination of the between estimator (using unit means) and the within estimator (using deviations from unit means). The weights depend on the estimated variance components.</p>
+
+                <p>The key advantage of RE over FE: you can estimate effects of time-invariant variables (gender, birthplace, sector) because the dummies are not included.</p>
+
+                <h3>When Is the RE Assumption Plausible?</h3>
+
+                <p>In experimental or quasi-experimental settings, where treatment assignment is random and independent of unit characteristics. In observational data with economic units (firms, people, countries), the assumption is rarely credible: better-managed firms or more-capable workers will have both higher unobserved quality and higher values of most regressors.</p>
+
+                <h3>Estimating RE</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> linearmodels.panel <span class="code-keyword">import</span> RandomEffects
+
+<span class="code-comment"># Estimate the same model with random effects</span>
+model_re = RandomEffects(
+    df[<span class="code-string">'revenue'</span>],
+    df[[<span class="code-string">'rd_spending'</span>, <span class="code-string">'employees'</span>]]
+)
+
+results_re = model_re.<span class="code-function">fit</span>(cov_type=<span class="code-string">'robust'</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"Random Effects Results:"</span>)
+<span class="code-keyword">print</span>(results_re)
+
+<span class="code-comment"># Compare FE and RE coefficients</span>
+<span class="code-keyword">print</span>(<span class="code-string">"\nCoefficient Comparison:"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"  FE:</span> <span class="code-string">"</span>, results_fe.<span class="code-function">params</span>[<span class="code-number">0</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"  RE:</span> <span class="code-string">"</span>, results_re.<span class="code-function">params</span>[<span class="code-number">0</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+</code></div>
+
+                <p>In this example, if FE and RE coefficients differ substantially, it suggests that \(\text{Cov}(\alpha_i, X_{it}) \neq 0\), and RE is biased.</p>
+
+            </section>
+
+            <!-- ==================== 10.5 HAUSMAN TEST ==================== -->
+            <section id="hausman-test">
+                <h2>10.5 &mdash; Fixed vs Random Effects: The Hausman Test</h2>
+
+                <h3>Motivation</h3>
+
+                <p>When should you use FE and when RE? The <strong>Hausman test</strong> provides a formal answer.</p>
+
+                <h3>The Test</h3>
+
+                <p>Null hypothesis: \(H_0: \text{Cov}(\alpha_i, X_{it}) = 0\) (RE is consistent)</p>
+
+                <p>Alternative hypothesis: \(H_1: \text{Cov}(\alpha_i, X_{it}) \neq 0\) (RE is inconsistent, use FE)</p>
+
+                <p>Test statistic:</p>
+
+                <p>\[H = (\hat{\beta}_{\text{FE}} - \hat{\beta}_{\text{RE}})' [\text{Var}(\hat{\beta}_{\text{FE}}) - \text{Var}(\hat{\beta}_{\text{RE}})]^{-1} (\hat{\beta}_{\text{FE}} - \hat{\beta}_{\text{RE}}) \sim \chi^2(k)\]</p>
+
+                <p>If the p-value is small (reject \(H_0\)), use FE. If the p-value is large (fail to reject \(H_0\)), RE is more efficient.</p>
+
+                <h3>Practical Guidance</h3>
+
+                <p>In applied econometrics, <strong>FE is the default</strong>. The assumption that unobserved heterogeneity is uncorrelated with regressors is rarely credible in observational data. Economists use FE unless they have strong theoretical reasons to believe in the RE assumption (e.g., experimental settings).</p>
+
+                <h3>Conducting the Hausman Test</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> chi2
+
+<span class="code-comment"># Hausman test statistic (simplified)</span>
+<span class="code-comment"># In practice, use dedicated functions in linearmodels or statsmodels</span>
+
+beta_fe = results_fe.<span class="code-function">params</span>
+beta_re = results_re.<span class="code-function">params</span>
+
+var_fe = results_fe.<span class="code-function">cov</span>
+var_re = results_re.<span class="code-function">cov</span>
+
+<span class="code-comment"># Compute the test statistic</span>
+diff = beta_fe - beta_re
+var_diff = var_fe - var_re
+<span class="code-keyword">try</span>:
+    H = diff.T @ np.linalg.<span class="code-function">inv</span>(var_diff) @ diff
+    df = <span class="code-function">len</span>(beta_fe)
+    p_value = <span class="code-number">1</span> - chi2.<span class="code-function">cdf</span>(H, df)
+    <span class="code-keyword">print</span>(<span class="code-string">f"Hausman Test:"</span>)
+    <span class="code-keyword">print</span>(<span class="code-string">f"  Test Statistic: {H:.3f}"</span>)
+    <span class="code-keyword">print</span>(<span class="code-string">f"  p-value: {p_value:.3f}"</span>)
+    <span class="code-keyword">if</span> p_value < <span class="code-number">0.05</span>:
+        <span class="code-keyword">print</span>(<span class="code-string">"  Reject H0: Use FE (endogeneity likely)"</span>)
+    <span class="code-keyword">else</span>:
+        <span class="code-keyword">print</span>(<span class="code-string">"  Fail to reject H0: RE is preferred (more efficient)"</span>)
+<span class="code-keyword">except</span>:
+    <span class="code-keyword">print</span>(<span class="code-string">"Matrix inversion failed; variance-covariance may be singular."</span>)
+</code></div>
+
+                <div class="key-concept">
+                    <h4>Key Concept: In Applied Economics, FE Is the Safe Default</h4>
+                    <p>The assumption underlying random effects—that individual effects are uncorrelated with regressors—is rarely credible in observational data with economic units. Use FE as your default estimator unless you have strong theoretical or empirical reasons to believe the RE assumption holds (e.g., in experimental or quasi-experimental settings).</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 10.6 TIME FIXED EFFECTS ==================== -->
+            <section id="time-effects">
+                <h2>10.6 &mdash; Time Fixed Effects</h2>
+
+                <h3>The Problem Time Fixed Effects Solve</h3>
+
+                <p>So far, we have discussed entity (unit) fixed effects, which control for time-invariant unit characteristics. But sometimes there are shocks or changes common to all units at a given time—economic recessions, policy changes, technological innovations, business cycles.</p>
+
+                <p>To control for these, we add <strong>time fixed effects</strong>:</p>
+
+                <p>\[Y_{it} = \beta_1 X_{it} + \alpha_i + \lambda_t + \varepsilon_{it}\]</p>
+
+                <p>where \(\lambda_t\) is the time effect: the part of the outcome common to all units in year \(t\).</p>
+
+                <h3>Two-Way Fixed Effects</h3>
+
+                <p>Including both entity and time effects is called <strong>two-way fixed effects</strong> (or "two-way FE"). This model controls for both time-invariant unit heterogeneity and unit-invariant time effects.</p>
+
+                <h3>Example: Firm Policy and Macroeconomic Conditions</h3>
+
+                <p>Suppose you estimate the effect of a firm-level policy (e.g., remote work adoption) on productivity. Entity FE controls for firm quality; time FE controls for macroeconomic conditions (GDP growth, industry cycles) that affect all firms.</p>
+
+                <h3>Estimating Two-Way FE</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> linearmodels.panel <span class="code-keyword">import</span> PanelOLS
+
+<span class="code-comment"># Estimate model with both entity and time fixed effects</span>
+model_twoway = PanelOLS(
+    df[<span class="code-string">'revenue'</span>],
+    df[[<span class="code-string">'rd_spending'</span>, <span class="code-string">'employees'</span>]],
+    entity_effects=<span class="code-keyword">True</span>,  <span class="code-comment"># Firm fixed effects (alpha_i)</span>
+    time_effects=<span class="code-keyword">True</span>    <span class="code-comment"># Year fixed effects (lambda_t)</span>
+)
+
+results_twoway = model_twoway.<span class="code-function">fit</span>(cov_type=<span class="code-string">'robust'</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"Two-Way Fixed Effects Results:"</span>)
+<span class="code-keyword">print</span>(results_twoway)
+
+<span class="code-comment"># Compare coefficients across specifications</span>
+<span class="code-keyword">print</span>(<span class="code-string">"\nCoefficient on rd_spending across models:"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"  Pooled OLS:</span> <span class="code-string">"</span>, results_ols.<span class="code-function">params</span>[<span class="code-number">1</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"  Entity FE:</span> <span class="code-string">"</span>, results_fe.<span class="code-function">params</span>[<span class="code-number">0</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"  Two-Way FE:</span> <span class="code-string">"</span>, results_twoway.<span class="code-function">params</span>[<span class="code-number">0</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+</code></div>
+
+                <p>Often, the time effects are not of direct interest but are included to control for confounding. You can examine the time effects (coefficients on the time dummies) if you want to understand macro trends.</p>
+
+            </section>
+
+            <!-- ==================== 10.7 CLUSTERED STANDARD ERRORS ==================== -->
+            <section id="clustered-errors">
+                <h2>10.7 &mdash; Clustered Standard Errors</h2>
+
+                <h3>The Problem: Serial Correlation in Panel Data</h3>
+
+                <p>In panel data, errors are typically correlated within units over time. If a firm experiences a positive productivity shock in one year, that shock likely persists into the next year. Formally:</p>
+
+                <p>\[\text{Corr}(\varepsilon_{it}, \varepsilon_{is}) \neq 0 \quad \text{for} \quad t \neq s\]</p>
+
+                <p>This is called <strong>serial correlation</strong> or <strong>autocorrelation</strong> within clusters (units).</p>
+
+                <h3>Consequence: Standard Errors Are Biased</h3>
+
+                <p>OLS (and FE, RE) standard errors assume errors are uncorrelated. If this assumption is violated, reported standard errors are <strong>too small</strong>. You over-reject null hypotheses and report spuriously significant coefficients. This is a critical problem in practice.</p>
+
+                <h3>Solution: Cluster at the Entity Level</h3>
+
+                <p>Always cluster standard errors at the entity (unit) level in panel data. This allows arbitrary correlation within units over time while assuming independence across units.</p>
+
+                <h3>Implementing Clustered Standard Errors</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> linearmodels.panel <span class="code-keyword">import</span> PanelOLS
+
+<span class="code-comment"># Estimate FE with clustered standard errors</span>
+model_fe = PanelOLS(
+    df[<span class="code-string">'revenue'</span>],
+    df[[<span class="code-string">'rd_spending'</span>, <span class="code-string">'employees'</span>]],
+    entity_effects=<span class="code-keyword">True</span>
+)
+
+<span class="code-comment"># Fit with clustered standard errors at entity level</span>
+results_fe_clustered = model_fe.<span class="code-function">fit</span>(
+    cov_type=<span class="code-string">'clustered'</span>,
+    cluster_entity=<span class="code-keyword">True</span>
+)
+
+<span class="code-keyword">print</span>(results_fe_clustered)
+
+<span class="code-comment"># Compare standard errors with non-clustered</span>
+results_fe_robust = model_fe.<span class="code-function">fit</span>(cov_type=<span class="code-string">'robust'</span>)
+
+<span class="code-keyword">print</span>(<span class="code-string">"\nComparison of Standard Errors:"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"             Robust    Clustered"</span>)
+<span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-function">len</span>(results_fe_robust.<span class="code-function">params</span>)):
+    <span class="code-keyword">print</span>(<span class="code-string">f"Var {i}:  {results_fe_robust.std_errors[i]:.4f}    {results_fe_clustered.std_errors[i]:.4f}"</span>)
+</code></div>
+
+                <p>Notice that clustered standard errors are typically larger than robust standard errors, reflecting the within-unit serial correlation. Ignoring this would lead to over-confident inference.</p>
+
+                <div class="key-concept">
+                    <h4>Key Concept: Always Cluster Standard Errors in Panel Data</h4>
+                    <p>In panel data, ALWAYS cluster standard errors at the entity level. Serial correlation within units is the norm, not the exception. Failure to cluster leads to biased standard errors, incorrect confidence intervals, and false significance. This is non-negotiable in modern applied econometrics.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 10.8 PRACTICAL WORKFLOW ==================== -->
+            <section id="workflow">
+                <h2>10.8 &mdash; Practical Workflow for Panel Data</h2>
+
+                <h3>Step-by-Step Approach</h3>
+
+                <p><strong>1. Explore the data:</strong> How many units? How many periods? Balanced or unbalanced?</p>
+
+<div class="code-block"><code><span class="code-keyword">print</span>(<span class="code-string">"Data Overview:"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"  Shape: {df.shape}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"  Units (N): {df.index.get_level_values('firm_id').nunique()}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"  Periods (T): {df.index.get_level_values('year').nunique()}"</span>)
+<span class="code-keyword">print</span>(f<span class="code-string">"  Balanced: {df.index.get_level_values('firm_id').nunique() * df.index.get_level_values('year').nunique() == len(df)}"</span>)
+</code></div>
+
+                <p><strong>2. Baseline: Pooled OLS.</strong> Run a naive regression to understand direction and magnitude.</p>
+
+                <p><strong>3. Run FE model with entity effects.</strong> Compare coefficients with OLS. Are they substantially different?</p>
+
+                <p><strong>4. Run RE model.</strong> Compare RE and FE coefficients.</p>
+
+                <p><strong>5. Hausman test.</strong> FE vs RE: which is appropriate?</p>
+
+                <p><strong>6. Add time effects if appropriate.</strong> Do macro shocks or time trends confound the relationship?</p>
+
+                <p><strong>7. Always cluster standard errors.</strong> At the entity level, unless theoretical considerations suggest clustering at a different level (e.g., state or industry).</p>
+
+                <h3>Connection to Module 09: Endogeneity</h3>
+
+                <p>Fixed effects solves endogeneity due to time-invariant confounders. But if endogeneity remains—if there is time-varying unobserved heterogeneity or reverse causality—you need <strong>panel IV</strong>: combine FE with instrumental variables. This extends the toolkit from Module 09 to the panel setting.</p>
+
+                <h3>Connection to Module 11: Difference-in-Differences</h3>
+
+                <p><strong>Difference-in-Differences (DiD)</strong> is a special case of two-way fixed effects. It exploits a policy change (treatment) that affects some units but not others, using the parallel trends assumption to identify causal effects. The two-way FE model you learned here provides the foundation for DiD estimation.</p>
+
+            </section>
+
+            <!-- ==================== EXERCISES ==================== -->
+            <section id="exercises">
+                <h2>Exercises</h2>
+
+                <div class="exercise">
+                    <h4>Exercise 10.1: Explore Panel Data Structure</h4>
+                    <p>Load a panel dataset (e.g., from statsmodels or a public source). Identify the following:</p>
+                    <ol>
+                        <li>How many units (N) and periods (T)?</li>
+                        <li>Is the panel balanced or unbalanced?</li>
+                        <li>What is the structure of missing data, if any?</li>
+                        <li>Compute and plot the within-unit variance (variation over time for each unit) and between-unit variance (variation across units). Which is larger?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 10.2: Pooled OLS vs Fixed Effects</h4>
+                    <p>Estimate the effect of a time-varying regressor (X) on an outcome (Y) using:</p>
+                    <ol>
+                        <li>Pooled OLS (no fixed effects)</li>
+                        <li>Fixed effects (entity dummies or within transformation)</li>
+                        <li>Compare the coefficients. Are they substantially different? If so, what does this suggest about unobserved heterogeneity?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 10.3: The Hausman Test</h4>
+                    <p>Estimate both FE and RE models for the same specification. Then:</p>
+                    <ol>
+                        <li>Conduct a Hausman test.</li>
+                        <li>Interpret the p-value. Does it suggest FE or RE is appropriate?</li>
+                        <li>Discuss whether the RE assumption (uncorrelated unobserved heterogeneity) is plausible given the application.</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 10.4: Clustered vs Non-Clustered Standard Errors</h4>
+                    <p>Estimate an FE model with two specifications:</p>
+                    <ol>
+                        <li>Standard robust standard errors (assume independence across observations).</li>
+                        <li>Clustered standard errors at the entity level (allow serial correlation within units).</li>
+                        <li>Compare the standard errors and t-statistics. How much do they differ? What does this reveal about serial correlation?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 10.5: Time-Invariant Variables and FE Limitations</h4>
+                    <p>Suppose you have a time-invariant variable (e.g., firm founding year, worker education level, country region). Can you estimate its effect using FE?</p>
+                    <ol>
+                        <li>Explain why FE absorbs time-invariant variables and why they cannot be estimated.</li>
+                        <li>Propose alternative approaches (e.g., use RE, use between-estimator, add interactions with time-varying variables).</li>
+                        <li>Discuss the trade-offs and credibility of each approach.</li>
+                    </ol>
+                </div>
+
+            </section>
+
+            <!-- ==================== KEY TAKEAWAYS ==================== -->
+            <section>
+                <h2>Key Takeaways</h2>
+                <ul>
+                    <li><strong>Panel data combine cross-sectional and time-series variation.</strong> They are uniquely powerful for causal inference because they allow control for unobserved heterogeneity without instruments.</li>
+                    <li><strong>Fixed effects control for time-invariant unit heterogeneity</strong> by using the within transformation (demeaning). FE estimates are based on variation within units over time, providing causal identification.</li>
+                    <li><strong>FE cannot estimate effects of time-invariant variables</strong> because they are absorbed by the fixed effects. Time-invariant confounders are controlled, but time-invariant regressors cannot have estimated effects.</li>
+                    <li><strong>Random effects assumes unobserved heterogeneity is uncorrelated with regressors.</strong> This is a strong assumption, rarely credible in observational economic data. Use RE only when theory strongly supports it (e.g., experimental settings).</li>
+                    <li><strong>The Hausman test compares FE and RE.</strong> Reject H₀ (use FE) if the test is significant, suggesting endogeneity. In practice, economists default to FE.</li>
+                    <li><strong>Time fixed effects control for unit-invariant shocks.</strong> Two-way FE controls for both time-invariant unit effects and unit-invariant time effects, absorbing macroeconomic confounders.</li>
+                    <li><strong>Always cluster standard errors at the entity level in panel data.</strong> Serial correlation within units is the norm. Failure to cluster biases standard errors downward and leads to false significance.</li>
+                    <li><strong>If time-varying endogeneity remains, use panel IV</strong> (extend Module 09 to panels). If a policy causes treatment assignment, use difference-in-differences (Module 11).</li>
+                </ul>
+            </section>
+
+            <!-- ==================== BOTTOM NAVIGATION ==================== -->
+            <div class="chapter-nav">
+                <a href="ch09-endogeneity-iv.html">&larr; Module 09: Endogeneity &amp; Instrumental Variables</a>
+                <a href="#">Module 11: Coming Soon &rarr;</a>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>

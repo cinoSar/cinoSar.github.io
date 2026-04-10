@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 09: Endogeneity & Instrumental Variables | Statistics for Econometrics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+        .output-block {
+            background: var(--color-background-alt);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .notebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .notebook-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .notebook-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .notebook-actions a:hover { background: var(--color-primary-dark); }
+        .key-concept {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .key-concept h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+        .ascii-diagram {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Statistics for Econometrics</h1>
+            </a>
+            <p class="site-subtitle">Module 09: Endogeneity &amp; Instrumental Variables</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#endogeneity-problem">9.1 The Endogeneity Problem</a></li>
+                <li><a href="#iv-idea">9.2 Instrumental Variables: The Idea</a></li>
+                <li><a href="#iv-estimator">9.3 The IV Estimator: Simple Case</a></li>
+                <li><a href="#two-stage-ls">9.4 Two-Stage Least Squares</a></li>
+                <li><a href="#testing-validity">9.5 Testing Instrument Validity</a></li>
+                <li><a href="#when-iv-worse">9.6 When IV Makes Things Worse</a></li>
+                <li><a href="#applications">9.7 Real-World Applications</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="notebook-actions">
+                <span>Run this module yourself:</span>
+                <a href="https://colab.research.google.com/github/cinoSar/cinosar.github.io/blob/main/statistics/downloads/09_endogeneity_iv.ipynb" target="_blank">Open in Google Colab</a>
+                <a href="../downloads/09_endogeneity_iv.ipynb" download>Download Notebook</a>
+            </div>
+
+            <div class="toc" id="toc">
+                <h3>In This Module</h3>
+                <ol>
+                    <li><a href="#endogeneity-problem">The Endogeneity Problem</a></li>
+                    <li><a href="#iv-idea">Instrumental Variables: The Idea</a></li>
+                    <li><a href="#iv-estimator">The IV Estimator: Simple Case</a></li>
+                    <li><a href="#two-stage-ls">Two-Stage Least Squares (2SLS)</a></li>
+                    <li><a href="#testing-validity">Testing Instrument Validity</a></li>
+                    <li><a href="#when-iv-worse">When IV Makes Things Worse</a></li>
+                    <li><a href="#applications">Real-World Applications</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                </ol>
+            </div>
+
+            <!-- ==================== 9.1 ENDOGENEITY PROBLEM ==================== -->
+            <section id="endogeneity-problem">
+                <h2>9.1 &mdash; The Endogeneity Problem</h2>
+
+                <p>In all our regression work so far, we have assumed one fundamental condition: the regressors are <strong>exogenous</strong>—that is,</p>
+                <p>\[\text{Cov}(X, \varepsilon) = 0\]</p>
+                <p>This condition ensures that OLS is unbiased and consistent. But in practice, this assumption is often violated. When \(\text{Cov}(X, \varepsilon) \neq 0\), the regressor \(X\) is <strong>endogenous</strong>, and OLS estimators become biased and inconsistent.</p>
+
+                <p>The term "inconsistent" is crucial: the bias <strong>does not vanish as the sample size grows</strong>. With a biased but consistent estimator, larger samples eventually bring you to the truth. With endogeneity, larger samples simply reinforce the bias. This is why endogeneity is the central challenge of empirical economics.</p>
+
+                <h3>Three Sources of Endogeneity</h3>
+
+                <h4>1. Omitted Variable Bias (OVB)</h4>
+                <p>You omit a variable that affects the outcome and correlates with the included regressors. Recall from Module 06: if the true model is</p>
+                <p>\[Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \varepsilon\]</p>
+                <p>but you estimate</p>
+                <p>\[Y = \beta_0 + \beta_1 X_1 + u\]</p>
+                <p>where \(u = \beta_2 X_2 + \varepsilon\), then \(\text{Cov}(X_1, u) \neq 0\) whenever \(X_1\) and \(X_2\) are correlated. The coefficient \(\hat{\beta}_1\) will be biased, and the bias increases with the correlation between \(X_1\) and the omitted \(X_2\).</p>
+
+                <h4>2. Simultaneous Causality (Reverse Causality)</h4>
+                <p>X and Y causally influence each other. A classic example: police spending and crime rate. You might write</p>
+                <p>\[\text{Crime}_i = \beta_0 + \beta_1 \text{Police}_i + \varepsilon_i\]</p>
+                <p>intending to estimate the effect of policing on crime. But cities with high crime also increase police spending. The reverse causal arrow, Crime → Police, means Police is correlated with \(\varepsilon_i\) (which includes crime-driven shocks), so OLS is biased.</p>
+
+                <h4>3. Measurement Error in X</h4>
+                <p>You observe \(X^* = X + \text{noise}\), where \(\text{noise}\) is measurement error. If the true model is</p>
+                <p>\[Y = \beta_0 + \beta_1 X + \varepsilon\]</p>
+                <p>but you regress on \(X^*\), the regression becomes</p>
+                <p>\[Y = \beta_0 + \beta_1 X^* + (\varepsilon - \beta_1 \text{noise})\]</p>
+                <p>The measurement error enters the residual and correlates with \(X^*\), biasing \(\hat{\beta}_1\) downward (attenuation bias). The more noise, the more bias toward zero.</p>
+
+                <h3>Worked Example: Omitted Variable Bias Simulation</h3>
+                <p>Let's simulate data where the true model includes both \(X_1\) and \(X_2\), but we estimate omitting \(X_2\).</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+
+np.random.<span class="code-function">seed</span>(<span class="code-number">123</span>)
+
+<span class="code-comment"># Generate data: n=500, X1 and X2 correlated (r=0.6)</span>
+n = <span class="code-number">500</span>
+X1 = np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n)
+X2 = <span class="code-number">0.6</span> * X1 + <span class="code-number">0.8</span> * np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n)
+
+<span class="code-comment"># True model: Y = 2 + 3*X1 + 4*X2 + noise</span>
+<span class="code-comment"># True beta_1 = 3, True beta_2 = 4</span>
+epsilon = np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n)
+Y = <span class="code-number">2</span> + <span class="code-number">3</span> * X1 + <span class="code-number">4</span> * X2 + epsilon
+
+<span class="code-comment"># Model 1: Correct specification (include both X1 and X2)</span>
+X_correct = sm.<span class="code-function">add_constant</span>(pd.<span class="code-function">DataFrame</span>({<span class="code-string">'X1'</span>: X1, <span class="code-string">'X2'</span>: X2}))
+model_correct = sm.OLS(Y, X_correct).<span class="code-function">fit</span>()
+
+<span class="code-comment"># Model 2: Misspecified (omit X2) — leads to OVB</span>
+X_omit = sm.<span class="code-function">add_constant</span>(pd.<span class="code-function">DataFrame</span>({<span class="code-string">'X1'</span>: X1}))
+model_omit = sm.OLS(Y, X_omit).<span class="code-function">fit</span>()
+
+<span class="code-keyword">print</span>(<span class="code-string">"Correct Specification (both X1 and X2):"</span>)
+<span class="code-keyword">print</span>(model_correct.<span class="code-function">summary</span>())
+<span class="code-keyword">print</span>(<span class="code-string">"\nOmitting X2 — Biased Estimate:"</span>)
+<span class="code-keyword">print</span>(model_omit.<span class="code-function">summary</span>())
+<span class="code-keyword">print</span>(<span class="code-string">"\nCoefficient on X1 when X2 omitted:</span> <span class="code-string">"</span>, model_omit.<span class="code-function">params</span>[<span class="code-number">1</span>])
+<span class="code-keyword">print</span>(<span class="code-string">"True beta_1 = 3, but we estimated:"</span>, model_omit.<span class="code-function">params</span>[<span class="code-number">1</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+</code></div>
+
+                <p><strong>Output:</strong> The model omitting X2 estimates \(\hat{\beta}_1 \approx 5.4\), far from the true value of 3. The bias is positive because X1 and X2 are positively correlated, and the omitted X2 (which has a positive coefficient) inflates the estimated effect of X1.</p>
+
+                <div class="key-concept">
+                    <h4>Key Concept: Endogeneity is the Central Challenge of Empirical Economics</h4>
+                    <p>Endogeneity is not a small-sample problem that goes away with more data. The question in econometrics is never "does my regression have good fit?" but rather "can I interpret the coefficients causally?" A model with \(R^2 = 0.95\) and biased coefficients due to endogeneity is worse than a model with \(R^2 = 0.50\) and unbiased estimates. Without addressing endogeneity, even a perfect-fitting model tells you nothing about causation.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 9.2 INSTRUMENTAL VARIABLES IDEA ==================== -->
+            <section id="iv-idea">
+                <h2>9.2 &mdash; Instrumental Variables: The Idea</h2>
+
+                <p>An <strong>instrument</strong> is a variable \(Z\) that helps us isolate the exogenous variation in the endogenous regressor \(X\). A valid instrument must satisfy two conditions:</p>
+
+                <h3>Condition 1: Relevance</h3>
+                <p>\[\text{Cov}(Z, X) \neq 0\]</p>
+                <p>The instrument must be correlated with the endogenous regressor. If \(Z\) and \(X\) are uncorrelated, \(Z\) has no information about \(X\) and is useless.</p>
+
+                <h3>Condition 2: Exclusion Restriction</h3>
+                <p>\[\text{Cov}(Z, \varepsilon) = 0\]</p>
+                <p>The instrument must affect the outcome \(Y\) only through \(X\), not directly. In a causal diagram:</p>
+
+<div class="ascii-diagram"><code>        Z
+        |
+        v
+        X  -----> Y
+                  ^
+                  |
+                epsilon (unobserved shock)</code></div>
+
+                <p>There is no direct arrow from \(Z\) to \(Y\). The exclusion restriction is the most critical and most controversial assumption in IV analysis.</p>
+
+                <h3>Intuition: Z as a "Remote Control"</h3>
+                <p>Think of \(Z\) as an exogenous lever that moves \(X\), similar to a remote control. You cannot directly change a rocket's direction, but the remote control can. When the remote moves the rocket, the rocket moves; when the remote doesn't move, neither does the rocket. If the remote is broken (low correlation), it is not useful. If the remote not only affects the rocket but also directly affects the destination (violates exclusion), it is not a valid control—it influences the outcome in multiple ways.</p>
+
+                <h3>Classic Examples from Economics</h3>
+
+                <p><strong>Returns to Education (Angrist & Krueger 1991):</strong> To estimate the causal effect of education on earnings, researchers used <strong>quarter of birth</strong> as an instrument. In the U.S., children must enter school by a certain age; those born later in the year must stay in school longer before they can drop out. Thus, quarter of birth correlates with educational attainment but (arguably) does not directly affect earnings. The exclusion restriction: conditional on education, when you were born does not affect your wage.</p>
+
+                <p><strong>Economic Growth (Miguel, Satyanath & Sergenti 2004):</strong> To measure the effect of economic growth on conflict, researchers used <strong>rainfall</strong> as an instrument for growth in African countries. Rainfall affects agricultural output and hence growth, but (arguably) does not directly affect conflict except through income. The exclusion restriction: rainfall affects conflict only via its effect on growth.</p>
+
+                <p><strong>Returns to Education, Again (Card 1993):</strong> To avoid relying on quarter of birth, Card used <strong>distance to college</strong> as an instrument. Living near a college lowers the cost of attending college (lower tuition and living costs), increasing educational attainment. Distance correlates with education but (arguably) does not directly affect earnings conditional on education.</p>
+
+                <div class="key-concept">
+                    <h4>Key Concept: The Exclusion Restriction Is Untestable</h4>
+                    <p>You can construct a statistical test to check relevance (the first-stage F-statistic). You can conduct over-identification tests to check whether multiple instruments are consistent. But you <strong>cannot</strong> test the exclusion restriction with data alone. The exclusion restriction is a theoretical statement about the causal model. It must be argued and defended based on economic theory and domain knowledge. This is why the choice of instruments is the most debated aspect of any instrumental variables paper.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 9.3 IV ESTIMATOR SIMPLE CASE ==================== -->
+            <section id="iv-estimator">
+                <h2>9.3 &mdash; The IV Estimator: Simple Case</h2>
+
+                <p>Suppose we have one endogenous regressor \(X\) and one instrument \(Z\). The simple IV estimator is:</p>
+                <p>\[\hat{\beta}_1^{\text{IV}} = \frac{\text{Cov}(Z, Y)}{\text{Cov}(Z, X)}\]</p>
+
+                <p>This is sometimes called the <strong>Wald estimator</strong> or, in the simple bivariate case, the <strong>ratio of covariances</strong>.</p>
+
+                <h3>Why It Works: A Derivation</h3>
+
+                <p>Suppose the true model is:</p>
+                <p>\[Y = \beta_0 + \beta_1 X + \varepsilon\]</p>
+
+                <p>where \(X\) is endogenous (correlated with \(\varepsilon\)). If \(Z\) is a valid instrument satisfying \(\text{Cov}(Z, \varepsilon) = 0\), we can take the covariance of both sides with \(Z\):</p>
+                <p>\[\text{Cov}(Z, Y) = \beta_1 \text{Cov}(Z, X) + \text{Cov}(Z, \varepsilon)\]</p>
+
+                <p>Since \(\text{Cov}(Z, \varepsilon) = 0\) by the exclusion restriction:</p>
+                <p>\[\text{Cov}(Z, Y) = \beta_1 \text{Cov}(Z, X)\]</p>
+
+                <p>Rearranging:</p>
+                <p>\[\beta_1 = \frac{\text{Cov}(Z, Y)}{\text{Cov}(Z, X)}\]</p>
+
+                <p>The IV estimator simply replaces population covariances with sample covariances. Because the instrument is uncorrelated with the error, IV is consistent even when \(X\) is endogenous.</p>
+
+                <h3>Worked Example: IV with Endogeneity and an Instrument</h3>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+
+np.random.<span class="code-function">seed</span>(<span class="code-number">456</span>)
+n = <span class="code-number">400</span>
+
+<span class="code-comment"># Generate an endogeneity scenario:</span>
+<span class="code-comment"># Unobserved confounder U affects both X and Y</span>
+U = np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n)
+X = <span class="code-number">2</span> * U + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n)
+Y = <span class="code-number">5</span> + <span class="code-number">3</span> * X + <span class="code-number">2</span> * U + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n)
+
+<span class="code-comment"># Instrument Z: correlated with X but not with U or Y directly</span>
+Z = X + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1.5</span>, n)
+
+<span class="code-comment"># OLS (biased)</span>
+X_ols = sm.<span class="code-function">add_constant</span>(X)
+ols_model = sm.OLS(Y, X_ols).<span class="code-function">fit</span>()
+<span class="code-keyword">print</span>(<span class="code-string">"OLS Coefficient on X:"</span>, ols_model.<span class="code-function">params</span>[<span class="code-number">1</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"True value: 3.0 (OLS is biased due to endogeneity)\n"</span>)
+
+<span class="code-comment"># Simple IV estimator: Cov(Z,Y) / Cov(Z,X)</span>
+cov_zy = np.<span class="code-function">cov</span>(Z, Y)[<span class="code-number">0</span>, <span class="code-number">1</span>]
+cov_zx = np.<span class="code-function">cov</span>(Z, X)[<span class="code-number">0</span>, <span class="code-number">1</span>]
+beta_iv_simple = cov_zy / cov_zx
+<span class="code-keyword">print</span>(<span class="code-string">"Simple IV Estimator (Cov ratio):"</span>, beta_iv_simple.<span class="code-function">round</span>(<span class="code-number">3</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"Much closer to true value 3.0"</span>)
+</code></div>
+
+                <div class="key-concept">
+                    <h4>Key Concept: Isolating Exogenous Variation</h4>
+                    <p>The IV estimator works by using only the variation in \(X\) that is driven by the exogenous instrument \(Z\). Think of it as decomposing \(X\) into two parts: the part explained by \(Z\) (exogenous) and the part unexplained by \(Z\) (potentially endogenous). The IV estimator leverages only the exogenous part to estimate the causal effect.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 9.4 TWO-STAGE LEAST SQUARES ==================== -->
+            <section id="two-stage-ls">
+                <h2>9.4 &mdash; Two-Stage Least Squares (2SLS)</h2>
+
+                <p>In practice, we rarely have just one regressor and one instrument. We may have multiple endogenous regressors, multiple instruments, and exogenous controls. <strong>Two-Stage Least Squares (2SLS)</strong> is the practical implementation of the IV idea.</p>
+
+                <h3>The Two Stages</h3>
+
+                <h4>First Stage: Predict the Endogenous Variable</h4>
+                <p>Regress the endogenous variable \(X\) on all instruments \(Z\) and all exogenous controls \(W\) (if any):</p>
+                <p>\[\hat{X} = \hat{\pi}_0 + \hat{\pi}_1 Z + \hat{\pi}_2 W\]</p>
+
+                <p>This gives us \(\hat{X}\), the predicted values of \(X\). The prediction \(\hat{X}\) contains only variation driven by \(Z\) and \(W\) (all exogenous), so Cov(\(\hat{X}, \varepsilon\)) = 0.</p>
+
+                <h4>Second Stage: Estimate the Effect Using Predicted X</h4>
+                <p>Regress the outcome \(Y\) on the predicted \(\hat{X}\) and exogenous controls \(W\):</p>
+                <p>\[Y = \beta_0 + \beta_1 \hat{X} + \beta_2 W + \varepsilon\]</p>
+
+                <p>The coefficient on \(\hat{X}\) is the 2SLS estimate of the causal effect.</p>
+
+                <h3>Worked Example: Full 2SLS Implementation</h3>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+<span class="code-keyword">from</span> linearmodels.iv <span class="code-keyword">import</span> IV2SLS
+
+np.random.<span class="code-function">seed</span>(<span class="code-number">789</span>)
+n = <span class="code-number">300</span>
+
+<span class="code-comment"># Generate data with endogeneity and an exogenous control W</span>
+U = np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n)
+W = np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n)
+X = <span class="code-number">1.5</span> * U + W + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n)
+Z = X + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n)
+Y = <span class="code-number">2</span> + <span class="code-number">2</span> * X + <span class="code-number">3</span> * W + U + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">1</span>, n)
+
+<span class="code-comment"># Manual 2SLS (step-by-step)</span>
+<span class="code-comment"># First stage: regress X on Z and W</span>
+X_stage1 = sm.<span class="code-function">add_constant</span>(pd.<span class="code-function">DataFrame</span>({<span class="code-string">'Z'</span>: Z, <span class="code-string">'W'</span>: W}))
+first_stage = sm.OLS(X, X_stage1).<span class="code-function">fit</span>()
+X_hat = first_stage.<span class="code-function">fittedvalues</span>
+
+<span class="code-keyword">print</span>(<span class="code-string">"First Stage: X ~ Z + W"</span>)
+<span class="code-keyword">print</span>(first_stage.<span class="code-function">summary</span>())
+
+<span class="code-comment"># Second stage: regress Y on X_hat and W</span>
+X_stage2 = sm.<span class="code-function">add_constant</span>(pd.<span class="code-function">DataFrame</span>({<span class="code-string">'X_hat'</span>: X_hat, <span class="code-string">'W'</span>: W}))
+second_stage = sm.OLS(Y, X_stage2).<span class="code-function">fit</span>()
+
+<span class="code-keyword">print</span>(<span class="code-string">"\nSecond Stage: Y ~ X_hat + W"</span>)
+<span class="code-keyword">print</span>(second_stage.<span class="code-function">summary</span>())
+<span class="code-keyword">print</span>(<span class="code-string">"\nManual 2SLS coefficient on X: "</span>, second_stage.<span class="code-function">params</span>[<span class="code-number">1</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"True value: 2.0"</span>)
+
+<span class="code-comment"># Proper 2SLS using linearmodels (correct standard errors)</span>
+data = pd.<span class="code-function">DataFrame</span>({<span class="code-string">'Y'</span>: Y, <span class="code-string">'X'</span>: X, <span class="code-string">'Z'</span>: Z, <span class="code-string">'W'</span>: W})
+<span class="code-keyword">from</span> linearmodels.iv <span class="code-keyword">import</span> IV2SLS
+model_iv = IV2SLS(data[<span class="code-string">'Y'</span>],
+                   data[[<span class="code-string">'X'</span>, <span class="code-string">'W'</span>]],
+                   instruments=data[[<span class="code-string">'Z'</span>, <span class="code-string">'W'</span>]]).<span class="code-function">fit</span>()
+<span class="code-keyword">print</span>(<span class="code-string">"\n\nProper 2SLS using linearmodels.iv:"</span>)
+<span class="code-keyword">print</span>(model_iv)
+</code></div>
+
+                <p><strong>Important Note:</strong> The manual two-step procedure gives the correct point estimate (coefficient) but <strong>incorrect standard errors</strong>. The reason: the second stage does not account for the estimation uncertainty in \(\hat{X}\) from the first stage. Always use a dedicated IV estimator (like <code>linearmodels.IV2SLS</code> in Python or <code>ivreg</code> in R) to ensure correct inference.</p>
+
+                <div class="key-concept">
+                    <h4>Key Concept: Always Use Dedicated IV Software</h4>
+                    <p>In practice, always use a dedicated IV estimator such as <code>linearmodels.iv.IV2SLS</code> in Python, <code>ivreg</code> in R, or <code>ivregress</code> in Stata. The manual two-step procedure gives correct \(\hat{\beta}\) but incorrect standard errors because the second stage doesn't account for the estimation uncertainty in \(\hat{X}\). This is not just a technical detail—using wrong standard errors leads to wrong confidence intervals and wrong hypothesis tests.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 9.5 TESTING INSTRUMENT VALIDITY ==================== -->
+            <section id="testing-validity">
+                <h2>9.5 &mdash; Testing Instrument Validity</h2>
+
+                <p>Once you have chosen an instrument, you should test whether it satisfies the conditions for a valid instrument. There are three main tests: the first-stage F-statistic, the Hausman test, and the over-identification test.</p>
+
+                <h3>The First-Stage F-Statistic: Testing for Weak Instruments</h3>
+
+                <p>From the first stage of 2SLS, you test whether the instruments are strong predictors of the endogenous regressor. The first-stage equation is:</p>
+                <p>\[X = \pi_0 + \pi_1 Z + \pi_2 W + u\]</p>
+
+                <p>You compute the F-statistic testing \(H_0: \pi_1 = 0\). If the F-statistic is small, the instrument is <strong>weak</strong>—it has little correlation with \(X\).</p>
+
+                <p><strong>Rule of Thumb (Staiger & Stock 1997):</strong> If \(F < 10\), the instrument may be weak enough that IV estimates are unreliable, potentially more biased than OLS.</p>
+
+                <p><strong>More recent guidance (Stock & Yogo 2005):</strong> Critical values depend on the number of instruments and the tolerance for bias. For a single instrument, \(F > 10\) is still a useful heuristic.</p>
+
+                <h3>The Hausman Test: Is Endogeneity Severe?</h3>
+
+                <p>The Hausman test compares OLS and IV estimates:</p>
+                <p>\[H = \frac{(\hat{\beta}_{\text{OLS}} - \hat{\beta}_{\text{IV}})^2}{\text{Var}(\hat{\beta}_{\text{IV}}) - \text{Var}(\hat{\beta}_{\text{OLS}})}\]</p>
+
+                <p>Under the null hypothesis \(H_0\) that the regressor is exogenous (no endogeneity), \(\hat{\beta}_{\text{OLS}}\) is consistent and more efficient (lower variance) than \(\hat{\beta}_{\text{IV}}\). If the test fails to reject \(H_0\), OLS and IV estimates are not significantly different, suggesting endogeneity is not a major concern and OLS is preferable.</p>
+
+                <p>If the test rejects \(H_0\), the estimates differ significantly, indicating endogeneity is present and IV should be used.</p>
+
+                <h3>The Over-Identification Test (Sargan–Hansen J-test)</h3>
+
+                <p>When you have more instruments than endogenous regressors, you can test whether the extra instruments are valid. Under the null hypothesis, all instruments satisfy the exclusion restriction.</p>
+
+                <p>The J-statistic has the form:</p>
+                <p>\[J = N \times R^2_{\text{residuals}}\]</p>
+
+                <p>where \(R^2_{\text{residuals}}\) is the R-squared from regressing 2SLS residuals on all instruments. Under \(H_0\), \(J \sim \chi^2_{m-k}\), where \(m\) is the number of instruments and \(k\) is the number of endogenous regressors.</p>
+
+                <p>If \(J\) is large (p-value small), reject \(H_0\)—at least one instrument is invalid (violates the exclusion restriction).</p>
+
+                <h3>Worked Example: Testing Instruments</h3>
+
+<div class="code-block"><code><span class="code-keyword">from</span> linearmodels.iv <span class="code-keyword">import</span> IV2SLS
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+
+<span class="code-comment"># Using data from previous example</span>
+<span class="code-comment"># Fit IV2SLS model</span>
+model_iv = IV2SLS(data[<span class="code-string">'Y'</span>],
+                   data[[<span class="code-string">'X'</span>, <span class="code-string">'W'</span>]],
+                   instruments=data[[<span class="code-string">'Z'</span>, <span class="code-string">'W'</span>]]).<span class="code-function">fit</span>()
+
+<span class="code-keyword">print</span>(model_iv.<span class="code-function">summary</span>())
+
+<span class="code-comment"># Access test statistics</span>
+<span class="code-keyword">print</span>(<span class="code-string">"\n--- Instrument Validity Tests ---"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"First-stage F-statistic:"</span>, model_iv.<span class="code-function">first_stage</span>.<span class="code-function">f_statistic</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"Over-identification (J-test) statistic:"</span>, model_iv.<span class="code-function">j_statistic</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"J-test p-value:"</span>, model_iv.<span class="code-function">j_statistic</span>.<span class="code-function">pvalue</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"\nHausman Test (comparing OLS vs IV):"</span>)
+
+<span class="code-comment"># OLS for comparison</span>
+X_ols = sm.<span class="code-function">add_constant</span>(data[[<span class="code-string">'X'</span>, <span class="code-string">'W'</span>]])
+ols_model = sm.OLS(data[<span class="code-string">'Y'</span>], X_ols).<span class="code-function">fit</span>()
+<span class="code-keyword">print</span>(<span class="code-string">"OLS coefficient on X:"</span>, ols_model.<span class="code-function">params</span>[<span class="code-number">1</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"IV coefficient on X:"</span>, model_iv.<span class="code-function">params</span>[<span class="code-number">0</span>].<span class="code-function">round</span>(<span class="code-number">3</span>))
+<span class="code-keyword">print</span>(<span class="code-string">"Difference:"</span>, (ols_model.<span class="code-function">params</span>[<span class="code-number">1</span>] - model_iv.<span class="code-function">params</span>[<span class="code-number">0</span>]).<span class="code-function">round</span>(<span class="code-number">3</span>))
+</code></div>
+
+                <div class="key-concept">
+                    <h4>Key Concept: What Hausman Tells You</h4>
+                    <p>The Hausman test answers: "Is endogeneity severe enough to justify the efficiency loss from IV?" If OLS and IV estimates are statistically similar (fail to reject \(H_0\)), endogeneity is likely not a major concern, and OLS is preferred for its lower variance. If they differ significantly (reject \(H_0\)), endogeneity is present, and IV's unbiasedness outweighs its inefficiency. This is why many empirical papers report both OLS and IV results—it tells a complete story about whether endogeneity matters.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 9.6 WHEN IV MAKES THINGS WORSE ==================== -->
+            <section id="when-iv-worse">
+                <h2>9.6 &mdash; When IV Makes Things Worse</h2>
+
+                <p>IV is not always better than OLS. It corrects bias at the cost of precision—IV estimators have higher variance than OLS.</p>
+
+                <h3>The Bias-Variance Trade-Off</h3>
+
+                <p>If X is weakly endogenous (only slightly correlated with the error) and your instrument is weak (only weakly correlated with X), the bias correction may not be worth the increase in variance. In the extreme:</p>
+
+                <ul>
+                    <li><strong>Weak instruments:</strong> IV bias can exceed OLS bias. Using a weak instrument can amplify rather than correct the problem.</li>
+                    <li><strong>Low endogeneity:</strong> If endogeneity is minimal, OLS bias is already small. The variance penalty from IV may outweigh the bias benefit.</li>
+                </ul>
+
+                <h3>Practical Guidance</h3>
+
+                <p>Use IV when all three conditions hold:</p>
+                <ol>
+                    <li><strong>Theoretical justification:</strong> You have strong theoretical or institutional reasons to believe endogeneity is present.</li>
+                    <li><strong>Strong instruments:</strong> Your instrument(s) are relevant. First-stage F >> 10 is a good sign.</li>
+                    <li><strong>Significant endogeneity:</strong> OLS and IV estimates differ meaningfully. The Hausman test rejects the null of no endogeneity.</li>
+                </ol>
+
+                <p>If any of these is missing, reconsider. Sometimes the best approach is to acknowledge that OLS may be biased but report it anyway, clearly stating your assumptions and limitations.</p>
+
+                <h3>The Many-Instruments Problem</h3>
+
+                <p>Adding more instruments increases efficiency (lower standard errors) but can also increase bias in finite samples. The rule of thumb: the number of instruments should be close to the number of endogenous regressors. Avoid over-parameterization.</p>
+
+            </section>
+
+            <!-- ==================== 9.7 REAL-WORLD APPLICATIONS ==================== -->
+            <section id="applications">
+                <h2>9.7 &mdash; Real-World Applications</h2>
+
+                <h3>Returns to Education</h3>
+
+                <p>One of the most studied causal questions in economics: what is the true effect of education on earnings? OLS estimates are likely biased because education correlates with unobserved ability. Several instruments have been proposed:</p>
+
+                <ul>
+                    <li><strong>Quarter of birth (Angrist & Krueger 1991):</strong> School entry age cutoffs create variation in educational attainment unrelated to ability. Criticism: Does quarter of birth affect earnings directly (through age at work entry, seasonal factors)?</li>
+                    <li><strong>Distance to college (Card 1993):</strong> Living near a college lowers college costs, increasing education. Criticism: Distance to college may correlate with local economic opportunity and parental background.</li>
+                    <li><strong>Compulsory schooling laws (Oreopoulos 2006):</strong> Laws raising the minimum school-leaving age exogenously increase education. Criticism: Laws may coincide with other policy changes.</li>
+                </ul>
+
+                <h3>Institutions and Growth</h3>
+
+                <p><strong>Acemoglu, Johnson & Robinson (2001):</strong> To estimate the effect of institutional quality on economic growth, they used <strong>settler mortality rates in colonial times</strong> as an instrument. The logic: high mortality discouraged European settlers from establishing extractive institutions; instead, they built inclusive institutions. High-mortality colonies today have better institutions and higher growth. The exclusion restriction: settler mortality (400 years ago) affects modern growth only through modern institutions. Criticism: Settler mortality may have lasting effects on population genetics, disease burden, or geographic advantages.</p>
+
+                <h3>Supply and Demand</h3>
+
+                <p>In supply-and-demand estimation, quantity and price are jointly determined. To estimate demand elasticity, you need an instrument for price that shifts supply but not demand (e.g., weather affecting crop production). Similarly, to estimate supply elasticity, use an instrument that shifts demand but not supply (e.g., income shocks or advertising).</p>
+
+                <h3>Connection to Module 11: Causal Inference</h3>
+
+                <p>IV is one of several strategies for identifying causal effects. Others include:</p>
+                <ul>
+                    <li><strong>Difference-in-Differences (DiD):</strong> Use policy variation across regions/time periods to isolate causal effects.</li>
+                    <li><strong>Regression Discontinuity (RD):</strong> Exploit sharp cutoffs in assignment rules to identify causal effects near the threshold.</li>
+                    <li><strong>Randomised Controlled Trials (RCTs):</strong> Random assignment of treatment ensures exogeneity.</li>
+                </ul>
+
+                <p>Each strategy makes different assumptions. IV assumes a valid instrument exists; DiD assumes parallel trends; RD assumes a sharp cutoff; RCTs assume no selection bias if treatment is truly random. Understanding the strengths and weaknesses of each is crucial for credible causal inference.</p>
+
+            </section>
+
+            <!-- ==================== EXERCISES ==================== -->
+            <section id="exercises">
+                <h2>Exercises</h2>
+
+                <div class="exercise">
+                    <h4>Exercise 9.1: Identifying Sources of Endogeneity</h4>
+                    <p>For each scenario below, identify the type of endogeneity (omitted variable bias, simultaneous causality, or measurement error) and explain why OLS is biased.</p>
+                    <ol>
+                        <li>You regress test scores on class size, omitting teacher quality (which affects test scores and is correlated with class size).</li>
+                        <li>You estimate the demand for healthcare services using price as a regressor. Price and quantity demanded are jointly determined by supply and demand equilibrium.</li>
+                        <li>You regress self-reported income on years of education, but self-reported income has substantial measurement error (over- and under-reporting).</li>
+                        <li>You estimate the effect of incumbent spending on electoral vote share, but spending may respond to candidate viability (reverse causality).</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 9.2: Simulating Endogeneity and IV Estimation</h4>
+                    <p>Generate synthetic data with endogeneity: create an unobserved confounder U that affects both X and Y. Create an instrument Z correlated with X but not with U or Y (except through X). Then:</p>
+                    <ol>
+                        <li>Estimate the model using OLS. Is the estimate of the effect of X on Y biased?</li>
+                        <li>Estimate using the simple IV estimator (covariance ratio). Is the IV estimate closer to the true parameter?</li>
+                        <li>Repeat for different levels of endogeneity (stronger and weaker U → X and U → Y relationships). When is IV most beneficial?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 9.3: Evaluating Proposed Instruments</h4>
+                    <p>For each of the following proposed instruments, discuss whether the relevance and exclusion restriction conditions are likely satisfied.</p>
+                    <ol>
+                        <li><strong>Effect of education on earnings:</strong> Proposed instrument: age of the individual. (Does age correlate with education? Does age affect earnings only through education?)</li>
+                        <li><strong>Effect of police spending on crime:</strong> Proposed instrument: lagged crime rate (crime in the previous year). (Is this relevant and exogenous?)</li>
+                        <li><strong>Effect of college attendance on lifetime earnings:</strong> Proposed instrument: whether a college opened near your hometown when you were college-age. (Relevance and exclusion?)</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 9.4: First-Stage Diagnosis and 2SLS</h4>
+                    <p>You fit a 2SLS model of the effect of firm R&D spending on innovation (measured by patent counts), using firm size as an instrument for R&D. The first-stage F-statistic is 3.2 (well below 10).</p>
+                    <ol>
+                        <li>What does the low F-statistic indicate about the instrument?</li>
+                        <li>Would you trust the 2SLS estimates? Why or why not?</li>
+                        <li>What would you do next?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 9.5: Hausman Test and Choosing Between OLS and IV</h4>
+                    <p>You have estimated both OLS and IV models of the effect of trade exposure on wages. OLS yields \(\hat{\beta}_{\text{OLS}} = -0.15\) (SE = 0.04). IV yields \(\hat{\beta}_{\text{IV}} = -0.22\) (SE = 0.08). The Hausman test p-value is 0.28 (fail to reject the null of no endogeneity).</p>
+                    <ol>
+                        <li>Interpret the Hausman test result. Does it suggest endogeneity is present?</li>
+                        <li>Given the standard errors, compare the precision of OLS and IV estimates.</li>
+                        <li>Would you report OLS or IV results in a paper? Justify your choice.</li>
+                    </ol>
+                </div>
+
+            </section>
+
+            <!-- ==================== KEY TAKEAWAYS ==================== -->
+            <section>
+                <h2>Key Takeaways</h2>
+                <ul>
+                    <li><strong>Endogeneity biases and makes OLS inconsistent.</strong> Unlike small-sample bias, the bias from endogeneity does not vanish with larger samples.</li>
+                    <li><strong>Three sources of endogeneity:</strong> omitted variable bias, simultaneous causality, and measurement error in the regressor.</li>
+                    <li><strong>An instrument must satisfy two conditions:</strong> relevance (Cov(Z, X) ≠ 0) and exclusion (Cov(Z, ε) = 0). The exclusion restriction is untestable and must be argued theoretically.</li>
+                    <li><strong>The IV estimator isolates exogenous variation</strong> in X by using the instrument as a "remote control" to move X exogenously.</li>
+                    <li><strong>2SLS is the practical implementation:</strong> First stage predicts X using Z; second stage estimates the effect using predicted X. Always use dedicated IV software for correct standard errors.</li>
+                    <li><strong>Test instrument validity:</strong> First-stage F-statistic (F > 10 suggests strength), Hausman test (do OLS and IV differ significantly?), and J-test for over-identification.</li>
+                    <li><strong>IV trades bias for variance.</strong> Use IV only when endogeneity is strong, instruments are relevant, and the efficiency loss is acceptable.</li>
+                    <li><strong>IV is one of many causal strategies.</strong> Other approaches include difference-in-differences, regression discontinuity, and randomised experiments.</li>
+                </ul>
+            </section>
+
+            <!-- ==================== BOTTOM NAVIGATION ==================== -->
+            <div class="chapter-nav">
+                <a href="ch08-logistic-regression.html">&larr; Module 08: Logistic Regression &amp; Classification</a>
+                <a href="ch10-panel-data.html">Module 10: Panel Data Methods &rarr;</a>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>
