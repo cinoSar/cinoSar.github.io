@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 4: Consumer Choice | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 140px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover {
+            background: var(--color-primary-dark);
+        }
+        .graph-controls button.active-toggle {
+            background: var(--color-primary-dark);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover {
+            color: var(--color-primary-dark);
+        }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 4: Consumer Choice</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 4</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#preferences">4.1 Preferences</a></li>
+                <li><a href="#utility">4.2 Utility Functions</a></li>
+                <li><a href="#budget">4.3 Budget Constraint</a></li>
+                <li><a href="#optimal-choice">4.4 Optimal Choice</a></li>
+                <li><a href="#special-cases">4.5 Special Cases</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: How Do Consumers Choose?</h2>
+                <p>You walk into a supermarket with £30 in your pocket. You fancy both pizza and beer, but you cannot afford unlimited amounts of either. Pizza costs £5, beer costs £3. How do you divide your budget? Do you buy six pizzas and no beer? Ten beers and no pizza? Some combination?</p>
+
+                <p>Most people would choose a mix &mdash; perhaps three pizzas and five beers. But <em>why</em> that particular combination? What principle guides the decision? And what happens to your choice if the price of beer doubles, or if you get a pay rise?</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>Consumer choice theory answers these questions by combining two building blocks: <strong>preferences</strong> (what consumers want) and the <strong>budget constraint</strong> (what they can afford). The optimal choice is the most-preferred bundle that fits within the budget. This framework is the foundation of the demand curve we studied in Chapter 2.</p>
+                </div>
+
+                <p>By the end of this chapter, you will understand how economists model preferences with indifference curves, how budget constraints limit choices, and how the optimal consumption bundle is determined &mdash; giving you the ability to predict how consumers respond to price and income changes.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#preferences">Preferences &amp; Indifference Curves</a> &mdash; what consumers want</li>
+                    <li><a href="#utility">Utility Functions</a> &mdash; a mathematical representation of preferences</li>
+                    <li><a href="#budget">The Budget Constraint</a> &mdash; what consumers can afford</li>
+                    <li><a href="#optimal-choice">Optimal Consumer Choice</a> &mdash; the tangency condition</li>
+                    <li><a href="#special-cases">Special Cases</a> &mdash; perfect substitutes, perfect complements, and corner solutions</li>
+                </ol>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- 4.1 PREFERENCES                               -->
+            <!-- ============================================ -->
+            <section id="preferences" class="lesson-section section-intuition">
+                <h2>4.1 Preferences and Indifference Curves</h2>
+
+                <h3>Intuition: Ranking Bundles</h3>
+                <p>A consumer's preferences are simply their ability to rank different bundles of goods. Given a choice between "3 pizzas + 5 beers" and "4 pizzas + 2 beers", you either prefer one to the other, or you are indifferent between them. Economists assume preferences have three properties:</p>
+
+                <div class="callout callout-definition">
+                    <h4>Assumptions about Preferences</h4>
+                    <p><strong>Completeness:</strong> For any two bundles A and B, the consumer can say "I prefer A", "I prefer B", or "I am indifferent." No bundle is unrankable.</p>
+                    <p><strong>Transitivity:</strong> If A is preferred to B and B is preferred to C, then A is preferred to C. Preferences are logically consistent.</p>
+                    <p><strong>More is better (non-satiation):</strong> Holding everything else constant, having more of a good is at least weakly preferred. A bundle with more pizza and the same amount of beer is at least as good.</p>
+                </div>
+
+                <p>An <strong>indifference curve</strong> connects all the bundles that give the consumer the same level of satisfaction. If you are equally happy with "6 pizzas + 1 beer" and "2 pizzas + 4 beers", both points lie on the same indifference curve.</p>
+
+                <p>Indifference curves have important properties: they slope downward (to keep satisfaction constant, gaining more of one good requires giving up some of the other), they cannot cross (which would violate transitivity), and higher curves represent higher satisfaction (more is better).</p>
+
+                <h3>Geometric Solution: The Indifference Map</h3>
+                <p>The interactive graph below shows an indifference map &mdash; a family of indifference curves representing different levels of satisfaction. Move the point along an indifference curve to see how the <strong>marginal rate of substitution</strong> (MRS) changes.</p>
+
+                <div class="interactive-graph" id="ic-container">
+                    <canvas id="icCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Position: <span class="value-display" id="icPosDisplay">Middle</span>
+                            <input type="range" id="icPosSlider" min="0.5" max="8" step="0.1" value="3">
+                        </label>
+                        <label>
+                            Utility level: <span class="value-display" id="icUtilDisplay">U = 9</span>
+                            <input type="range" id="icUtilSlider" min="4" max="25" step="1" value="9">
+                        </label>
+                        <button id="icResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="icInfo">
+                        Drag the position slider to move along the indifference curve. The slope at each point is the marginal rate of substitution (MRS).
+                    </div>
+                    <p class="graph-caption">Figure 4.1 &mdash; Indifference curves for Cobb-Douglas preferences \(U = q_1 \cdot q_2\). Higher curves represent greater satisfaction.</p>
+                </div>
+
+                <div class="callout callout-definition">
+                    <h4>Marginal Rate of Substitution (MRS)</h4>
+                    <p>The MRS is the rate at which a consumer is willing to trade one good for another while remaining equally satisfied. Geometrically, it is the <strong>slope of the indifference curve</strong> (in absolute value). The MRS typically <em>diminishes</em> as we move along an indifference curve: the more pizza you already have, the less beer you are willing to give up for yet another pizza.</p>
+                </div>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>Along an indifference curve, utility is constant: \(U(q_1, q_2) = \bar{U}\). Taking the total differential and setting it to zero:</p>
+
+                \[ dU = \frac{\partial U}{\partial q_1} dq_1 + \frac{\partial U}{\partial q_2} dq_2 = 0 \]
+
+                <p>Rearranging gives the MRS:</p>
+
+                \[ \text{MRS} = -\frac{dq_2}{dq_1} = \frac{\partial U / \partial q_1}{\partial U / \partial q_2} = \frac{MU_1}{MU_2} \]
+
+                <p>where \(MU_1\) and \(MU_2\) are the <strong>marginal utilities</strong> of goods 1 and 2. The MRS equals the ratio of marginal utilities.</p>
+
+                <p>For a Cobb-Douglas utility function \(U = q_1^a \cdot q_2^b\):</p>
+
+                \[ MU_1 = a \, q_1^{a-1} q_2^b, \quad MU_2 = b \, q_1^a q_2^{b-1} \]
+
+                \[ \text{MRS} = \frac{a \, q_1^{a-1} q_2^b}{b \, q_1^a q_2^{b-1}} = \frac{a}{b} \cdot \frac{q_2}{q_1} \]
+
+                <p>For \(U = q_1 \cdot q_2\) (where \(a = b = 1\)): \(\text{MRS} = q_2 / q_1\). At the point \((3, 3)\), the MRS is 1 &mdash; the consumer would trade pizza and beer one-for-one. At \((6, 1.5)\), the MRS is \(1.5/6 = 0.25\) &mdash; the consumer, flush with pizza, would give up only 0.25 beers for another pizza.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 4.2 UTILITY FUNCTIONS                         -->
+            <!-- ============================================ -->
+            <section id="utility" class="lesson-section section-intuition">
+                <h2>4.2 Utility Functions</h2>
+
+                <h3>Intuition: Putting a Number on Satisfaction</h3>
+                <p>An indifference curve tells us that certain bundles are equally good, but it does not tell us <em>how much</em> better one curve is than another. A <strong>utility function</strong> assigns a number to every bundle such that preferred bundles get higher numbers. It is a convenient mathematical shorthand for the entire preference ordering.</p>
+
+                <p>An important subtlety: the <em>level</em> of utility has no meaning in itself. Saying "bundle A gives utility 10 and bundle B gives utility 5" does <em>not</em> mean A is twice as good. It only means A is preferred. Any monotonic transformation of a utility function represents the same preferences &mdash; \(U\), \(2U + 7\), and \(\ln U\) all describe the same consumer.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Common Utility Functions</h4>
+                    <p><strong>Cobb-Douglas:</strong> \(U = q_1^a \, q_2^b\). Produces smooth, convex indifference curves. The consumer always buys some of both goods.</p>
+                    <p><strong>Perfect Substitutes:</strong> \(U = a \, q_1 + b \, q_2\). Straight-line indifference curves. The consumer views the goods as interchangeable (at rate \(a/b\)).</p>
+                    <p><strong>Perfect Complements (Leontief):</strong> \(U = \min(a \, q_1, \, b \, q_2)\). L-shaped indifference curves. The goods must be consumed in fixed proportions.</p>
+                </div>
+
+                <h3>Geometric Solution: Comparing Preference Types</h3>
+
+                <div class="interactive-graph" id="util-container">
+                    <canvas id="utilCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <button id="utilCobbBtn" class="active-toggle">Cobb-Douglas</button>
+                        <button id="utilSubsBtn">Perfect Substitutes</button>
+                        <button id="utilCompBtn">Perfect Complements</button>
+                        <button id="utilResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="utilInfo">
+                        Click the buttons to switch between different preference types and see how the shape of indifference curves changes.
+                    </div>
+                    <p class="graph-caption">Figure 4.2 &mdash; Three types of preferences produce characteristically different indifference curves.</p>
+                </div>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>The marginal utility of good \(i\) is the partial derivative of the utility function with respect to \(q_i\):</p>
+
+                \[ MU_i = \frac{\partial U}{\partial q_i} \]
+
+                <p>It measures the additional satisfaction from a small increase in the quantity of good \(i\), holding everything else constant. The <strong>law of diminishing marginal utility</strong> states that \(MU_i\) typically falls as \(q_i\) rises &mdash; the tenth slice of pizza is less satisfying than the first.</p>
+
+                <p>For Cobb-Douglas preferences \(U = q_1^{0.5} q_2^{0.5}\):</p>
+
+                \[ MU_1 = 0.5 \, q_1^{-0.5} q_2^{0.5} = \frac{0.5 \sqrt{q_2}}{\sqrt{q_1}} \]
+
+                <p>As \(q_1\) rises, \(MU_1\) falls &mdash; diminishing marginal utility in action.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 4.3 BUDGET CONSTRAINT                         -->
+            <!-- ============================================ -->
+            <section id="budget" class="lesson-section section-geometric">
+                <h2>4.3 The Budget Constraint</h2>
+
+                <h3>Intuition: What Can You Afford?</h3>
+                <p>Preferences tell us what the consumer <em>wants</em>; the budget constraint tells us what they <em>can have</em>. With income \(Y\) and prices \(p_1\) and \(p_2\), the consumer can afford any bundle \((q_1, q_2)\) such that total spending does not exceed income:</p>
+
+                \[ p_1 q_1 + p_2 q_2 \leq Y \]
+
+                <p>The boundary of this set &mdash; where the consumer spends every penny &mdash; is the <strong>budget line</strong>:</p>
+
+                \[ q_2 = \frac{Y}{p_2} - \frac{p_1}{p_2} q_1 \]
+
+                <p>This is a straight line with a vertical intercept of \(Y/p_2\) (spend everything on good 2), a horizontal intercept of \(Y/p_1\) (spend everything on good 1), and a slope of \(-p_1/p_2\) (the rate at which the market allows you to swap good 1 for good 2).</p>
+
+                <h3>Geometric Solution: Shifting and Rotating the Budget Line</h3>
+
+                <div class="interactive-graph" id="budget-container">
+                    <canvas id="budgetCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Income (Y): <span class="value-display" id="budgetYDisplay">£30</span>
+                            <input type="range" id="budgetYSlider" min="10" max="60" step="2" value="30">
+                        </label>
+                        <label>
+                            p₁ (pizza): <span class="value-display" id="budgetP1Display">£5</span>
+                            <input type="range" id="budgetP1Slider" min="2" max="10" step="0.5" value="5">
+                        </label>
+                        <label>
+                            p₂ (beer): <span class="value-display" id="budgetP2Display">£3</span>
+                            <input type="range" id="budgetP2Slider" min="1" max="8" step="0.5" value="3">
+                        </label>
+                        <button id="budgetResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="budgetInfo">
+                        Adjust income and prices to see how the budget line shifts and rotates. The shaded area is the affordable set.
+                    </div>
+                    <p class="graph-caption">Figure 4.3 &mdash; The budget constraint. Changes in income shift the line; changes in a price rotate it.</p>
+                </div>
+
+                <p>Notice the effects: increasing income shifts the budget line <strong>outward</strong> (parallel shift &mdash; same slope, more affordable bundles). Increasing the price of good 1 <strong>rotates</strong> the line inward around the vertical intercept (you can buy less of good 1, but the maximum of good 2 is unchanged). The slope steepens because good 1 has become relatively more expensive.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>The budget line in our pizza-and-beer example with \(Y = 30\), \(p_1 = 5\), \(p_2 = 3\):</p>
+
+                \[ q_2 = \frac{30}{3} - \frac{5}{3} q_1 = 10 - \frac{5}{3} q_1 \]
+
+                <p>The slope is \(-p_1/p_2 = -5/3 \approx -1.67\). This means the <strong>opportunity cost</strong> of one pizza is 5/3 beers &mdash; the market rate at which the consumer can trade beer for pizza. The vertical intercept is 10 (buy only beer) and the horizontal intercept is 6 (buy only pizza).</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The Slope Is the Opportunity Cost</h4>
+                    <p>The slope of the budget line, \(-p_1/p_2\), is the rate at which the <em>market</em> allows you to substitute one good for another. The MRS is the rate at which you are <em>willing</em> to substitute. The optimal choice is where these two rates are equal &mdash; we shall see this in the next section.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 4.4 OPTIMAL CHOICE                            -->
+            <!-- ============================================ -->
+            <section id="optimal-choice" class="lesson-section section-geometric">
+                <h2>4.4 Optimal Consumer Choice</h2>
+
+                <h3>Intuition: The Best You Can Afford</h3>
+                <p>The consumer wants to reach the highest possible indifference curve while staying within the budget constraint. Visually, imagine sliding the indifference curve outward from the origin until it just touches the budget line. That point of tangency is the optimal bundle.</p>
+
+                <p>At the optimum, the slope of the indifference curve (MRS) equals the slope of the budget line (price ratio). If they were not equal, the consumer could rearrange their spending and do better:</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The Tangency Condition</h4>
+                    <p>If \(\text{MRS} > p_1/p_2\), the consumer values good 1 more than the market does. They should buy more of good 1 and less of good 2. If \(\text{MRS} < p_1/p_2\), the reverse. The optimal interior solution satisfies:</p>
+                    <p>\[ \text{MRS} = \frac{MU_1}{MU_2} = \frac{p_1}{p_2} \]</p>
+                    <p>or equivalently: \(\dfrac{MU_1}{p_1} = \dfrac{MU_2}{p_2}\) &mdash; the <strong>marginal utility per pound</strong> spent must be equal across all goods.</p>
+                </div>
+
+                <h3>Geometric Solution: Finding the Tangency</h3>
+
+                <div class="interactive-graph" id="optimal-container">
+                    <canvas id="optimalCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Income (Y): <span class="value-display" id="optYDisplay">£30</span>
+                            <input type="range" id="optYSlider" min="10" max="60" step="2" value="30">
+                        </label>
+                        <label>
+                            p₁ (pizza): <span class="value-display" id="optP1Display">£5</span>
+                            <input type="range" id="optP1Slider" min="2" max="10" step="0.5" value="5">
+                        </label>
+                        <label>
+                            p₂ (beer): <span class="value-display" id="optP2Display">£3</span>
+                            <input type="range" id="optP2Slider" min="1" max="8" step="0.5" value="3">
+                        </label>
+                        <button id="optResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="optInfo">
+                        Adjust income and prices to see how the optimal bundle changes. The green dot marks the tangency point.
+                    </div>
+                    <p class="graph-caption">Figure 4.4 &mdash; Optimal consumer choice. The highest attainable indifference curve is tangent to the budget line.</p>
+                </div>
+
+                <p>As you adjust the sliders, watch how the optimal point moves. Increasing income shifts the budget line out and allows the consumer to reach a higher indifference curve. Increasing the price of pizza rotates the budget line and the consumer substitutes toward beer.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>For Cobb-Douglas preferences \(U = q_1 \cdot q_2\), the MRS is \(q_2/q_1\). The tangency condition is:</p>
+
+                \[ \frac{q_2}{q_1} = \frac{p_1}{p_2} \quad \Rightarrow \quad q_2 = \frac{p_1}{p_2} q_1 \]
+
+                <p>Substituting into the budget constraint \(p_1 q_1 + p_2 q_2 = Y\):</p>
+
+                \[ p_1 q_1 + p_2 \cdot \frac{p_1}{p_2} q_1 = Y \quad \Rightarrow \quad 2 p_1 q_1 = Y \quad \Rightarrow \quad q_1^* = \frac{Y}{2p_1} \]
+
+                \[ q_2^* = \frac{Y}{2p_2} \]
+
+                <p>A beautiful result: with these preferences, the consumer spends exactly <strong>half</strong> their income on each good, regardless of prices. With \(Y = 30\), \(p_1 = 5\), \(p_2 = 3\):</p>
+
+                \[ q_1^* = \frac{30}{2 \times 5} = 3, \quad q_2^* = \frac{30}{2 \times 3} = 5 \]
+
+                <p>The optimal bundle is 3 pizzas and 5 beers, confirming our intuition from the opening example. The utility achieved is \(U^* = 3 \times 5 = 15\).</p>
+
+                <div class="callout callout-example">
+                    <h4>Example: A Price Increase</h4>
+                    <p>If the price of pizza rises to \(p_1 = 10\), the new optimum is \(q_1^* = 30/(2 \times 10) = 1.5\), \(q_2^* = 30/(2 \times 3) = 5\). The consumer halves their pizza consumption but their beer consumption is unchanged. With Cobb-Douglas preferences, a price change in one good does not affect the quantity of the other &mdash; the income share stays fixed at 50%.</p>
+                </div>
+
+                <p>More generally, for \(U = q_1^a q_2^b\), the optimal demands are:</p>
+
+                \[ q_1^* = \frac{a}{a+b} \cdot \frac{Y}{p_1}, \qquad q_2^* = \frac{b}{a+b} \cdot \frac{Y}{p_2} \]
+
+                <p>The consumer allocates a fraction \(a/(a+b)\) of income to good 1 and \(b/(a+b)\) to good 2. The exponents determine the budget shares.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 4.5 SPECIAL CASES                             -->
+            <!-- ============================================ -->
+            <section id="special-cases" class="lesson-section section-mathematical">
+                <h2>4.5 Special Cases: Corner Solutions and Non-Standard Preferences</h2>
+
+                <h3>Intuition: When the Tangency Rule Breaks Down</h3>
+                <p>The tangency condition works beautifully for smooth, convex indifference curves (like Cobb-Douglas). But some preferences produce solutions where the consumer buys <em>only</em> one good &mdash; a <strong>corner solution</strong> &mdash; rather than a mix.</p>
+
+                <p>Consider a consumer choosing between Coca-Cola and Pepsi. If they view them as identical, they will buy whichever is cheaper &mdash; all Coke or all Pepsi, never a mix. Their indifference curves are straight lines (<strong>perfect substitutes</strong>), and the tangency rule cannot apply because the budget line either has the same slope (any mix is optimal) or a different slope (corner solution).</p>
+
+                <p>Now consider left shoes and right shoes. Having 5 left shoes and 2 right shoes is no better than having 2 of each &mdash; the extra left shoes are useless. The goods must be consumed in fixed proportions (<strong>perfect complements</strong>), producing L-shaped indifference curves. The optimum is always at the kink of the L.</p>
+
+                <h3>Geometric Solution: Special Preferences</h3>
+
+                <div class="interactive-graph" id="special-container">
+                    <canvas id="specialCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <button id="spSubsBtn">Perfect Substitutes</button>
+                        <button id="spCompBtn" class="active-toggle">Perfect Complements</button>
+                        <label>
+                            p₁: <span class="value-display" id="spP1Display">£5</span>
+                            <input type="range" id="spP1Slider" min="2" max="10" step="0.5" value="5">
+                        </label>
+                        <button id="spResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="spInfo">
+                        Toggle between perfect substitutes and perfect complements to see how the optimal choice differs from the Cobb-Douglas tangency.
+                    </div>
+                    <p class="graph-caption">Figure 4.5 &mdash; Corner solutions (perfect substitutes) and kink solutions (perfect complements).</p>
+                </div>
+
+                <h3>Mathematical Formalisation</h3>
+                <p><strong>Perfect Substitutes:</strong> \(U = a \, q_1 + b \, q_2\). The MRS is the constant \(a/b\). If \(a/b > p_1/p_2\), the consumer values good 1 more than the market does and buys <em>only</em> good 1: \(q_1^* = Y/p_1\). If \(a/b < p_1/p_2\), they buy only good 2. If \(a/b = p_1/p_2\), any point on the budget line is optimal.</p>
+
+                <p>For \(U = q_1 + q_2\) with \(p_1 = 5, p_2 = 3, Y = 30\): \(a/b = 1\) and \(p_1/p_2 = 5/3 \approx 1.67\). Since \(1 < 1.67\), good 2 gives more utility per pound. Solution: \(q_1^* = 0, \, q_2^* = 10\).</p>
+
+                <p><strong>Perfect Complements:</strong> \(U = \min(a \, q_1, \, b \, q_2)\). The optimum is where \(a \, q_1 = b \, q_2\), i.e. \(q_2 = (a/b) q_1\). Substituting into the budget constraint:</p>
+
+                \[ p_1 q_1 + p_2 \frac{a}{b} q_1 = Y \quad \Rightarrow \quad q_1^* = \frac{Y}{p_1 + p_2 (a/b)} \]
+
+                <p>For \(U = \min(q_1, q_2)\) (one-to-one proportions) with \(p_1 = 5, p_2 = 3, Y = 30\):</p>
+
+                \[ q_1^* = q_2^* = \frac{30}{5 + 3} = 3.75 \]
+
+                <p>The consumer buys 3.75 of each, spending the entire budget to consume the goods in equal proportions.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>In this chapter, we developed the theory of consumer choice &mdash; the framework that lies behind the demand curve.</p>
+
+                <p><strong>Preferences</strong> are represented by indifference curves: bundles on the same curve give equal satisfaction, and higher curves are preferred. The slope of an indifference curve is the <strong>marginal rate of substitution</strong> (MRS), which typically diminishes as we move along the curve. A <strong>utility function</strong> assigns numbers to bundles in a way that respects the preference ordering, and the MRS equals the ratio of marginal utilities.</p>
+
+                <p>The <strong>budget constraint</strong> limits the consumer's choices. Its slope, \(-p_1/p_2\), reflects the market rate at which goods can be exchanged. Income changes shift the line; price changes rotate it.</p>
+
+                <p>The <strong>optimal choice</strong> is the point of tangency between the highest attainable indifference curve and the budget line, where \(\text{MRS} = p_1/p_2\). Equivalently, the marginal utility per pound must be equal across all goods. For Cobb-Douglas preferences, the consumer allocates fixed shares of income to each good.</p>
+
+                <p><strong>Special cases</strong> require different solution methods: perfect substitutes typically produce corner solutions; perfect complements produce kink solutions at fixed proportions.</p>
+
+                <p>In the next chapter, we apply this theory to derive the demand curve from first principles, decompose the effect of a price change into substitution and income effects, and measure consumer welfare.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch3-applying-supply-and-demand.html">&larr; Chapter 3: Applying Supply and Demand</a>
+                <span style="color: var(--color-text-lighter);">Chapter 5: Applying Consumer Theory &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        const LIGHT_COLORS = {
+            demand: '#3b82f6', supply: '#ef4444', equilibrium: '#0a9396',
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff', ic1: '#8b5cf6', ic2: '#a78bfa', ic3: '#c4b5fd',
+            budget: '#0a9396', budgetFill: 'rgba(10, 147, 150, 0.08)',
+            optimal: '#10b981', optimalGlow: 'rgba(16, 185, 129, 0.3)',
+            tangentLine: '#f59e0b', mrsArrow: '#ef4444',
+            subsLine: '#3b82f6', compLine: '#ef4444'
+        };
+
+        const DARK_COLORS = {
+            demand: '#60a5fa', supply: '#f87171', equilibrium: '#2ec4c8',
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#808080',
+            canvasBg: '#2d2d2d', ic1: '#a78bfa', ic2: '#c4b5fd', ic3: '#ddd6fe',
+            budget: '#2ec4c8', budgetFill: 'rgba(46, 196, 200, 0.1)',
+            optimal: '#34d399', optimalGlow: 'rgba(52, 211, 153, 0.35)',
+            tangentLine: '#fbbf24', mrsArrow: '#f87171',
+            subsLine: '#60a5fa', compLine: '#f87171'
+        };
+
+        const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        let C = darkMQ.matches ? DARK_COLORS : LIGHT_COLORS;
+        darkMQ.addEventListener('change', e => { C = e.matches ? DARK_COLORS : LIGHT_COLORS; redrawAll(); });
+
+        function getCtx(id) {
+            const cv = document.getElementById(id);
+            const dpr = window.devicePixelRatio || 1;
+            const r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            const ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx, w: r.width, h: r.height };
+        }
+
+        const M = { top: 30, right: 30, bottom: 50, left: 60 };
+
+        function tp(q1, q2, gw, gh, q1Max, q2Max) {
+            return { x: M.left + (q1 / q1Max) * gw, y: M.top + (1 - q2 / q2Max) * gh };
+        }
+
+        function drawAx(ctx, w, h, gw, gh, q1Max, q2Max, lbl1, lbl2) {
+            ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            for (let v = 0; v <= q2Max; v += 2) {
+                const p = tp(0, v, gw, gh, q1Max, q2Max);
+                ctx.beginPath(); ctx.moveTo(M.left, p.y); ctx.lineTo(M.left + gw, p.y); ctx.stroke();
+            }
+            for (let v = 0; v <= q1Max; v += 2) {
+                const p = tp(v, 0, gw, gh, q1Max, q2Max);
+                ctx.beginPath(); ctx.moveTo(p.x, M.top); ctx.lineTo(p.x, M.top + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(M.left, M.top); ctx.lineTo(M.left, M.top + gh); ctx.lineTo(M.left + gw, M.top + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '13px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(lbl1 || 'q₁ (pizza)', M.left + gw / 2, h - 8);
+            ctx.save(); ctx.translate(15, M.top + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(lbl2 || 'q₂ (beer)', 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (let v = 0; v <= q1Max; v += 2) { const p = tp(v, 0, gw, gh, q1Max, q2Max); ctx.fillText(v, p.x, M.top + gh + 5); }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (let v = 0; v <= q2Max; v += 2) { const p = tp(0, v, gw, gh, q1Max, q2Max); ctx.fillText(v, M.left - 8, p.y); }
+        }
+
+        function drawIC(ctx, gw, gh, q1Max, q2Max, U, color, label, dashed) {
+            ctx.strokeStyle = color; ctx.lineWidth = 2.5;
+            if (dashed) ctx.setLineDash([6, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); let started = false;
+            for (let q1 = 0.1; q1 <= q1Max; q1 += 0.1) {
+                const q2 = U / q1;
+                if (q2 < 0 || q2 > q2Max) continue;
+                const p = tp(q1, q2, gw, gh, q1Max, q2Max);
+                if (!started) { ctx.moveTo(p.x, p.y); started = true; } else ctx.lineTo(p.x, p.y);
+            }
+            ctx.stroke(); ctx.setLineDash([]);
+            if (label) {
+                const lq1 = Math.sqrt(U * 0.85 * q1Max / q2Max);
+                const lq2 = U / lq1;
+                if (lq1 > 0 && lq1 < q1Max && lq2 > 0 && lq2 < q2Max) {
+                    const p = tp(lq1, lq2, gw, gh, q1Max, q2Max);
+                    ctx.fillStyle = color; ctx.font = '12px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.fillText(label, p.x + 5, p.y - 5);
+                }
+            }
+        }
+
+        function drawDot(ctx, q1, q2, gw, gh, q1Max, q2Max, color, r) {
+            const p = tp(q1, q2, gw, gh, q1Max, q2Max);
+            ctx.beginPath(); ctx.arc(p.x, p.y, r || 5, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+        }
+
+        function drawDashed(ctx, q1, q2, gw, gh, q1Max, q2Max, color) {
+            const p = tp(q1, q2, gw, gh, q1Max, q2Max);
+            const ya = tp(0, q2, gw, gh, q1Max, q2Max);
+            const xa = tp(q1, 0, gw, gh, q1Max, q2Max);
+            ctx.strokeStyle = color || C.text; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(ya.x, p.y); ctx.lineTo(p.x, p.y); ctx.lineTo(p.x, xa.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        // ============================================================
+        // GRAPH 1: INDIFFERENCE CURVES & MRS
+        // ============================================================
+        (function() {
+            const posSlider = document.getElementById('icPosSlider');
+            const posDisplay = document.getElementById('icPosDisplay');
+            const utilSlider = document.getElementById('icUtilSlider');
+            const utilDisplay = document.getElementById('icUtilDisplay');
+            const info = document.getElementById('icInfo');
+            const resetBtn = document.getElementById('icResetBtn');
+            const q1Max = 12, q2Max = 14;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('icCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAx(ctx, w, h, gw, gh, q1Max, q2Max);
+
+                const Uactive = parseInt(utilSlider.value);
+                utilDisplay.textContent = 'U = ' + Uactive;
+
+                // Background ICs
+                const levels = [4, 9, 16, 25];
+                levels.forEach(u => {
+                    const isActive = u === Uactive;
+                    const color = isActive ? C.ic1 : C.ic3;
+                    drawIC(ctx, gw, gh, q1Max, q2Max, u, color, 'U=' + u, !isActive);
+                });
+                if (!levels.includes(Uactive)) {
+                    drawIC(ctx, gw, gh, q1Max, q2Max, Uactive, C.ic1, 'U=' + Uactive, false);
+                }
+
+                // Point on active IC
+                const q1 = parseFloat(posSlider.value);
+                const q2 = Uactive / q1;
+                if (q2 > 0 && q2 <= q2Max) {
+                    const mrs = q2 / q1;
+
+                    // Tangent line at point
+                    const tLen = 2.5;
+                    const slope = -mrs;
+                    const t1a = q1 - tLen, t2a = q2 - slope * (- tLen);
+                    const t1b = q1 + tLen, t2b = q2 + slope * tLen;
+                    const pa = tp(Math.max(0, t1a), Math.max(0, t2a), gw, gh, q1Max, q2Max);
+                    const pb = tp(Math.min(q1Max, t1b), Math.max(0, t2b), gw, gh, q1Max, q2Max);
+                    ctx.strokeStyle = C.tangentLine; ctx.lineWidth = 1.5; ctx.setLineDash([5, 3]);
+                    ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    // MRS label near tangent
+                    const lp = tp(q1 + 1.5, q2 - mrs * 1.5, gw, gh, q1Max, q2Max);
+                    ctx.fillStyle = C.tangentLine; ctx.font = 'bold 12px -apple-system, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('MRS = ' + mrs.toFixed(2), lp.x, lp.y);
+
+                    drawDashed(ctx, q1, q2, gw, gh, q1Max, q2Max, C.ic1);
+                    drawDot(ctx, q1, q2, gw, gh, q1Max, q2Max, C.ic1, 7);
+
+                    posDisplay.textContent = `(${q1.toFixed(1)}, ${q2.toFixed(1)})`;
+                    info.textContent = `Bundle (${q1.toFixed(1)}, ${q2.toFixed(1)}) on U = ${Uactive}. MRS = ${mrs.toFixed(2)} — the consumer would give up ${mrs.toFixed(2)} beers for one more pizza.` +
+                        (mrs > 1.05 ? ' MRS > 1: beer-rich, willing to trade beer generously for pizza.' :
+                         mrs < 0.95 ? ' MRS < 1: pizza-rich, reluctant to give up beer.' : ' MRS ≈ 1: equally willing to trade either way.');
+                } else {
+                    posDisplay.textContent = 'Out of range';
+                    info.textContent = 'Move the position slider to a valid range on this indifference curve.';
+                }
+            }
+
+            posSlider.addEventListener('input', draw);
+            utilSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { posSlider.value = 3; utilSlider.value = 9; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 2: UTILITY FUNCTION TYPES
+        // ============================================================
+        (function() {
+            const cobbBtn = document.getElementById('utilCobbBtn');
+            const subsBtn = document.getElementById('utilSubsBtn');
+            const compBtn = document.getElementById('utilCompBtn');
+            const resetBtn = document.getElementById('utilResetBtn');
+            const info = document.getElementById('utilInfo');
+            let mode = 'cobb';
+            const q1Max = 12, q2Max = 14;
+
+            function setActive(m) {
+                mode = m;
+                cobbBtn.className = m === 'cobb' ? 'active-toggle' : '';
+                subsBtn.className = m === 'subs' ? 'active-toggle' : '';
+                compBtn.className = m === 'comp' ? 'active-toggle' : '';
+                draw();
+            }
+
+            function draw() {
+                const { ctx, w, h } = getCtx('utilCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAx(ctx, w, h, gw, gh, q1Max, q2Max);
+
+                if (mode === 'cobb') {
+                    [4, 9, 16, 25].forEach((u, i) => {
+                        drawIC(ctx, gw, gh, q1Max, q2Max, u, i === 0 ? C.ic3 : i === 1 ? C.ic2 : C.ic1, 'U=' + u);
+                    });
+                    info.textContent = 'Cobb-Douglas: U = q₁·q₂. Smooth, convex curves. The consumer always buys a mix of both goods.';
+                } else if (mode === 'subs') {
+                    // U = q1 + q2 => q2 = U - q1 (straight lines)
+                    [3, 6, 9, 12].forEach((u, i) => {
+                        const color = i < 2 ? C.ic3 : C.ic1;
+                        ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                        ctx.beginPath();
+                        const pa = tp(0, Math.min(u, q2Max), gw, gh, q1Max, q2Max);
+                        const pb = tp(Math.min(u, q1Max), Math.max(0, u - q1Max), gw, gh, q1Max, q2Max);
+                        ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
+                        ctx.fillStyle = color; ctx.font = '12px -apple-system, sans-serif';
+                        ctx.textAlign = 'left';
+                        if (u <= q1Max) ctx.fillText('U=' + u, pb.x + 3, pb.y - 5);
+                    });
+                    info.textContent = 'Perfect Substitutes: U = q₁ + q₂. Straight-line ICs with constant MRS = 1. The consumer buys only the cheaper good (corner solution).';
+                } else {
+                    // U = min(q1, q2) => L-shaped at q1 = q2
+                    [2, 4, 6, 8].forEach((u, i) => {
+                        const color = i < 2 ? C.ic3 : C.ic1;
+                        ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                        // Vertical part: q1 = u, q2 from u to q2Max
+                        const pKink = tp(u, u, gw, gh, q1Max, q2Max);
+                        const pUp = tp(u, q2Max, gw, gh, q1Max, q2Max);
+                        const pRight = tp(q1Max, u, gw, gh, q1Max, q2Max);
+                        ctx.beginPath(); ctx.moveTo(pUp.x, pUp.y); ctx.lineTo(pKink.x, pKink.y); ctx.lineTo(pRight.x, pRight.y); ctx.stroke();
+                        ctx.fillStyle = color; ctx.font = '12px -apple-system, sans-serif';
+                        ctx.textAlign = 'left';
+                        ctx.fillText('U=' + u, pKink.x + 5, pKink.y - 5);
+                    });
+                    info.textContent = 'Perfect Complements: U = min(q₁, q₂). L-shaped ICs. Extra units of one good without the other add no utility. Optimum is at the kink.';
+                }
+            }
+
+            cobbBtn.addEventListener('click', () => setActive('cobb'));
+            subsBtn.addEventListener('click', () => setActive('subs'));
+            compBtn.addEventListener('click', () => setActive('comp'));
+            resetBtn.addEventListener('click', () => setActive('cobb'));
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 3: BUDGET CONSTRAINT
+        // ============================================================
+        (function() {
+            const ySlider = document.getElementById('budgetYSlider');
+            const yDisplay = document.getElementById('budgetYDisplay');
+            const p1Slider = document.getElementById('budgetP1Slider');
+            const p1Display = document.getElementById('budgetP1Display');
+            const p2Slider = document.getElementById('budgetP2Slider');
+            const p2Display = document.getElementById('budgetP2Display');
+            const info = document.getElementById('budgetInfo');
+            const resetBtn = document.getElementById('budgetResetBtn');
+            const q1Max = 16, q2Max = 22;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('budgetCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAx(ctx, w, h, gw, gh, q1Max, q2Max);
+
+                const Y = parseFloat(ySlider.value);
+                const p1 = parseFloat(p1Slider.value);
+                const p2 = parseFloat(p2Slider.value);
+                yDisplay.textContent = '£' + Y;
+                p1Display.textContent = '£' + p1.toFixed(1);
+                p2Display.textContent = '£' + p2.toFixed(1);
+
+                const q1Int = Y / p1;
+                const q2Int = Y / p2;
+
+                // Reference budget line (Y=30, p1=5, p2=3)
+                if (Y !== 30 || p1 !== 5 || p2 !== 3) {
+                    const rq1 = 30 / 5, rq2 = 30 / 3;
+                    const pa = tp(0, Math.min(rq2, q2Max), gw, gh, q1Max, q2Max);
+                    const pb = tp(Math.min(rq1, q1Max), 0, gw, gh, q1Max, q2Max);
+                    ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                    ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                // Affordable set (fill)
+                const pa = tp(0, Math.min(q2Int, q2Max), gw, gh, q1Max, q2Max);
+                const pb = tp(Math.min(q1Int, q1Max), Math.max(0, q2Int - (p1 / p2) * q1Max), gw, gh, q1Max, q2Max);
+                const origin = tp(0, 0, gw, gh, q1Max, q2Max);
+                ctx.fillStyle = C.budgetFill;
+                ctx.beginPath();
+                ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y);
+                if (q1Int < q1Max && q2Int < q2Max) {
+                    ctx.lineTo(tp(q1Int, 0, gw, gh, q1Max, q2Max).x, tp(q1Int, 0, gw, gh, q1Max, q2Max).y);
+                    ctx.lineTo(origin.x, origin.y);
+                } else {
+                    ctx.lineTo(origin.x, origin.y);
+                }
+                ctx.closePath(); ctx.fill();
+
+                // Budget line
+                ctx.strokeStyle = C.budget; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
+
+                // Intercept dots
+                if (q2Int <= q2Max) drawDot(ctx, 0, q2Int, gw, gh, q1Max, q2Max, C.budget, 5);
+                if (q1Int <= q1Max) drawDot(ctx, q1Int, 0, gw, gh, q1Max, q2Max, C.budget, 5);
+
+                // Labels
+                ctx.fillStyle = C.budget; ctx.font = '12px -apple-system, sans-serif';
+                if (q2Int <= q2Max) {
+                    const lp = tp(0, q2Int, gw, gh, q1Max, q2Max);
+                    ctx.textAlign = 'left'; ctx.fillText(q2Int.toFixed(1), lp.x + 5, lp.y - 8);
+                }
+                if (q1Int <= q1Max) {
+                    const lp = tp(q1Int, 0, gw, gh, q1Max, q2Max);
+                    ctx.textAlign = 'center'; ctx.fillText(q1Int.toFixed(1), lp.x, lp.y - 10);
+                }
+
+                // Slope label
+                const midQ1 = q1Int / 2;
+                const midQ2 = q2Int - (p1 / p2) * midQ1;
+                if (midQ1 > 0 && midQ1 < q1Max && midQ2 > 0 && midQ2 < q2Max) {
+                    const mp = tp(midQ1, midQ2, gw, gh, q1Max, q2Max);
+                    ctx.fillStyle = C.budget; ctx.font = 'bold 12px -apple-system, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('slope = −' + (p1 / p2).toFixed(2), mp.x + 8, mp.y - 8);
+                }
+
+                info.textContent = `Y = £${Y}, p₁ = £${p1.toFixed(1)}, p₂ = £${p2.toFixed(1)}. Budget line: q₂ = ${q2Int.toFixed(1)} − ${(p1/p2).toFixed(2)}·q₁. Slope = −${(p1/p2).toFixed(2)} (opportunity cost of 1 pizza = ${(p1/p2).toFixed(2)} beers).`;
+            }
+
+            ySlider.addEventListener('input', draw);
+            p1Slider.addEventListener('input', draw);
+            p2Slider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { ySlider.value = 30; p1Slider.value = 5; p2Slider.value = 3; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 4: OPTIMAL CHOICE (TANGENCY)
+        // ============================================================
+        (function() {
+            const ySlider = document.getElementById('optYSlider');
+            const yDisplay = document.getElementById('optYDisplay');
+            const p1Slider = document.getElementById('optP1Slider');
+            const p1Display = document.getElementById('optP1Display');
+            const p2Slider = document.getElementById('optP2Slider');
+            const p2Display = document.getElementById('optP2Display');
+            const info = document.getElementById('optInfo');
+            const resetBtn = document.getElementById('optResetBtn');
+            const q1Max = 16, q2Max = 22;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('optimalCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAx(ctx, w, h, gw, gh, q1Max, q2Max);
+
+                const Y = parseFloat(ySlider.value);
+                const p1 = parseFloat(p1Slider.value);
+                const p2 = parseFloat(p2Slider.value);
+                yDisplay.textContent = '£' + Y;
+                p1Display.textContent = '£' + p1.toFixed(1);
+                p2Display.textContent = '£' + p2.toFixed(1);
+
+                // Optimal bundle (Cobb-Douglas U = q1*q2, equal shares)
+                const q1Star = Y / (2 * p1);
+                const q2Star = Y / (2 * p2);
+                const Ustar = q1Star * q2Star;
+
+                // Draw several ICs
+                const icLevels = [Ustar * 0.3, Ustar * 0.6, Ustar, Ustar * 1.5];
+                icLevels.forEach((u, i) => {
+                    const isOpt = Math.abs(u - Ustar) < 0.01;
+                    drawIC(ctx, gw, gh, q1Max, q2Max, u, isOpt ? C.ic1 : C.ic3,
+                        isOpt ? 'U*=' + Ustar.toFixed(1) : '', !isOpt);
+                });
+
+                // Budget line
+                const q1Int = Y / p1;
+                const q2Int = Y / p2;
+                const pa = tp(0, Math.min(q2Int, q2Max), gw, gh, q1Max, q2Max);
+                const pb = tp(Math.min(q1Int, q1Max), Math.max(0, q2Int - (p1/p2)*q1Max), gw, gh, q1Max, q2Max);
+
+                // Fill affordable set
+                const origin = tp(0, 0, gw, gh, q1Max, q2Max);
+                ctx.fillStyle = C.budgetFill;
+                ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y);
+                ctx.lineTo(q1Int < q1Max ? tp(q1Int, 0, gw, gh, q1Max, q2Max).x : pb.x, origin.y);
+                ctx.lineTo(origin.x, origin.y); ctx.closePath(); ctx.fill();
+
+                ctx.strokeStyle = C.budget; ctx.lineWidth = 2.5;
+                ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
+
+                // Dashed lines from optimal point
+                drawDashed(ctx, q1Star, q2Star, gw, gh, q1Max, q2Max, C.optimal);
+
+                // Optimal dot with glow
+                const op = tp(q1Star, q2Star, gw, gh, q1Max, q2Max);
+                ctx.beginPath(); ctx.arc(op.x, op.y, 12, 0, 2 * Math.PI);
+                ctx.fillStyle = C.optimalGlow; ctx.fill();
+                drawDot(ctx, q1Star, q2Star, gw, gh, q1Max, q2Max, C.optimal, 7);
+
+                // Label
+                ctx.fillStyle = C.optimal; ctx.font = 'bold 13px -apple-system, sans-serif';
+                ctx.textAlign = 'left';
+                ctx.fillText(`(${q1Star.toFixed(1)}, ${q2Star.toFixed(1)})`, op.x + 12, op.y - 5);
+
+                const mrs = q2Star / q1Star;
+                const priceRatio = p1 / p2;
+                info.textContent = `Optimal: q₁* = ${q1Star.toFixed(1)} pizzas, q₂* = ${q2Star.toFixed(1)} beers. U* = ${Ustar.toFixed(1)}. MRS = ${mrs.toFixed(2)} = p₁/p₂ = ${priceRatio.toFixed(2)} ✓. Spending: £${(p1*q1Star).toFixed(0)} on pizza, £${(p2*q2Star).toFixed(0)} on beer (50% each).`;
+            }
+
+            ySlider.addEventListener('input', draw);
+            p1Slider.addEventListener('input', draw);
+            p2Slider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { ySlider.value = 30; p1Slider.value = 5; p2Slider.value = 3; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 5: SPECIAL CASES
+        // ============================================================
+        (function() {
+            const subsBtn = document.getElementById('spSubsBtn');
+            const compBtn = document.getElementById('spCompBtn');
+            const p1Slider = document.getElementById('spP1Slider');
+            const p1Display = document.getElementById('spP1Display');
+            const info = document.getElementById('spInfo');
+            const resetBtn = document.getElementById('spResetBtn');
+            let mode = 'comp';
+            const q1Max = 12, q2Max = 14;
+            const Y = 30, p2 = 3;
+
+            function setMode(m) {
+                mode = m;
+                subsBtn.className = m === 'subs' ? 'active-toggle' : '';
+                compBtn.className = m === 'comp' ? 'active-toggle' : '';
+                draw();
+            }
+
+            function draw() {
+                const { ctx, w, h } = getCtx('specialCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAx(ctx, w, h, gw, gh, q1Max, q2Max);
+
+                const p1 = parseFloat(p1Slider.value);
+                p1Display.textContent = '£' + p1.toFixed(1);
+
+                const q1Int = Y / p1;
+                const q2Int = Y / p2;
+
+                // Budget line
+                const pa = tp(0, Math.min(q2Int, q2Max), gw, gh, q1Max, q2Max);
+                const pb = tp(Math.min(q1Int, q1Max), Math.max(0, q2Int - (p1 / p2) * Math.min(q1Int, q1Max)), gw, gh, q1Max, q2Max);
+                ctx.fillStyle = C.budgetFill;
+                ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y);
+                const origin = tp(0, 0, gw, gh, q1Max, q2Max);
+                ctx.lineTo(q1Int < q1Max ? tp(q1Int, 0, gw, gh, q1Max, q2Max).x : pb.x, origin.y);
+                ctx.lineTo(origin.x, origin.y); ctx.closePath(); ctx.fill();
+                ctx.strokeStyle = C.budget; ctx.lineWidth = 2.5;
+                ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
+
+                if (mode === 'subs') {
+                    // U = q1 + q2. MRS = 1. Price ratio = p1/p2.
+                    const priceRatio = p1 / p2;
+
+                    // Draw a few ICs
+                    [3, 6, 9, 12].forEach((u, i) => {
+                        const color = C.ic3;
+                        ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.setLineDash([]);
+                        ctx.beginPath();
+                        const a = tp(0, Math.min(u, q2Max), gw, gh, q1Max, q2Max);
+                        const b = tp(Math.min(u, q1Max), Math.max(0, u - q1Max), gw, gh, q1Max, q2Max);
+                        ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                    });
+
+                    // Optimal IC
+                    let q1Star, q2Star, Ustar;
+                    if (priceRatio > 1) {
+                        // Good 2 is cheaper per util: buy only good 2
+                        q1Star = 0; q2Star = q2Int; Ustar = q2Star;
+                    } else if (priceRatio < 1) {
+                        // Good 1 is cheaper per util
+                        q1Star = q1Int; q2Star = 0; Ustar = q1Star;
+                    } else {
+                        // Indifferent: show midpoint
+                        q1Star = q1Int / 2; q2Star = q2Int / 2; Ustar = q1Star + q2Star;
+                    }
+
+                    // Draw optimal IC
+                    ctx.strokeStyle = C.ic1; ctx.lineWidth = 2.5;
+                    ctx.beginPath();
+                    const oa = tp(0, Math.min(Ustar, q2Max), gw, gh, q1Max, q2Max);
+                    const ob = tp(Math.min(Ustar, q1Max), Math.max(0, Ustar - q1Max), gw, gh, q1Max, q2Max);
+                    ctx.moveTo(oa.x, oa.y); ctx.lineTo(ob.x, ob.y); ctx.stroke();
+
+                    drawDashed(ctx, q1Star, q2Star, gw, gh, q1Max, q2Max, C.optimal);
+                    const op = tp(q1Star, q2Star, gw, gh, q1Max, q2Max);
+                    ctx.beginPath(); ctx.arc(op.x, op.y, 12, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.optimalGlow; ctx.fill();
+                    drawDot(ctx, q1Star, q2Star, gw, gh, q1Max, q2Max, C.optimal, 7);
+
+                    ctx.fillStyle = C.optimal; ctx.font = 'bold 12px -apple-system, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText(`(${q1Star.toFixed(1)}, ${q2Star.toFixed(1)})`, op.x + 10, op.y - 8);
+
+                    if (priceRatio > 1) {
+                        info.textContent = `Perfect Substitutes (MRS = 1). Price ratio p₁/p₂ = ${priceRatio.toFixed(2)} > 1. Good 2 gives more utility per pound → corner solution: buy only good 2. q₂* = ${q2Star.toFixed(1)}.`;
+                    } else if (priceRatio < 1) {
+                        info.textContent = `Perfect Substitutes (MRS = 1). Price ratio p₁/p₂ = ${priceRatio.toFixed(2)} < 1. Good 1 gives more utility per pound → corner solution: buy only good 1. q₁* = ${q1Star.toFixed(1)}.`;
+                    } else {
+                        info.textContent = `Perfect Substitutes (MRS = 1). Price ratio p₁/p₂ = 1.00 = MRS. Any bundle on the budget line is equally optimal.`;
+                    }
+
+                } else {
+                    // Perfect complements: U = min(q1, q2)
+                    // Optimal: q1 = q2, p1*q + p2*q = Y => q = Y/(p1+p2)
+                    const qStar = Y / (p1 + p2);
+
+                    // Draw L-shaped ICs
+                    [qStar * 0.5, qStar, qStar * 1.4].forEach((u, i) => {
+                        const color = i === 1 ? C.ic1 : C.ic3;
+                        const dashed = i !== 1;
+                        ctx.strokeStyle = color; ctx.lineWidth = dashed ? 1.5 : 2.5;
+                        if (dashed) ctx.setLineDash([5, 3]); else ctx.setLineDash([]);
+                        const pKink = tp(u, u, gw, gh, q1Max, q2Max);
+                        const pUp = tp(u, q2Max, gw, gh, q1Max, q2Max);
+                        const pRight = tp(q1Max, u, gw, gh, q1Max, q2Max);
+                        ctx.beginPath(); ctx.moveTo(pUp.x, pUp.y); ctx.lineTo(pKink.x, pKink.y); ctx.lineTo(pRight.x, pRight.y); ctx.stroke();
+                        ctx.setLineDash([]);
+                        if (i === 1) {
+                            ctx.fillStyle = color; ctx.font = '12px -apple-system, sans-serif';
+                            ctx.textAlign = 'left'; ctx.fillText('U*=' + u.toFixed(1), pKink.x + 8, pKink.y - 8);
+                        }
+                    });
+
+                    // 45-degree line (q1 = q2 ray)
+                    ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                    const rayEnd = Math.min(q1Max, q2Max);
+                    const rp1 = tp(0, 0, gw, gh, q1Max, q2Max);
+                    const rp2 = tp(rayEnd, rayEnd, gw, gh, q1Max, q2Max);
+                    ctx.beginPath(); ctx.moveTo(rp1.x, rp1.y); ctx.lineTo(rp2.x, rp2.y); ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.fillStyle = C.textMuted; ctx.font = '11px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.fillText('q₁ = q₂', rp2.x - 35, rp2.y + 15);
+
+                    drawDashed(ctx, qStar, qStar, gw, gh, q1Max, q2Max, C.optimal);
+                    const op = tp(qStar, qStar, gw, gh, q1Max, q2Max);
+                    ctx.beginPath(); ctx.arc(op.x, op.y, 12, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.optimalGlow; ctx.fill();
+                    drawDot(ctx, qStar, qStar, gw, gh, q1Max, q2Max, C.optimal, 7);
+
+                    ctx.fillStyle = C.optimal; ctx.font = 'bold 12px -apple-system, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText(`(${qStar.toFixed(1)}, ${qStar.toFixed(1)})`, op.x + 10, op.y - 8);
+
+                    info.textContent = `Perfect Complements: U = min(q₁, q₂). Optimal at kink: q₁* = q₂* = Y/(p₁+p₂) = ${Y}/(${p1.toFixed(1)}+${p2.toFixed(1)}) = ${qStar.toFixed(2)}. Spending: £${(p1*qStar).toFixed(1)} on pizza, £${(p2*qStar).toFixed(1)} on beer.`;
+                }
+            }
+
+            subsBtn.addEventListener('click', () => setMode('subs'));
+            compBtn.addEventListener('click', () => setMode('comp'));
+            p1Slider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { p1Slider.value = 5; setMode('comp'); });
+            draw();
+        })();
+
+        // Shared redraw
+        function redrawAll() {
+            document.querySelectorAll('input[type="range"]').forEach(s => s.dispatchEvent(new Event('input')));
+        }
+        let resizeTimer;
+        window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(redrawAll, 250); });
+    })();
+    </script>
+</body>
+</html>
