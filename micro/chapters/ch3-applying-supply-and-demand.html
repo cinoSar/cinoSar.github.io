@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3: Applying Supply and Demand | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        /* Chapter-specific interactive graph styles */
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 150px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover {
+            background: var(--color-primary-dark);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover {
+            color: var(--color-primary-dark);
+        }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 3: Applying Supply and Demand</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 3</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#elasticity-demand">3.1 Elasticity of Demand</a></li>
+                <li><a href="#elasticity-supply">3.2 Elasticity of Supply</a></li>
+                <li><a href="#tax-effects">3.3 Effects of a Tax</a></li>
+                <li><a href="#tax-incidence">3.4 Tax Incidence</a></li>
+                <li><a href="#deadweight-loss">3.5 Deadweight Loss</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: Who Really Pays a Tax?</h2>
+                <p>In 2022 the UK government considered a windfall tax on energy companies' extraordinary profits. Supporters argued that the firms would absorb the cost; critics warned that the tax would be passed on to consumers through higher energy bills. Who was right?</p>
+
+                <p>More generally, whenever a government imposes a tax on a product, a deceptively simple question arises: <strong>who actually bears the burden?</strong> The answer might seem obvious &mdash; whoever the law says must pay the tax. But economics teaches us that the legal liability and the economic burden of a tax are two very different things.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>The burden of a tax falls more heavily on whichever side of the market &mdash; buyers or sellers &mdash; is <em>less able to adjust</em> their behaviour. This "ability to adjust" is precisely what economists mean by <strong>elasticity</strong>. To answer the question "who pays?", we first need to understand elasticity.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to calculate how responsive buyers and sellers are to price changes, predict how a tax will shift the equilibrium, determine how the tax burden is shared between consumers and producers, and measure the efficiency cost that taxes impose on society.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#elasticity-demand">Elasticity of Demand</a> &mdash; how responsive consumers are to price changes</li>
+                    <li><a href="#elasticity-supply">Elasticity of Supply</a> &mdash; how responsive producers are to price changes</li>
+                    <li><a href="#tax-effects">Effects of a Tax</a> &mdash; how a per-unit tax shifts the equilibrium</li>
+                    <li><a href="#tax-incidence">Tax Incidence</a> &mdash; who really bears the burden</li>
+                    <li><a href="#deadweight-loss">Deadweight Loss</a> &mdash; the efficiency cost of taxation</li>
+                </ol>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- 3.1 ELASTICITY OF DEMAND                      -->
+            <!-- ============================================ -->
+            <section id="elasticity-demand" class="lesson-section section-intuition">
+                <h2>3.1 Elasticity of Demand</h2>
+
+                <h3>Intuition: Some Goods Are Easier to Give Up Than Others</h3>
+                <p>Imagine the price of insulin doubles. Diabetics who depend on it have little choice &mdash; they will continue buying roughly the same quantity, whatever the cost. Now imagine the price of a particular brand of crisps doubles. Most consumers will simply switch to another brand or skip crisps altogether. The quantity demanded barely budges for insulin but drops sharply for crisps.</p>
+
+                <p>Both goods obey the Law of Demand &mdash; quantity demanded falls when price rises &mdash; but the <em>degree of response</em> is vastly different. Economists capture this responsiveness with a single number: the <strong>price elasticity of demand</strong>.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Price Elasticity of Demand</h4>
+                    <p>The price elasticity of demand, \(\varepsilon\), measures the percentage change in quantity demanded resulting from a one per cent change in price:</p>
+                    <p>\[ \varepsilon = \frac{\%\Delta Q_d}{\%\Delta p} = \frac{\Delta Q_d / Q_d}{\Delta p / p} = \frac{\Delta Q_d}{\Delta p} \cdot \frac{p}{Q_d} \]</p>
+                    <p>Because demand curves slope downward, \(\varepsilon\) is always negative. We often work with its absolute value \(|\varepsilon|\).</p>
+                </div>
+
+                <p>Three ranges matter. When \(|\varepsilon| > 1\), demand is <strong>elastic</strong>: consumers are highly responsive and the percentage change in quantity exceeds the percentage change in price. When \(|\varepsilon| < 1\), demand is <strong>inelastic</strong>: consumers are relatively unresponsive. When \(|\varepsilon| = 1\), demand is <strong>unit elastic</strong>.</p>
+
+                <h3>Geometric Solution: Elasticity Along a Linear Demand Curve</h3>
+                <p>A crucial insight is that elasticity is <em>not</em> the same as slope. A straight-line demand curve has a constant slope, yet its elasticity varies from point to point. Near the top of the curve (high price, low quantity), demand is elastic; near the bottom (low price, high quantity), it is inelastic. The midpoint is unit elastic.</p>
+
+                <div class="interactive-graph" id="elasticity-demand-container">
+                    <canvas id="elasticityDemandCanvas" width="600" height="400"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Price: <span class="value-display" id="edPriceDisplay">£2.00</span>
+                            <input type="range" id="edPriceSlider" min="0.2" max="3.8" step="0.1" value="2">
+                        </label>
+                        <button id="edResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="edInfo">
+                        Move the slider to explore how elasticity changes along a linear demand curve.
+                    </div>
+                    <p class="graph-caption">Figure 3.1 &mdash; Elasticity varies along a linear demand curve. The upper portion is elastic, the lower portion inelastic.</p>
+                </div>
+
+                <p>Why does elasticity change? At a high price, even a small absolute price increase represents a small <em>percentage</em> of the already-high price, but the resulting quantity reduction represents a large <em>percentage</em> of the small quantity being demanded. The ratio of these percentages is large &mdash; demand is elastic. The logic reverses at a low price.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Elasticity and Total Revenue</h4>
+                    <p>Elasticity tells firms what happens to their total revenue (\(R = p \times Q\)) when they change price. If demand is <strong>elastic</strong>, a price increase <em>reduces</em> revenue because the quantity drop more than offsets the higher price. If demand is <strong>inelastic</strong>, a price increase <em>raises</em> revenue. Revenue is maximised at the point where demand is unit elastic.</p>
+                </div>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>Using our linear demand curve from Chapter 2, \(Q_d = 160 - 40p\), we have \(\Delta Q_d / \Delta p = -40\). The point elasticity at any price \(p\) is:</p>
+
+                \[ \varepsilon = \frac{\Delta Q_d}{\Delta p} \cdot \frac{p}{Q_d} = -40 \cdot \frac{p}{160 - 40p} \]
+
+                <p>At the equilibrium \(p = 2\): \(\varepsilon = -40 \cdot \frac{2}{80} = -1.0\). The equilibrium happens to sit at the midpoint, where demand is unit elastic.</p>
+
+                <p>At \(p = 3\): \(\varepsilon = -40 \cdot \frac{3}{40} = -3.0\) (elastic). At \(p = 1\): \(\varepsilon = -40 \cdot \frac{1}{120} = -0.33\) (inelastic).</p>
+
+                <p>For a general linear demand curve \(Q = a - bp\), the elasticity formula simplifies to:</p>
+
+                \[ \varepsilon = -b \cdot \frac{p}{a - bp} \]
+
+                <p>and demand is unit elastic at the midpoint price \(p = a/(2b)\).</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 3.2 ELASTICITY OF SUPPLY                      -->
+            <!-- ============================================ -->
+            <section id="elasticity-supply" class="lesson-section section-intuition">
+                <h2>3.2 Elasticity of Supply</h2>
+
+                <h3>Intuition: How Easily Can Firms Expand?</h3>
+                <p>Some industries can ramp up output quickly when prices rise. A software company can distribute more copies of its product at virtually zero extra cost &mdash; supply is highly elastic. A vineyard producing fine Barolo, by contrast, cannot simply plant more vines and ship wine next month; the grapes take years to mature. Supply is inelastic.</p>
+
+                <p>The <strong>price elasticity of supply</strong> captures this responsiveness on the producers' side.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Price Elasticity of Supply</h4>
+                    <p>The price elasticity of supply, \(\eta\), measures the percentage change in quantity supplied resulting from a one per cent change in price:</p>
+                    <p>\[ \eta = \frac{\%\Delta Q_s}{\%\Delta p} = \frac{\Delta Q_s}{\Delta p} \cdot \frac{p}{Q_s} \]</p>
+                    <p>Because supply curves typically slope upward, \(\eta\) is usually positive.</p>
+                </div>
+
+                <h3>Geometric Solution: Comparing Elastic and Inelastic Supply</h3>
+                <p>A flatter supply curve is more elastic &mdash; a small price change produces a large quantity response. A steeper supply curve is more inelastic &mdash; quantity barely moves even when price changes substantially.</p>
+
+                <div class="interactive-graph" id="elasticity-supply-container">
+                    <canvas id="elasticitySupplyCanvas" width="600" height="400"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Supply slope: <span class="value-display" id="esSlopeDisplay">Medium</span>
+                            <input type="range" id="esSlopeSlider" min="1" max="3" step="1" value="2">
+                        </label>
+                        <label>
+                            Price: <span class="value-display" id="esPriceDisplay">£2.00</span>
+                            <input type="range" id="esPriceSlider" min="0.5" max="3.5" step="0.1" value="2">
+                        </label>
+                        <button id="esResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="esInfo">
+                        Adjust the slope to compare elastic, medium, and inelastic supply curves.
+                    </div>
+                    <p class="graph-caption">Figure 3.2 &mdash; Supply elasticity. Flatter curves are more elastic; steeper curves are more inelastic.</p>
+                </div>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>For our linear supply curve from Chapter 2, \(Q_s = 50 + 15p\), we have \(\Delta Q_s / \Delta p = 15\). The point elasticity of supply at any price \(p\) is:</p>
+
+                \[ \eta = 15 \cdot \frac{p}{50 + 15p} \]
+
+                <p>At the equilibrium \(p = 2\): \(\eta = 15 \cdot \frac{2}{80} = 0.375\). Supply is inelastic at this point &mdash; a one per cent price increase leads to only a 0.375 per cent increase in quantity supplied.</p>
+
+                <div class="callout callout-example">
+                    <h4>Why Supply Elasticity Matters for Policy</h4>
+                    <p>If the government subsidises housing construction but the supply of building land is highly inelastic, most of the subsidy will be absorbed by rising land prices rather than increasing the number of homes built. Understanding supply elasticity is essential for predicting whether a policy will achieve its intended effect.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 3.3 EFFECTS OF A TAX                          -->
+            <!-- ============================================ -->
+            <section id="tax-effects" class="lesson-section section-geometric">
+                <h2>3.3 Effects of a Specific Tax</h2>
+
+                <h3>Intuition: A Tax Drives a Wedge</h3>
+                <p>Suppose the government imposes a tax of \(\tau\) per unit on sellers. Before the tax, buyers and sellers faced the same market price. Now, for every unit sold, the seller must hand over \(\tau\) to the government. The price the buyer pays and the price the seller receives are no longer equal &mdash; the tax drives a <strong>wedge</strong> between them.</p>
+
+                <p>Think of it like this: if you buy a coffee for £3.00 and there is a £0.50 tax per cup, the seller receives only £2.50. The buyer's price is £3.00 but the seller's effective price is £2.50. The £0.50 gap is the tax wedge.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>It does not matter whether the law requires the <em>buyer</em> or the <em>seller</em> to remit the tax to the government. The economic outcome &mdash; the prices paid and received, the quantity traded, and the division of the tax burden &mdash; is exactly the same either way. This is sometimes called the <strong>irrelevance of the side of the market taxed</strong>.</p>
+                </div>
+
+                <h3>Geometric Solution: The Tax Wedge</h3>
+                <p>Graphically, a per-unit tax on sellers shifts the supply curve upward by the amount of the tax. At any quantity, the price sellers need to receive to cover their costs is now \(\tau\) higher. The new equilibrium has a higher consumer price, a lower producer price, and a lower quantity traded.</p>
+
+                <div class="interactive-graph" id="tax-effects-container">
+                    <canvas id="taxEffectsCanvas" width="600" height="400"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Tax (£/unit): <span class="value-display" id="taxDisplay">£0.00</span>
+                            <input type="range" id="taxSlider" min="0" max="2" step="0.1" value="0">
+                        </label>
+                        <button id="taxResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="taxInfo">
+                        Drag the tax slider to see how a per-unit tax shifts the supply curve and creates a wedge between the buyer's price and the seller's price.
+                    </div>
+                    <p class="graph-caption">Figure 3.3 &mdash; A specific tax shifts supply upward, raising the consumer price and lowering the producer price.</p>
+                </div>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>Let \(p_c\) denote the price consumers pay and \(p_p\) the price producers receive. The tax wedge means:</p>
+
+                \[ p_c = p_p + \tau \]
+
+                <p>The equilibrium conditions become:</p>
+
+                \[ Q_d(p_c) = Q_s(p_p) \quad \text{and} \quad p_c - p_p = \tau \]
+
+                <p>Using our linear functions, \(160 - 40p_c = 50 + 15p_p\). Substituting \(p_p = p_c - \tau\):</p>
+
+                \[ 160 - 40p_c = 50 + 15(p_c - \tau) \]
+                \[ 160 - 40p_c = 50 + 15p_c - 15\tau \]
+                \[ 110 + 15\tau = 55p_c \]
+                \[ p_c = 2 + \frac{15}{55}\tau = 2 + \frac{3}{11}\tau \]
+
+                <p>and the producer price is:</p>
+
+                \[ p_p = p_c - \tau = 2 - \frac{8}{11}\tau \]
+
+                <p>For a tax of \(\tau = 1.10\): \(p_c = 2 + 0.30 = 2.30\) and \(p_p = 2 - 0.80 = 1.20\). The new quantity is \(Q = 160 - 40(2.30) = 68\).</p>
+
+                <p>Notice something remarkable: out of the £1.10 tax, consumers pay only £0.30 more than before, while producers receive £0.80 less. The <em>economic</em> burden is shared, and it falls disproportionately on producers. Why? Because in this market, supply is less elastic than demand. That is the topic of the next section.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 3.4 TAX INCIDENCE                             -->
+            <!-- ============================================ -->
+            <section id="tax-incidence" class="lesson-section section-geometric">
+                <h2>3.4 Tax Incidence: Who Bears the Burden?</h2>
+
+                <h3>Intuition: The Less Flexible Side Pays More</h3>
+                <p>Return to our opening question: who really pays a tax? The answer depends on who can more easily walk away from the market. If consumers have many substitutes and can easily switch, they will resist price increases. Sellers, unable to pass the tax on, must absorb most of it. Conversely, if consumers have few alternatives (think of petrol or cigarettes), sellers can raise prices and pass most of the tax on to buyers.</p>
+
+                <p>The general rule: <strong>the side of the market that is less elastic bears a larger share of the tax burden.</strong></p>
+
+                <div class="callout callout-definition">
+                    <h4>Tax Incidence Formula</h4>
+                    <p>For a per-unit tax \(\tau\), the share of the tax borne by consumers and producers depends on the elasticities of demand (\(\varepsilon\)) and supply (\(\eta\)):</p>
+                    <p>\[ \text{Consumer's share} = \frac{\eta}{\eta + |\varepsilon|} \qquad \text{Producer's share} = \frac{|\varepsilon|}{\eta + |\varepsilon|} \]</p>
+                    <p>The two shares sum to 1. The side with the smaller elasticity (in absolute value) bears the larger share.</p>
+                </div>
+
+                <h3>Geometric Solution: How Elasticities Determine the Split</h3>
+                <p>The interactive graph below lets you adjust the relative elasticities of demand and supply while keeping a fixed tax. Watch how the burden shifts between consumers and producers.</p>
+
+                <div class="interactive-graph" id="tax-incidence-container">
+                    <canvas id="taxIncidenceCanvas" width="600" height="400"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Demand slope: <span class="value-display" id="tiDemandDisplay">Medium</span>
+                            <input type="range" id="tiDemandSlider" min="1" max="3" step="1" value="2">
+                        </label>
+                        <label>
+                            Supply slope: <span class="value-display" id="tiSupplyDisplay">Medium</span>
+                            <input type="range" id="tiSupplySlider" min="1" max="3" step="1" value="2">
+                        </label>
+                        <button id="tiResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="tiInfo">
+                        Adjust the slopes to see how relative elasticities determine who bears the tax burden. A fixed tax of £1.10 is applied.
+                    </div>
+                    <p class="graph-caption">Figure 3.4 &mdash; Tax incidence depends on relative elasticities. The more inelastic side bears the greater burden.</p>
+                </div>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>We can verify the incidence formula using our specific functions. At the pre-tax equilibrium \((Q^* = 80, \, p^* = 2)\):</p>
+
+                \[ |\varepsilon| = 40 \cdot \frac{2}{80} = 1.0 \qquad \eta = 15 \cdot \frac{2}{80} = 0.375 \]
+
+                <p>The consumer's share of the tax:</p>
+
+                \[ \frac{\eta}{\eta + |\varepsilon|} = \frac{0.375}{0.375 + 1.0} = \frac{0.375}{1.375} \approx 0.273 \]
+
+                <p>The producer's share:</p>
+
+                \[ \frac{|\varepsilon|}{\eta + |\varepsilon|} = \frac{1.0}{1.375} \approx 0.727 \]
+
+                <p>So consumers bear about 27% and producers about 73% of the tax. With a tax of £1.10: the consumer price rises by \(0.273 \times 1.10 \approx £0.30\) and the producer price falls by \(0.727 \times 1.10 \approx £0.80\). This matches our algebraic solution from Section 3.3 exactly.</p>
+
+                <div class="callout callout-example">
+                    <h4>Example: Why Petrol Taxes Fall on Drivers</h4>
+                    <p>The demand for petrol is highly inelastic in the short run (\(|\varepsilon| \approx 0.2\)): people need to drive to work regardless. Supply, by contrast, is relatively elastic (\(\eta \approx 1.5\)). The consumer's share is \(\frac{1.5}{1.5 + 0.2} \approx 88\%\). Nearly all of a petrol tax is passed on to drivers &mdash; which is exactly what we observe in practice.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 3.5 DEADWEIGHT LOSS                           -->
+            <!-- ============================================ -->
+            <section id="deadweight-loss" class="lesson-section section-mathematical">
+                <h2>3.5 Deadweight Loss</h2>
+
+                <h3>Intuition: Taxes Destroy Gains from Trade</h3>
+                <p>A tax does more than just transfer money from consumers and producers to the government. It also <em>prevents some trades from happening</em>. Before the tax, there were buyers willing to pay more than what sellers needed to receive &mdash; both sides would have gained from trading. The tax makes these marginal trades unprofitable: the price the buyer would pay is less than the seller's cost <em>plus</em> the tax. These lost gains from trade are a pure cost to society, captured by no one &mdash; not buyers, not sellers, not the government.</p>
+
+                <p>Economists call this the <strong>deadweight loss</strong> (DWL) of the tax.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Deadweight Loss</h4>
+                    <p>The deadweight loss of a tax is the reduction in total surplus (consumer surplus + producer surplus + tax revenue) caused by the tax. It represents the value of transactions that would have been mutually beneficial but no longer occur because of the tax.</p>
+                </div>
+
+                <h3>Geometric Solution: The Welfare Triangle</h3>
+                <p>In the graph below, the deadweight loss appears as a triangle between the demand curve, the supply curve, and the vertical lines at the old and new equilibrium quantities. The tax revenue is the rectangle between the consumer and producer prices, spanning the quantity traded.</p>
+
+                <div class="interactive-graph" id="dwl-container">
+                    <canvas id="dwlCanvas" width="600" height="400"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Tax (£/unit): <span class="value-display" id="dwlTaxDisplay">£0.00</span>
+                            <input type="range" id="dwlTaxSlider" min="0" max="2.5" step="0.1" value="0">
+                        </label>
+                        <button id="dwlResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="dwlInfo">
+                        Increase the tax to see the deadweight loss triangle (grey) and tax revenue rectangle (green) appear.
+                    </div>
+                    <p class="graph-caption">Figure 3.5 &mdash; Deadweight loss (grey triangle) and tax revenue (green rectangle). The DWL grows with the square of the tax.</p>
+                </div>
+
+                <p>Notice that as you increase the tax, the deadweight loss triangle grows rapidly. This is because the DWL is proportional to the <em>square</em> of the tax rate &mdash; doubling the tax roughly quadruples the efficiency loss. This is a powerful argument for keeping tax rates moderate and spreading them across a broad base.</p>
+
+                <h3>Mathematical Formalisation</h3>
+                <p>The deadweight loss is the area of the triangle formed between the demand and supply curves, from the new (post-tax) quantity to the old (pre-tax) quantity. Its formula is:</p>
+
+                \[ \text{DWL} = \frac{1}{2} \cdot \tau \cdot \Delta Q \]
+
+                <p>where \(\Delta Q = Q^*_{\text{pre}} - Q^*_{\text{post}}\) is the reduction in quantity traded.</p>
+
+                <p>The change in quantity can be expressed in terms of elasticities. For our linear model:</p>
+
+                \[ \Delta Q = Q^*_{\text{pre}} - Q^*_{\text{post}} = \frac{40 \times 15}{40 + 15} \tau = \frac{600}{55}\tau \approx 10.91\tau \]
+
+                <p>So the deadweight loss is:</p>
+
+                \[ \text{DWL} = \frac{1}{2} \cdot \tau \cdot 10.91\tau = 5.45\tau^2 \]
+
+                <p>For \(\tau = 1.10\): \(\text{DWL} = 5.45 \times 1.21 \approx 6.60\). The tax revenue, meanwhile, is:</p>
+
+                \[ R = \tau \cdot Q_{\text{post}} = 1.10 \times 68 = 74.80 \]
+
+                <p>The ratio of deadweight loss to tax revenue is \(6.60 / 74.80 \approx 8.8\%\). For every pound of revenue the government collects, about 9p of value is destroyed. As the tax rate rises, this ratio deteriorates rapidly.</p>
+
+                <div class="callout callout-warning">
+                    <h4>The Laffer Curve Intuition</h4>
+                    <p>If the tax rate is pushed high enough, the quantity traded falls so far that tax revenue actually <em>declines</em>. At \(\tau = 0\) the government collects nothing; at a sufficiently high \(\tau\) the market shuts down and it again collects nothing. Revenue is maximised at some intermediate rate. This is the logic behind the famous <strong>Laffer curve</strong>.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>In this chapter, we applied the supply-and-demand model from Chapter 2 to analyse how responsive agents are to price changes and what happens when the government intervenes with a tax.</p>
+
+                <p>The <strong>price elasticity of demand</strong> measures how sensitively consumers react to price changes. Along a linear demand curve, elasticity varies: the upper portion is elastic (\(|\varepsilon| > 1\)), the midpoint is unit elastic (\(|\varepsilon| = 1\)), and the lower portion is inelastic (\(|\varepsilon| < 1\)). The <strong>price elasticity of supply</strong> captures the analogous responsiveness on the producers' side.</p>
+
+                <p>A per-unit <strong>tax</strong> drives a wedge between the price consumers pay and the price producers receive, reducing the quantity traded. The <strong>incidence</strong> of the tax &mdash; who bears the economic burden &mdash; is determined by relative elasticities, not by which side is legally required to pay. The more inelastic side absorbs a greater share. The <strong>deadweight loss</strong> measures the value of trades that no longer occur; it grows with the square of the tax rate, providing a powerful argument for broad-based, moderate taxation.</p>
+
+                <p>In the next chapter, we step behind the demand curve to understand where it comes from: the theory of <strong>consumer choice</strong>, built on preferences, budget constraints, and utility maximisation.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch2-supply-and-demand.html">&larr; Chapter 2: Supply and Demand</a>
+                <span style="color: var(--color-text-lighter);">Chapter 4: Consumer Choice &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        // ---- Theme-aware colour palette ----
+        const LIGHT_COLORS = {
+            demand: '#3b82f6',
+            demandShifted: '#93c5fd',
+            supply: '#ef4444',
+            supplyShifted: '#fca5a5',
+            equilibrium: '#0a9396',
+            ceiling: '#f59e0b',
+            floor: '#8b5cf6',
+            grid: '#e5e5e5',
+            axis: '#1a1a1a',
+            text: '#555555',
+            textMuted: '#aaaaaa',
+            priceLine: '#999999',
+            canvasBg: '#ffffff',
+            taxRevenue: 'rgba(16, 185, 129, 0.3)',
+            taxRevenueBorder: '#10b981',
+            dwl: 'rgba(120, 120, 120, 0.3)',
+            dwlBorder: '#888888',
+            consumerBurden: 'rgba(59, 130, 246, 0.2)',
+            producerBurden: 'rgba(239, 68, 68, 0.2)',
+            elastic: '#10b981',
+            inelastic: '#ef4444',
+            unitElastic: '#f59e0b'
+        };
+
+        const DARK_COLORS = {
+            demand: '#60a5fa',
+            demandShifted: '#a5c8ff',
+            supply: '#f87171',
+            supplyShifted: '#fdb5b5',
+            equilibrium: '#2ec4c8',
+            ceiling: '#fbbf24',
+            floor: '#a78bfa',
+            grid: '#4a4a4a',
+            axis: '#d0d0d0',
+            text: '#c0c0c0',
+            textMuted: '#808080',
+            priceLine: '#888888',
+            canvasBg: '#2d2d2d',
+            taxRevenue: 'rgba(16, 185, 129, 0.35)',
+            taxRevenueBorder: '#34d399',
+            dwl: 'rgba(160, 160, 160, 0.3)',
+            dwlBorder: '#aaaaaa',
+            consumerBurden: 'rgba(96, 165, 250, 0.25)',
+            producerBurden: 'rgba(248, 113, 113, 0.25)',
+            elastic: '#34d399',
+            inelastic: '#f87171',
+            unitElastic: '#fbbf24'
+        };
+
+        const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        let COLORS = darkMQ.matches ? DARK_COLORS : LIGHT_COLORS;
+        darkMQ.addEventListener('change', function(e) {
+            COLORS = e.matches ? DARK_COLORS : LIGHT_COLORS;
+            redrawAll();
+        });
+
+        function getCtx(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            const ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            return { ctx, w: rect.width, h: rect.height };
+        }
+
+        const M = { top: 30, right: 30, bottom: 50, left: 60 };
+
+        function toPixel(q, p, gw, gh, qMax, pMax) {
+            return {
+                x: M.left + (q / qMax) * gw,
+                y: M.top + (1 - p / pMax) * gh
+            };
+        }
+
+        function drawAxes(ctx, w, h, gw, gh, qMax, pMax, qLabel, pLabel) {
+            ctx.fillStyle = COLORS.canvasBg;
+            ctx.fillRect(0, 0, w, h);
+            ctx.strokeStyle = COLORS.grid;
+            ctx.lineWidth = 0.5;
+            for (let p = 0; p <= pMax; p += 0.5) {
+                const pt = toPixel(0, p, gw, gh, qMax, pMax);
+                ctx.beginPath(); ctx.moveTo(M.left, pt.y); ctx.lineTo(M.left + gw, pt.y); ctx.stroke();
+            }
+            for (let q = 0; q <= qMax; q += 20) {
+                const pt = toPixel(q, 0, gw, gh, qMax, pMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, M.top); ctx.lineTo(pt.x, M.top + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = COLORS.axis;
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(M.left, M.top); ctx.lineTo(M.left, M.top + gh); ctx.lineTo(M.left + gw, M.top + gh);
+            ctx.stroke();
+            ctx.fillStyle = COLORS.text;
+            ctx.font = '13px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(qLabel || 'Q (millions per month)', M.left + gw / 2, h - 8);
+            ctx.save();
+            ctx.translate(15, M.top + gh / 2);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText(pLabel || 'p (£ per unit)', 0, 0);
+            ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (let q = 0; q <= qMax; q += 20) {
+                const pt = toPixel(q, 0, gw, gh, qMax, pMax);
+                ctx.fillText(q, pt.x, M.top + gh + 5);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (let p = 0; p <= pMax; p += 0.5) {
+                const pt = toPixel(0, p, gw, gh, qMax, pMax);
+                ctx.fillText(p.toFixed(1), M.left - 8, pt.y);
+            }
+        }
+
+        function drawLine(ctx, gw, gh, qMax, pMax, qFn, color, label, dashed) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2.5;
+            if (dashed) ctx.setLineDash([6, 4]); else ctx.setLineDash([]);
+            ctx.beginPath();
+            let started = false;
+            for (let p = 0; p <= pMax; p += 0.02) {
+                const q = qFn(p);
+                if (q < 0 || q > qMax) continue;
+                const pt = toPixel(q, p, gw, gh, qMax, pMax);
+                if (!started) { ctx.moveTo(pt.x, pt.y); started = true; } else ctx.lineTo(pt.x, pt.y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+            if (label) {
+                const lp = pMax * 0.15;
+                const lq = qFn(lp);
+                if (lq > 0 && lq <= qMax) {
+                    const pt = toPixel(lq, lp, gw, gh, qMax, pMax);
+                    ctx.fillStyle = color;
+                    ctx.font = 'bold 13px -apple-system, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText(label, pt.x + 5, pt.y - 5);
+                }
+            }
+        }
+
+        function drawDot(ctx, q, p, gw, gh, qMax, pMax, color, radius) {
+            const pt = toPixel(q, p, gw, gh, qMax, pMax);
+            ctx.beginPath();
+            ctx.arc(pt.x, pt.y, radius || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+
+        function drawDashedLines(ctx, q, p, gw, gh, qMax, pMax, color) {
+            const pt = toPixel(q, p, gw, gh, qMax, pMax);
+            const yAxis = toPixel(0, p, gw, gh, qMax, pMax);
+            const xAxis = toPixel(q, 0, gw, gh, qMax, pMax);
+            ctx.strokeStyle = color || COLORS.text;
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 3]);
+            ctx.beginPath();
+            ctx.moveTo(yAxis.x, pt.y);
+            ctx.lineTo(pt.x, pt.y);
+            ctx.lineTo(pt.x, xAxis.y);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        // ---- Demand & Supply Functions ----
+        function Qd(p, shift) { return Math.max(0, (160 + (shift || 0)) - 40 * p); }
+        function Qs(p, shift) { return Math.max(0, (50 + (shift || 0)) + 15 * p); }
+
+        // ============================================================
+        // GRAPH 1: ELASTICITY ALONG A LINEAR DEMAND CURVE
+        // ============================================================
+        (function() {
+            const slider = document.getElementById('edPriceSlider');
+            const display = document.getElementById('edPriceDisplay');
+            const info = document.getElementById('edInfo');
+            const resetBtn = document.getElementById('edResetBtn');
+            const qMax = 180, pMax = 4.5;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('elasticityDemandCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAxes(ctx, w, h, gw, gh, qMax, pMax);
+
+                // Colour-coded regions along the demand curve
+                // Elastic region (p > 2): green
+                ctx.strokeStyle = COLORS.elastic;
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                let started = false;
+                for (let p = 4; p >= 2; p -= 0.02) {
+                    const q = Qd(p);
+                    if (q < 0 || q > qMax) continue;
+                    const pt = toPixel(q, p, gw, gh, qMax, pMax);
+                    if (!started) { ctx.moveTo(pt.x, pt.y); started = true; } else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+
+                // Inelastic region (p < 2): red
+                ctx.strokeStyle = COLORS.inelastic;
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                started = false;
+                for (let p = 2; p >= 0; p -= 0.02) {
+                    const q = Qd(p);
+                    if (q < 0 || q > qMax) continue;
+                    const pt = toPixel(q, p, gw, gh, qMax, pMax);
+                    if (!started) { ctx.moveTo(pt.x, pt.y); started = true; } else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+
+                // Unit elastic midpoint marker
+                drawDot(ctx, 80, 2, gw, gh, qMax, pMax, COLORS.unitElastic, 6);
+                const midPt = toPixel(80, 2, gw, gh, qMax, pMax);
+                ctx.fillStyle = COLORS.unitElastic;
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.textAlign = 'left';
+                ctx.fillText('|ε| = 1', midPt.x + 10, midPt.y + 4);
+
+                // Region labels
+                const elPt = toPixel(Qd(3), 3, gw, gh, qMax, pMax);
+                ctx.fillStyle = COLORS.elastic;
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.textAlign = 'left';
+                ctx.fillText('Elastic (|ε| > 1)', elPt.x + 10, elPt.y);
+
+                const inPt = toPixel(Qd(1), 1, gw, gh, qMax, pMax);
+                ctx.fillStyle = COLORS.inelastic;
+                ctx.textAlign = 'left';
+                ctx.fillText('Inelastic (|ε| < 1)', inPt.x + 10, inPt.y);
+
+                // Current point
+                const price = parseFloat(slider.value);
+                const q = Qd(price);
+                const epsilon = (q > 0) ? (-40 * price / q) : -Infinity;
+                const absEps = Math.abs(epsilon);
+
+                drawDashedLines(ctx, q, price, gw, gh, qMax, pMax, COLORS.demand);
+                const dotColor = absEps > 1.05 ? COLORS.elastic : (absEps < 0.95 ? COLORS.inelastic : COLORS.unitElastic);
+                drawDot(ctx, q, price, gw, gh, qMax, pMax, dotColor, 7);
+
+                // Revenue bar at bottom
+                const revenue = price * q;
+                const maxRevenue = 160; // max revenue occurs at p=2, Q=80 → R=160
+                const barWidth = gw * 0.6;
+                const barHeight = 12;
+                const barX = M.left + (gw - barWidth) / 2;
+                const barY = M.top + gh - 25;
+                ctx.fillStyle = COLORS.grid;
+                ctx.fillRect(barX, barY, barWidth, barHeight);
+                ctx.fillStyle = dotColor;
+                ctx.globalAlpha = 0.6;
+                ctx.fillRect(barX, barY, barWidth * Math.min(revenue / maxRevenue, 1), barHeight);
+                ctx.globalAlpha = 1;
+                ctx.fillStyle = COLORS.text;
+                ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Revenue = ' + revenue.toFixed(0), barX + barWidth / 2, barY - 4);
+
+                display.textContent = '£' + price.toFixed(2);
+                const epsLabel = absEps > 100 ? '∞' : absEps.toFixed(2);
+                const category = absEps > 1.05 ? 'elastic' : (absEps < 0.95 ? 'inelastic' : 'unit elastic');
+                info.textContent = `At p = £${price.toFixed(2)}, Q = ${q.toFixed(0)}: ε = −${epsLabel} (${category}). Revenue = £${revenue.toFixed(0)}M.` +
+                    (category === 'elastic' ? ' A price increase here would reduce revenue.' :
+                     category === 'inelastic' ? ' A price increase here would raise revenue.' :
+                     ' Revenue is at its maximum here.');
+            }
+
+            slider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { slider.value = 2; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 2: SUPPLY ELASTICITY
+        // ============================================================
+        (function() {
+            const slopeSlider = document.getElementById('esSlopeSlider');
+            const slopeDisplay = document.getElementById('esSlopeDisplay');
+            const priceSlider = document.getElementById('esPriceSlider');
+            const priceDisplay = document.getElementById('esPriceDisplay');
+            const info = document.getElementById('esInfo');
+            const resetBtn = document.getElementById('esResetBtn');
+            const qMax = 200, pMax = 4.5;
+
+            // Three supply curve configurations: elastic, medium, inelastic
+            const configs = {
+                1: { intercept: 20, slope: 45, label: 'Elastic (flat)' },
+                2: { intercept: 50, slope: 15, label: 'Medium' },
+                3: { intercept: 65, slope: 5, label: 'Inelastic (steep)' }
+            };
+
+            function draw() {
+                const { ctx, w, h } = getCtx('elasticitySupplyCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAxes(ctx, w, h, gw, gh, qMax, pMax);
+
+                const mode = parseInt(slopeSlider.value);
+                const cfg = configs[mode];
+                slopeDisplay.textContent = cfg.label;
+
+                const QsFn = function(p) { return Math.max(0, cfg.intercept + cfg.slope * p); };
+
+                // Draw all three as faint references
+                for (const [key, c] of Object.entries(configs)) {
+                    const k = parseInt(key);
+                    const fn = function(p) { return Math.max(0, c.intercept + c.slope * p); };
+                    if (k !== mode) {
+                        drawLine(ctx, gw, gh, qMax, pMax, fn, COLORS.textMuted, '', true);
+                    }
+                }
+                // Draw active curve
+                drawLine(ctx, gw, gh, qMax, pMax, QsFn, COLORS.supply, 'S');
+
+                const price = parseFloat(priceSlider.value);
+                const q = QsFn(price);
+                const eta = (q > 0) ? (cfg.slope * price / q) : 0;
+
+                drawDashedLines(ctx, q, price, gw, gh, qMax, pMax, COLORS.supply);
+                drawDot(ctx, q, price, gw, gh, qMax, pMax, COLORS.supply, 6);
+
+                priceDisplay.textContent = '£' + price.toFixed(2);
+                info.textContent = `Supply: ${cfg.label}. At p = £${price.toFixed(2)}, Qs = ${q.toFixed(0)}. η = ${eta.toFixed(2)} (${eta > 1 ? 'elastic' : eta < 1 ? 'inelastic' : 'unit elastic'}).`;
+            }
+
+            slopeSlider.addEventListener('input', draw);
+            priceSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { slopeSlider.value = 2; priceSlider.value = 2; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 3: TAX EFFECTS
+        // ============================================================
+        (function() {
+            const slider = document.getElementById('taxSlider');
+            const display = document.getElementById('taxDisplay');
+            const info = document.getElementById('taxInfo');
+            const resetBtn = document.getElementById('taxResetBtn');
+            const qMax = 180, pMax = 4.5;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('taxEffectsCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAxes(ctx, w, h, gw, gh, qMax, pMax);
+
+                const tau = parseFloat(slider.value);
+                display.textContent = '£' + tau.toFixed(2);
+
+                // Original curves
+                drawLine(ctx, gw, gh, qMax, pMax, p => Qd(p), COLORS.demand, 'D');
+                drawLine(ctx, gw, gh, qMax, pMax, p => Qs(p), tau > 0 ? COLORS.supplyShifted : COLORS.supply, tau > 0 ? 'S' : 'S', tau > 0);
+
+                // Shifted supply (S + tax)
+                if (tau > 0) {
+                    const QsTax = function(p) { return Qs(p - tau); };
+                    drawLine(ctx, gw, gh, qMax, pMax, QsTax, COLORS.supply, 'S + tax');
+
+                    // New equilibrium
+                    const pc = 2 + (15 / 55) * tau;
+                    const pp = pc - tau;
+                    const qNew = Qd(pc);
+
+                    // Tax revenue rectangle
+                    const ptTL = toPixel(0, pc, gw, gh, qMax, pMax);
+                    const ptBR = toPixel(qNew, pp, gw, gh, qMax, pMax);
+                    ctx.fillStyle = COLORS.taxRevenue;
+                    ctx.fillRect(M.left, ptTL.y, ptBR.x - M.left, ptBR.y - ptTL.y);
+                    ctx.strokeStyle = COLORS.taxRevenueBorder;
+                    ctx.lineWidth = 1.5;
+                    ctx.strokeRect(M.left, ptTL.y, ptBR.x - M.left, ptBR.y - ptTL.y);
+
+                    // Label tax revenue
+                    const revMidX = (M.left + ptBR.x) / 2;
+                    const revMidY = (ptTL.y + ptBR.y) / 2;
+                    ctx.fillStyle = COLORS.taxRevenueBorder;
+                    ctx.font = 'bold 12px -apple-system, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Tax Revenue', revMidX, revMidY + 4);
+
+                    // Dashed lines to axes
+                    drawDashedLines(ctx, qNew, pc, gw, gh, qMax, pMax, COLORS.demand);
+                    drawDashedLines(ctx, qNew, pp, gw, gh, qMax, pMax, COLORS.supply);
+
+                    // Dots
+                    drawDot(ctx, qNew, pc, gw, gh, qMax, pMax, COLORS.demand, 6);
+                    drawDot(ctx, qNew, pp, gw, gh, qMax, pMax, COLORS.supply, 6);
+
+                    // Labels
+                    const pcPt = toPixel(0, pc, gw, gh, qMax, pMax);
+                    ctx.fillStyle = COLORS.demand;
+                    ctx.font = 'bold 12px -apple-system, sans-serif';
+                    ctx.textAlign = 'right';
+                    ctx.fillText('pc', M.left - 12, pcPt.y + 4);
+
+                    const ppPt = toPixel(0, pp, gw, gh, qMax, pMax);
+                    ctx.fillStyle = COLORS.supply;
+                    ctx.fillText('pp', M.left - 12, ppPt.y + 4);
+
+                    // Tax wedge bracket
+                    const bracketX = ptBR.x + 15;
+                    ctx.strokeStyle = COLORS.text;
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.moveTo(bracketX - 5, ptTL.y);
+                    ctx.lineTo(bracketX, ptTL.y);
+                    ctx.lineTo(bracketX, ptBR.y);
+                    ctx.lineTo(bracketX - 5, ptBR.y);
+                    ctx.stroke();
+                    ctx.fillStyle = COLORS.text;
+                    ctx.font = '12px -apple-system, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('τ = £' + tau.toFixed(2), bracketX + 5, (ptTL.y + ptBR.y) / 2 + 4);
+
+                    // Old equilibrium (faint)
+                    drawDot(ctx, 80, 2, gw, gh, qMax, pMax, COLORS.textMuted, 5);
+
+                    const revenue = tau * qNew;
+                    info.textContent = `Tax τ = £${tau.toFixed(2)}. Consumer price: £${pc.toFixed(2)} (+£${(pc - 2).toFixed(2)}). Producer price: £${pp.toFixed(2)} (−£${(2 - pp).toFixed(2)}). Q = ${qNew.toFixed(0)}. Tax revenue = £${revenue.toFixed(0)}M.`;
+                } else {
+                    // No tax: show equilibrium
+                    drawDot(ctx, 80, 2, gw, gh, qMax, pMax, COLORS.equilibrium, 6);
+                    drawDashedLines(ctx, 80, 2, gw, gh, qMax, pMax, COLORS.equilibrium);
+                    info.textContent = 'No tax. Equilibrium at p* = £2.00, Q* = 80. Drag the slider to impose a per-unit tax.';
+                }
+            }
+
+            slider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { slider.value = 0; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 4: TAX INCIDENCE
+        // ============================================================
+        (function() {
+            const demandSlider = document.getElementById('tiDemandSlider');
+            const demandDisplay = document.getElementById('tiDemandDisplay');
+            const supplySlider = document.getElementById('tiSupplySlider');
+            const supplyDisplay = document.getElementById('tiSupplyDisplay');
+            const info = document.getElementById('tiInfo');
+            const resetBtn = document.getElementById('tiResetBtn');
+            const qMax = 200, pMax = 5;
+            const tau = 1.10;
+
+            const demandConfigs = {
+                1: { slope: 15, label: 'Inelastic (steep)' },
+                2: { slope: 40, label: 'Medium' },
+                3: { slope: 80, label: 'Elastic (flat)' }
+            };
+            const supplyConfigs = {
+                1: { slope: 5, intercept: 70, label: 'Inelastic (steep)' },
+                2: { slope: 15, intercept: 50, label: 'Medium' },
+                3: { slope: 40, intercept: 0, label: 'Elastic (flat)' }
+            };
+
+            function draw() {
+                const { ctx, w, h } = getCtx('taxIncidenceCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAxes(ctx, w, h, gw, gh, qMax, pMax);
+
+                const dMode = parseInt(demandSlider.value);
+                const sMode = parseInt(supplySlider.value);
+                const dCfg = demandConfigs[dMode];
+                const sCfg = supplyConfigs[sMode];
+                demandDisplay.textContent = dCfg.label;
+                supplyDisplay.textContent = sCfg.label;
+
+                // Build demand with intercept so that at p=2 we get a reasonable Q
+                // Q_d = (dCfg.slope * 2 + 80) - dCfg.slope * p  => at p=2, Q=80
+                const dIntercept = dCfg.slope * 2 + 80;
+                const QdFn = function(p) { return Math.max(0, dIntercept - dCfg.slope * p); };
+                // Supply: Q_s = sCfg.intercept + sCfg.slope * p, calibrate so at p=2, Q=80
+                const sIntercept = 80 - sCfg.slope * 2;
+                const QsFn = function(p) { return Math.max(0, sIntercept + sCfg.slope * p); };
+
+                // Pre-tax equilibrium (should be p=2, Q=80 by construction)
+                const pEq = 2;
+                const qEq = 80;
+
+                // Post-tax equilibrium: dIntercept - dCfg.slope * pc = sIntercept + sCfg.slope * (pc - tau)
+                // dIntercept - dCfg.slope * pc = sIntercept + sCfg.slope * pc - sCfg.slope * tau
+                // dIntercept - sIntercept + sCfg.slope * tau = (dCfg.slope + sCfg.slope) * pc
+                const pc = (dIntercept - sIntercept + sCfg.slope * tau) / (dCfg.slope + sCfg.slope);
+                const pp = pc - tau;
+                const qNew = QdFn(pc);
+
+                // Draw original supply (dashed), D, and shifted S
+                drawLine(ctx, gw, gh, qMax, pMax, QsFn, COLORS.supplyShifted, 'S', true);
+                const QsTax = function(p) { return QsFn(p - tau); };
+                drawLine(ctx, gw, gh, qMax, pMax, QsTax, COLORS.supply, 'S + tax');
+                drawLine(ctx, gw, gh, qMax, pMax, QdFn, COLORS.demand, 'D');
+
+                // Consumer burden rectangle
+                if (pc > pEq && qNew > 0) {
+                    const ptTL = toPixel(0, pc, gw, gh, qMax, pMax);
+                    const ptBR = toPixel(qNew, pEq, gw, gh, qMax, pMax);
+                    ctx.fillStyle = COLORS.consumerBurden;
+                    ctx.fillRect(M.left, ptTL.y, ptBR.x - M.left, ptBR.y - ptTL.y);
+                    ctx.fillStyle = COLORS.demand;
+                    ctx.font = '11px -apple-system, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Consumer burden', (M.left + ptBR.x) / 2, (ptTL.y + ptBR.y) / 2 + 4);
+                }
+
+                // Producer burden rectangle
+                if (pp < pEq && qNew > 0) {
+                    const ptTL = toPixel(0, pEq, gw, gh, qMax, pMax);
+                    const ptBR = toPixel(qNew, pp, gw, gh, qMax, pMax);
+                    ctx.fillStyle = COLORS.producerBurden;
+                    ctx.fillRect(M.left, ptTL.y, ptBR.x - M.left, ptBR.y - ptTL.y);
+                    ctx.fillStyle = COLORS.supply;
+                    ctx.font = '11px -apple-system, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Producer burden', (M.left + ptBR.x) / 2, (ptTL.y + ptBR.y) / 2 + 4);
+                }
+
+                // Old eq dot (faint)
+                drawDot(ctx, qEq, pEq, gw, gh, qMax, pMax, COLORS.textMuted, 5);
+                // New eq dots
+                drawDashedLines(ctx, qNew, pc, gw, gh, qMax, pMax, COLORS.demand);
+                drawDot(ctx, qNew, pc, gw, gh, qMax, pMax, COLORS.demand, 6);
+                drawDashedLines(ctx, qNew, pp, gw, gh, qMax, pMax, COLORS.supply);
+                drawDot(ctx, qNew, pp, gw, gh, qMax, pMax, COLORS.supply, 6);
+
+                // Compute shares
+                const consumerShare = (pc - pEq) / tau * 100;
+                const producerShare = (pEq - pp) / tau * 100;
+
+                // Compute elasticities at pre-tax equilibrium
+                const absEps = dCfg.slope * pEq / qEq;
+                const eta = sCfg.slope * pEq / qEq;
+
+                info.textContent = `Tax τ = £${tau.toFixed(2)}. |ε| = ${absEps.toFixed(2)}, η = ${eta.toFixed(2)}. Consumer pays £${(pc - pEq).toFixed(2)} (${consumerShare.toFixed(0)}%), producer absorbs £${(pEq - pp).toFixed(2)} (${producerShare.toFixed(0)}%). Q falls to ${qNew.toFixed(0)}.`;
+            }
+
+            demandSlider.addEventListener('input', draw);
+            supplySlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { demandSlider.value = 2; supplySlider.value = 2; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 5: DEADWEIGHT LOSS
+        // ============================================================
+        (function() {
+            const slider = document.getElementById('dwlTaxSlider');
+            const display = document.getElementById('dwlTaxDisplay');
+            const info = document.getElementById('dwlInfo');
+            const resetBtn = document.getElementById('dwlResetBtn');
+            const qMax = 180, pMax = 4.5;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('dwlCanvas');
+                const gw = w - M.left - M.right;
+                const gh = h - M.top - M.bottom;
+                drawAxes(ctx, w, h, gw, gh, qMax, pMax);
+
+                const tau = parseFloat(slider.value);
+                display.textContent = '£' + tau.toFixed(2);
+
+                if (tau > 0) {
+                    const pc = 2 + (15 / 55) * tau;
+                    const pp = pc - tau;
+                    const qNew = Math.max(0, Qd(pc));
+                    const qOld = 80;
+
+                    // Tax revenue rectangle
+                    if (qNew > 0) {
+                        const ptTL = toPixel(0, pc, gw, gh, qMax, pMax);
+                        const ptBR = toPixel(qNew, pp, gw, gh, qMax, pMax);
+                        ctx.fillStyle = COLORS.taxRevenue;
+                        ctx.fillRect(M.left, ptTL.y, ptBR.x - M.left, ptBR.y - ptTL.y);
+                        ctx.strokeStyle = COLORS.taxRevenueBorder;
+                        ctx.lineWidth = 1;
+                        ctx.strokeRect(M.left, ptTL.y, ptBR.x - M.left, ptBR.y - ptTL.y);
+                        ctx.fillStyle = COLORS.taxRevenueBorder;
+                        ctx.font = 'bold 11px -apple-system, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Tax Revenue', (M.left + ptBR.x) / 2, (ptTL.y + ptBR.y) / 2 + 4);
+                    }
+
+                    // DWL triangle: vertices at (qNew, pc), (qOld, 2), (qNew, pp)
+                    // Actually: the DWL triangle is between the D and S curves from qNew to qOld
+                    // Top vertex: (qNew, pc) on D curve
+                    // Right vertex: (qOld, pEq = 2) intersection of D and S
+                    // Bottom vertex: (qNew, pp) on S curve
+                    if (qNew < qOld && qNew >= 0) {
+                        const ptTop = toPixel(qNew, pc, gw, gh, qMax, pMax);
+                        const ptRight = toPixel(qOld, 2, gw, gh, qMax, pMax);
+                        const ptBottom = toPixel(qNew, pp, gw, gh, qMax, pMax);
+
+                        ctx.fillStyle = COLORS.dwl;
+                        ctx.beginPath();
+                        ctx.moveTo(ptTop.x, ptTop.y);
+                        ctx.lineTo(ptRight.x, ptRight.y);
+                        ctx.lineTo(ptBottom.x, ptBottom.y);
+                        ctx.closePath();
+                        ctx.fill();
+
+                        ctx.strokeStyle = COLORS.dwlBorder;
+                        ctx.lineWidth = 1.5;
+                        ctx.beginPath();
+                        ctx.moveTo(ptTop.x, ptTop.y);
+                        ctx.lineTo(ptRight.x, ptRight.y);
+                        ctx.lineTo(ptBottom.x, ptBottom.y);
+                        ctx.closePath();
+                        ctx.stroke();
+
+                        // DWL label
+                        const dwlCx = (ptTop.x + ptRight.x + ptBottom.x) / 3;
+                        const dwlCy = (ptTop.y + ptRight.y + ptBottom.y) / 3;
+                        ctx.fillStyle = COLORS.dwlBorder;
+                        ctx.font = 'bold 11px -apple-system, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('DWL', dwlCx, dwlCy + 4);
+                    }
+
+                    // Draw curves on top
+                    drawLine(ctx, gw, gh, qMax, pMax, p => Qd(p), COLORS.demand, 'D');
+                    drawLine(ctx, gw, gh, qMax, pMax, p => Qs(p), COLORS.supplyShifted, 'S', true);
+                    const QsTax = function(p) { return Qs(p - tau); };
+                    drawLine(ctx, gw, gh, qMax, pMax, QsTax, COLORS.supply, 'S + tax');
+
+                    // Dots
+                    drawDot(ctx, qOld, 2, gw, gh, qMax, pMax, COLORS.textMuted, 5);
+                    if (qNew > 0) {
+                        drawDot(ctx, qNew, pc, gw, gh, qMax, pMax, COLORS.demand, 5);
+                        drawDot(ctx, qNew, pp, gw, gh, qMax, pMax, COLORS.supply, 5);
+                    }
+
+                    const dQ = qOld - qNew;
+                    const dwl = 0.5 * tau * dQ;
+                    const revenue = tau * qNew;
+                    const ratio = revenue > 0 ? (dwl / revenue * 100) : 0;
+                    info.textContent = `Tax τ = £${tau.toFixed(2)}. Q falls from 80 to ${qNew.toFixed(0)} (ΔQ = ${dQ.toFixed(0)}). Tax revenue = £${revenue.toFixed(0)}M. DWL = £${dwl.toFixed(1)}M (${ratio.toFixed(1)}% of revenue).`;
+                } else {
+                    drawLine(ctx, gw, gh, qMax, pMax, p => Qd(p), COLORS.demand, 'D');
+                    drawLine(ctx, gw, gh, qMax, pMax, p => Qs(p), COLORS.supply, 'S');
+                    drawDot(ctx, 80, 2, gw, gh, qMax, pMax, COLORS.equilibrium, 6);
+                    drawDashedLines(ctx, 80, 2, gw, gh, qMax, pMax, COLORS.equilibrium);
+                    info.textContent = 'No tax. Equilibrium at p* = £2.00, Q* = 80. Total surplus is maximised. Drag the slider to impose a tax.';
+                }
+            }
+
+            slider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { slider.value = 0; draw(); });
+            draw();
+        })();
+
+        // Shared redraw
+        function redrawAll() {
+            document.querySelectorAll('input[type="range"]').forEach(s => s.dispatchEvent(new Event('input')));
+        }
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(redrawAll, 250);
+        });
+    })();
+    </script>
+</body>
+</html>
