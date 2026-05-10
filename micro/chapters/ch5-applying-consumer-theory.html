@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: Applying Consumer Theory | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 140px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle {
+            background: var(--color-primary-dark);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .dual-panel { display: flex; gap: 0; }
+        .dual-panel canvas { flex: 1; min-width: 0; }
+        @media (max-width: 600px) {
+            .dual-panel { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 5: Applying Consumer Theory</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 5</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#deriving-demand">5.1 Deriving Demand</a></li>
+                <li><a href="#income-substitution">5.2 Income &amp; Substitution Effects</a></li>
+                <li><a href="#engel">5.3 Engel Curves</a></li>
+                <li><a href="#good-types">5.4 Types of Goods</a></li>
+                <li><a href="#welfare">5.5 Consumer Welfare</a></li>
+                <li><a href="#formal-derivations">5.6 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: Can a Price Increase Make People Buy More?</h2>
+                <p>During the Irish famine of the 1840s, the price of potatoes rose sharply. Standard economic logic predicts that people should have bought fewer potatoes. Yet contemporary accounts suggest the opposite happened: the poorest families bought <em>more</em> potatoes, not fewer.</p>
+
+                <p>How is that possible? The answer lies in the fact that a price increase does two things simultaneously. It makes the good relatively more expensive compared with alternatives (which pushes you away from it), but it also effectively makes you poorer (which, if the good is a basic staple you depend on, might push you <em>toward</em> it). When this second force dominates, you get the paradox of a <strong>Giffen good</strong> &mdash; a good whose demand curve slopes upward.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>To understand this paradox, we need to decompose any price change into two distinct effects: the <strong>substitution effect</strong> (always works against the good whose price rose) and the <strong>income effect</strong> (whose direction depends on whether the good is normal or inferior). This decomposition is one of the most powerful tools in consumer theory.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to derive a demand curve from first principles, decompose any price change into substitution and income effects, classify goods as normal, inferior, or Giffen, and measure consumer welfare in monetary terms.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#deriving-demand">Deriving Demand</a> &mdash; from optimal choice to the demand curve</li>
+                    <li><a href="#income-substitution">Income &amp; Substitution Effects</a> &mdash; decomposing a price change</li>
+                    <li><a href="#engel">Engel Curves</a> &mdash; how consumption responds to income</li>
+                    <li><a href="#good-types">Types of Goods</a> &mdash; normal, inferior, and Giffen</li>
+                    <li><a href="#welfare">Consumer Welfare</a> &mdash; CV, EV, and consumer surplus</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; the full mathematical treatment</li>
+                </ol>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- 5.1 DERIVING DEMAND                           -->
+            <!-- ============================================ -->
+            <section id="deriving-demand" class="lesson-section section-intuition">
+                <h2>5.1 Deriving the Demand Curve</h2>
+
+                <h3>Intuition: Connecting Chapter 4 to Chapter 2</h3>
+                <p>In Chapter 4, we found the optimal bundle by locating the tangency between an indifference curve and the budget line. Now imagine repeating this exercise at different prices for good 1, keeping income and the price of good 2 fixed. Each price gives a different budget line (rotated around the vertical intercept), a different tangency point, and therefore a different optimal quantity of good 1.</p>
+
+                <p>If we record these price–quantity pairs and plot them in a separate diagram with price on the vertical axis and quantity on the horizontal axis, we get &mdash; the <strong>demand curve</strong>. The demand curve is not assumed; it is <em>derived</em> from the deeper theory of preferences and constrained optimisation.</p>
+
+                <h3>Geometric Solution: From Tangencies to Demand</h3>
+                <p>The graph below has two panels. The upper panel shows the budget line and indifference curves; the lower panel builds the demand curve point by point as you change the price of good 1.</p>
+
+                <div class="interactive-graph" id="derive-demand-container">
+                    <canvas id="deriveDemandCanvas" width="600" height="520"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            p₁: <span class="value-display" id="ddP1Display">£5.0</span>
+                            <input type="range" id="ddP1Slider" min="2" max="12" step="0.5" value="5">
+                        </label>
+                        <button id="ddTraceBtn">Trace All Prices</button>
+                        <button id="ddResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="ddInfo">
+                        Move the price slider to see how the optimal quantity changes. The lower panel plots the resulting demand curve.
+                    </div>
+                    <p class="graph-caption">Figure 5.1 &mdash; Deriving the demand curve. Each tangency in the upper panel produces a point on the demand curve below.</p>
+                </div>
+
+                <p>As the price of good 1 rises, the budget line rotates inward and the tangency moves to a bundle with less of good 1. The demand curve that emerges in the lower panel slopes downward &mdash; confirming the Law of Demand from Chapter 2, but now <em>derived</em> from the theory of consumer choice.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The Price-Consumption Curve</h4>
+                    <p>The line connecting all the optimal bundles in the upper panel (as p₁ varies) is called the <strong>price-consumption curve</strong>. It shows how the composition of the optimal basket changes with price. Projecting this curve into the price–quantity space gives the demand curve.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 5.2 INCOME & SUBSTITUTION EFFECTS             -->
+            <!-- ============================================ -->
+            <section id="income-substitution" class="lesson-section section-geometric">
+                <h2>5.2 Income and Substitution Effects</h2>
+
+                <h3>Intuition: Two Forces in Every Price Change</h3>
+                <p>When the price of pizza rises from £5 to £8, two things happen at once:</p>
+
+                <p><strong>The substitution effect:</strong> Pizza has become relatively more expensive compared with beer. Even if your overall purchasing power had not changed, you would tilt your consumption toward beer and away from pizza. This effect <em>always</em> works against the good whose price has risen.</p>
+
+                <p><strong>The income effect:</strong> Your budget buys less than before &mdash; you are effectively poorer. If pizza is a <em>normal good</em> (you buy more when richer), becoming poorer means buying less pizza, reinforcing the substitution effect. If pizza is an <em>inferior good</em> (you buy more when poorer), the income effect works in the opposite direction, partially offsetting the substitution effect.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Hicks Decomposition</h4>
+                    <p>To isolate the substitution effect, we ask: "What would the consumer choose at the <em>new</em> prices if we adjusted their income to keep them on the <em>original</em> indifference curve?" This hypothetical, compensated bundle separates the two effects:</p>
+                    <p><strong>Substitution effect</strong> = movement from original bundle to compensated bundle (along the original IC).</p>
+                    <p><strong>Income effect</strong> = movement from compensated bundle to final bundle (shift between ICs).</p>
+                </div>
+
+                <h3>Geometric Solution: Decomposing a Price Increase</h3>
+
+                <div class="interactive-graph" id="se-ie-container">
+                    <canvas id="seIeCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            New p₁: <span class="value-display" id="seP1Display">£5.0</span>
+                            <input type="range" id="seP1Slider" min="5" max="12" step="0.5" value="5">
+                        </label>
+                        <button id="seResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="seInfo">
+                        Increase p₁ above £5 to see the substitution effect (green arrow) and income effect (orange arrow) decomposition.
+                    </div>
+                    <p class="graph-caption">Figure 5.2 &mdash; Hicks decomposition. The green arrow is the substitution effect; the orange arrow is the income effect.</p>
+                </div>
+
+                <p>Watch what happens as you raise p₁. The budget line rotates inward. The final bundle (blue dot) has less of good 1 than the original (grey dot). The compensated bundle (dashed budget line tangent to the original IC) isolates the substitution effect &mdash; the consumer substitutes away from good 1 purely because of relative prices. The remaining movement, from the compensated bundle to the final bundle, is the income effect &mdash; the consumer is poorer and adjusts accordingly.</p>
+
+                <p>For a normal good, both arrows point in the same direction (leftward), reinforcing each other. This is why the demand curve for normal goods always slopes downward.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 5.3 ENGEL CURVES                              -->
+            <!-- ============================================ -->
+            <section id="engel" class="lesson-section section-geometric">
+                <h2>5.3 Engel Curves</h2>
+
+                <h3>Intuition: How Does Consumption Respond to Income?</h3>
+                <p>The income-and-substitution framework deals with price changes. But what about income changes? If you get a pay rise, how does your spending pattern shift? Do you buy proportionally more of everything, or do you upgrade some goods and cut back on others?</p>
+
+                <p>The <strong>income-consumption curve</strong> (ICC) traces the optimal bundles as income rises, keeping prices fixed. An <strong>Engel curve</strong> plots the relationship between income and the quantity demanded of a single good.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Engel Curve</h4>
+                    <p>Named after the 19th-century statistician Ernst Engel, an Engel curve shows how the quantity consumed of a good varies with income, holding prices constant. For a normal good, the Engel curve slopes upward (higher income &rarr; more consumption). For an inferior good, it slopes downward beyond some income threshold.</p>
+                </div>
+
+                <h3>Geometric Solution: Income Expansion</h3>
+
+                <div class="interactive-graph" id="engel-container">
+                    <canvas id="engelCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Income (Y): <span class="value-display" id="engelYDisplay">£30</span>
+                            <input type="range" id="engelYSlider" min="10" max="70" step="2" value="30">
+                        </label>
+                        <button id="engelTraceBtn">Trace All Incomes</button>
+                        <button id="engelResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="engelInfo">
+                        Move the income slider to see the budget line shift and the optimal bundle change. Click "Trace" to draw the full income-consumption curve.
+                    </div>
+                    <p class="graph-caption">Figure 5.3 &mdash; As income rises, the budget line shifts outward. The path of optimal bundles is the income-consumption curve.</p>
+                </div>
+
+                <p>For Cobb-Douglas preferences (\(U = q_1 q_2\)), the ICC is a straight ray from the origin because both goods have constant budget shares (50% each). The Engel curves are linear: \(q_1^* = Y/(2p_1)\), a straight line through the origin. Both goods are normal &mdash; consumption rises proportionally with income.</p>
+
+                <div class="callout callout-example">
+                    <h4>Engel's Law</h4>
+                    <p>Ernst Engel observed that the share of income spent on food <em>falls</em> as income rises. The poor spend 50–70% of their budget on food; the rich spend 10–15%. This makes food a <strong>necessity</strong> &mdash; a normal good whose income elasticity is between 0 and 1. Luxury goods (restaurant meals, holidays, designer clothing) have income elasticities above 1: their budget share <em>rises</em> with income.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 5.4 TYPES OF GOODS                            -->
+            <!-- ============================================ -->
+            <section id="good-types" class="lesson-section section-intuition">
+                <h2>5.4 Normal, Inferior, and Giffen Goods</h2>
+
+                <h3>Intuition: It All Depends on the Income Effect</h3>
+                <p>We can now classify goods by how the income effect interacts with the substitution effect:</p>
+
+                <div class="callout callout-definition">
+                    <h4>Classification of Goods</h4>
+                    <p><strong>Normal good:</strong> The income effect reinforces the substitution effect. When the price rises, you buy less because (a) it is relatively more expensive <em>and</em> (b) you are poorer and buy less of it when poorer. The demand curve slopes downward. Most goods are normal.</p>
+                    <p><strong>Inferior good:</strong> The income effect partially offsets the substitution effect. When the price rises, the substitution effect says buy less, but the income effect (being poorer means buying <em>more</em> of this cheap staple) says buy more. The net effect is still negative &mdash; the demand curve still slopes downward, just more steeply. Examples: instant noodles, bus travel, store-brand goods.</p>
+                    <p><strong>Giffen good:</strong> The income effect completely dominates the substitution effect. The demand curve slopes <em>upward</em>. This requires a good that is both strongly inferior <em>and</em> constitutes a large share of the consumer's budget. Extremely rare in practice.</p>
+                </div>
+
+                <h3>Geometric Solution: Comparing the Decompositions</h3>
+
+                <div class="interactive-graph" id="good-types-container">
+                    <canvas id="goodTypesCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <button id="gtNormalBtn" class="active-toggle">Normal Good</button>
+                        <button id="gtInferiorBtn">Inferior Good</button>
+                        <button id="gtGiffenBtn">Giffen Good</button>
+                        <button id="gtResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="gtInfo">
+                        Toggle between good types to see how the substitution effect (green) and income effect (orange) interact differently.
+                    </div>
+                    <p class="graph-caption">Figure 5.4 &mdash; Normal, inferior, and Giffen goods differ in the direction and magnitude of the income effect.</p>
+                </div>
+
+                <p>For a <strong>normal good</strong>, both arrows point left &mdash; substitution and income effects reinforce. For an <strong>inferior good</strong>, the orange income-effect arrow points right (becoming poorer increases demand for this good), but the green substitution-effect arrow is longer, so the net change is still leftward. For the <strong>Giffen good</strong>, the orange arrow dominates &mdash; the consumer ends up buying <em>more</em> of the good despite the price increase.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 5.5 CONSUMER WELFARE                          -->
+            <!-- ============================================ -->
+            <section id="welfare" class="lesson-section section-geometric">
+                <h2>5.5 Consumer Welfare: Measuring the Cost of a Price Increase</h2>
+
+                <h3>Intuition: How Much Does a Price Increase Hurt?</h3>
+                <p>When the price of petrol rises, drivers are worse off. But by how much? Economists want a monetary measure &mdash; "this price increase hurts the consumer as much as losing £X of income." Two such measures exist:</p>
+
+                <div class="callout callout-definition">
+                    <h4>Compensating and Equivalent Variation</h4>
+                    <p><strong>Compensating Variation (CV):</strong> The amount of income you would need to <em>give</em> the consumer after the price increase to restore them to their original utility level. "How much compensation would make you whole?"</p>
+                    <p><strong>Equivalent Variation (EV):</strong> The amount of income you could <em>take away</em> from the consumer (at the original prices) that would leave them as badly off as the price increase. "How much income is the price increase equivalent to losing?"</p>
+                </div>
+
+                <p>The CV asks: at the <em>new</em> prices, how much extra income restores the old utility? The EV asks: at the <em>old</em> prices, how much income reduction replicates the new utility? Both are exact measures of welfare change. <strong>Consumer surplus</strong> (the area under the demand curve and above the price) is an approximation that lies between the two.</p>
+
+                <h3>Geometric Solution: Visualising CV and EV</h3>
+
+                <div class="interactive-graph" id="welfare-container">
+                    <canvas id="welfareCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            New p₁: <span class="value-display" id="welfP1Display">£5.0</span>
+                            <input type="range" id="welfP1Slider" min="5" max="12" step="0.5" value="5">
+                        </label>
+                        <button id="welfCVBtn" class="active-toggle">Show CV</button>
+                        <button id="welfEVBtn">Show EV</button>
+                        <button id="welfResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="welfInfo">
+                        Increase p₁ to see how much the price change hurts the consumer, measured by CV or EV.
+                    </div>
+                    <p class="graph-caption">Figure 5.5 &mdash; Compensating Variation (income needed to restore original utility) and Equivalent Variation (income equivalent of the welfare loss).</p>
+                </div>
+
+                <p>The CV is the vertical distance between the new budget line and the compensated budget line (the one tangent to the <em>original</em> IC at the new prices). The EV is the vertical distance between the original budget line and the equivalent budget line (tangent to the <em>new</em> IC at the old prices). For Cobb-Douglas preferences, CV and EV differ because the income shares are constant but the price level changes.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 5.6 FORMAL DERIVATIONS                        -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>5.6 Formal Mathematical Derivations</h2>
+
+                <p>This section collects the full mathematical treatment of the concepts developed intuitively above. It is intended as a reference for those who want rigorous proofs and complete worked examples.</p>
+
+                <h3>Deriving Demand from Utility Maximisation</h3>
+                <p>The consumer solves:</p>
+
+                \[ \max_{q_1, q_2} \; U(q_1, q_2) = q_1^a q_2^b \quad \text{s.t.} \quad p_1 q_1 + p_2 q_2 = Y \]
+
+                <p>Setting up the Lagrangian:</p>
+
+                \[ \mathcal{L} = q_1^a q_2^b + \lambda(Y - p_1 q_1 - p_2 q_2) \]
+
+                <p>First-order conditions:</p>
+
+                \[ \frac{\partial \mathcal{L}}{\partial q_1} = a \, q_1^{a-1} q_2^b - \lambda p_1 = 0 \]
+                \[ \frac{\partial \mathcal{L}}{\partial q_2} = b \, q_1^a q_2^{b-1} - \lambda p_2 = 0 \]
+                \[ \frac{\partial \mathcal{L}}{\partial \lambda} = Y - p_1 q_1 - p_2 q_2 = 0 \]
+
+                <p>Dividing the first equation by the second:</p>
+
+                \[ \frac{a \, q_2}{b \, q_1} = \frac{p_1}{p_2} \quad \Rightarrow \quad q_2 = \frac{b \, p_1}{a \, p_2} q_1 \]
+
+                <p>Substituting into the budget constraint:</p>
+
+                \[ p_1 q_1 + p_2 \cdot \frac{b \, p_1}{a \, p_2} q_1 = Y \quad \Rightarrow \quad p_1 q_1 \left(1 + \frac{b}{a}\right) = Y \]
+
+                \[ q_1^* = \frac{a}{a + b} \cdot \frac{Y}{p_1}, \qquad q_2^* = \frac{b}{a + b} \cdot \frac{Y}{p_2} \]
+
+                <p>For \(a = b = 1\): \(q_1^* = Y/(2p_1)\), \(q_2^* = Y/(2p_2)\). The <strong>Marshallian (uncompensated) demand functions</strong>.</p>
+
+                <h3>The Indirect Utility Function</h3>
+                <p>Substituting the optimal demands back into \(U\):</p>
+
+                \[ V(p_1, p_2, Y) = \left(\frac{a}{a+b}\right)^a \left(\frac{b}{a+b}\right)^b \cdot \frac{Y^{a+b}}{p_1^a \, p_2^b} \]
+
+                <p>For \(a = b = 1\): \(V = Y^2 / (4 p_1 p_2)\).</p>
+
+                <h3>The Expenditure Function and Hicksian Demand</h3>
+                <p>The dual problem minimises expenditure subject to achieving a target utility \(\bar{U}\):</p>
+
+                \[ \min_{q_1, q_2} \; p_1 q_1 + p_2 q_2 \quad \text{s.t.} \quad q_1^a q_2^b = \bar{U} \]
+
+                <p>The solution yields the <strong>Hicksian (compensated) demand functions</strong> \(h_1(p_1, p_2, \bar{U})\) and \(h_2(p_1, p_2, \bar{U})\), and the <strong>expenditure function</strong>:</p>
+
+                \[ E(p_1, p_2, \bar{U}) = (a + b) \left(\frac{p_1}{a}\right)^{\frac{a}{a+b}} \left(\frac{p_2}{b}\right)^{\frac{b}{a+b}} \bar{U}^{\frac{1}{a+b}} \]
+
+                <p>For \(a = b = 1\): \(E = 2\sqrt{p_1 p_2 \bar{U}}\).</p>
+
+                <h3>Hicks Decomposition: The Slutsky Equation</h3>
+                <p>The total effect of a price change on demand can be decomposed as:</p>
+
+                \[ \underbrace{\frac{\partial q_1^*}{\partial p_1}}_{\text{Total effect}} = \underbrace{\frac{\partial h_1}{\partial p_1}}_{\text{Substitution effect}} - \underbrace{q_1^* \frac{\partial q_1^*}{\partial Y}}_{\text{Income effect}} \]
+
+                <p>This is the <strong>Slutsky equation</strong>. Let us compute each term for \(U = q_1 q_2\) with \(Y = 30, p_1 = 5, p_2 = 3\):</p>
+
+                <p><strong>Total effect:</strong> \(\partial q_1^* / \partial p_1 = -Y/(2p_1^2) = -30/50 = -0.60\).</p>
+
+                <p><strong>Income effect term:</strong> \(q_1^* \cdot \partial q_1^*/\partial Y = (Y/2p_1) \cdot (1/2p_1) = Y/(4p_1^2) = 30/100 = 0.30\).</p>
+
+                <p><strong>Substitution effect:</strong> Total + Income effect term = \(-0.60 - (-0.30) = -0.30\).</p>
+
+                <p>Or using the Hicksian demand. From \(E = 2\sqrt{p_1 p_2 \bar{U}}\), the Hicksian demand for good 1 is:</p>
+
+                \[ h_1 = \sqrt{\frac{p_2 \bar{U}}{p_1}} \]
+
+                \[ \frac{\partial h_1}{\partial p_1} = -\frac{1}{2} \sqrt{\frac{p_2 \bar{U}}{p_1^3}} \]
+
+                <p>At the original optimum \(\bar{U} = 15\), \(p_1 = 5\), \(p_2 = 3\):</p>
+
+                \[ \frac{\partial h_1}{\partial p_1} = -\frac{1}{2}\sqrt{\frac{3 \times 15}{125}} = -\frac{1}{2}\sqrt{0.36} = -0.30 \]
+
+                <p>Confirming: substitution effect = \(-0.30\), income effect = \(-0.30\), total = \(-0.60\). For this symmetric Cobb-Douglas case, the two effects are exactly equal.</p>
+
+                <h3>Compensating and Equivalent Variation</h3>
+                <p>Using the expenditure function, the welfare measures are:</p>
+
+                \[ \text{CV} = E(p_1', p_2, \bar{U}_0) - Y \]
+
+                <p>where \(p_1'\) is the new price and \(\bar{U}_0\) is the original utility. This is the extra income needed at the new prices to reach the old utility.</p>
+
+                \[ \text{EV} = Y - E(p_1, p_2, \bar{U}_1) \]
+
+                <p>where \(\bar{U}_1\) is the new (lower) utility. This is the income the consumer would give up at the old prices to be as badly off as under the price increase.</p>
+
+                <p><strong>Worked example:</strong> \(Y = 30\), \(p_2 = 3\), price of good 1 rises from \(p_1 = 5\) to \(p_1' = 8\).</p>
+
+                <p>Original utility: \(\bar{U}_0 = q_1^* q_2^* = 3 \times 5 = 15\).</p>
+
+                <p>New utility: \(\bar{U}_1 = \frac{30}{2 \times 8} \cdot \frac{30}{2 \times 3} = 1.875 \times 5 = 9.375\).</p>
+
+                \[ \text{CV} = 2\sqrt{8 \times 3 \times 15} - 30 = 2\sqrt{360} - 30 = 37.95 - 30 = £7.95 \]
+
+                \[ \text{EV} = 30 - 2\sqrt{5 \times 3 \times 9.375} = 30 - 2\sqrt{140.625} = 30 - 23.72 = £6.28 \]
+
+                <p>The CV (£7.95) exceeds the EV (£6.28). This is a general result for price increases with normal goods: the consumer needs more compensation at the new, higher prices than the income-equivalent at the old, lower prices. Consumer surplus (the area between the two prices under the Marshallian demand curve) lies between the two: it is approximately £6.93 for this example.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The Slutsky vs. Hicks Decomposition</h4>
+                    <p>The <strong>Hicks decomposition</strong> (used throughout this chapter) defines the compensated bundle as the one that maintains the original <em>utility level</em> at the new prices. The <strong>Slutsky decomposition</strong> instead defines it as the bundle that keeps the original bundle <em>affordable</em> at the new prices. The Slutsky approach gives the consumer slightly more income (enough to buy the old bundle, not merely to reach the old IC), so the Slutsky substitution effect is slightly different from the Hicks one. Both decompositions agree on the total effect; they differ only in how they split it. The Hicks version is theoretically cleaner; the Slutsky version is often easier for students to compute.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>In this chapter, we applied the consumer choice framework from Chapter 4 to derive several powerful results.</p>
+
+                <p>The <strong>demand curve</strong> is derived by varying the price of a good while holding income and other prices constant. Each price yields a new optimal tangency, and tracing these gives the familiar downward-sloping demand curve. Every price change can be decomposed into a <strong>substitution effect</strong> (always pushing away from the good whose price rose) and an <strong>income effect</strong> (whose direction depends on whether the good is normal or inferior). The <strong>Slutsky equation</strong> formalises this decomposition.</p>
+
+                <p><strong>Engel curves</strong> show how consumption responds to income. For Cobb-Douglas preferences, Engel curves are linear through the origin &mdash; both goods are normal. <strong>Normal goods</strong> have reinforcing substitution and income effects; <strong>inferior goods</strong> have partially offsetting effects; <strong>Giffen goods</strong> (extremely rare) have income effects that dominate, producing an upward-sloping demand curve.</p>
+
+                <p>Consumer welfare can be measured precisely using the <strong>compensating variation</strong> (income needed to restore original utility after a price change) and the <strong>equivalent variation</strong> (income equivalent of the welfare loss at original prices). <strong>Consumer surplus</strong> is a practical approximation that lies between the two.</p>
+
+                <p>In the next chapter, we move from the consumer side to the firm side of the market: how do firms combine inputs to produce output?</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch4-consumer-choice.html">&larr; Chapter 4: Consumer Choice</a>
+                <span style="color: var(--color-text-lighter);">Chapter 6: Firms and Production &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        const LIGHT = {
+            demand: '#3b82f6', supply: '#ef4444', equilibrium: '#0a9396',
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            ic1: '#8b5cf6', ic2: '#a78bfa', ic3: '#c4b5fd', icFaded: '#ddd6fe',
+            budget: '#0a9396', budgetOld: '#aaaaaa', budgetComp: '#f59e0b',
+            budgetFill: 'rgba(10, 147, 150, 0.08)',
+            optimal: '#10b981', optGlow: 'rgba(16, 185, 129, 0.3)',
+            se: '#10b981', ie: '#f59e0b', totalEffect: '#ef4444',
+            cv: 'rgba(59, 130, 246, 0.2)', ev: 'rgba(239, 68, 68, 0.2)',
+            cvBorder: '#3b82f6', evBorder: '#ef4444',
+            tracePoint: '#8b5cf6', traceLine: 'rgba(139, 92, 246, 0.4)',
+            normal: '#10b981', inferior: '#f59e0b', giffen: '#ef4444'
+        };
+
+        const DARK = {
+            demand: '#60a5fa', supply: '#f87171', equilibrium: '#2ec4c8',
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            ic1: '#a78bfa', ic2: '#c4b5fd', ic3: '#7c6faa', icFaded: '#5a5080',
+            budget: '#2ec4c8', budgetOld: '#707070', budgetComp: '#fbbf24',
+            budgetFill: 'rgba(46, 196, 200, 0.1)',
+            optimal: '#34d399', optGlow: 'rgba(52, 211, 153, 0.35)',
+            se: '#34d399', ie: '#fbbf24', totalEffect: '#f87171',
+            cv: 'rgba(96, 165, 250, 0.25)', ev: 'rgba(248, 113, 113, 0.25)',
+            cvBorder: '#60a5fa', evBorder: '#f87171',
+            tracePoint: '#a78bfa', traceLine: 'rgba(167, 139, 250, 0.5)',
+            normal: '#34d399', inferior: '#fbbf24', giffen: '#f87171'
+        };
+
+        const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        let C = darkMQ.matches ? DARK : LIGHT;
+        darkMQ.addEventListener('change', e => { C = e.matches ? DARK : LIGHT; redrawAll(); });
+
+        function getCtx(id) {
+            const cv = document.getElementById(id);
+            const dpr = window.devicePixelRatio || 1;
+            const r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            const ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx, w: r.width, h: r.height };
+        }
+
+        // Generic helpers
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep) {
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            for (let v = 0; v <= yMax; v += (yStep || 2)) {
+                const p = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, p.y); ctx.lineTo(ox + gw, p.y); ctx.stroke();
+            }
+            for (let v = 0; v <= xMax; v += (xStep || 2)) {
+                const p = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(p.x, oy); ctx.lineTo(p.x, oy + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel || '', ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel || '', 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (let v = 0; v <= xMax; v += (xStep || 2)) {
+                const p = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, p.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (let v = 0; v <= yMax; v += (yStep || 2)) {
+                const p = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v % 1 === 0 ? v : v.toFixed(1), ox - 6, p.y);
+            }
+        }
+
+        function drawICCurve(ctx, ox, oy, gw, gh, xMax, yMax, U, color, dashed) {
+            ctx.strokeStyle = color; ctx.lineWidth = 2;
+            if (dashed) ctx.setLineDash([5, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); let started = false;
+            for (let q1 = 0.15; q1 <= xMax; q1 += 0.1) {
+                const q2 = U / q1;
+                if (q2 < 0.05 || q2 > yMax) continue;
+                const p = tp(q1, q2, ox, oy, gw, gh, xMax, yMax);
+                if (!started) { ctx.moveTo(p.x, p.y); started = true; } else ctx.lineTo(p.x, p.y);
+            }
+            ctx.stroke(); ctx.setLineDash([]);
+        }
+
+        function drawBudget(ctx, ox, oy, gw, gh, xMax, yMax, Y, p1, p2, color, dashed) {
+            const q1Int = Y / p1, q2Int = Y / p2;
+            const pa = tp(0, Math.min(q2Int, yMax), ox, oy, gw, gh, xMax, yMax);
+            const pb = tp(Math.min(q1Int, xMax), Math.max(0, q2Int - (p1/p2)*Math.min(q1Int, xMax)), ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 2;
+            if (dashed) ctx.setLineDash([5, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            const p = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(p.x, p.y, r || 5, 0, 2 * Math.PI); ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            const p = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            const ya = tp(0, y, ox, oy, gw, gh, xMax, yMax);
+            const xa = tp(x, 0, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+            ctx.beginPath(); ctx.moveTo(ya.x, p.y); ctx.lineTo(p.x, p.y); ctx.lineTo(p.x, xa.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function arrow(ctx, x1, y1, x2, y2, ox, oy, gw, gh, xMax, yMax, color, lineWidth) {
+            const p1 = tp(x1, y1, ox, oy, gw, gh, xMax, yMax);
+            const p2 = tp(x2, y2, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lineWidth || 2.5;
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+            const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+            const hl = 8;
+            ctx.beginPath();
+            ctx.moveTo(p2.x, p2.y);
+            ctx.lineTo(p2.x - hl * Math.cos(angle - 0.4), p2.y - hl * Math.sin(angle - 0.4));
+            ctx.lineTo(p2.x - hl * Math.cos(angle + 0.4), p2.y - hl * Math.sin(angle + 0.4));
+            ctx.closePath(); ctx.fill();
+        }
+
+        const Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        // Cobb-Douglas optimal: q1* = Y/(2p1), q2* = Y/(2p2), U* = q1*q2*
+        function cdOpt(Y, p1, p2) {
+            const q1 = Y / (2 * p1), q2 = Y / (2 * p2);
+            return { q1, q2, U: q1 * q2 };
+        }
+
+        // ============================================================
+        // GRAPH 1: DERIVING THE DEMAND CURVE
+        // ============================================================
+        (function() {
+            const slider = document.getElementById('ddP1Slider');
+            const display = document.getElementById('ddP1Display');
+            const info = document.getElementById('ddInfo');
+            const traceBtn = document.getElementById('ddTraceBtn');
+            const resetBtn = document.getElementById('ddResetBtn');
+            let traced = false;
+            const Y = 30, p2 = 3;
+            const q1Max = 10, q2Max = 12;
+            const pMax = 14;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('deriveDemandCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                const gap = 30;
+                const topH = (h - gap - Marg.bottom - Marg.top) * 0.55;
+                const botH = (h - gap - Marg.bottom - Marg.top) * 0.45;
+
+                // --- TOP PANEL: IC + Budget ---
+                const ox = Marg.left, oy = Marg.top;
+                drawAxBase(ctx, ox, oy, w - ox - Marg.right, topH, q1Max, q2Max, 'q₁ (pizza)', 'q₂ (beer)', 2, 2);
+                const gw = w - ox - Marg.right, gh = topH;
+
+                const p1 = parseFloat(slider.value);
+                display.textContent = '£' + p1.toFixed(1);
+
+                // Trace points
+                if (traced) {
+                    for (let pp = 2; pp <= 12; pp += 0.5) {
+                        const o = cdOpt(Y, pp, p2);
+                        if (o.q1 > 0 && o.q1 <= q1Max && o.q2 > 0 && o.q2 <= q2Max) {
+                            dot(ctx, o.q1, o.q2, ox, oy, gw, gh, q1Max, q2Max, C.traceLine, 3);
+                        }
+                    }
+                }
+
+                // Reference budget (p1=5)
+                drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, Y, 5, p2, C.budgetOld, true);
+
+                // Current budget
+                drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, Y, p1, p2, C.budget, false);
+
+                // ICs
+                const opt = cdOpt(Y, p1, p2);
+                const refOpt = cdOpt(Y, 5, p2);
+                drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, refOpt.U, C.icFaded, true);
+                drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, opt.U, C.ic1, false);
+
+                // Optimal dot
+                if (opt.q1 <= q1Max && opt.q2 <= q2Max) {
+                    dashedTo(ctx, opt.q1, opt.q2, ox, oy, gw, gh, q1Max, q2Max, C.optimal);
+                    const pp = tp(opt.q1, opt.q2, ox, oy, gw, gh, q1Max, q2Max);
+                    ctx.beginPath(); ctx.arc(pp.x, pp.y, 10, 0, 2 * Math.PI); ctx.fillStyle = C.optGlow; ctx.fill();
+                    dot(ctx, opt.q1, opt.q2, ox, oy, gw, gh, q1Max, q2Max, C.optimal, 6);
+                }
+
+                // --- BOTTOM PANEL: Demand curve ---
+                const oy2 = oy + topH + gap;
+                drawAxBase(ctx, ox, oy2, gw, botH, q1Max, pMax, 'q₁', 'p₁ (£)', 2, 2);
+
+                // Demand curve trace
+                ctx.strokeStyle = C.demand; ctx.lineWidth = 2.5; ctx.beginPath();
+                let started = false;
+                for (let pp = 2; pp <= 12; pp += 0.2) {
+                    const o = cdOpt(Y, pp, p2);
+                    if (o.q1 <= 0 || o.q1 > q1Max) continue;
+                    const pt = tp(o.q1, pp, ox, oy2, gw, botH, q1Max, pMax);
+                    if (!started) { ctx.moveTo(pt.x, pt.y); started = true; } else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+                // Label
+                const dlPt = tp(cdOpt(Y, 3, p2).q1, 3, ox, oy2, gw, botH, q1Max, pMax);
+                ctx.fillStyle = C.demand; ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.fillText('D', dlPt.x + 5, dlPt.y - 5);
+
+                // Current point on demand
+                if (opt.q1 > 0 && opt.q1 <= q1Max) {
+                    dashedTo(ctx, opt.q1, p1, ox, oy2, gw, botH, q1Max, pMax, C.optimal);
+                    dot(ctx, opt.q1, p1, ox, oy2, gw, botH, q1Max, pMax, C.optimal, 6);
+                }
+
+                info.textContent = `At p₁ = £${p1.toFixed(1)}: q₁* = ${opt.q1.toFixed(2)}, q₂* = ${opt.q2.toFixed(2)}, U* = ${opt.U.toFixed(1)}. Each tangency in the top panel produces a point on the demand curve below.`;
+            }
+
+            slider.addEventListener('input', draw);
+            traceBtn.addEventListener('click', () => { traced = !traced; traceBtn.textContent = traced ? 'Hide Trace' : 'Trace All Prices'; draw(); });
+            resetBtn.addEventListener('click', () => { slider.value = 5; traced = false; traceBtn.textContent = 'Trace All Prices'; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 2: INCOME & SUBSTITUTION EFFECTS (HICKS)
+        // ============================================================
+        (function() {
+            const slider = document.getElementById('seP1Slider');
+            const display = document.getElementById('seP1Display');
+            const info = document.getElementById('seInfo');
+            const resetBtn = document.getElementById('seResetBtn');
+            const Y = 30, p2 = 3, p1Init = 5;
+            const q1Max = 10, q2Max = 14;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('seIeCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+                const ox = Marg.left, oy = Marg.top;
+                const gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+                drawAxBase(ctx, ox, oy, gw, gh, q1Max, q2Max, 'q₁ (pizza)', 'q₂ (beer)', 2, 2);
+
+                const p1New = parseFloat(slider.value);
+                display.textContent = '£' + p1New.toFixed(1);
+
+                const optA = cdOpt(Y, p1Init, p2); // original
+                const optC = cdOpt(Y, p1New, p2);   // final
+
+                // Compensated bundle: on original IC (U = optA.U) at new prices
+                // h1 = sqrt(p2 * U / p1'), h2 = sqrt(p1' * U / p2)
+                const hq1 = Math.sqrt(p2 * optA.U / p1New);
+                const hq2 = Math.sqrt(p1New * optA.U / p2);
+                // Compensated income
+                const Ycomp = p1New * hq1 + p2 * hq2;
+
+                // Draw ICs
+                drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, optA.U, C.ic1, false);
+                if (p1New > p1Init) {
+                    drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, optC.U, C.ic3, true);
+                    // IC labels
+                    const l1 = tp(Math.sqrt(optA.U * 0.8 * q1Max/q2Max), optA.U / Math.sqrt(optA.U * 0.8 * q1Max/q2Max), ox, oy, gw, gh, q1Max, q2Max);
+                    ctx.fillStyle = C.ic1; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                    ctx.fillText('U₀', l1.x + 3, l1.y - 3);
+                    const l2q1 = Math.sqrt(optC.U * 0.8 * q1Max/q2Max);
+                    const l2q2 = optC.U / l2q1;
+                    if (l2q1 < q1Max && l2q2 < q2Max) {
+                        const l2 = tp(l2q1, l2q2, ox, oy, gw, gh, q1Max, q2Max);
+                        ctx.fillStyle = C.ic3; ctx.fillText('U₁', l2.x + 3, l2.y - 3);
+                    }
+                }
+
+                // Budget lines
+                drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, Y, p1Init, p2, C.budgetOld, true); // original
+                drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, Y, p1New, p2, C.budget, false);     // new
+
+                if (p1New > p1Init) {
+                    // Compensated budget
+                    drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, Ycomp, p1New, p2, C.budgetComp, true);
+                    // Label
+                    const compLabel = tp(0, Ycomp / p2, ox, oy, gw, gh, q1Max, q2Max);
+                    if (Ycomp / p2 <= q2Max) {
+                        ctx.fillStyle = C.budgetComp; ctx.font = '11px -apple-system, sans-serif';
+                        ctx.textAlign = 'left'; ctx.fillText('Compensated', compLabel.x + 5, compLabel.y + 12);
+                    }
+                }
+
+                // Point A (original)
+                dot(ctx, optA.q1, optA.q2, ox, oy, gw, gh, q1Max, q2Max, C.textMuted, 6);
+                const pA = tp(optA.q1, optA.q2, ox, oy, gw, gh, q1Max, q2Max);
+                ctx.fillStyle = C.textMuted; ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.fillText('A', pA.x - 8, pA.y - 5);
+
+                if (p1New > p1Init) {
+                    // Point B (compensated / Hicks)
+                    if (hq1 <= q1Max && hq2 <= q2Max) {
+                        dot(ctx, hq1, hq2, ox, oy, gw, gh, q1Max, q2Max, C.budgetComp, 6);
+                        const pB = tp(hq1, hq2, ox, oy, gw, gh, q1Max, q2Max);
+                        ctx.fillStyle = C.budgetComp; ctx.textAlign = 'left';
+                        ctx.fillText('B', pB.x + 8, pB.y - 5);
+                    }
+
+                    // Point C (final)
+                    if (optC.q1 <= q1Max && optC.q2 <= q2Max) {
+                        dot(ctx, optC.q1, optC.q2, ox, oy, gw, gh, q1Max, q2Max, C.budget, 6);
+                        const pC = tp(optC.q1, optC.q2, ox, oy, gw, gh, q1Max, q2Max);
+                        ctx.fillStyle = C.budget; ctx.textAlign = 'left';
+                        ctx.fillText('C', pC.x + 8, pC.y + 12);
+                    }
+
+                    // SE arrow (A → B projected onto q1 axis)
+                    const seY = 1.5;
+                    arrow(ctx, optA.q1, seY, hq1, seY, ox, oy, gw, gh, q1Max, q2Max, C.se, 3);
+                    const seMid = tp((optA.q1 + hq1) / 2, seY, ox, oy, gw, gh, q1Max, q2Max);
+                    ctx.fillStyle = C.se; ctx.font = 'bold 11px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText('SE', seMid.x, seMid.y - 8);
+
+                    // IE arrow (B → C projected onto q1 axis)
+                    const ieY = 0.7;
+                    arrow(ctx, hq1, ieY, optC.q1, ieY, ox, oy, gw, gh, q1Max, q2Max, C.ie, 3);
+                    const ieMid = tp((hq1 + optC.q1) / 2, ieY, ox, oy, gw, gh, q1Max, q2Max);
+                    ctx.fillStyle = C.ie; ctx.font = 'bold 11px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                    ctx.fillText('IE', ieMid.x, ieMid.y - 8);
+
+                    const se = optA.q1 - hq1;
+                    const ie = hq1 - optC.q1;
+                    const total = optA.q1 - optC.q1;
+                    info.textContent = `p₁: £${p1Init} → £${p1New.toFixed(1)}. A(${optA.q1.toFixed(1)},${optA.q2.toFixed(1)}) → B(${hq1.toFixed(1)},${hq2.toFixed(1)}) → C(${optC.q1.toFixed(1)},${optC.q2.toFixed(1)}). SE = −${se.toFixed(2)}, IE = −${ie.toFixed(2)}, Total = −${total.toFixed(2)}.`;
+                } else {
+                    info.textContent = 'Increase p₁ above £5 to see the Hicks decomposition into substitution and income effects.';
+                }
+            }
+
+            slider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', () => { slider.value = 5; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 3: ENGEL CURVES / ICC
+        // ============================================================
+        (function() {
+            const slider = document.getElementById('engelYSlider');
+            const display = document.getElementById('engelYDisplay');
+            const info = document.getElementById('engelInfo');
+            const traceBtn = document.getElementById('engelTraceBtn');
+            const resetBtn = document.getElementById('engelResetBtn');
+            let traced = false;
+            const p1 = 5, p2 = 3;
+            const q1Max = 10, q2Max = 14;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('engelCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+                const ox = Marg.left, oy = Marg.top;
+                const gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+                drawAxBase(ctx, ox, oy, gw, gh, q1Max, q2Max, 'q₁ (pizza)', 'q₂ (beer)', 2, 2);
+
+                const Y = parseFloat(slider.value);
+                display.textContent = '£' + Y;
+
+                // ICC trace (ray from origin for Cobb-Douglas)
+                if (traced) {
+                    ctx.strokeStyle = C.traceLine; ctx.lineWidth = 2; ctx.setLineDash([]);
+                    ctx.beginPath();
+                    // q2/q1 = p1/p2 for U = q1*q2
+                    const ratio = p1 / p2;
+                    ctx.moveTo(tp(0, 0, ox, oy, gw, gh, q1Max, q2Max).x, tp(0, 0, ox, oy, gw, gh, q1Max, q2Max).y);
+                    const endQ1 = q1Max;
+                    const endQ2 = ratio * endQ1;
+                    const pe = tp(Math.min(endQ1, q1Max), Math.min(endQ2, q2Max), ox, oy, gw, gh, q1Max, q2Max);
+                    ctx.lineTo(pe.x, pe.y); ctx.stroke();
+
+                    ctx.fillStyle = C.tracePoint; ctx.font = '11px -apple-system, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('ICC', pe.x - 25, pe.y + 14);
+
+                    // Trace dots
+                    for (let yy = 10; yy <= 70; yy += 4) {
+                        const o = cdOpt(yy, p1, p2);
+                        if (o.q1 <= q1Max && o.q2 <= q2Max) {
+                            dot(ctx, o.q1, o.q2, ox, oy, gw, gh, q1Max, q2Max, C.traceLine, 3);
+                        }
+                    }
+                }
+
+                // ICs at a few income levels
+                const opt = cdOpt(Y, p1, p2);
+                [Y * 0.5, Y, Y * 1.5].forEach((yy, i) => {
+                    const o = cdOpt(yy, p1, p2);
+                    const isActive = i === 1;
+                    drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, o.U, isActive ? C.ic1 : C.icFaded, !isActive);
+                });
+
+                // Budget line
+                drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, Y, p1, p2, C.budget, false);
+                // Reference budget
+                if (Y !== 30) drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, 30, p1, p2, C.budgetOld, true);
+
+                // Optimal dot
+                if (opt.q1 <= q1Max && opt.q2 <= q2Max) {
+                    dashedTo(ctx, opt.q1, opt.q2, ox, oy, gw, gh, q1Max, q2Max, C.optimal);
+                    const pp = tp(opt.q1, opt.q2, ox, oy, gw, gh, q1Max, q2Max);
+                    ctx.beginPath(); ctx.arc(pp.x, pp.y, 10, 0, 2*Math.PI); ctx.fillStyle = C.optGlow; ctx.fill();
+                    dot(ctx, opt.q1, opt.q2, ox, oy, gw, gh, q1Max, q2Max, C.optimal, 6);
+                    ctx.fillStyle = C.optimal; ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                    ctx.fillText(`(${opt.q1.toFixed(1)}, ${opt.q2.toFixed(1)})`, pp.x + 12, pp.y - 5);
+                }
+
+                info.textContent = `Y = £${Y}. q₁* = ${opt.q1.toFixed(2)}, q₂* = ${opt.q2.toFixed(2)}. Budget share: £${(p1*opt.q1).toFixed(0)} on pizza (${(p1*opt.q1/Y*100).toFixed(0)}%), £${(p2*opt.q2).toFixed(0)} on beer (${(p2*opt.q2/Y*100).toFixed(0)}%). Both goods are normal — consumption rises with income.`;
+            }
+
+            slider.addEventListener('input', draw);
+            traceBtn.addEventListener('click', () => { traced = !traced; traceBtn.textContent = traced ? 'Hide Trace' : 'Trace All Incomes'; draw(); });
+            resetBtn.addEventListener('click', () => { slider.value = 30; traced = false; traceBtn.textContent = 'Trace All Incomes'; draw(); });
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 4: NORMAL / INFERIOR / GIFFEN
+        // ============================================================
+        (function() {
+            const normalBtn = document.getElementById('gtNormalBtn');
+            const inferiorBtn = document.getElementById('gtInferiorBtn');
+            const giffenBtn = document.getElementById('gtGiffenBtn');
+            const resetBtn = document.getElementById('gtResetBtn');
+            const info = document.getElementById('gtInfo');
+            let mode = 'normal';
+            const q1Max = 10, q2Max = 14;
+
+            function setMode(m) {
+                mode = m;
+                normalBtn.className = m === 'normal' ? 'active-toggle' : '';
+                inferiorBtn.className = m === 'inferior' ? 'active-toggle' : '';
+                giffenBtn.className = m === 'giffen' ? 'active-toggle' : '';
+                draw();
+            }
+
+            function draw() {
+                const { ctx, w, h } = getCtx('goodTypesCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+                const ox = Marg.left, oy = Marg.top;
+                const gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+                drawAxBase(ctx, ox, oy, gw, gh, q1Max, q2Max, 'q₁', 'q₂', 2, 2);
+
+                // We'll illustrate with schematic points rather than specific utility functions
+                // to keep the visual clean and the intuition clear.
+                let A, B, Comp, seDir, ieDir, titleText;
+                let UA, UComp;
+
+                if (mode === 'normal') {
+                    A = { q1: 5, q2: 7 }; UA = 35;
+                    Comp = { q1: 3.5, q2: 10 }; UComp = 35;
+                    B = { q1: 2.5, q2: 8 };
+                    const UB = 20;
+                    drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, UA, C.ic1, false);
+                    drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, UB, C.ic3, true);
+                    titleText = 'Normal Good: Both effects reduce q₁. SE (green ←) + IE (orange ←) = large decrease.';
+                } else if (mode === 'inferior') {
+                    A = { q1: 5, q2: 7 }; UA = 35;
+                    Comp = { q1: 3.2, q2: 10.9 }; UComp = 35;
+                    B = { q1: 3.8, q2: 7.5 };
+                    const UB = 28.5;
+                    drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, UA, C.ic1, false);
+                    drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, UB, C.ic3, true);
+                    titleText = 'Inferior Good: SE reduces q₁ (green ←), but IE partially offsets (orange →). Net decrease is smaller.';
+                } else {
+                    A = { q1: 5, q2: 7 }; UA = 35;
+                    Comp = { q1: 3.8, q2: 9.2 }; UComp = 35;
+                    B = { q1: 5.5, q2: 5.2 };
+                    const UB = 28.6;
+                    drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, UA, C.ic1, false);
+                    drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, UB, C.ic3, true);
+                    titleText = 'Giffen Good: SE reduces q₁ (green ←), but IE dominates (orange →→). Net increase!';
+                }
+
+                // Budget lines (schematic)
+                // Original budget through A
+                drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, 30, 5, 3, C.budgetOld, true);
+                // New budget through B (higher p1)
+                drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, 30, 8, 3, C.budget, false);
+                // Compensated budget (dashed, tangent to old IC at new prices)
+                const Ycomp = 8 * Comp.q1 + 3 * Comp.q2;
+                drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, Ycomp, 8, 3, C.budgetComp, true);
+
+                // Points
+                dot(ctx, A.q1, A.q2, ox, oy, gw, gh, q1Max, q2Max, C.textMuted, 7);
+                const pA = tp(A.q1, A.q2, ox, oy, gw, gh, q1Max, q2Max);
+                ctx.fillStyle = C.textMuted; ctx.font = 'bold 13px -apple-system, sans-serif'; ctx.textAlign = 'right';
+                ctx.fillText('A', pA.x - 10, pA.y - 3);
+
+                dot(ctx, Comp.q1, Comp.q2, ox, oy, gw, gh, q1Max, q2Max, C.budgetComp, 7);
+                const pComp = tp(Comp.q1, Comp.q2, ox, oy, gw, gh, q1Max, q2Max);
+                ctx.fillStyle = C.budgetComp; ctx.textAlign = 'left';
+                ctx.fillText('B', pComp.x + 10, pComp.y - 3);
+
+                dot(ctx, B.q1, B.q2, ox, oy, gw, gh, q1Max, q2Max, C.budget, 7);
+                const pB = tp(B.q1, B.q2, ox, oy, gw, gh, q1Max, q2Max);
+                ctx.fillStyle = C.budget; ctx.textAlign = 'left';
+                ctx.fillText('C', pB.x + 10, pB.y + 12);
+
+                // SE arrow
+                arrow(ctx, A.q1, 1.5, Comp.q1, 1.5, ox, oy, gw, gh, q1Max, q2Max, C.se, 3);
+                const seMid = tp((A.q1 + Comp.q1) / 2, 1.5, ox, oy, gw, gh, q1Max, q2Max);
+                ctx.fillStyle = C.se; ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText('SE', seMid.x, seMid.y - 10);
+
+                // IE arrow
+                arrow(ctx, Comp.q1, 0.6, B.q1, 0.6, ox, oy, gw, gh, q1Max, q2Max, C.ie, 3);
+                const ieMid = tp((Comp.q1 + B.q1) / 2, 0.6, ox, oy, gw, gh, q1Max, q2Max);
+                ctx.fillStyle = C.ie; ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText('IE', ieMid.x, ieMid.y - 10);
+
+                info.textContent = titleText;
+            }
+
+            normalBtn.addEventListener('click', () => setMode('normal'));
+            inferiorBtn.addEventListener('click', () => setMode('inferior'));
+            giffenBtn.addEventListener('click', () => setMode('giffen'));
+            resetBtn.addEventListener('click', () => setMode('normal'));
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 5: CONSUMER WELFARE (CV / EV)
+        // ============================================================
+        (function() {
+            const slider = document.getElementById('welfP1Slider');
+            const display = document.getElementById('welfP1Display');
+            const cvBtn = document.getElementById('welfCVBtn');
+            const evBtn = document.getElementById('welfEVBtn');
+            const info = document.getElementById('welfInfo');
+            const resetBtn = document.getElementById('welfResetBtn');
+            let showCV = true;
+            const Y = 30, p2 = 3, p1Init = 5;
+            const q1Max = 10, q2Max = 16;
+
+            function setWelfMode(cv) {
+                showCV = cv;
+                cvBtn.className = cv ? 'active-toggle' : '';
+                evBtn.className = cv ? '' : 'active-toggle';
+                draw();
+            }
+
+            function draw() {
+                const { ctx, w, h } = getCtx('welfareCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+                const ox = Marg.left, oy = Marg.top;
+                const gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+                drawAxBase(ctx, ox, oy, gw, gh, q1Max, q2Max, 'q₁ (pizza)', 'q₂ (beer)', 2, 2);
+
+                const p1New = parseFloat(slider.value);
+                display.textContent = '£' + p1New.toFixed(1);
+
+                const optA = cdOpt(Y, p1Init, p2);
+                const optC = cdOpt(Y, p1New, p2);
+
+                // ICs
+                drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, optA.U, C.ic1, false);
+                if (p1New > p1Init) {
+                    drawICCurve(ctx, ox, oy, gw, gh, q1Max, q2Max, optC.U, C.ic3, true);
+                }
+
+                // Original budget
+                drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, Y, p1Init, p2, C.budgetOld, true);
+                // New budget
+                drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, Y, p1New, p2, C.budget, false);
+
+                dot(ctx, optA.q1, optA.q2, ox, oy, gw, gh, q1Max, q2Max, C.textMuted, 5);
+                if (p1New > p1Init) {
+                    dot(ctx, optC.q1, optC.q2, ox, oy, gw, gh, q1Max, q2Max, C.budget, 5);
+                }
+
+                if (p1New > p1Init) {
+                    const E = (pp1, pp2, U) => 2 * Math.sqrt(pp1 * pp2 * U);
+                    const cv = E(p1New, p2, optA.U) - Y;
+                    const ev = Y - E(p1Init, p2, optC.U);
+
+                    if (showCV) {
+                        // CV: compensated budget at new prices, old U
+                        const Ycomp = E(p1New, p2, optA.U);
+                        drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, Ycomp, p1New, p2, C.cvBorder, true);
+
+                        // Shade between new budget and compensated budget (vertical strip at q1=0)
+                        const pNew0 = tp(0, Y / p2, ox, oy, gw, gh, q1Max, q2Max);
+                        const pComp0 = tp(0, Ycomp / p2, ox, oy, gw, gh, q1Max, q2Max);
+                        // Arrow showing CV
+                        ctx.strokeStyle = C.cvBorder; ctx.lineWidth = 2.5;
+                        ctx.setLineDash([]);
+                        const arrX = ox + 20;
+                        ctx.beginPath(); ctx.moveTo(arrX, pNew0.y); ctx.lineTo(arrX, pComp0.y); ctx.stroke();
+                        // Arrowhead
+                        ctx.beginPath();
+                        ctx.moveTo(arrX, pComp0.y);
+                        ctx.lineTo(arrX - 5, pComp0.y + 8);
+                        ctx.lineTo(arrX + 5, pComp0.y + 8);
+                        ctx.closePath(); ctx.fillStyle = C.cvBorder; ctx.fill();
+
+                        ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                        ctx.fillText('CV = £' + cv.toFixed(2), arrX + 8, (pNew0.y + pComp0.y) / 2 + 4);
+
+                        // Compensated optimal
+                        const hq1 = Math.sqrt(p2 * optA.U / p1New);
+                        const hq2 = Math.sqrt(p1New * optA.U / p2);
+                        dot(ctx, hq1, hq2, ox, oy, gw, gh, q1Max, q2Max, C.cvBorder, 5);
+
+                        info.textContent = `CV = £${cv.toFixed(2)}. At the new prices, the consumer needs £${Ycomp.toFixed(2)} to reach their original utility (U₀ = ${optA.U.toFixed(1)}). The extra £${cv.toFixed(2)} beyond their £${Y} income is the compensating variation.`;
+                    } else {
+                        // EV: equivalent budget at old prices, new U
+                        const Yequiv = E(p1Init, p2, optC.U);
+                        drawBudget(ctx, ox, oy, gw, gh, q1Max, q2Max, Yequiv, p1Init, p2, C.evBorder, true);
+
+                        const pOld0 = tp(0, Y / p2, ox, oy, gw, gh, q1Max, q2Max);
+                        const pEquiv0 = tp(0, Yequiv / p2, ox, oy, gw, gh, q1Max, q2Max);
+                        ctx.strokeStyle = C.evBorder; ctx.lineWidth = 2.5;
+                        const arrX = ox + 20;
+                        ctx.beginPath(); ctx.moveTo(arrX, pOld0.y); ctx.lineTo(arrX, pEquiv0.y); ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(arrX, pEquiv0.y);
+                        ctx.lineTo(arrX - 5, pEquiv0.y - 8);
+                        ctx.lineTo(arrX + 5, pEquiv0.y - 8);
+                        ctx.closePath(); ctx.fillStyle = C.evBorder; ctx.fill();
+
+                        ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                        ctx.fillText('EV = £' + ev.toFixed(2), arrX + 8, (pOld0.y + pEquiv0.y) / 2 + 4);
+
+                        info.textContent = `EV = £${ev.toFixed(2)}. At the original prices, losing £${ev.toFixed(2)} of income would make the consumer exactly as badly off as the price increase (U₁ = ${optC.U.toFixed(1)}).`;
+                    }
+                } else {
+                    info.textContent = 'Increase p₁ above £5 to see the welfare loss from a price increase, measured by CV or EV.';
+                }
+            }
+
+            slider.addEventListener('input', draw);
+            cvBtn.addEventListener('click', () => setWelfMode(true));
+            evBtn.addEventListener('click', () => setWelfMode(false));
+            resetBtn.addEventListener('click', () => { slider.value = 5; setWelfMode(true); });
+            draw();
+        })();
+
+        function redrawAll() {
+            document.querySelectorAll('input[type="range"]').forEach(s => s.dispatchEvent(new Event('input')));
+        }
+        let resizeTimer;
+        window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(redrawAll, 250); });
+    })();
+    </script>
+</body>
+</html>
