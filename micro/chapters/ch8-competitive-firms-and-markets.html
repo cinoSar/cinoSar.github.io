@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 8: Competitive Firms and Markets | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 140px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle {
+            background: var(--color-primary-dark);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 8: Competitive Firms and Markets</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 8</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#perfect-competition">8.1 Perfect Competition</a></li>
+                <li><a href="#profit-max">8.2 Profit Maximisation</a></li>
+                <li><a href="#short-run-supply">8.3 Short-Run Supply</a></li>
+                <li><a href="#long-run-equilibrium">8.4 Long-Run Equilibrium</a></li>
+                <li><a href="#market-supply">8.5 Market Supply</a></li>
+                <li><a href="#formal-derivations">8.6 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: Why Can't Dairy Farmers Set Their Own Price?</h2>
+                <p>UK dairy farmers routinely complain that supermarkets pay them barely enough to cover costs &mdash; sometimes less. In 2015, the farm-gate price of milk fell below 24p per litre while production costs averaged 30p. Yet no individual farmer could raise their price: buyers would simply purchase from another farm. Each farmer is so small relative to the market that they have no influence over the going price.</p>
+
+                <p>This is the defining feature of <strong>perfect competition</strong>. The farmer is a <em>price taker</em> &mdash; they face a market price determined by the interaction of millions of buyers and sellers, and their only decision is <em>how much</em> to produce at that price. Understanding this decision requires combining the cost curves from Chapter 7 with the logic of profit maximisation.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>A competitive firm's supply curve is not assumed &mdash; it is <em>derived</em> from its cost structure. Specifically, the firm's short-run supply curve is the portion of its marginal cost curve that lies above its average variable cost. The market supply curve is then the horizontal sum of all individual firms' supply curves. Entry and exit in the long run drive economic profit to zero, pinning the market price at the minimum of long-run average cost.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to state the conditions for perfect competition, derive the profit-maximising output using the \(MR = MC\) rule, explain why a firm shuts down when price falls below AVC, trace the firm's short-run supply curve from its MC curve, and show how free entry drives the market to long-run equilibrium with zero economic profit.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#perfect-competition">Perfect Competition</a> &mdash; characteristics, price taking, and the firm's demand curve</li>
+                    <li><a href="#profit-max">Profit Maximisation</a> &mdash; the MR = MC rule</li>
+                    <li><a href="#short-run-supply">Short-Run Supply</a> &mdash; the supply curve and the shutdown condition</li>
+                    <li><a href="#long-run-equilibrium">Long-Run Equilibrium</a> &mdash; entry, exit, and zero economic profit</li>
+                    <li><a href="#market-supply">Market Supply</a> &mdash; from individual firms to the market</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; the full mathematical treatment</li>
+                </ol>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- 8.1 PERFECT COMPETITION                       -->
+            <!-- ============================================ -->
+            <section id="perfect-competition" class="lesson-section section-intuition">
+                <h2>8.1 Perfect Competition</h2>
+
+                <h3>Intuition: What Makes a Market Competitive?</h3>
+                <p>A perfectly competitive market has four key characteristics: many buyers and many sellers (so no single agent can influence the price), a homogeneous product (one farmer's milk is indistinguishable from another's), free entry and exit (firms can enter when profits are positive and leave when they are negative), and perfect information (everyone knows the going price).</p>
+
+                <p>The critical implication is that each firm faces a <strong>perfectly elastic (horizontal) demand curve</strong> at the market price. The firm can sell as much as it wants at the market price, but nothing at all if it charges even a penny more &mdash; buyers would simply go elsewhere. Therefore, for a competitive firm, <strong>price equals marginal revenue</strong>: \(P = MR\). Each additional unit sold brings in exactly the market price.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Price Taker</h4>
+                    <p>A firm is a <strong>price taker</strong> if it cannot influence the market price by changing its own output. This happens when the firm's output is tiny relative to total market supply. The firm's demand curve is horizontal at the market price \(P\), and its total revenue is \(TR = P \times q\).</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Are Real Markets Perfectly Competitive?</h4>
+                    <p>Very few markets satisfy all four conditions perfectly. But many come close enough for the model to be a good approximation: agricultural commodities (wheat, rice, milk), financial markets (shares of large companies), foreign exchange markets, and markets for raw materials (copper, oil on commodity exchanges). The model is also a powerful benchmark against which to measure the distortions caused by market power.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 8.2 PROFIT MAXIMISATION                       -->
+            <!-- ============================================ -->
+            <section id="profit-max" class="lesson-section section-geometric">
+                <h2>8.2 Profit Maximisation</h2>
+
+                <h3>Intuition: The MR = MC Rule</h3>
+                <p>The firm's objective is to maximise profit: \(\pi = TR - TC\). It should produce an additional unit whenever the revenue from that unit (\(MR = P\)) exceeds the cost of producing it (\(MC\)). It should stop when \(MR = MC\). If it produced less, it would be leaving money on the table; if it produced more, each extra unit would cost more than it brings in.</p>
+
+                <p>Because \(MR = P\) for a competitive firm, the rule simplifies to: <strong>produce where \(P = MC\)</strong>, provided MC is rising at that point (the second-order condition) and the firm does not prefer to shut down entirely.</p>
+
+                <h3>Geometric Solution: TR, TC, and Profit</h3>
+                <p>The upper panel shows total revenue (a straight line through the origin with slope \(P\)) and total cost. Profit is the vertical gap between them. The lower panel shows the profit curve directly. The profit-maximising output is where the gap is largest &mdash; equivalently, where the slopes of TR and TC are equal (\(P = MC\)).</p>
+
+                <div class="interactive-graph" id="profit-container">
+                    <canvas id="profitCanvas" width="600" height="520"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Price (P): <span class="value-display" id="profPDisplay">£20</span>
+                            <input type="range" id="profPSlider" min="5" max="40" step="1" value="20">
+                        </label>
+                        <button id="profResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="profInfo">
+                        Adjust the market price to see how the profit-maximising output changes. The firm produces where P = MC (slopes are equal).
+                    </div>
+                    <p class="graph-caption">Figure 8.1 &mdash; Upper: TR and TC. The profit-maximising output is where the vertical gap is largest. Lower: the profit curve peaks at that same output.</p>
+                </div>
+
+                <p>As you raise the price, the TR line rotates upward. The profit-maximising quantity increases (the firm moves up its MC curve), and maximum profit grows. As you lower the price, the TR line flattens, the optimal output shrinks, and eventually profit turns negative &mdash; the firm makes losses.</p>
+
+                <div class="callout callout-warning">
+                    <h4>Losses Do Not Mean Immediate Shutdown</h4>
+                    <p>A firm earning negative profit in the short run does not necessarily shut down. If it shuts down, it still pays its fixed costs (FC) and earns zero revenue, for a loss of \(-FC\). If it continues operating, it loses \(TR - TC\). The firm should operate as long as \(TR - VC > 0\), i.e., as long as revenue covers variable costs. It shuts down only when \(P < AVC\).</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 8.3 SHORT-RUN SUPPLY                          -->
+            <!-- ============================================ -->
+            <section id="short-run-supply" class="lesson-section section-geometric">
+                <h2>8.3 The Firm's Short-Run Supply Curve</h2>
+
+                <h3>Intuition: MC Above AVC</h3>
+                <p>The profit-maximisation rule says produce where \(P = MC\). But the firm has an outside option: produce nothing. If the price is so low that even at the optimal output the firm cannot cover its variable costs, it is better to shut down and lose only fixed costs. The <strong>shutdown price</strong> is the minimum of AVC &mdash; below this price, the firm produces zero.</p>
+
+                <p>Above the shutdown price, the firm's supply curve is its MC curve: for each price, the firm reads off the quantity where \(P = MC\). This gives us a remarkable result: <strong>the firm's short-run supply curve is the portion of the MC curve above the minimum of AVC</strong>.</p>
+
+                <h3>Geometric Solution: Profit, Loss, and Shutdown</h3>
+
+                <div class="interactive-graph" id="supply-container">
+                    <canvas id="supplyCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Market price (P): <span class="value-display" id="supPDisplay">£20</span>
+                            <input type="range" id="supPSlider" min="2" max="40" step="0.5" value="20">
+                        </label>
+                        <button id="supResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="supInfo">
+                        Drag the price to see how the firm responds. Green = profit, red = loss. Below the shutdown price, the firm produces zero.
+                    </div>
+                    <p class="graph-caption">Figure 8.2 &mdash; The firm's short-run supply decision. MC, ATC, and AVC curves with the profit/loss rectangle and shutdown price.</p>
+                </div>
+
+                <p>When \(P > ATC\), the firm earns positive economic profit (green rectangle). When \(AVC < P < ATC\), the firm operates at a loss but continues producing because revenue covers variable costs &mdash; shutting down would mean losing more (the full FC). When \(P < AVC\), the firm shuts down: producing anything would increase losses beyond the fixed-cost floor.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Three Price Zones</h4>
+                    <p><strong>\(P > ATC\):</strong> Firm produces at \(P = MC\). Earns positive economic profit. Other firms want to enter.</p>
+                    <p><strong>\(AVC < P < ATC\):</strong> Firm produces at \(P = MC\). Makes a loss, but a smaller loss than if it shut down. Continues in the short run.</p>
+                    <p><strong>\(P < AVC\):</strong> Firm shuts down. Produces zero. Loses only FC.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 8.4 LONG-RUN EQUILIBRIUM                      -->
+            <!-- ============================================ -->
+            <section id="long-run-equilibrium" class="lesson-section section-geometric">
+                <h2>8.4 Long-Run Equilibrium</h2>
+
+                <h3>Intuition: Entry, Exit, and Zero Profit</h3>
+                <p>In the long run, firms can enter or exit the industry. If existing firms earn positive economic profit, new firms enter &mdash; attracted by the returns. Entry shifts the market supply curve rightward, pushing the price down. Firms keep entering until economic profit falls to zero. Conversely, if firms are making losses, some exit, supply shifts left, the price rises, and losses shrink until the remaining firms break even.</p>
+
+                <p>The long-run equilibrium condition is beautifully simple: <strong>\(P = \min(LRAC)\)</strong>. Each firm produces at the minimum of its long-run average cost curve, earning zero economic profit. The market price is just high enough to cover all costs, including the opportunity cost of the owners' time and capital.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Long-Run Competitive Equilibrium</h4>
+                    <p>In long-run equilibrium: (1) each firm maximises profit: \(P = MC\); (2) each firm earns zero economic profit: \(P = ATC\); (3) the market clears: quantity supplied equals quantity demanded. Together, these imply \(P = MC = \min(LRAC)\).</p>
+                </div>
+
+                <h3>Geometric Solution: The Entry/Exit Dynamic</h3>
+
+                <div class="interactive-graph" id="lreq-container">
+                    <canvas id="lreqCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Market demand shift: <span class="value-display" id="lreqDDisplay">0</span>
+                            <input type="range" id="lreqDSlider" min="-40" max="40" step="5" value="0">
+                        </label>
+                        <button id="lreqAnimBtn">Animate Entry/Exit</button>
+                        <button id="lreqResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="lreqInfo">
+                        Shift demand to create profits or losses. Click "Animate" to watch firms enter or exit until equilibrium is restored.
+                    </div>
+                    <p class="graph-caption">Figure 8.3 &mdash; Left: the representative firm. Right: the market. Entry/exit shifts market supply until P = min(LRAC).</p>
+                </div>
+
+                <p>The left panel shows a representative firm with its MC, ATC, and LRAC curves. The right panel shows the market with aggregate supply and demand. When you shift demand rightward, the market price rises above min(LRAC), creating profits for each firm. Clicking "Animate" triggers entry: the market supply curve shifts right, the price falls, and profits are eroded until the market returns to the zero-profit equilibrium. A leftward demand shift triggers exit through the reverse mechanism.</p>
+
+                <div class="callout callout-example">
+                    <h4>Zero Profit Does Not Mean Zero Income</h4>
+                    <p>Students often react to "zero economic profit" with alarm: why would anyone run a business for zero profit? Remember that economic cost includes the owner's opportunity cost. A bakery owner earning zero economic profit is still paying themselves a salary equal to what they would earn elsewhere &mdash; they are doing exactly as well as their next-best option. Zero economic profit means "no incentive to enter or exit," not "no income."</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 8.5 MARKET SUPPLY                             -->
+            <!-- ============================================ -->
+            <section id="market-supply" class="lesson-section section-geometric">
+                <h2>8.5 Market Supply</h2>
+
+                <h3>Intuition: Adding Up Individual Firms</h3>
+                <p>The market supply curve is the <strong>horizontal sum</strong> of all individual firms' supply curves. At each price, we add up the quantities that every firm wants to produce. With identical firms, this is simply \(Q_S = n \times q_i(P)\), where \(n\) is the number of firms and \(q_i(P)\) is the individual firm's supply at price \(P\).</p>
+
+                <p>In the short run, the number of firms is fixed, so the market supply curve is just a scaled-up version of the individual MC curve. In the long run, entry and exit change \(n\), making the long-run market supply curve potentially much flatter &mdash; even perfectly horizontal if all firms have identical costs (a <strong>constant-cost industry</strong>).</p>
+
+                <h3>Geometric Solution: From Firm to Market</h3>
+
+                <div class="interactive-graph" id="mkt-supply-container">
+                    <canvas id="mktSupplyCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Number of firms (n): <span class="value-display" id="mktNDisplay">10</span>
+                            <input type="range" id="mktNSlider" min="1" max="50" step="1" value="10">
+                        </label>
+                        <label>
+                            Price (P): <span class="value-display" id="mktPDisplay">£20</span>
+                            <input type="range" id="mktPSlider" min="5" max="40" step="1" value="20">
+                        </label>
+                        <button id="mktResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="mktInfo">
+                        Change the number of firms to see how market supply shifts. Each firm produces at P = MC.
+                    </div>
+                    <p class="graph-caption">Figure 8.4 &mdash; Left: one firm's MC curve (its supply). Right: market supply = n × individual supply. More firms make the market supply flatter.</p>
+                </div>
+
+                <p>As the number of firms increases, the market supply curve becomes flatter &mdash; the market can absorb larger changes in demand with smaller price movements. In the extreme, with free entry and identical firms, the long-run supply curve is horizontal at \(P = \min(LRAC)\). In practice, industries with heterogeneous firms or scarce inputs (land, specialised labour) have upward-sloping long-run supply curves.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Industry Types by Long-Run Supply</h4>
+                    <p><strong>Constant-cost industry:</strong> Entry does not affect input prices. LRAC is unchanged. Long-run supply is horizontal. Example: small-scale retail.</p>
+                    <p><strong>Increasing-cost industry:</strong> Entry bids up input prices (e.g., scarce skilled labour). LRAC shifts up with entry. Long-run supply slopes upward. Example: construction.</p>
+                    <p><strong>Decreasing-cost industry:</strong> Entry creates positive externalities (shared infrastructure, supplier networks). LRAC shifts down. Long-run supply slopes downward. Example: early tech clusters (Silicon Valley).</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 8.6 FORMAL DERIVATIONS                        -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>8.6 Formal Mathematical Derivations</h2>
+
+                <p>We use the cost structure from Chapter 7 with \(q = L^{0.7}K^{0.3}\), \(\bar{K} = 10\), \(w = 10\), \(r = 5\). Recall that \(L = (q/\bar{K}^{0.3})^{1/0.7}\) and \(TC = 10L + 50\).</p>
+
+                <h3>Profit Maximisation: First-Order Condition</h3>
+                <p>The firm maximises:</p>
+
+                \[ \pi(q) = Pq - C(q) \]
+
+                <p>First-order condition:</p>
+
+                \[ \frac{d\pi}{dq} = P - MC(q) = 0 \quad \Rightarrow \quad P = MC(q) \]
+
+                <p>Second-order condition (ensures a maximum, not a minimum):</p>
+
+                \[ \frac{d^2\pi}{dq^2} = -\frac{dMC}{dq} < 0 \quad \Rightarrow \quad MC \text{ must be rising} \]
+
+                <p>For our cost function, \(MC = dTC/dq\). Using \(VC = wL = w(q/\bar{K}^{\beta})^{1/\alpha}\) with \(\alpha = 0.7\), \(\beta = 0.3\):</p>
+
+                \[ VC(q) = 10 \cdot \left(\frac{q}{10^{0.3}}\right)^{10/7} \]
+
+                \[ MC(q) = \frac{10}{0.7} \cdot \frac{1}{10^{3/7}} \cdot q^{3/7} \]
+
+                <p>Since \(3/7 > 0\), MC is strictly increasing &mdash; the SOC is always satisfied.</p>
+
+                <h3>The Supply Function</h3>
+                <p>Inverting \(P = MC(q)\) gives the firm's supply function \(q^S(P)\):</p>
+
+                \[ P = \frac{10}{0.7 \cdot 10^{3/7}} q^{3/7} \quad \Rightarrow \quad q^S(P) = \left(\frac{0.7 \cdot 10^{3/7}}{10} P\right)^{7/3} \]
+
+                <p>This is an increasing function of \(P\) &mdash; the supply curve slopes upward, as expected.</p>
+
+                <h3>Shutdown Condition</h3>
+                <p>The firm operates if and only if \(P \geq \min(AVC)\). For our cost function:</p>
+
+                \[ AVC = \frac{VC}{q} = \frac{10}{10^{3/7}} \cdot q^{3/7} \]
+
+                <p>Since \(3/7 > 0\), AVC is strictly increasing for \(q > 0\), and \(\lim_{q \to 0^+} AVC = 0\). The minimum of AVC is effectively zero &mdash; the firm always operates at any positive price. (This is a feature of our specific functional form; with a cubic production function that allows an initial increasing-returns phase, AVC would have an interior minimum.)</p>
+
+                <h3>Long-Run Equilibrium with Free Entry</h3>
+                <p>In the long run with CRS (\(\alpha + \beta = 1\)), the long-run cost function from Chapter 7 is \(C^{LR} = 2q\sqrt{wr}\). With \(w = 10\), \(r = 5\):</p>
+
+                \[ LRAC = \frac{C^{LR}}{q} = 2\sqrt{50} \approx 14.14 \]
+
+                <p>LRAC is constant (flat), so the long-run equilibrium price is:</p>
+
+                \[ P^* = \min(LRAC) = 2\sqrt{wr} = 2\sqrt{50} \approx £14.14 \]
+
+                <p>Every firm earns zero economic profit. The number of firms adjusts to clear the market:</p>
+
+                \[ n^* = \frac{Q^D(P^*)}{q^*(P^*)} \]
+
+                <p>where \(Q^D\) is market demand and \(q^*\) is each firm's output at \(P^*\).</p>
+
+                <h3>Market Supply Aggregation</h3>
+                <p>With \(n\) identical firms, market supply is:</p>
+
+                \[ Q^S(P) = n \cdot q^S(P) = n \left(\frac{0.7 \cdot 10^{3/7}}{10} P\right)^{7/3} \]
+
+                <p>Market equilibrium requires \(Q^S(P) = Q^D(P)\). For a linear demand \(Q^D = a - bP\):</p>
+
+                \[ n \left(\frac{0.7 \cdot 10^{3/7}}{10} P\right)^{7/3} = a - bP \]
+
+                <p>This equation implicitly defines the equilibrium price as a function of demand parameters and the number of firms.</p>
+
+                <h3>Comparative Statics: The Effect of a Cost Shock</h3>
+                <p>Suppose the wage rises from \(w = 10\) to \(w' = 12\). The new LRAC is \(2\sqrt{12 \times 5} = 2\sqrt{60} \approx 15.49\). In the long run, the equilibrium price rises by approximately £1.35. Some firms exit (those who entered when the lower price prevailed), and the remaining firms each produce the same quantity at the higher price. The incidence of the cost shock depends on the elasticity of demand &mdash; connecting back to the tax incidence analysis of Chapter 3.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The Invisible Hand at Work</h4>
+                    <p>Adam Smith's "invisible hand" is formalised in the competitive model. No planner directs firms to produce at minimum cost, yet competition forces them to. No authority decrees the "right" number of firms, yet free entry and exit ensure exactly enough firms to satisfy demand at minimum average cost. Each firm pursues its own profit, yet the market outcome is efficient: the last unit produced costs exactly what consumers are willing to pay for it (\(P = MC\)), and no cheaper way to organise production exists (\(P = \min(LRAC)\)).</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>In this chapter, we combined the cost curves from Chapter 7 with the assumption of perfect competition to derive the firm's supply behaviour. A perfectly competitive firm is a <strong>price taker</strong>: it faces a horizontal demand curve at the market price and maximises profit by producing where \(P = MC\). The <strong>shutdown condition</strong> requires the price to be above the minimum of AVC &mdash; below this, the firm produces nothing. The firm's short-run supply curve is therefore its MC curve above min(AVC).</p>
+
+                <p>In the <strong>long run</strong>, free entry and exit drive economic profit to zero. The equilibrium price settles at the minimum of long-run average cost, and each firm produces at its most efficient scale. The number of firms adjusts until market supply exactly meets demand. The <strong>market supply curve</strong> is the horizontal sum of individual supply curves; in a constant-cost industry with free entry, it is perfectly elastic at \(P = \min(LRAC)\).</p>
+
+                <p>The competitive model is a benchmark of efficiency: production occurs at minimum cost, and the price reflects the true marginal cost of the last unit. In the next chapter, we use this benchmark to evaluate the welfare effects of government policies &mdash; taxes, subsidies, price controls, and trade restrictions.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch7-costs.html">&larr; Chapter 7: Costs</a>
+                <span style="color: var(--color-text-lighter);">Chapter 9: Applying the Competitive Model &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        const LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            tr: '#10b981', tc: '#3b82f6', profit: '#10b981', loss: '#ef4444',
+            mc: '#ef4444', atc: '#3b82f6', avc: '#8b5cf6', afc: '#aaaaaa',
+            priceLine: '#f59e0b', priceLineFill: 'rgba(245, 158, 11, 0.08)',
+            profitRect: 'rgba(16, 185, 129, 0.2)', lossRect: 'rgba(239, 68, 68, 0.15)',
+            supply: '#ef4444', supplyBold: '#ef4444',
+            demand: '#3b82f6', demandShift: '#8b5cf6',
+            marketS: '#ef4444', marketD: '#3b82f6',
+            lrac: '#0a9396', lracFill: 'rgba(10, 147, 150, 0.1)',
+            equilibrium: '#0a9396', eqGlow: 'rgba(10, 147, 150, 0.3)',
+            firmMC: '#ef4444', firmATC: '#3b82f6',
+            dotCurrent: '#f59e0b', shutdownDot: '#ef4444'
+        };
+
+        const DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            tr: '#34d399', tc: '#60a5fa', profit: '#34d399', loss: '#f87171',
+            mc: '#f87171', atc: '#60a5fa', avc: '#a78bfa', afc: '#707070',
+            priceLine: '#fbbf24', priceLineFill: 'rgba(251, 191, 36, 0.1)',
+            profitRect: 'rgba(52, 211, 153, 0.2)', lossRect: 'rgba(248, 113, 113, 0.15)',
+            supply: '#f87171', supplyBold: '#f87171',
+            demand: '#60a5fa', demandShift: '#a78bfa',
+            marketS: '#f87171', marketD: '#60a5fa',
+            lrac: '#2ec4c8', lracFill: 'rgba(46, 196, 200, 0.1)',
+            equilibrium: '#2ec4c8', eqGlow: 'rgba(46, 196, 200, 0.3)',
+            firmMC: '#f87171', firmATC: '#60a5fa',
+            dotCurrent: '#fbbf24', shutdownDot: '#f87171'
+        };
+
+        const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        let Col = darkMQ.matches ? DARK : LIGHT;
+
+        function getCtx(id) {
+            const cv = document.getElementById(id);
+            const dpr = window.devicePixelRatio || 1;
+            const r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            const ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx, w: r.width, h: r.height };
+        }
+
+        function p2(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep) {
+            ctx.strokeStyle = Col.grid; ctx.lineWidth = 0.5;
+            for (var v = 0; v <= yMax; v += (yStep || 2)) {
+                var pt = p2(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            for (var v2 = 0; v2 <= xMax; v2 += (xStep || 2)) {
+                var pt2 = p2(v2, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt2.x, oy); ctx.lineTo(pt2.x, oy + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = Col.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = Col.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel || '', ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel || '', 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (var v3 = xStep || 2; v3 <= xMax; v3 += (xStep || 2)) {
+                var pt3 = p2(v3, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v3, pt3.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (var v4 = yStep || 2; v4 <= yMax; v4 += (yStep || 2)) {
+                var pt4 = p2(0, v4, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v4 % 1 === 0 ? v4 : v4.toFixed(1), ox - 6, pt4.y);
+            }
+        }
+
+        function drawCurve(ctx, ox, oy, gw, gh, xMax, yMax, fn, xMin, xMaxC, color, dashed, lineWidth) {
+            ctx.strokeStyle = color; ctx.lineWidth = lineWidth || 2;
+            if (dashed) ctx.setLineDash([5, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); var started = false;
+            for (var x = xMin; x <= xMaxC; x += 0.15) {
+                var y = fn(x);
+                if (y < -1 || y > yMax * 1.05) { started = false; continue; }
+                var pt = p2(x, y, ox, oy, gw, gh, xMax, yMax);
+                if (!started) { ctx.moveTo(pt.x, pt.y); started = true; } else ctx.lineTo(pt.x, pt.y);
+            }
+            ctx.stroke(); ctx.setLineDash([]);
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = p2(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            var pt = p2(x, y, ox, oy, gw, gh, xMax, yMax);
+            var ya = p2(0, y, ox, oy, gw, gh, xMax, yMax);
+            var xa = p2(x, 0, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+            ctx.beginPath(); ctx.moveTo(ya.x, pt.y); ctx.lineTo(pt.x, pt.y); ctx.lineTo(pt.x, xa.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        // ---- Shared cost model: q = L^0.7 * K^0.3, K=10, w=10, r=5 ----
+        var alpha = 0.7, beta = 0.3, Kbar = 10, w = 10, r = 5;
+        var FC = r * Kbar; // 50
+
+        function Lfq(q) { return Math.pow(q / Math.pow(Kbar, beta), 1 / alpha); }
+        function VCfn(q) { return w * Lfq(q); }
+        function TCfn(q) { return VCfn(q) + FC; }
+        function MCfn(q) { return (VCfn(q + 0.01) - VCfn(q)) / 0.01; }
+        function ATCfn(q) { return TCfn(q) / q; }
+        function AVCfn(q) { return VCfn(q) / q; }
+        // Optimal q given P: P = MC(q) => invert numerically
+        function qFromP(P) {
+            if (P <= 0.1) return 0;
+            var lo = 0.01, hi = 30;
+            for (var i = 0; i < 40; i++) {
+                var mid = (lo + hi) / 2;
+                if (MCfn(mid) < P) lo = mid; else hi = mid;
+            }
+            return (lo + hi) / 2;
+        }
+
+        // ============================================================
+        // GRAPH 1: TR, TC, PROFIT (dual panel)
+        // ============================================================
+        (function() {
+            var pSlider = document.getElementById('profPSlider');
+            var pDisplay = document.getElementById('profPDisplay');
+            var info = document.getElementById('profInfo');
+            var resetBtn = document.getElementById('profResetBtn');
+
+            var qMax = 16, cMax = 400, piMax = 100, piMin = -80;
+
+            function draw() {
+                var { ctx, w: cw, h } = getCtx('profitCanvas');
+                ctx.fillStyle = Col.canvasBg; ctx.fillRect(0, 0, cw, h);
+
+                var P = parseFloat(pSlider.value);
+                pDisplay.textContent = '£' + P;
+
+                var gap = 25;
+                var topH = (h - gap - Marg.bottom - Marg.top) * 0.55;
+                var botH = (h - gap - Marg.bottom - Marg.top) * 0.45;
+
+                var ox = Marg.left, oy = Marg.top, gw = cw - ox - Marg.right;
+
+                // --- TOP: TR and TC ---
+                drawAxBase(ctx, ox, oy, gw, topH, qMax, cMax, '', '£', 2, 50);
+
+                // TR line
+                drawCurve(ctx, ox, oy, gw, topH, qMax, cMax, function(q) { return P * q; }, 0, qMax, Col.tr, false, 2);
+                // TC curve
+                drawCurve(ctx, ox, oy, gw, topH, qMax, cMax, function(q) { return TCfn(q); }, 0.1, qMax, Col.tc, false, 2);
+
+                // Optimal q
+                var qStar = qFromP(P);
+                var trStar = P * qStar, tcStar = TCfn(qStar);
+                var profitStar = trStar - tcStar;
+
+                if (qStar > 0.2 && qStar < qMax) {
+                    // Profit/loss gap
+                    var pTop = p2(qStar, Math.max(trStar, tcStar), ox, oy, gw, topH, qMax, cMax);
+                    var pBot = p2(qStar, Math.min(trStar, tcStar), ox, oy, gw, topH, qMax, cMax);
+                    ctx.fillStyle = profitStar >= 0 ? Col.profitRect : Col.lossRect;
+                    ctx.fillRect(pTop.x - 8, pTop.y, 16, pBot.y - pTop.y);
+
+                    // Vertical dashed line
+                    var pBase = p2(qStar, 0, ox, oy, gw, topH, qMax, cMax);
+                    ctx.strokeStyle = Col.textMuted; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                    ctx.beginPath(); ctx.moveTo(pBase.x, pBase.y); ctx.lineTo(pBase.x, pTop.y); ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    dot(ctx, qStar, trStar, ox, oy, gw, topH, qMax, cMax, Col.dotCurrent, 5);
+                    dot(ctx, qStar, tcStar, ox, oy, gw, topH, qMax, cMax, Col.tc, 5);
+                }
+
+                // Labels
+                ctx.font = 'bold 11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                var trLab = p2(qMax - 1.5, P * (qMax - 1.5), ox, oy, gw, topH, qMax, cMax);
+                if (P * (qMax - 1.5) < cMax) { ctx.fillStyle = Col.tr; ctx.fillText('TR', trLab.x + 4, trLab.y - 6); }
+                var tcLab = p2(qMax - 1.5, TCfn(qMax - 1.5), ox, oy, gw, topH, qMax, cMax);
+                if (TCfn(qMax - 1.5) < cMax) { ctx.fillStyle = Col.tc; ctx.fillText('TC', tcLab.x + 4, tcLab.y - 6); }
+
+                // --- BOTTOM: Profit curve ---
+                var oy2 = oy + topH + gap;
+                var piRange = piMax - piMin;
+
+                // Custom axes for profit (can be negative)
+                ctx.strokeStyle = Col.grid; ctx.lineWidth = 0.5;
+                for (var v = piMin; v <= piMax; v += 20) {
+                    var py = oy2 + (1 - (v - piMin) / piRange) * botH;
+                    ctx.beginPath(); ctx.moveTo(ox, py); ctx.lineTo(ox + gw, py); ctx.stroke();
+                }
+                for (var v2 = 0; v2 <= qMax; v2 += 2) {
+                    var px2 = ox + (v2 / qMax) * gw;
+                    ctx.beginPath(); ctx.moveTo(px2, oy2); ctx.lineTo(px2, oy2 + botH); ctx.stroke();
+                }
+                ctx.strokeStyle = Col.axis; ctx.lineWidth = 1.5;
+                ctx.beginPath(); ctx.moveTo(ox, oy2); ctx.lineTo(ox, oy2 + botH); ctx.lineTo(ox + gw, oy2 + botH); ctx.stroke();
+
+                // Zero line
+                var zeroY = oy2 + (1 - (0 - piMin) / piRange) * botH;
+                ctx.strokeStyle = Col.textMuted; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+                ctx.beginPath(); ctx.moveTo(ox, zeroY); ctx.lineTo(ox + gw, zeroY); ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Profit curve
+                ctx.strokeStyle = Col.profit; ctx.lineWidth = 2; ctx.beginPath();
+                var started = false;
+                for (var q = 0.5; q <= qMax; q += 0.15) {
+                    var pi = P * q - TCfn(q);
+                    if (pi < piMin || pi > piMax) { started = false; continue; }
+                    var ptPi = { x: ox + (q / qMax) * gw, y: oy2 + (1 - (pi - piMin) / piRange) * botH };
+                    if (!started) { ctx.moveTo(ptPi.x, ptPi.y); started = true; } else ctx.lineTo(ptPi.x, ptPi.y);
+                }
+                ctx.stroke();
+
+                // Peak dot
+                if (qStar > 0.2 && qStar < qMax) {
+                    var piY = oy2 + (1 - (profitStar - piMin) / piRange) * botH;
+                    ctx.beginPath(); ctx.arc(ox + (qStar / qMax) * gw, piY, 6, 0, 2 * Math.PI);
+                    ctx.fillStyle = Col.dotCurrent; ctx.fill();
+                }
+
+                // Axis labels
+                ctx.fillStyle = Col.text; ctx.font = '12px -apple-system, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Output (q)', ox + gw / 2, oy2 + botH + 38);
+                ctx.save(); ctx.translate(ox - 42, oy2 + botH / 2); ctx.rotate(-Math.PI / 2);
+                ctx.fillText('Profit (π)', 0, 0); ctx.restore();
+
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                for (var v3 = piMin; v3 <= piMax; v3 += 20) {
+                    var py3 = oy2 + (1 - (v3 - piMin) / piRange) * botH;
+                    ctx.fillStyle = Col.text; ctx.font = '11px -apple-system, sans-serif';
+                    ctx.fillText(v3, ox - 6, py3);
+                }
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                for (var v4 = 2; v4 <= qMax; v4 += 2) {
+                    ctx.fillText(v4, ox + (v4 / qMax) * gw, oy2 + botH + 4);
+                }
+
+                // Label
+                ctx.font = 'bold 11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                ctx.fillStyle = Col.profit; ctx.fillText('π(q)', ox + gw - 30, oy2 + 15);
+
+                info.innerHTML = 'P = £' + P + ' | q* = ' + qStar.toFixed(1) +
+                    ' | TR = £' + trStar.toFixed(0) + ' | TC = £' + tcStar.toFixed(0) +
+                    ' | π = £' + profitStar.toFixed(0);
+            }
+
+            pSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() { pSlider.value = 20; draw(); });
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 2: MC, ATC, AVC + PROFIT/LOSS RECTANGLE
+        // ============================================================
+        (function() {
+            var pSlider = document.getElementById('supPSlider');
+            var pDisplay = document.getElementById('supPDisplay');
+            var info = document.getElementById('supInfo');
+            var resetBtn = document.getElementById('supResetBtn');
+
+            var qMax = 16, yMax = 45;
+
+            function draw() {
+                var { ctx, w: cw, h } = getCtx('supplyCanvas');
+                ctx.fillStyle = Col.canvasBg; ctx.fillRect(0, 0, cw, h);
+
+                var P = parseFloat(pSlider.value);
+                pDisplay.textContent = '£' + P;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = cw - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, qMax, yMax, 'Output (q)', '£ / unit', 2, 5);
+
+                // AVC
+                drawCurve(ctx, ox, oy, gw, gh, qMax, yMax, AVCfn, 0.5, qMax, Col.avc, false, 2);
+                // ATC
+                drawCurve(ctx, ox, oy, gw, gh, qMax, yMax, ATCfn, 0.5, qMax, Col.atc, false, 2);
+                // MC (bold — this IS the supply curve)
+                drawCurve(ctx, ox, oy, gw, gh, qMax, yMax, MCfn, 0.3, qMax, Col.mc, false, 2.5);
+
+                // Price line
+                var pL = p2(0, P, ox, oy, gw, gh, qMax, yMax);
+                var pR = p2(qMax, P, ox, oy, gw, gh, qMax, yMax);
+                ctx.strokeStyle = Col.priceLine; ctx.lineWidth = 2; ctx.setLineDash([6, 3]);
+                ctx.beginPath(); ctx.moveTo(pL.x, pL.y); ctx.lineTo(pR.x, pR.y); ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Price label
+                ctx.fillStyle = Col.priceLine; ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                ctx.fillText('P = £' + P, pR.x - 60, pL.y - 8);
+
+                // Optimal q
+                var qStar = qFromP(P);
+                var atcStar = ATCfn(qStar);
+                var avcStar = AVCfn(qStar);
+
+                // AVC at very small q is near 0, so shutdown price is ~0 for this fn form
+                // Use min AVC ≈ 0 — show always operating for P > 0
+
+                if (P > 0.5 && qStar > 0.3 && qStar < qMax) {
+                    // Profit/loss rectangle
+                    if (P >= atcStar) {
+                        // Profit rectangle: height = P - ATC, width = q
+                        var pTL = p2(0, P, ox, oy, gw, gh, qMax, yMax);
+                        var pBR = p2(qStar, atcStar, ox, oy, gw, gh, qMax, yMax);
+                        var pTR = p2(qStar, P, ox, oy, gw, gh, qMax, yMax);
+                        var pBL = p2(0, atcStar, ox, oy, gw, gh, qMax, yMax);
+                        ctx.fillStyle = Col.profitRect;
+                        ctx.fillRect(pBL.x, pTL.y, pTR.x - pBL.x, pBR.y - pTL.y);
+                    } else {
+                        // Loss rectangle
+                        var pTL2 = p2(0, atcStar, ox, oy, gw, gh, qMax, yMax);
+                        var pBR2 = p2(qStar, P, ox, oy, gw, gh, qMax, yMax);
+                        ctx.fillStyle = Col.lossRect;
+                        ctx.fillRect(pTL2.x, pTL2.y, pBR2.x - pTL2.x, pBR2.y - pTL2.y);
+                    }
+
+                    // Dot at P=MC
+                    dot(ctx, qStar, P, ox, oy, gw, gh, qMax, yMax, Col.dotCurrent, 6);
+                    dashedTo(ctx, qStar, P, ox, oy, gw, gh, qMax, yMax, Col.textMuted);
+
+                    var profit = (P - atcStar) * qStar;
+                    var status = P >= atcStar ? 'Profit = £' + profit.toFixed(0) + ' (green)' :
+                                 P >= avcStar ? 'Loss = £' + Math.abs(profit).toFixed(0) + ' — but still better than shutting down (loss would be FC = £' + FC + ')' :
+                                 'Below AVC — shutdown!';
+                    info.innerHTML = 'P = £' + P + ' | q* = ' + qStar.toFixed(1) +
+                        ' | ATC = £' + atcStar.toFixed(1) + ' | AVC = £' + avcStar.toFixed(1) +
+                        ' | ' + status;
+                } else {
+                    info.innerHTML = 'P = £' + P + ' — price too low, firm shuts down.';
+                }
+
+                // Curve labels
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                var lq = 12;
+                var pMC = p2(lq, MCfn(lq), ox, oy, gw, gh, qMax, yMax);
+                if (MCfn(lq) < yMax) { ctx.fillStyle = Col.mc; ctx.textAlign = 'left'; ctx.fillText('MC', pMC.x + 4, pMC.y - 4); }
+                var pATC = p2(3, ATCfn(3), ox, oy, gw, gh, qMax, yMax);
+                if (ATCfn(3) < yMax) { ctx.fillStyle = Col.atc; ctx.textAlign = 'left'; ctx.fillText('ATC', pATC.x + 4, pATC.y - 8); }
+                var pAVC = p2(lq, AVCfn(lq), ox, oy, gw, gh, qMax, yMax);
+                if (AVCfn(lq) < yMax) { ctx.fillStyle = Col.avc; ctx.textAlign = 'left'; ctx.fillText('AVC', pAVC.x + 4, pAVC.y + 14); }
+
+                // Supply curve highlight (MC above AVC)
+                ctx.strokeStyle = Col.supplyBold; ctx.lineWidth = 4; ctx.globalAlpha = 0.3;
+                ctx.beginPath(); started = false;
+                for (var q = 0.5; q <= qMax; q += 0.15) {
+                    var mc = MCfn(q);
+                    if (mc < AVCfn(q) || mc > yMax) { started = false; continue; }
+                    var pp = p2(q, mc, ox, oy, gw, gh, qMax, yMax);
+                    if (!started) { ctx.moveTo(pp.x, pp.y); started = true; } else ctx.lineTo(pp.x, pp.y);
+                }
+                ctx.stroke(); ctx.globalAlpha = 1;
+            }
+
+            pSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() { pSlider.value = 20; draw(); });
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 3: LONG-RUN EQUILIBRIUM (firm + market side-by-side)
+        // ============================================================
+        (function() {
+            var dSlider = document.getElementById('lreqDSlider');
+            var dDisplay = document.getElementById('lreqDDisplay');
+            var animBtn = document.getElementById('lreqAnimBtn');
+            var resetBtn = document.getElementById('lreqResetBtn');
+            var info = document.getElementById('lreqInfo');
+
+            // Long-run: LRAC = 2*sqrt(w*r) ≈ 14.14 (CRS)
+            var LRAC_val = 2 * Math.sqrt(w * r); // 14.14
+            var baseN = 20; // baseline number of firms
+            var nFirms = baseN;
+            var animId = null;
+
+            // Market demand: Qd = 200 + dShift - 5P
+            // Market supply: Qs = n * q_firm(P)
+            // In LR eq: P = LRAC, Qd(LRAC) = 200 + dShift - 5*14.14 ≈ 200 + dShift - 70.7
+            // n* = Qd / q_firm(P)
+
+            var firmQMax = 10, firmYMax = 40;
+            var mktQMax = 250, mktYMax = 40;
+
+            function mktDemand(P, dShift) { return Math.max(0, 200 + dShift - 5 * P); }
+            function mktSupply(P, n) { return n * qFromP(P); }
+
+            // Find equilibrium P given n and dShift
+            function eqPrice(n, dShift) {
+                var lo = 1, hi = 40;
+                for (var i = 0; i < 50; i++) {
+                    var mid = (lo + hi) / 2;
+                    var excess = mktSupply(mid, n) - mktDemand(mid, dShift);
+                    if (excess < 0) lo = mid; else hi = mid;
+                }
+                return (lo + hi) / 2;
+            }
+
+            function draw() {
+                var { ctx, w: cw, h } = getCtx('lreqCanvas');
+                ctx.fillStyle = Col.canvasBg; ctx.fillRect(0, 0, cw, h);
+
+                var dShift = parseFloat(dSlider.value);
+                dDisplay.textContent = (dShift >= 0 ? '+' : '') + dShift;
+
+                var gap = 30;
+                var halfW = (cw - gap) / 2;
+
+                // FIRM PANEL (left)
+                var ox1 = Marg.left, oy1 = Marg.top;
+                var gw1 = halfW - ox1 - 10, gh1 = h - oy1 - Marg.bottom;
+
+                drawAxBase(ctx, ox1, oy1, gw1, gh1, firmQMax, firmYMax, 'Firm output (q)', '£ / unit', 2, 5);
+
+                // MC, ATC
+                drawCurve(ctx, ox1, oy1, gw1, gh1, firmQMax, firmYMax, MCfn, 0.3, firmQMax, Col.firmMC, false, 2);
+                drawCurve(ctx, ox1, oy1, gw1, gh1, firmQMax, firmYMax, ATCfn, 0.5, firmQMax, Col.firmATC, false, 2);
+
+                // LRAC line
+                var lrP = p2(0, LRAC_val, ox1, oy1, gw1, gh1, firmQMax, firmYMax);
+                var lrP2 = p2(firmQMax, LRAC_val, ox1, oy1, gw1, gh1, firmQMax, firmYMax);
+                ctx.strokeStyle = Col.lrac; ctx.lineWidth = 1.5; ctx.setLineDash([6, 3]);
+                ctx.beginPath(); ctx.moveTo(lrP.x, lrP.y); ctx.lineTo(lrP2.x, lrP2.y); ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Current equilibrium
+                var eqP = eqPrice(nFirms, dShift);
+                var firmQ = qFromP(eqP);
+                var firmATC = ATCfn(firmQ);
+
+                // Price line on firm
+                var fpL = p2(0, eqP, ox1, oy1, gw1, gh1, firmQMax, firmYMax);
+                var fpR = p2(firmQMax, eqP, ox1, oy1, gw1, gh1, firmQMax, firmYMax);
+                ctx.strokeStyle = Col.priceLine; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath(); ctx.moveTo(fpL.x, fpL.y); ctx.lineTo(fpR.x, fpR.y); ctx.stroke();
+
+                // Profit/loss rectangle
+                if (firmQ > 0.3 && firmQ < firmQMax) {
+                    if (eqP > firmATC) {
+                        var rTL = p2(0, eqP, ox1, oy1, gw1, gh1, firmQMax, firmYMax);
+                        var rBR = p2(firmQ, firmATC, ox1, oy1, gw1, gh1, firmQMax, firmYMax);
+                        ctx.fillStyle = Col.profitRect;
+                        ctx.fillRect(rTL.x, rTL.y, rBR.x - rTL.x, rBR.y - rTL.y);
+                    } else if (eqP < firmATC) {
+                        var rTL2 = p2(0, firmATC, ox1, oy1, gw1, gh1, firmQMax, firmYMax);
+                        var rBR2 = p2(firmQ, eqP, ox1, oy1, gw1, gh1, firmQMax, firmYMax);
+                        ctx.fillStyle = Col.lossRect;
+                        ctx.fillRect(rTL2.x, rTL2.y, rBR2.x - rTL2.x, rBR2.y - rTL2.y);
+                    }
+                    dot(ctx, firmQ, eqP, ox1, oy1, gw1, gh1, firmQMax, firmYMax, Col.dotCurrent, 5);
+                }
+
+                // Labels
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.fillStyle = Col.firmMC; ctx.textAlign = 'left';
+                var mcP = p2(firmQMax - 1, MCfn(firmQMax - 1), ox1, oy1, gw1, gh1, firmQMax, firmYMax);
+                if (MCfn(firmQMax - 1) < firmYMax) ctx.fillText('MC', mcP.x + 3, mcP.y - 4);
+                ctx.fillStyle = Col.firmATC;
+                var atcP = p2(2, ATCfn(2), ox1, oy1, gw1, gh1, firmQMax, firmYMax);
+                if (ATCfn(2) < firmYMax) ctx.fillText('ATC', atcP.x + 3, atcP.y - 6);
+                ctx.fillStyle = Col.lrac;
+                ctx.fillText('LRAC', lrP2.x - 35, lrP.y - 6);
+
+                // Title
+                ctx.fillStyle = Col.text; ctx.font = 'bold 13px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText('Representative Firm', ox1 + gw1 / 2, oy1 + 15);
+
+                // MARKET PANEL (right)
+                var ox2 = halfW + gap, oy2 = Marg.top;
+                var gw2 = cw - ox2 - Marg.right, gh2 = h - oy2 - Marg.bottom;
+
+                drawAxBase(ctx, ox2, oy2, gw2, gh2, mktQMax, mktYMax, 'Market quantity (Q)', '£ / unit', 50, 5);
+
+                // Market demand
+                drawCurve(ctx, ox2, oy2, gw2, gh2, mktQMax, mktYMax, function(Q) { return (200 + dShift - Q) / 5; },
+                    0, Math.min(mktQMax, 200 + dShift), Col.marketD, false, 2);
+
+                // Market supply
+                drawCurve(ctx, ox2, oy2, gw2, gh2, mktQMax, mktYMax, function(Q) {
+                    // Invert: at price P, Qs = n*q(P). We need P(Q) = MC(Q/n)
+                    var qFirm = Q / nFirms;
+                    if (qFirm < 0.2) return 0;
+                    return MCfn(qFirm);
+                }, 1, mktQMax, Col.marketS, false, 2);
+
+                // LRAC line on market
+                var mlrL = p2(0, LRAC_val, ox2, oy2, gw2, gh2, mktQMax, mktYMax);
+                var mlrR = p2(mktQMax, LRAC_val, ox2, oy2, gw2, gh2, mktQMax, mktYMax);
+                ctx.strokeStyle = Col.lrac; ctx.lineWidth = 1.5; ctx.setLineDash([6, 3]);
+                ctx.beginPath(); ctx.moveTo(mlrL.x, mlrL.y); ctx.lineTo(mlrR.x, mlrR.y); ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Equilibrium point on market
+                var eqQ = mktSupply(eqP, nFirms);
+                if (eqQ > 0 && eqQ < mktQMax && eqP > 0 && eqP < mktYMax) {
+                    dot(ctx, eqQ, eqP, ox2, oy2, gw2, gh2, mktQMax, mktYMax, Col.equilibrium, 6);
+                    dashedTo(ctx, eqQ, eqP, ox2, oy2, gw2, gh2, mktQMax, mktYMax, Col.textMuted);
+                }
+
+                // Labels
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.fillStyle = Col.marketD; ctx.textAlign = 'left'; ctx.fillText('D', p2(10, (200 + dShift - 10) / 5, ox2, oy2, gw2, gh2, mktQMax, mktYMax).x - 15, p2(10, (200 + dShift - 10) / 5, ox2, oy2, gw2, gh2, mktQMax, mktYMax).y - 5);
+                ctx.fillStyle = Col.marketS; ctx.textAlign = 'left';
+                var sLabQ = 180;
+                var sLabP = MCfn(sLabQ / nFirms);
+                if (sLabP < mktYMax && sLabQ < mktQMax) {
+                    var sP = p2(sLabQ, sLabP, ox2, oy2, gw2, gh2, mktQMax, mktYMax);
+                    ctx.fillText('S (n=' + nFirms + ')', sP.x + 4, sP.y - 4);
+                }
+
+                ctx.fillStyle = Col.text; ctx.font = 'bold 13px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText('Market', ox2 + gw2 / 2, oy2 + 15);
+
+                var profit = (eqP - firmATC) * firmQ;
+                info.innerHTML = 'n = ' + nFirms + ' firms | P = £' + eqP.toFixed(1) +
+                    ' | Firm q = ' + firmQ.toFixed(1) + ' | Firm π = £' + profit.toFixed(0) +
+                    (Math.abs(profit) < 2 ? ' (≈ 0, long-run eq.)' : profit > 0 ? ' (profit → entry)' : ' (loss → exit)');
+            }
+
+            dSlider.addEventListener('input', function() {
+                if (animId) { clearInterval(animId); animId = null; }
+                nFirms = baseN;
+                draw();
+            });
+
+            animBtn.addEventListener('click', function() {
+                if (animId) { clearInterval(animId); animId = null; }
+                nFirms = baseN;
+                var dShift = parseFloat(dSlider.value);
+                animId = setInterval(function() {
+                    var eqP = eqPrice(nFirms, dShift);
+                    var firmQ = qFromP(eqP);
+                    var profit = (eqP - ATCfn(firmQ)) * firmQ;
+                    if (profit > 2 && nFirms < 80) { nFirms++; draw(); }
+                    else if (profit < -2 && nFirms > 2) { nFirms--; draw(); }
+                    else { clearInterval(animId); animId = null; draw(); }
+                }, 120);
+            });
+
+            resetBtn.addEventListener('click', function() {
+                if (animId) { clearInterval(animId); animId = null; }
+                nFirms = baseN; dSlider.value = 0; draw();
+            });
+
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 4: MARKET SUPPLY AGGREGATION (firm → market)
+        // ============================================================
+        (function() {
+            var nSlider = document.getElementById('mktNSlider');
+            var pSlider = document.getElementById('mktPSlider');
+            var nDisplay = document.getElementById('mktNDisplay');
+            var pDisplay = document.getElementById('mktPDisplay');
+            var info = document.getElementById('mktInfo');
+            var resetBtn = document.getElementById('mktResetBtn');
+
+            var firmQMax = 12, mktQMax = 200, yMax = 40;
+
+            function draw() {
+                var { ctx, w: cw, h } = getCtx('mktSupplyCanvas');
+                ctx.fillStyle = Col.canvasBg; ctx.fillRect(0, 0, cw, h);
+
+                var n = parseInt(nSlider.value);
+                var P = parseFloat(pSlider.value);
+                nDisplay.textContent = n;
+                pDisplay.textContent = '£' + P;
+
+                var gap = 30;
+                var halfW = (cw - gap) / 2;
+
+                // FIRM PANEL
+                var ox1 = Marg.left, oy1 = Marg.top;
+                var gw1 = halfW - ox1 - 10, gh1 = h - oy1 - Marg.bottom;
+
+                drawAxBase(ctx, ox1, oy1, gw1, gh1, firmQMax, yMax, 'Firm output (q)', '£ / unit', 2, 5);
+
+                // MC curve
+                drawCurve(ctx, ox1, oy1, gw1, gh1, firmQMax, yMax, MCfn, 0.3, firmQMax, Col.mc, false, 2.5);
+
+                // Price line
+                var fp1 = p2(0, P, ox1, oy1, gw1, gh1, firmQMax, yMax);
+                var fp2 = p2(firmQMax, P, ox1, oy1, gw1, gh1, firmQMax, yMax);
+                ctx.strokeStyle = Col.priceLine; ctx.lineWidth = 2; ctx.setLineDash([6, 3]);
+                ctx.beginPath(); ctx.moveTo(fp1.x, fp1.y); ctx.lineTo(fp2.x, fp2.y); ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Firm quantity
+                var qFirm = qFromP(P);
+                if (qFirm > 0.2 && qFirm < firmQMax) {
+                    dot(ctx, qFirm, P, ox1, oy1, gw1, gh1, firmQMax, yMax, Col.dotCurrent, 5);
+                    dashedTo(ctx, qFirm, P, ox1, oy1, gw1, gh1, firmQMax, yMax, Col.textMuted);
+                }
+
+                ctx.font = 'bold 11px -apple-system, sans-serif'; ctx.fillStyle = Col.mc; ctx.textAlign = 'left';
+                var mcLab = p2(firmQMax - 1, MCfn(firmQMax - 1), ox1, oy1, gw1, gh1, firmQMax, yMax);
+                if (MCfn(firmQMax - 1) < yMax) ctx.fillText('MC = S_firm', mcLab.x - 50, mcLab.y - 6);
+
+                ctx.fillStyle = Col.text; ctx.font = 'bold 13px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText('One Firm', ox1 + gw1 / 2, oy1 + 15);
+
+                // MARKET PANEL
+                var ox2 = halfW + gap, oy2 = Marg.top;
+                var gw2 = cw - ox2 - Marg.right, gh2 = h - oy2 - Marg.bottom;
+
+                drawAxBase(ctx, ox2, oy2, gw2, gh2, mktQMax, yMax, 'Market quantity (Q)', '£ / unit', 50, 5);
+
+                // Market supply: Q = n * q(P) for each P
+                drawCurve(ctx, ox2, oy2, gw2, gh2, mktQMax, yMax, function(Q) {
+                    var qf = Q / n;
+                    if (qf < 0.2) return 0;
+                    return MCfn(qf);
+                }, 1, mktQMax, Col.marketS, false, 2.5);
+
+                // Price line
+                var mp1 = p2(0, P, ox2, oy2, gw2, gh2, mktQMax, yMax);
+                var mp2p = p2(mktQMax, P, ox2, oy2, gw2, gh2, mktQMax, yMax);
+                ctx.strokeStyle = Col.priceLine; ctx.lineWidth = 2; ctx.setLineDash([6, 3]);
+                ctx.beginPath(); ctx.moveTo(mp1.x, mp1.y); ctx.lineTo(mp2p.x, mp2p.y); ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Market quantity
+                var Qmkt = n * qFirm;
+                if (Qmkt > 0 && Qmkt < mktQMax) {
+                    dot(ctx, Qmkt, P, ox2, oy2, gw2, gh2, mktQMax, yMax, Col.dotCurrent, 5);
+                    dashedTo(ctx, Qmkt, P, ox2, oy2, gw2, gh2, mktQMax, yMax, Col.textMuted);
+                }
+
+                // Label
+                ctx.font = 'bold 11px -apple-system, sans-serif'; ctx.fillStyle = Col.marketS; ctx.textAlign = 'left';
+                var sLab = p2(mktQMax * 0.7, MCfn(mktQMax * 0.7 / n), ox2, oy2, gw2, gh2, mktQMax, yMax);
+                ctx.fillText('S_mkt (n=' + n + ')', sLab.x + 4, sLab.y - 6);
+
+                ctx.fillStyle = Col.text; ctx.font = 'bold 13px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText('Market (n = ' + n + ' firms)', ox2 + gw2 / 2, oy2 + 15);
+
+                // Arrow between panels
+                ctx.fillStyle = Col.textMuted; ctx.font = '20px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                ctx.fillText('×' + n + ' →', halfW + gap / 2, h / 2);
+
+                info.innerHTML = 'n = ' + n + ' firms | P = £' + P +
+                    ' | Firm q = ' + qFirm.toFixed(1) + ' | Market Q = ' + Qmkt.toFixed(0);
+            }
+
+            nSlider.addEventListener('input', draw);
+            pSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() { nSlider.value = 10; pSlider.value = 20; draw(); });
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GLOBAL REDRAW
+        // ============================================================
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { Col = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>
