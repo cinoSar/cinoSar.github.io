@@ -814,7 +814,7 @@
 
                 // Supply curve highlight (MC above AVC)
                 ctx.strokeStyle = Col.supplyBold; ctx.lineWidth = 4; ctx.globalAlpha = 0.3;
-                ctx.beginPath(); started = false;
+                ctx.beginPath(); var started = false;
                 for (var q = 0.5; q <= qMax; q += 0.15) {
                     var mc = MCfn(q);
                     if (mc < AVCfn(q) || mc > yMax) { started = false; continue; }
