@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 7: Costs | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 140px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle {
+            background: var(--color-primary-dark);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 7: Costs</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 7</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#measuring-costs">7.1 Measuring Costs</a></li>
+                <li><a href="#short-run-costs">7.2 Short-Run Costs</a></li>
+                <li><a href="#long-run-costs">7.3 Long-Run Cost Minimisation</a></li>
+                <li><a href="#long-run-curves">7.4 Long-Run Cost Curves</a></li>
+                <li><a href="#learning">7.5 Learning by Doing</a></li>
+                <li><a href="#formal-derivations">7.6 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: Why Did Ryanair Win?</h2>
+                <p>In the early 1990s, British Airways offered comfortable seats, complimentary meals, and frequent-flyer lounges. Ryanair stripped everything away: no frills, no allocated seating, no free baggage. Yet Ryanair grew explosively while BA struggled. The answer was not that passengers preferred discomfort &mdash; it was that Ryanair understood its <strong>cost structure</strong> better than anyone.</p>
+
+                <p>By operating a single aircraft type (Boeing 737), using secondary airports with lower landing fees, and turning planes around in 25 minutes instead of an hour, Ryanair drove its cost per seat-kilometre far below BA's. Understanding how costs behave &mdash; which costs are fixed, which are variable, how they change with scale &mdash; is the foundation of every pricing and production decision a firm makes.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>In Chapter 6 we described what a firm <em>can</em> produce. In this chapter we ask what it <em>costs</em> to produce it. The production function tells us the minimum inputs needed; cost analysis translates those inputs into pounds by multiplying by input prices. The result is the firm's <strong>cost function</strong> &mdash; the bridge from technology to supply decisions.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to distinguish economic from accounting costs, derive and draw short-run cost curves (TC, VC, FC, MC, ATC, AVC, AFC), solve the long-run cost-minimisation problem using isoquants and isocost lines, explain the envelope relationship between short-run and long-run average cost, and understand how learning by doing shifts cost curves over time.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#measuring-costs">Measuring Costs</a> &mdash; economic vs accounting cost, opportunity cost, sunk costs</li>
+                    <li><a href="#short-run-costs">Short-Run Costs</a> &mdash; TC, VC, FC, MC, ATC, AVC, and their shapes</li>
+                    <li><a href="#long-run-costs">Long-Run Cost Minimisation</a> &mdash; isocost lines and the tangency condition</li>
+                    <li><a href="#long-run-curves">Long-Run Cost Curves</a> &mdash; LRAC as envelope, economies and diseconomies of scale</li>
+                    <li><a href="#learning">Learning by Doing</a> &mdash; how experience shifts costs down</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; the full mathematical treatment</li>
+                </ol>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- 7.1 MEASURING COSTS                           -->
+            <!-- ============================================ -->
+            <section id="measuring-costs" class="lesson-section section-intuition">
+                <h2>7.1 Measuring Costs</h2>
+
+                <h3>Intuition: What Economists Mean by "Cost"</h3>
+                <p>An accountant totals up what the firm actually spent: wages, rent, materials. An economist asks a different question: <em>what did the firm give up?</em> This is the concept of <strong>opportunity cost</strong> &mdash; the value of the best alternative forgone.</p>
+
+                <p>Suppose you quit a £50,000 job to start a bakery. Your accountant records your explicit costs: flour, rent, oven payments. But an economist also counts the £50,000 salary you gave up. If the bakery earns £60,000 in revenue and incurs £30,000 in explicit costs, the accountant sees a £30,000 profit. The economist subtracts the £50,000 opportunity cost and sees a £20,000 <em>economic loss</em> &mdash; you would have been better off staying employed.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Key Cost Concepts</h4>
+                    <p><strong>Explicit costs:</strong> Payments to outside suppliers &mdash; wages, rent, raw materials. Recorded in accounting books.</p>
+                    <p><strong>Implicit costs:</strong> Opportunity costs of using the owner's own resources &mdash; forgone salary, forgone interest on invested capital, forgone rent on owned property.</p>
+                    <p><strong>Economic cost = Explicit + Implicit costs.</strong></p>
+                    <p><strong>Sunk costs:</strong> Costs already incurred that cannot be recovered. Rational decision-makers ignore sunk costs &mdash; they affect neither marginal cost nor marginal benefit of future actions.</p>
+                </div>
+
+                <div class="callout callout-warning">
+                    <h4>The Sunk Cost Fallacy</h4>
+                    <p>"We've already spent £2 million on this project, so we can't abandon it now." This reasoning is a fallacy. The £2 million is gone regardless. The correct question is: "Does the expected future benefit of continuing exceed the expected future cost?" Past expenditure is irrelevant to forward-looking decisions. Yet this fallacy is remarkably persistent &mdash; in business, government, and personal life.</p>
+                </div>
+
+                <p>Throughout this chapter, "cost" means <em>economic cost</em> unless otherwise stated. When we say a firm earns "zero profit," we mean zero <em>economic</em> profit &mdash; it is covering all its costs, including the opportunity cost of the owner's time and capital. The firm is doing exactly as well as its best outside option.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 7.2 SHORT-RUN COSTS                           -->
+            <!-- ============================================ -->
+            <section id="short-run-costs" class="lesson-section section-geometric">
+                <h2>7.2 Short-Run Costs</h2>
+
+                <h3>Intuition: Fixed and Variable</h3>
+                <p>In the short run, at least one input is fixed. The firm's costs split neatly into two parts. <strong>Fixed costs</strong> (FC) do not change with output: rent on the factory, the lease on equipment, insurance premiums. These must be paid even if the firm produces nothing. <strong>Variable costs</strong> (VC) rise with output: wages for additional workers, raw materials, energy. <strong>Total cost</strong> is simply the sum: \(TC = FC + VC\).</p>
+
+                <p>From these totals, we derive the per-unit curves that drive pricing decisions. <strong>Average total cost</strong> \(ATC = TC/q\) tells you the cost per unit. <strong>Marginal cost</strong> \(MC = dTC/dq\) tells you the cost of the next unit. The relationship between MC and ATC mirrors the MP–AP relationship from Chapter 6: MC crosses ATC at its minimum.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The MC&ndash;ATC Relationship</h4>
+                    <p>If producing one more unit costs less than the current average (MC < ATC), the average falls. If it costs more (MC > ATC), the average rises. Therefore MC crosses ATC at ATC's minimum &mdash; just as MP crossed AP at AP's maximum. This is the same batting-average logic, applied to costs instead of products.</p>
+                </div>
+
+                <h3>Geometric Solution: Short-Run Cost Curves</h3>
+                <p>The graph below shows total cost curves in the upper panel and per-unit curves in the lower panel. We use a production function \(q = L^{0.7} K^{0.3}\) with \(K = 10\), wage \(w = 10\), and rental rate \(r = 5\). Fixed cost = \(rK = 50\). Variable cost = \(wL\), where \(L\) is the labour needed to produce \(q\).</p>
+
+                <div class="interactive-graph" id="sr-cost-container">
+                    <canvas id="srCostCanvas" width="600" height="520"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Output (q): <span class="value-display" id="srQDisplay">5</span>
+                            <input type="range" id="srQSlider" min="1" max="16" step="0.5" value="5">
+                        </label>
+                        <label>
+                            Wage (w): <span class="value-display" id="srWDisplay">£10</span>
+                            <input type="range" id="srWSlider" min="5" max="20" step="1" value="10">
+                        </label>
+                        <button id="srResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="srCostInfo">
+                        Move the output slider to trace along the cost curves. Adjust the wage to see how variable costs shift.
+                    </div>
+                    <p class="graph-caption">Figure 7.1 &mdash; Short-run cost curves. Upper: TC, VC, FC. Lower: MC, ATC, AVC, AFC.</p>
+                </div>
+
+                <p>In the upper panel, the FC line is flat &mdash; it does not change with output. The VC curve rises, slowly at first (when marginal product is high, each extra unit of output is cheap) then more steeply (as diminishing returns set in and each extra unit requires more labour). TC is simply VC shifted upward by FC.</p>
+
+                <p>In the lower panel, AFC falls continuously (the fixed cost is spread over more and more units). AVC initially falls, then rises as diminishing returns dominate. ATC is U-shaped: it falls while AFC is pulling it down, reaches a minimum, then rises as rising AVC overwhelms falling AFC. Marginal cost crosses AVC at AVC's minimum, and ATC at ATC's minimum.</p>
+
+                <div class="callout callout-example">
+                    <h4>Why ATC is U-Shaped</h4>
+                    <p>At low output, the firm is burdened by high fixed costs spread over few units &mdash; AFC is huge. As output rises, AFC shrinks rapidly. But at high output, diminishing returns make each additional unit increasingly expensive, so AVC climbs. The U-shape of ATC reflects the tension between these two forces: spreading fixed costs (pulling ATC down) and diminishing returns (pushing ATC up).</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 7.3 LONG-RUN COST MINIMISATION                -->
+            <!-- ============================================ -->
+            <section id="long-run-costs" class="lesson-section section-geometric">
+                <h2>7.3 Long-Run Cost Minimisation</h2>
+
+                <h3>Intuition: Choosing the Cheapest Input Mix</h3>
+                <p>In the long run, the firm can adjust all inputs. Given a target output level, it wants to find the combination of labour and capital that produces that output at the lowest possible cost. This is the firm's cost-minimisation problem &mdash; the producer-theory counterpart of the consumer's utility-maximisation problem.</p>
+
+                <p>The firm's budget is represented by an <strong>isocost line</strong>: all combinations of \(L\) and \(K\) that cost the same total amount. If the wage is \(w\) and the rental rate of capital is \(r\), the isocost line for total cost \(C\) is:</p>
+
+                \[ C = wL + rK \quad \Rightarrow \quad K = \frac{C}{r} - \frac{w}{r}L \]
+
+                <p>This is a straight line with slope \(-w/r\), exactly like the consumer's budget line with slope \(-p_1/p_2\). The cost-minimising input combination is where the isocost line is tangent to the target isoquant &mdash; the point where \(MRTS = w/r\).</p>
+
+                <div class="callout callout-definition">
+                    <h4>Cost-Minimisation Condition</h4>
+                    <p>The firm minimises cost when:</p>
+                    <p>\[ MRTS_{LK} = \frac{MP_L}{MP_K} = \frac{w}{r} \]</p>
+                    <p>This says: the rate at which the firm <em>can</em> substitute labour for capital (MRTS) equals the rate at which the market lets it (the input price ratio). Rearranging: \(MP_L / w = MP_K / r\) &mdash; the last pound spent on each input yields the same marginal product.</p>
+                </div>
+
+                <h3>Geometric Solution: Isoquant-Isocost Tangency</h3>
+
+                <div class="interactive-graph" id="isocost-container">
+                    <canvas id="isocostCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Target q: <span class="value-display" id="icoQDisplay">4</span>
+                            <input type="range" id="icoQSlider" min="1" max="8" step="0.5" value="4">
+                        </label>
+                        <label>
+                            w/r: <span class="value-display" id="icoWRDisplay">2.0</span>
+                            <input type="range" id="icoWRSlider" min="0.5" max="4" step="0.25" value="2">
+                        </label>
+                        <button id="icoTraceBtn">Trace Expansion Path</button>
+                        <button id="icoResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="icoInfo">
+                        Change the target output or the wage-rental ratio to see how the cost-minimising input mix shifts.
+                    </div>
+                    <p class="graph-caption">Figure 7.2 &mdash; Cost minimisation: the isocost line (green) is tangent to the isoquant (purple). The expansion path (orange) traces optimal input mixes as output grows.</p>
+                </div>
+
+                <p>When the wage-rental ratio \(w/r\) rises (labour becomes relatively more expensive), the isocost line becomes steeper and the firm substitutes toward capital. When \(w/r\) falls, the firm uses more labour-intensive methods. This is exactly the producer-theory analogue of the substitution effect in consumer theory.</p>
+
+                <p>The <strong>expansion path</strong> connects all the cost-minimising bundles as output varies (holding input prices fixed). For Cobb-Douglas production with equal exponents (\(\alpha = \beta\)), the expansion path is a straight ray from the origin whose slope depends on \(w/r\).</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 7.4 LONG-RUN COST CURVES                     -->
+            <!-- ============================================ -->
+            <section id="long-run-curves" class="lesson-section section-geometric">
+                <h2>7.4 Long-Run Cost Curves and Economies of Scale</h2>
+
+                <h3>Intuition: The Envelope</h3>
+                <p>In the short run, the firm is stuck with a fixed level of capital and has a U-shaped ATC curve. But in the long run, it can choose <em>any</em> level of capital. For each possible plant size (value of \(K\)), there is a different short-run ATC curve. The <strong>long-run average cost</strong> (LRAC) curve is the lower envelope of all these short-run curves &mdash; for each output level, it picks the plant size that minimises average cost.</p>
+
+                <p>The shape of the LRAC curve depends on returns to scale. With <strong>economies of scale</strong> (IRS), LRAC falls as output rises &mdash; bigger is cheaper. With <strong>diseconomies of scale</strong> (DRS), LRAC rises &mdash; bigger is more expensive. At <strong>constant returns to scale</strong>, LRAC is flat. Most industries exhibit a U-shaped LRAC: economies of scale at low output (specialisation, spreading fixed costs), a flat region of constant returns (the <strong>minimum efficient scale</strong>), and diseconomies at very high output (coordination and bureaucracy costs).</p>
+
+                <div class="callout callout-definition">
+                    <h4>Economies and Diseconomies of Scale</h4>
+                    <p><strong>Economies of scale:</strong> LRAC falls as output increases. Sources: specialisation of labour, volume discounts on inputs, spreading of fixed setup costs, more efficient large-scale machinery.</p>
+                    <p><strong>Diseconomies of scale:</strong> LRAC rises as output increases. Sources: management complexity, communication overhead, worker alienation, coordination failures in very large organisations.</p>
+                    <p><strong>Minimum efficient scale (MES):</strong> The smallest output at which LRAC reaches its minimum. Industries with a high MES (car manufacturing, semiconductors) tend to have few, large firms. Industries with a low MES (restaurants, hairdressers) have many small firms.</p>
+                </div>
+
+                <h3>Geometric Solution: SRAC Envelope</h3>
+
+                <div class="interactive-graph" id="envelope-container">
+                    <canvas id="envelopeCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Plant size (K): <span class="value-display" id="envKDisplay">all</span>
+                            <input type="range" id="envKSlider" min="0" max="6" step="1" value="0">
+                        </label>
+                        <button id="envResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="envInfo">
+                        Slider at 0 shows all SRAC curves and the LRAC envelope. Move it to highlight individual plant sizes.
+                    </div>
+                    <p class="graph-caption">Figure 7.3 &mdash; The LRAC curve (bold) is the lower envelope of the SRAC curves for different plant sizes. Each SRAC is U-shaped; the LRAC may also be U-shaped.</p>
+                </div>
+
+                <p>Each thin U-shaped curve represents the short-run ATC for a particular plant size. The bold LRAC curve traces along the bottom of these curves. Notice that the LRAC does <em>not</em> pass through the minima of the SRAC curves (except at the overall minimum of LRAC itself). To the left of that point, the firm is on the downward-sloping part of each SRAC; to the right, on the upward-sloping part.</p>
+
+                <div class="callout callout-example">
+                    <h4>MES and Industry Structure</h4>
+                    <p>In the UK electricity generation market, the MES for a combined-cycle gas turbine plant is around 500 MW &mdash; large enough that only a handful of firms can operate efficiently. In contrast, the MES for a local bakery is tiny, which is why thousands of bakeries coexist. The MES determines the natural number of firms an industry can support, and thus how competitive it will be.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 7.5 LEARNING BY DOING                         -->
+            <!-- ============================================ -->
+            <section id="learning" class="lesson-section section-intuition">
+                <h2>7.5 Learning by Doing</h2>
+
+                <h3>Intuition: Experience Reduces Costs</h3>
+                <p>In 1936, the aeronautical engineer Theodore Wright observed that every time cumulative aircraft production doubled, the labour hours per airframe fell by a consistent percentage. This pattern &mdash; the <strong>learning curve</strong> &mdash; has since been documented in industries from semiconductors to surgery.</p>
+
+                <p>Learning by doing means that the firm's cost function shifts downward over time as it accumulates production experience. Workers develop faster techniques, managers discover process improvements, and defect rates fall. Unlike economies of scale (which depend on the <em>rate</em> of output), learning effects depend on <em>cumulative</em> output &mdash; total experience to date.</p>
+
+                <div class="callout callout-definition">
+                    <h4>The Learning Curve</h4>
+                    <p>The relationship between average cost and cumulative output is typically modelled as:</p>
+                    <p>\[ AC(N) = a \cdot N^{-b} \]</p>
+                    <p>where \(N\) is cumulative output, \(a\) is the cost of the first unit, and \(b > 0\) is the learning rate parameter. The <strong>progress ratio</strong> is \(2^{-b}\) &mdash; the fraction by which cost falls each time cumulative output doubles. A progress ratio of 0.8 (common in manufacturing) means costs fall by 20% with each doubling of experience.</p>
+                </div>
+
+                <h3>Geometric Solution: The Learning Curve</h3>
+
+                <div class="interactive-graph" id="learning-container">
+                    <canvas id="learningCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Learning rate (b): <span class="value-display" id="learnBDisplay">0.32</span>
+                            <input type="range" id="learnBSlider" min="0.05" max="0.7" step="0.01" value="0.32">
+                        </label>
+                        <label>
+                            Cumulative output: <span class="value-display" id="learnNDisplay">10</span>
+                            <input type="range" id="learnNSlider" min="1" max="100" step="1" value="10">
+                        </label>
+                        <button id="learnResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="learnInfo">
+                        Adjust the learning rate to see how quickly costs fall with experience. Move cumulative output to see the current AC.
+                    </div>
+                    <p class="graph-caption">Figure 7.4 &mdash; The learning curve: average cost falls as cumulative output rises. A higher learning rate (b) means steeper cost reductions.</p>
+                </div>
+
+                <p>With a learning rate of \(b = 0.32\), the progress ratio is \(2^{-0.32} \approx 0.80\) &mdash; a 20% cost reduction with each doubling of experience. This is the "80% learning curve" commonly observed in aerospace and electronics manufacturing. Notice how the steepest cost reductions occur early on; as cumulative output grows, the curve flattens and further improvements become harder to achieve.</p>
+
+                <div class="callout callout-warning">
+                    <h4>Learning vs. Economies of Scale</h4>
+                    <p>These are distinct concepts that are often confused. <strong>Economies of scale</strong> arise from producing a large quantity <em>at a given point in time</em> &mdash; they depend on the current rate of output. <strong>Learning effects</strong> arise from having produced a large quantity <em>over time</em> &mdash; they depend on cumulative historical output. A firm can have economies of scale without learning (if it immediately builds a large plant) or learning without economies of scale (if costs fall purely from experience at any given plant size).</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 7.6 FORMAL DERIVATIONS                        -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>7.6 Formal Mathematical Derivations</h2>
+
+                <p>This section derives the cost functions rigorously from the production function, using the Cobb-Douglas technology \(q = L^\alpha K^\beta\) with \(\alpha = \beta = 0.5\) (so \(q = \sqrt{LK}\)) as the running example.</p>
+
+                <h3>Short-Run Cost Function</h3>
+                <p>In the short run, capital is fixed at \(\bar{K}\). From \(q = L^{0.5} \bar{K}^{0.5}\), we invert to find the labour needed:</p>
+
+                \[ L(q) = \frac{q^2}{\bar{K}} \]
+
+                <p>The short-run total cost function is:</p>
+
+                \[ C^{SR}(q) = w L(q) + r\bar{K} = \frac{wq^2}{\bar{K}} + r\bar{K} \]
+
+                <p>Decomposing: \(VC = wq^2/\bar{K}\) and \(FC = r\bar{K}\). The per-unit curves:</p>
+
+                \[ AVC = \frac{wq}{\bar{K}}, \quad AFC = \frac{r\bar{K}}{q}, \quad ATC = \frac{wq}{\bar{K}} + \frac{r\bar{K}}{q} \]
+
+                \[ MC = \frac{dC^{SR}}{dq} = \frac{2wq}{\bar{K}} \]
+
+                <p>With \(w = 10\), \(r = 5\), \(\bar{K} = 10\): \(FC = 50\), \(VC = q^2\), \(MC = 2q\), \(AVC = q\), \(ATC = q + 50/q\).</p>
+
+                <p>The minimum of ATC occurs where \(MC = ATC\):</p>
+
+                \[ 2q = q + \frac{50}{q} \quad \Rightarrow \quad q = \frac{50}{q} \quad \Rightarrow \quad q^* = \sqrt{50} \approx 7.07 \]
+
+                <p>At this output, \(ATC^* = 2\sqrt{50} \approx 14.14\).</p>
+
+                <h3>Long-Run Cost Minimisation</h3>
+                <p>In the long run, the firm solves:</p>
+
+                \[ \min_{L, K} \; wL + rK \quad \text{s.t.} \quad L^{0.5} K^{0.5} = q \]
+
+                <p>The Lagrangian is:</p>
+
+                \[ \mathcal{L} = wL + rK + \lambda(q - L^{0.5}K^{0.5}) \]
+
+                <p>First-order conditions:</p>
+
+                \[ \frac{\partial \mathcal{L}}{\partial L} = w - \frac{\lambda}{2} L^{-0.5} K^{0.5} = 0 \]
+                \[ \frac{\partial \mathcal{L}}{\partial K} = r - \frac{\lambda}{2} L^{0.5} K^{-0.5} = 0 \]
+
+                <p>Dividing:</p>
+
+                \[ \frac{w}{r} = \frac{K}{L} \quad \Rightarrow \quad K = \frac{w}{r} L \]
+
+                <p>This is the cost-minimisation condition: \(MRTS = w/r\). Substituting into the constraint:</p>
+
+                \[ L^{0.5} \left(\frac{w}{r}L\right)^{0.5} = q \quad \Rightarrow \quad L \sqrt{\frac{w}{r}} = q \]
+
+                \[ L^* = q \sqrt{\frac{r}{w}}, \quad K^* = q \sqrt{\frac{w}{r}} \]
+
+                <h3>Long-Run Cost Function and Shephard's Lemma</h3>
+                <p>Substituting the optimal inputs into the cost expression:</p>
+
+                \[ C^{LR}(q) = wL^* + rK^* = wq\sqrt{\frac{r}{w}} + rq\sqrt{\frac{w}{r}} = 2q\sqrt{wr} \]
+
+                <p>So the long-run cost function is \(C^{LR} = 2q\sqrt{wr}\). With \(w = 10\), \(r = 5\):</p>
+
+                \[ C^{LR} = 2q\sqrt{50} \approx 14.14q \]
+
+                <p>Notice: the LRAC is <em>constant</em> at \(2\sqrt{wr}\), confirming that CRS production yields constant long-run average cost.</p>
+
+                <p><strong>Shephard's lemma</strong> gives the conditional factor demands directly from the cost function:</p>
+
+                \[ L^*(q, w, r) = \frac{\partial C}{\partial w} = q\sqrt{\frac{r}{w}}, \quad K^*(q, w, r) = \frac{\partial C}{\partial r} = q\sqrt{\frac{w}{r}} \]
+
+                <p>This is the producer-theory dual of Roy's identity in consumer theory.</p>
+
+                <h3>The Envelope Theorem and SRAC vs LRAC</h3>
+                <p>For any given \(\bar{K}\), the short-run cost is \(C^{SR}(q, \bar{K}) = wq^2/\bar{K} + r\bar{K}\). The long-run cost minimises over \(K\):</p>
+
+                \[ \frac{\partial C^{SR}}{\partial K} = -\frac{wq^2}{K^2} + r = 0 \quad \Rightarrow \quad K^* = q\sqrt{\frac{w}{r}} \]
+
+                <p>This confirms the Lagrangian result. By the <strong>envelope theorem</strong>, \(C^{LR}(q) = C^{SR}(q, K^*(q))\). The LRAC curve touches each SRAC curve at exactly one point, and \(LRAC \leq SRAC\) everywhere &mdash; the long run is never more expensive than the short run because the firm has more flexibility.</p>
+
+                <h3>Duality: Cost Function ↔ Production Function</h3>
+                <p>Just as in consumer theory (where the expenditure function is dual to the utility function), the cost function \(C(q, w, r)\) is dual to the production function \(q = f(L, K)\). Given one, we can recover the other:</p>
+
+                \[ \text{Production function} \xrightarrow{\text{cost minimisation}} \text{Cost function} \xrightarrow{\text{Shephard's lemma}} \text{Factor demands} \xrightarrow{\text{inversion}} \text{Production function} \]
+
+                <p>This duality means we lose no information by working with costs instead of production &mdash; a powerful result that simplifies much of applied microeconomics.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Complete Duality Table</h4>
+                    <p><strong>Consumer theory &harr; Producer theory:</strong></p>
+                    <p>Utility function \(U(q_1, q_2)\) &harr; Production function \(f(L, K)\)</p>
+                    <p>Indifference curve &harr; Isoquant</p>
+                    <p>MRS &harr; MRTS</p>
+                    <p>Budget constraint &harr; Isocost line</p>
+                    <p>Expenditure function \(E(p, \bar{U})\) &harr; Cost function \(C(w, r, \bar{q})\)</p>
+                    <p>Hicksian demand &harr; Conditional factor demand</p>
+                    <p>Shephard's lemma (expenditure) &harr; Shephard's lemma (cost)</p>
+                    <p>Indirect utility \(V(p, Y)\) &harr; Profit function \(\pi(p, w, r)\)</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>In this chapter, we translated the firm's technology into cost curves. <strong>Economic cost</strong> includes both explicit payments and implicit opportunity costs, and ignores sunk costs. In the short run, with capital fixed, total cost splits into fixed cost (which does not vary with output) and variable cost (which does). The resulting per-unit curves &mdash; MC, ATC, AVC, AFC &mdash; are the workhorses of firm decision-making.</p>
+
+                <p>In the long run, the firm chooses the cost-minimising input mix by finding the tangency between an isoquant and an isocost line, setting \(MRTS = w/r\). The <strong>long-run average cost</strong> curve is the envelope of all short-run ATC curves, reflecting the firm's ability to adjust plant size. Its shape depends on returns to scale: falling LRAC indicates economies of scale, rising LRAC indicates diseconomies, and the minimum efficient scale marks the transition.</p>
+
+                <p><strong>Learning by doing</strong> shifts cost curves downward as cumulative experience grows &mdash; a dynamic effect distinct from static economies of scale. The producer-theory duality with consumer theory is exact: production functions, cost functions, and factor demands are linked by the same mathematical structure as utility functions, expenditure functions, and Hicksian demands.</p>
+
+                <p>In the next chapter, we combine the cost curves with market structure to analyse how a <strong>competitive firm</strong> decides how much to produce and how competitive markets reach equilibrium.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch6-firms-and-production.html">&larr; Chapter 6: Firms and Production</a>
+                <span style="color: var(--color-text-lighter);">Chapter 8: Competitive Firms and Markets &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        const LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            tc: '#3b82f6', vc: '#8b5cf6', fc: '#ef4444',
+            mc: '#ef4444', atc: '#3b82f6', avc: '#8b5cf6', afc: '#10b981',
+            iso: '#8b5cf6', isoFaded: '#ddd6fe', iso2: '#a78bfa', iso3: '#c4b5fd',
+            isocost: '#10b981', isocostFaded: 'rgba(16, 185, 129, 0.3)',
+            optimal: '#0a9396', optGlow: 'rgba(10, 147, 150, 0.3)',
+            expansion: '#f59e0b', expansionDot: '#f59e0b',
+            srac: '#a78bfa', sracFaded: 'rgba(167, 139, 250, 0.4)',
+            lrac: '#3b82f6', lracBold: '#3b82f6',
+            learning: '#3b82f6', learningDot: '#ef4444',
+            dotCurrent: '#ef4444', minPoint: '#10b981'
+        };
+
+        const DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            tc: '#60a5fa', vc: '#a78bfa', fc: '#f87171',
+            mc: '#f87171', atc: '#60a5fa', avc: '#a78bfa', afc: '#34d399',
+            iso: '#a78bfa', isoFaded: '#5a5080', iso2: '#c4b5fd', iso3: '#7c6faa',
+            isocost: '#34d399', isocostFaded: 'rgba(52, 211, 153, 0.3)',
+            optimal: '#2ec4c8', optGlow: 'rgba(46, 196, 200, 0.3)',
+            expansion: '#fbbf24', expansionDot: '#fbbf24',
+            srac: '#c4b5fd', sracFaded: 'rgba(196, 181, 253, 0.35)',
+            lrac: '#60a5fa', lracBold: '#60a5fa',
+            learning: '#60a5fa', learningDot: '#f87171',
+            dotCurrent: '#f87171', minPoint: '#34d399'
+        };
+
+        const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        let C = darkMQ.matches ? DARK : LIGHT;
+
+        function getCtx(id) {
+            const cv = document.getElementById(id);
+            const dpr = window.devicePixelRatio || 1;
+            const r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            const ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx, w: r.width, h: r.height };
+        }
+
+        function px(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep) {
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            for (let v = 0; v <= yMax; v += (yStep || 2)) {
+                const p = px(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, p.y); ctx.lineTo(ox + gw, p.y); ctx.stroke();
+            }
+            for (let v = 0; v <= xMax; v += (xStep || 2)) {
+                const p = px(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(p.x, oy); ctx.lineTo(p.x, oy + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel || '', ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel || '', 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (let v = xStep || 2; v <= xMax; v += (xStep || 2)) {
+                const p = px(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, p.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (let v = yStep || 2; v <= yMax; v += (yStep || 2)) {
+                const p = px(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v % 1 === 0 ? v : v.toFixed(1), ox - 6, p.y);
+            }
+        }
+
+        function drawCurve(ctx, ox, oy, gw, gh, xMax, yMax, fn, xMin, xMaxC, color, dashed, lineWidth) {
+            ctx.strokeStyle = color; ctx.lineWidth = lineWidth || 2;
+            if (dashed) ctx.setLineDash([5, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); let started = false;
+            for (let x = xMin; x <= xMaxC; x += 0.1) {
+                const y = fn(x);
+                if (y < -0.5 || y > yMax * 1.05) { started = false; continue; }
+                const p = px(x, y, ox, oy, gw, gh, xMax, yMax);
+                if (!started) { ctx.moveTo(p.x, p.y); started = true; } else ctx.lineTo(p.x, p.y);
+            }
+            ctx.stroke(); ctx.setLineDash([]);
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            const p = px(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(p.x, p.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            const p = px(x, y, ox, oy, gw, gh, xMax, yMax);
+            const ya = px(0, y, ox, oy, gw, gh, xMax, yMax);
+            const xa = px(x, 0, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+            ctx.beginPath(); ctx.moveTo(ya.x, p.y); ctx.lineTo(p.x, p.y); ctx.lineTo(p.x, xa.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawIsoquant(ctx, ox, oy, gw, gh, xMax, yMax, qT, color, dashed) {
+            ctx.strokeStyle = color; ctx.lineWidth = 2;
+            if (dashed) ctx.setLineDash([5, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); let started = false;
+            for (let L = 0.2; L <= xMax; L += 0.1) {
+                const K = (qT * qT) / L;
+                if (K < 0.1 || K > yMax) continue;
+                const p = px(L, K, ox, oy, gw, gh, xMax, yMax);
+                if (!started) { ctx.moveTo(p.x, p.y); started = true; } else ctx.lineTo(p.x, p.y);
+            }
+            ctx.stroke(); ctx.setLineDash([]);
+        }
+
+        const Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        // ============================================================
+        // GRAPH 1: SHORT-RUN COST CURVES (dual panel)
+        // ============================================================
+        (function() {
+            const qSlider = document.getElementById('srQSlider');
+            const wSlider = document.getElementById('srWSlider');
+            const qDisplay = document.getElementById('srQDisplay');
+            const wDisplay = document.getElementById('srWDisplay');
+            const info = document.getElementById('srCostInfo');
+            const resetBtn = document.getElementById('srResetBtn');
+
+            const alpha = 0.7, beta = 0.3;
+            const Kbar = 10, r = 5;
+            const qMax_top = 16, cMax = 350;
+            const qMax_bot = 16, acMax = 40;
+
+            // L needed for q: q = L^alpha * Kbar^beta => L = (q / Kbar^beta)^(1/alpha)
+            function Lfromq(q) { return Math.pow(q / Math.pow(Kbar, beta), 1 / alpha); }
+            function VC(q, w) { return w * Lfromq(q); }
+            function FC() { return r * Kbar; }
+            function TC(q, w) { return VC(q, w) + FC(); }
+            function MCfn(q, w) {
+                const dq = 0.01;
+                return (VC(q + dq, w) - VC(q, w)) / dq;
+            }
+            function AVC(q, w) { return VC(q, w) / q; }
+            function ATC(q, w) { return TC(q, w) / q; }
+            function AFC(q) { return FC() / q; }
+
+            function draw() {
+                const { ctx, w: cw, h } = getCtx('srCostCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, cw, h);
+
+                const q = parseFloat(qSlider.value);
+                const w = parseFloat(wSlider.value);
+                qDisplay.textContent = q;
+                wDisplay.textContent = '£' + w;
+
+                const gap = 25;
+                const topH = (h - gap - Marg.bottom - Marg.top) * 0.5;
+                const botH = (h - gap - Marg.bottom - Marg.top) * 0.5;
+
+                // --- TOP PANEL: TC, VC, FC ---
+                const ox = Marg.left, oy = Marg.top;
+                const gw = cw - ox - Marg.right;
+
+                drawAxBase(ctx, ox, oy, gw, topH, qMax_top, cMax, '', 'Cost (£)', 2, 50);
+
+                // FC line
+                drawCurve(ctx, ox, oy, gw, topH, qMax_top, cMax, function() { return FC(); }, 0, qMax_top, C.fc, true, 1.5);
+                // VC curve
+                drawCurve(ctx, ox, oy, gw, topH, qMax_top, cMax, function(qq) { return VC(qq, w); }, 0.1, qMax_top, C.vc, false, 2);
+                // TC curve
+                drawCurve(ctx, ox, oy, gw, topH, qMax_top, cMax, function(qq) { return TC(qq, w); }, 0.1, qMax_top, C.tc, false, 2.5);
+
+                // Current q dots
+                if (q > 0) {
+                    const tcVal = TC(q, w), vcVal = VC(q, w), fcVal = FC();
+                    dot(ctx, q, tcVal, ox, oy, gw, topH, qMax_top, cMax, C.tc, 5);
+                    dot(ctx, q, vcVal, ox, oy, gw, topH, qMax_top, cMax, C.vc, 4);
+
+                    // Dashed line from q
+                    ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                    const pBot = px(q, 0, ox, oy, gw, topH, qMax_top, cMax);
+                    const pTop = px(q, tcVal, ox, oy, gw, topH, qMax_top, cMax);
+                    ctx.beginPath(); ctx.moveTo(pBot.x, pBot.y); ctx.lineTo(pBot.x, pTop.y); ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                // Labels
+                ctx.font = 'bold 11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                var lblQ = Math.min(qMax_top - 1, 14);
+                var pTC = px(lblQ, TC(lblQ, w), ox, oy, gw, topH, qMax_top, cMax);
+                if (TC(lblQ, w) < cMax) { ctx.fillStyle = C.tc; ctx.fillText('TC', pTC.x + 4, pTC.y - 6); }
+                var pVC = px(lblQ, VC(lblQ, w), ox, oy, gw, topH, qMax_top, cMax);
+                if (VC(lblQ, w) < cMax) { ctx.fillStyle = C.vc; ctx.fillText('VC', pVC.x + 4, pVC.y - 6); }
+                var pFC = px(1, FC(), ox, oy, gw, topH, qMax_top, cMax);
+                ctx.fillStyle = C.fc; ctx.fillText('FC', pFC.x + 4, pFC.y - 6);
+
+                // --- BOTTOM PANEL: MC, ATC, AVC, AFC ---
+                const oy2 = oy + topH + gap;
+
+                drawAxBase(ctx, ox, oy2, gw, botH, qMax_bot, acMax, 'Output (q)', '£ / unit', 2, 5);
+
+                // AFC
+                drawCurve(ctx, ox, oy2, gw, botH, qMax_bot, acMax, function(qq) { return AFC(qq); }, 0.5, qMax_bot, C.afc, true, 1.5);
+                // AVC
+                drawCurve(ctx, ox, oy2, gw, botH, qMax_bot, acMax, function(qq) { return AVC(qq, w); }, 0.5, qMax_bot, C.avc, false, 2);
+                // ATC
+                drawCurve(ctx, ox, oy2, gw, botH, qMax_bot, acMax, function(qq) { return ATC(qq, w); }, 0.5, qMax_bot, C.atc, false, 2);
+                // MC
+                drawCurve(ctx, ox, oy2, gw, botH, qMax_bot, acMax, function(qq) { return MCfn(qq, w); }, 0.5, qMax_bot, C.mc, false, 2.5);
+
+                // Current q dots on bottom
+                if (q > 0.5) {
+                    var mcVal = MCfn(q, w), atcVal = ATC(q, w), avcVal = AVC(q, w), afcVal = AFC(q);
+                    dot(ctx, q, mcVal, ox, oy2, gw, botH, qMax_bot, acMax, C.mc, 4);
+                    dot(ctx, q, atcVal, ox, oy2, gw, botH, qMax_bot, acMax, C.atc, 4);
+                    dot(ctx, q, avcVal, ox, oy2, gw, botH, qMax_bot, acMax, C.avc, 4);
+
+                    ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                    var pb = px(q, 0, ox, oy2, gw, botH, qMax_bot, acMax);
+                    var pt = px(q, Math.max(mcVal, atcVal) + 1, ox, oy2, gw, botH, qMax_bot, acMax);
+                    ctx.beginPath(); ctx.moveTo(pb.x, pb.y); ctx.lineTo(pb.x, pt.y); ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                // Labels for bottom panel
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                var lq = 12;
+                if (MCfn(lq, w) < acMax) { var pm = px(lq, MCfn(lq, w), ox, oy2, gw, botH, qMax_bot, acMax); ctx.fillStyle = C.mc; ctx.textAlign = 'left'; ctx.fillText('MC', pm.x + 4, pm.y - 4); }
+                if (ATC(3, w) < acMax) { var pa = px(3, ATC(3, w), ox, oy2, gw, botH, qMax_bot, acMax); ctx.fillStyle = C.atc; ctx.textAlign = 'left'; ctx.fillText('ATC', pa.x + 4, pa.y - 6); }
+                if (AVC(lq, w) < acMax) { var pv = px(lq, AVC(lq, w), ox, oy2, gw, botH, qMax_bot, acMax); ctx.fillStyle = C.avc; ctx.textAlign = 'left'; ctx.fillText('AVC', pv.x + 4, pv.y + 14); }
+                var paf = px(14, AFC(14), ox, oy2, gw, botH, qMax_bot, acMax);
+                ctx.fillStyle = C.afc; ctx.textAlign = 'left'; ctx.fillText('AFC', paf.x + 4, paf.y + 4);
+
+                // Info
+                if (q > 0.5) {
+                    info.innerHTML = 'q = ' + q + ' | TC = £' + TC(q, w).toFixed(0) + ' (FC = £' + FC() +
+                        ' + VC = £' + VC(q, w).toFixed(0) + ') | MC = £' + MCfn(q, w).toFixed(1) +
+                        ' | ATC = £' + ATC(q, w).toFixed(1) + ' | AVC = £' + AVC(q, w).toFixed(1);
+                } else {
+                    info.innerHTML = 'Move the output slider to see cost values.';
+                }
+            }
+
+            qSlider.addEventListener('input', draw);
+            wSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() { qSlider.value = 5; wSlider.value = 10; draw(); });
+
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 2: ISOQUANT-ISOCOST TANGENCY
+        // ============================================================
+        (function() {
+            const qSlider = document.getElementById('icoQSlider');
+            const wrSlider = document.getElementById('icoWRSlider');
+            const qDisplay = document.getElementById('icoQDisplay');
+            const wrDisplay = document.getElementById('icoWRDisplay');
+            const traceBtn = document.getElementById('icoTraceBtn');
+            const resetBtn = document.getElementById('icoResetBtn');
+            const info = document.getElementById('icoInfo');
+
+            let traced = false;
+            const LMax = 14, KMax = 14;
+
+            // For q = sqrt(LK): optimal L* = q * sqrt(r/w) = q / sqrt(w/r), K* = q * sqrt(w/r)
+            function optL(q, wr) { return q / Math.sqrt(wr); }
+            function optK(q, wr) { return q * Math.sqrt(wr); }
+            function totalCost(q, wr, w) { return w * optL(q, wr) + (w / wr) * optK(q, wr); }
+
+            function draw() {
+                const { ctx, w: cw, h } = getCtx('isocostCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, cw, h);
+
+                const qTarget = parseFloat(qSlider.value);
+                const wr = parseFloat(wrSlider.value);
+                qDisplay.textContent = qTarget;
+                wrDisplay.textContent = wr.toFixed(1);
+
+                const ox = Marg.left, oy = Marg.top;
+                const gw = cw - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, LMax, KMax, 'Labour (L)', 'Capital (K)', 2, 2);
+
+                // Background isoquants
+                [2, 4, 6, 8].forEach(function(q) {
+                    var col = q === qTarget ? C.iso : C.isoFaded;
+                    var dash = q !== qTarget;
+                    drawIsoquant(ctx, ox, oy, gw, gh, LMax, KMax, q, col, dash);
+                    // label
+                    var lL = Math.min(LMax - 1, q * q / 1.2);
+                    var lK = (q * q) / lL;
+                    if (lK > 0.5 && lK < KMax - 0.5) {
+                        var pL = px(lL, lK, ox, oy, gw, gh, LMax, KMax);
+                        ctx.fillStyle = col; ctx.font = '10px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                        ctx.fillText('q=' + q, pL.x + 4, pL.y - 4);
+                    }
+                });
+
+                // Highlight target isoquant
+                drawIsoquant(ctx, ox, oy, gw, gh, LMax, KMax, qTarget, C.iso, false);
+
+                // Optimal point
+                var Ls = optL(qTarget, wr), Ks = optK(qTarget, wr);
+                var costVal = 10 * Ls + (10 / wr) * Ks; // assume w=10
+
+                // Isocost line through optimal point
+                // C = wL + rK => K = C/r - (w/r)L = C/r - wr*L... wait
+                // wr = w/r, so r = w/wr. C = wL + (w/wr)K => K = (C*wr/w) - wr*L = wr*(C/w - L)
+                // simpler: K-intercept = C/r = costVal / (10/wr) = costVal * wr / 10
+                // L-intercept = C/w = costVal / 10
+                var kInt = costVal * wr / 10;
+                var lInt = costVal / 10;
+
+                ctx.strokeStyle = C.isocost; ctx.lineWidth = 2; ctx.setLineDash([]);
+                var pA = px(0, Math.min(kInt, KMax), ox, oy, gw, gh, LMax, KMax);
+                var pB = px(Math.min(lInt, LMax), Math.max(0, kInt - wr * Math.min(lInt, LMax)), ox, oy, gw, gh, LMax, KMax);
+                ctx.beginPath(); ctx.moveTo(pA.x, pA.y); ctx.lineTo(pB.x, pB.y); ctx.stroke();
+
+                // Expansion path (traced)
+                if (traced) {
+                    ctx.strokeStyle = C.expansion; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                    ctx.beginPath();
+                    var first = true;
+                    for (var qq = 0.5; qq <= 8; qq += 0.2) {
+                        var eL = optL(qq, wr), eK = optK(qq, wr);
+                        if (eL > LMax || eK > KMax) continue;
+                        var ep = px(eL, eK, ox, oy, gw, gh, LMax, KMax);
+                        if (first) { ctx.moveTo(ep.x, ep.y); first = false; } else ctx.lineTo(ep.x, ep.y);
+                    }
+                    ctx.stroke(); ctx.setLineDash([]);
+
+                    // Label
+                    var eLab = px(optL(6, wr), optK(6, wr), ox, oy, gw, gh, LMax, KMax);
+                    ctx.fillStyle = C.expansion; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                    ctx.fillText('Expansion path', eLab.x + 8, eLab.y - 8);
+                }
+
+                // Optimal dot
+                if (Ls <= LMax && Ks <= KMax) {
+                    var pOpt = px(Ls, Ks, ox, oy, gw, gh, LMax, KMax);
+                    ctx.beginPath(); ctx.arc(pOpt.x, pOpt.y, 12, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.optGlow; ctx.fill();
+                    dot(ctx, Ls, Ks, ox, oy, gw, gh, LMax, KMax, C.optimal, 6);
+                    dashedTo(ctx, Ls, Ks, ox, oy, gw, gh, LMax, KMax, C.textMuted);
+
+                    // Label
+                    ctx.fillStyle = C.text; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                    ctx.fillText('(' + Ls.toFixed(1) + ', ' + Ks.toFixed(1) + ')', pOpt.x + 10, pOpt.y - 10);
+                }
+
+                // Isocost label
+                ctx.fillStyle = C.isocost; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                ctx.fillText('C = £' + costVal.toFixed(0), pA.x + 5, pA.y + 15);
+
+                info.innerHTML = 'q = ' + qTarget + ' | w/r = ' + wr.toFixed(1) +
+                    ' | L* = ' + Ls.toFixed(1) + ', K* = ' + Ks.toFixed(1) +
+                    ' | C = £' + costVal.toFixed(0) + ' | MRTS = K/L = ' + (Ks / Ls).toFixed(2) + ' = w/r';
+            }
+
+            qSlider.addEventListener('input', draw);
+            wrSlider.addEventListener('input', draw);
+            traceBtn.addEventListener('click', function() { traced = true; draw(); });
+            resetBtn.addEventListener('click', function() { traced = false; qSlider.value = 4; wrSlider.value = 2; draw(); });
+
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 3: LRAC ENVELOPE
+        // ============================================================
+        (function() {
+            const kSlider = document.getElementById('envKSlider');
+            const kDisplay = document.getElementById('envKDisplay');
+            const info = document.getElementById('envInfo');
+            const resetBtn = document.getElementById('envResetBtn');
+
+            // We'll use a production fn with slightly DRS in short run to get U-shaped SRAC
+            // q = L^0.6 * K^0.4 with some DRS overall for realistic LRAC shape
+            // Actually, let's use a simpler model: SR cost for plant K is C = wq^2/K + rK
+            // with w=10, r=5. ATC = 10q/K + 5K/q. This gives U-shaped SRAC.
+            // LRAC: minimise over K: dATC/dK = -10q/K^2 + 5/q = 0 => K = q*sqrt(2)
+            // LRAC = 10q/(q*sqrt(2)) + 5*q*sqrt(2)/q = 10/sqrt(2) + 5*sqrt(2) = 7.07 + 7.07 = 14.14
+            // Constant LRAC = 14.14 (CRS). For a U-shaped LRAC, add a small scale effect.
+
+            // For more interesting shape, let's model DRS at scale:
+            // LRAC(q) = 14 - 0.5q + 0.04q^2 (U-shaped, min around q=6.25)
+            // And SRACs for various K: ATC(q, K) = w*q/K + r*K/q where the base is shifted
+            // Actually let's keep it clean: use the quadratic SRAC model
+
+            var w = 10, r = 5;
+            var plantSizes = [3, 5, 7, 10, 14, 18];
+            var qMax = 18, acMax = 45;
+
+            // SRAC for plant K: ATC = w*q/K + r*K/q (from q = sqrt(LK) model)
+            function srac(q, K) { return w * q / K + r * K / q; }
+            // Minimum of SRAC(K) at q = K*sqrt(r/w) = K*sqrt(0.5)
+            function sracMinQ(K) { return K * Math.sqrt(r / w); }
+
+            // LRAC: for each q, find K that minimises SRAC
+            function lrac(q) {
+                var bestAC = Infinity;
+                for (var K = 0.5; K <= 30; K += 0.1) {
+                    var ac = srac(q, K);
+                    if (ac < bestAC) bestAC = ac;
+                }
+                return bestAC;
+            }
+
+            function draw() {
+                var { ctx, w: cw, h } = getCtx('envelopeCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, cw, h);
+
+                var highlight = parseInt(kSlider.value);
+                kDisplay.textContent = highlight === 0 ? 'all' : 'K=' + plantSizes[highlight - 1];
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = cw - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, qMax, acMax, 'Output (q)', 'Average Cost (£)', 2, 5);
+
+                // Draw SRAC curves
+                plantSizes.forEach(function(K, idx) {
+                    var isHighlighted = (highlight === 0 || highlight === idx + 1);
+                    var col = isHighlighted ? C.srac : C.sracFaded;
+                    var lw = isHighlighted ? 2 : 1;
+                    drawCurve(ctx, ox, oy, gw, gh, qMax, acMax, function(q) { return srac(q, K); },
+                        0.8, qMax, col, false, lw);
+
+                    // Label
+                    var minQ = sracMinQ(K);
+                    if (minQ > 0.5 && minQ < qMax && isHighlighted) {
+                        var minAC = srac(minQ, K);
+                        var pLab = px(minQ, minAC, ox, oy, gw, gh, qMax, acMax);
+                        ctx.fillStyle = col; ctx.font = '10px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                        ctx.fillText('K=' + K, pLab.x, pLab.y + 14);
+                    }
+                });
+
+                // LRAC envelope
+                ctx.strokeStyle = C.lracBold; ctx.lineWidth = 3; ctx.setLineDash([]);
+                ctx.beginPath(); var started = false;
+                for (var q = 0.8; q <= qMax; q += 0.1) {
+                    var ac = lrac(q);
+                    if (ac > acMax) continue;
+                    var p = px(q, ac, ox, oy, gw, gh, qMax, acMax);
+                    if (!started) { ctx.moveTo(p.x, p.y); started = true; } else ctx.lineTo(p.x, p.y);
+                }
+                ctx.stroke();
+
+                // Label LRAC
+                var pLRAC = px(qMax - 2, lrac(qMax - 2), ox, oy, gw, gh, qMax, acMax);
+                ctx.fillStyle = C.lracBold; ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'right';
+                ctx.fillText('LRAC', pLRAC.x, pLRAC.y - 8);
+
+                if (highlight === 0) {
+                    info.innerHTML = 'The bold LRAC curve is the lower envelope of all SRAC curves. Move the slider to highlight individual plant sizes.';
+                } else {
+                    var K = plantSizes[highlight - 1];
+                    var mq = sracMinQ(K);
+                    info.innerHTML = 'Plant K = ' + K + ': SRAC minimum at q ≈ ' + mq.toFixed(1) +
+                        ', ATC ≈ £' + srac(mq, K).toFixed(1) + '. LRAC at that output: £' + lrac(mq).toFixed(1);
+                }
+            }
+
+            kSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() { kSlider.value = 0; draw(); });
+
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 4: LEARNING CURVE
+        // ============================================================
+        (function() {
+            var bSlider = document.getElementById('learnBSlider');
+            var nSlider = document.getElementById('learnNSlider');
+            var bDisplay = document.getElementById('learnBDisplay');
+            var nDisplay = document.getElementById('learnNDisplay');
+            var info = document.getElementById('learnInfo');
+            var resetBtn = document.getElementById('learnResetBtn');
+
+            var NMax = 100, acMax = 120;
+            var a = 100; // cost of first unit
+
+            function learningAC(N, b) { return a * Math.pow(N, -b); }
+
+            function draw() {
+                var { ctx, w: cw, h } = getCtx('learningCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, cw, h);
+
+                var b = parseFloat(bSlider.value);
+                var N = parseFloat(nSlider.value);
+                bDisplay.textContent = b.toFixed(2);
+                nDisplay.textContent = N;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = cw - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, NMax, acMax, 'Cumulative Output (N)', 'Average Cost (£)', 10, 20);
+
+                // Learning curve
+                drawCurve(ctx, ox, oy, gw, gh, NMax, acMax, function(n) { return learningAC(n, b); },
+                    1, NMax, C.learning, false, 2.5);
+
+                // Current N dot
+                var ac = learningAC(N, b);
+                dot(ctx, N, ac, ox, oy, gw, gh, NMax, acMax, C.learningDot, 6);
+                dashedTo(ctx, N, ac, ox, oy, gw, gh, NMax, acMax, C.textMuted);
+
+                // Progress ratio annotation
+                var pr = Math.pow(2, -b);
+                ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif'; ctx.textAlign = 'right';
+                ctx.fillText('Progress ratio: ' + (pr * 100).toFixed(0) + '%', ox + gw - 5, oy + 20);
+                ctx.fillText('(' + ((1 - pr) * 100).toFixed(0) + '% cost reduction per doubling)', ox + gw - 5, oy + 36);
+
+                // Doubling markers
+                var doublings = [1, 2, 4, 8, 16, 32, 64];
+                doublings.forEach(function(n) {
+                    if (n > NMax) return;
+                    var dacN = learningAC(n, b);
+                    if (dacN > acMax) return;
+                    var p = px(n, dacN, ox, oy, gw, gh, NMax, acMax);
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.textMuted; ctx.fill();
+                });
+
+                info.innerHTML = 'N = ' + N + ' | AC = £' + ac.toFixed(1) +
+                    ' | b = ' + b.toFixed(2) + ' | Progress ratio = ' + (pr * 100).toFixed(0) + '%' +
+                    ' (costs fall by ' + ((1 - pr) * 100).toFixed(0) + '% each time cumulative output doubles)';
+            }
+
+            bSlider.addEventListener('input', draw);
+            nSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() { bSlider.value = 0.32; nSlider.value = 10; draw(); });
+
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GLOBAL REDRAW
+        // ============================================================
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>
