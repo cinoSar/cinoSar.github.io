@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 6: Firms and Production | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 140px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle {
+            background: var(--color-primary-dark);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 6: Firms and Production</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 6</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#production-functions">6.1 Production Functions</a></li>
+                <li><a href="#marginal-average">6.2 Marginal &amp; Average Product</a></li>
+                <li><a href="#isoquants">6.3 Isoquants</a></li>
+                <li><a href="#returns-to-scale">6.4 Returns to Scale</a></li>
+                <li><a href="#technical-progress">6.5 Technical Progress</a></li>
+                <li><a href="#formal-derivations">6.6 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: Baristas or Machines?</h2>
+                <p>Walk into any high-street coffee chain and you will see an expensive automated espresso machine doing most of the work. Walk into an independent specialty caf&eacute; and a skilled barista hand-pulls every shot. Both shops produce espresso &mdash; yet they use radically different combinations of labour and capital to do so.</p>
+
+                <p>Why? The answer cannot be that one method is simply "better." If automation were always superior, every shop would automate. If skilled labour were always preferable, nobody would buy machines. The choice depends on the <em>technology</em> available &mdash; how efficiently each combination of inputs produces output &mdash; and on the <em>relative prices</em> of labour and capital. To analyse this choice, we need a formal way to describe what a firm <em>can</em> produce: the <strong>production function</strong>.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>The production function is to the firm what the utility function is to the consumer. Just as indifference curves map combinations of goods yielding equal satisfaction, <strong>isoquants</strong> map combinations of inputs yielding equal output. The tools of consumer theory &mdash; tangency conditions, constrained optimisation, substitution effects &mdash; carry over almost perfectly to the theory of the firm.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to describe a firm's technology using a production function, distinguish between total, marginal, and average product of an input, explain the law of diminishing marginal returns, read and draw isoquant maps, compute the marginal rate of technical substitution (MRTS), and classify production technologies by their returns to scale.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#production-functions">Production Functions</a> &mdash; inputs, output, and the short run</li>
+                    <li><a href="#marginal-average">Marginal &amp; Average Product</a> &mdash; how output responds to one more worker</li>
+                    <li><a href="#isoquants">Isoquants</a> &mdash; input combinations that produce the same output</li>
+                    <li><a href="#returns-to-scale">Returns to Scale</a> &mdash; what happens when you double everything</li>
+                    <li><a href="#technical-progress">Technical Progress</a> &mdash; how innovation shifts what is possible</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; the full mathematical treatment</li>
+                </ol>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- 6.1 PRODUCTION FUNCTIONS                      -->
+            <!-- ============================================ -->
+            <section id="production-functions" class="lesson-section section-intuition">
+                <h2>6.1 Production Functions</h2>
+
+                <h3>Intuition: What Can a Firm Produce?</h3>
+                <p>A firm takes inputs &mdash; workers (labour, \(L\)) and machinery (capital, \(K\)) &mdash; and transforms them into output (\(q\)). The <strong>production function</strong> \(q = f(L, K)\) tells us the maximum output achievable from any given combination of inputs, assuming the firm uses its inputs efficiently.</p>
+
+                <p>In the <strong>short run</strong>, at least one input is fixed. A coffee shop that has already leased its premises and bought its espresso machine can only vary the number of baristas. In the <strong>long run</strong>, all inputs are variable &mdash; the shop can relocate, buy more machines, or switch its entire setup.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Total, Marginal, and Average Product</h4>
+                    <p><strong>Total product of labour</strong> \(TP_L = f(L, \bar{K})\): total output as a function of labour, holding capital fixed.</p>
+                    <p><strong>Marginal product of labour</strong> \(MP_L = \partial f / \partial L\): the additional output from one more unit of labour.</p>
+                    <p><strong>Average product of labour</strong> \(AP_L = f(L, \bar{K}) / L\): output per worker.</p>
+                </div>
+
+                <p>Initially, adding workers to a fixed amount of capital raises output rapidly &mdash; there is equipment sitting idle, and each new worker can be productively employed. But eventually, the workspace becomes crowded, workers get in each other's way, and each additional worker adds less and less to total output. This is the <strong>law of diminishing marginal returns</strong>: holding one input fixed, the marginal product of the variable input eventually declines.</p>
+
+                <div class="callout callout-warning">
+                    <h4>Diminishing Returns &ne; Decreasing Output</h4>
+                    <p>Diminishing marginal returns means each extra worker adds <em>less</em> than the previous one, not that total output falls. Total output continues to rise as long as \(MP_L > 0\). It is only when the marginal product turns negative (extreme overcrowding) that adding workers actually reduces output.</p>
+                </div>
+
+                <h3>Geometric Solution: The Total Product Curve</h3>
+                <p>The graph below plots the total product curve for a Cobb-Douglas production function \(q = L^{0.7} K^{0.3}\). You can adjust the level of fixed capital to see how it shifts the entire curve. Notice how the curve rises steeply at first, then flattens &mdash; reflecting diminishing marginal returns to labour.</p>
+
+                <div class="interactive-graph" id="tp-container">
+                    <canvas id="tpCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Fixed K: <span class="value-display" id="tpKDisplay">10</span>
+                            <input type="range" id="tpKSlider" min="2" max="25" step="1" value="10">
+                        </label>
+                        <label>
+                            Labour (L): <span class="value-display" id="tpLDisplay">5</span>
+                            <input type="range" id="tpLSlider" min="1" max="20" step="0.5" value="5">
+                        </label>
+                        <button id="tpResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="tpInfo">
+                        Adjust K to shift the total product curve. Move L to see the current output level and the tangent slope (MP<sub>L</sub>).
+                    </div>
+                    <p class="graph-caption">Figure 6.1 &mdash; The total product of labour curve. The slope at any point equals the marginal product of labour.</p>
+                </div>
+
+                <p>As you increase \(K\), the entire curve shifts upward &mdash; each worker now has more capital to work with and is therefore more productive. The tangent line at any point on the curve has a slope equal to the marginal product of labour at that level of \(L\). Watch how this slope decreases as you move rightward along the curve: diminishing marginal returns in action.</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 6.2 MARGINAL & AVERAGE PRODUCT                -->
+            <!-- ============================================ -->
+            <section id="marginal-average" class="lesson-section section-geometric">
+                <h2>6.2 Marginal and Average Product</h2>
+
+                <h3>Intuition: The Relationship Between MP and AP</h3>
+                <p>Think of a cricket team's batting average. If a new batsman scores more than the team's current average, the average rises. If the new batsman scores less than the average, the average falls. Exactly the same logic applies to production: when the marginal product of the next worker exceeds the average product, the average rises; when it falls below, the average falls. This means \(MP_L\) must cross \(AP_L\) at the maximum of \(AP_L\).</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The MP&ndash;AP Relationship</h4>
+                    <p>When \(MP_L > AP_L\), the average is rising. When \(MP_L < AP_L\), the average is falling. Therefore, \(MP_L = AP_L\) exactly at the point where \(AP_L\) is maximised. This crossing point tells the firm the most efficient level of labour per unit of output.</p>
+                </div>
+
+                <h3>Geometric Solution: MP and AP Curves</h3>
+                <p>The graph below shows the marginal and average product curves derived from the total product curve. The vertical dashed line marks the point where MP crosses AP &mdash; the maximum of AP.</p>
+
+                <div class="interactive-graph" id="mpap-container">
+                    <canvas id="mpapCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Fixed K: <span class="value-display" id="mpapKDisplay">10</span>
+                            <input type="range" id="mpapKSlider" min="2" max="25" step="1" value="10">
+                        </label>
+                        <label>
+                            Labour (L): <span class="value-display" id="mpapLDisplay">5</span>
+                            <input type="range" id="mpapLSlider" min="1" max="20" step="0.5" value="5">
+                        </label>
+                    </div>
+                    <div class="graph-info" id="mpapInfo">
+                        Move L to see how MP and AP change. Notice that MP intersects AP at AP's peak.
+                    </div>
+                    <p class="graph-caption">Figure 6.2 &mdash; Marginal product (blue) and average product (green). MP crosses AP at the maximum of AP.</p>
+                </div>
+
+                <p>For the Cobb-Douglas function \(q = L^{0.7} K^{0.3}\), both curves decline throughout &mdash; there is no initial increasing phase because the exponent on labour (0.7) is less than 1. With other functional forms (such as a cubic production function), MP might first rise and then fall, creating a more pronounced intersection with AP. The key qualitative result &mdash; MP crosses AP at AP's peak &mdash; holds universally.</p>
+
+                <div class="callout callout-example">
+                    <h4>Why Firms Care About AP</h4>
+                    <p>Average product tells you output per worker &mdash; a measure of <strong>labour productivity</strong>. When a government reports that "manufacturing productivity grew by 2% this year," it is talking about average product. Firms care about AP because it determines unit labour costs: if the wage is \(w\), the labour cost per unit of output is \(w / AP_L\). Higher average product means lower unit costs.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 6.3 ISOQUANTS                                 -->
+            <!-- ============================================ -->
+            <section id="isoquants" class="lesson-section section-geometric">
+                <h2>6.3 Isoquants and the MRTS</h2>
+
+                <h3>Intuition: The Firm's Indifference Curves</h3>
+                <p>An <strong>isoquant</strong> is a curve showing all combinations of labour and capital that produce the same level of output. It is the production counterpart of the consumer's indifference curve. Just as indifference curves are level sets of the utility function, isoquants are level sets of the production function.</p>
+
+                <p>Isoquants slope downward (if you use less capital, you need more labour to maintain the same output) and are convex to the origin (reflecting diminishing effectiveness of substitution). The slope of an isoquant is the <strong>marginal rate of technical substitution</strong> (MRTS) &mdash; the rate at which the firm can substitute labour for capital whilst keeping output constant.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Marginal Rate of Technical Substitution</h4>
+                    <p>The MRTS of labour for capital is:</p>
+                    <p>\[ MRTS_{LK} = -\frac{dK}{dL}\bigg|_{q=\bar{q}} = \frac{MP_L}{MP_K} \]</p>
+                    <p>It tells you how many units of capital the firm can give up when it hires one more unit of labour, holding output fixed. Analogous to the consumer's MRS.</p>
+                </div>
+
+                <h3>Geometric Solution: The Isoquant Map</h3>
+                <p>The graph below shows isoquants for the production function \(q = \sqrt{LK}\) (i.e., \(q = L^{0.5} K^{0.5}\)). Drag the slider to change the output level and see how isoquants shift outward. At any point on an isoquant, the tangent line shows the MRTS.</p>
+
+                <div class="interactive-graph" id="isoquant-container">
+                    <canvas id="isoquantCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Output (q): <span class="value-display" id="isoQDisplay">4</span>
+                            <input type="range" id="isoQSlider" min="1" max="8" step="0.5" value="4">
+                        </label>
+                        <label>
+                            Labour (L): <span class="value-display" id="isoLDisplay">4</span>
+                            <input type="range" id="isoLSlider" min="1" max="14" step="0.5" value="4">
+                        </label>
+                        <button id="isoResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="isoInfo">
+                        Change q to move between isoquants. Move L to see the MRTS at different points along the isoquant.
+                    </div>
+                    <p class="graph-caption">Figure 6.3 &mdash; Isoquant map for \(q = \sqrt{LK}\). The tangent line at each point shows the MRTS.</p>
+                </div>
+
+                <p>Notice that as you move rightward along an isoquant (using more labour and less capital), the MRTS decreases. The isoquant becomes flatter because labour becomes relatively less effective at substituting for capital &mdash; there is already a lot of labour relative to capital, so the marginal product of labour is low and the marginal product of capital is high. This is the production analogue of the diminishing MRS in consumer theory.</p>
+
+                <div class="callout callout-example">
+                    <h4>Special Production Technologies</h4>
+                    <p><strong>Perfect substitutes:</strong> \(q = aL + bK\). Isoquants are straight lines. The firm can freely swap labour for capital at a constant rate. Example: digging a trench with shovels or an excavator.</p>
+                    <p><strong>Perfect complements (Leontief):</strong> \(q = \min(aL, bK)\). Isoquants are L-shaped. Inputs must be used in fixed proportions. Example: one lorry needs exactly one driver.</p>
+                    <p><strong>Cobb-Douglas:</strong> \(q = A L^\alpha K^\beta\). Smooth, convex isoquants. The standard case used throughout this chapter.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 6.4 RETURNS TO SCALE                          -->
+            <!-- ============================================ -->
+            <section id="returns-to-scale" class="lesson-section section-intuition">
+                <h2>6.4 Returns to Scale</h2>
+
+                <h3>Intuition: What Happens When You Scale Up Everything?</h3>
+                <p>Diminishing marginal returns describes what happens when you increase <em>one</em> input whilst holding the other fixed. <strong>Returns to scale</strong> asks a different question: what happens when you increase <em>all</em> inputs proportionally?</p>
+
+                <p>If you double both labour and capital, does output exactly double (constant returns to scale), more than double (increasing returns to scale), or less than double (decreasing returns to scale)? The answer has profound implications for industry structure. If there are increasing returns to scale, larger firms are more efficient, and the industry will tend toward concentration. If there are decreasing returns, small firms can compete effectively.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Returns to Scale</h4>
+                    <p>For a production function \(q = f(L, K)\), multiply all inputs by \(t > 1\):</p>
+                    <p><strong>Increasing returns to scale (IRS):</strong> \(f(tL, tK) > t \cdot f(L, K)\). Output more than doubles.</p>
+                    <p><strong>Constant returns to scale (CRS):</strong> \(f(tL, tK) = t \cdot f(L, K)\). Output exactly doubles.</p>
+                    <p><strong>Decreasing returns to scale (DRS):</strong> \(f(tL, tK) < t \cdot f(L, K)\). Output less than doubles.</p>
+                    <p>For Cobb-Douglas \(q = A L^\alpha K^\beta\): IRS if \(\alpha + \beta > 1\), CRS if \(\alpha + \beta = 1\), DRS if \(\alpha + \beta < 1\).</p>
+                </div>
+
+                <h3>Geometric Solution: Isoquant Spacing and Returns to Scale</h3>
+                <p>Returns to scale are visible in the spacing of isoquants along a ray from the origin. With CRS, isoquants for \(q = 1, 2, 3, \ldots\) are evenly spaced. With IRS, they get closer together (you need proportionally less extra input to get the next unit of output). With DRS, they spread apart.</p>
+
+                <div class="interactive-graph" id="rts-container">
+                    <canvas id="rtsCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <button id="rtsIrsBtn">Increasing (IRS)</button>
+                        <button id="rtsCrsBtn" class="active-toggle">Constant (CRS)</button>
+                        <button id="rtsDrsBtn">Decreasing (DRS)</button>
+                        <button id="rtsResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="rtsInfo">
+                        Toggle between returns-to-scale regimes. The dots along the ray show where each isoquant is crossed — notice how the spacing changes.
+                    </div>
+                    <p class="graph-caption">Figure 6.4 &mdash; Returns to scale shown by isoquant spacing along a ray from the origin. CRS: even spacing. IRS: spacing narrows. DRS: spacing widens.</p>
+                </div>
+
+                <p>Under <strong>CRS</strong>, the isoquants are evenly spaced along any ray from the origin &mdash; doubling inputs exactly doubles output, so you travel the same distance to reach each successive isoquant. Under <strong>IRS</strong>, the isoquants bunch together &mdash; each doubling of output requires less than a doubling of inputs. Under <strong>DRS</strong>, the isoquants spread apart &mdash; you need ever more inputs to achieve each additional unit of output.</p>
+
+                <div class="callout callout-example">
+                    <h4>Returns to Scale in Practice</h4>
+                    <p><strong>Increasing returns:</strong> Software development &mdash; writing code once and distributing it to millions costs almost nothing extra per user. Network platforms like social media exhibit extreme IRS.</p>
+                    <p><strong>Constant returns:</strong> Many manufacturing processes at moderate scale &mdash; a second identical factory produces the same output as the first.</p>
+                    <p><strong>Decreasing returns:</strong> Agriculture at very large scale &mdash; coordination costs, transport distances, and management complexity grow faster than output. Also common in service industries where personal attention matters (healthcare, education).</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 6.5 TECHNICAL PROGRESS                        -->
+            <!-- ============================================ -->
+            <section id="technical-progress" class="lesson-section section-geometric">
+                <h2>6.5 Technical Progress</h2>
+
+                <h3>Intuition: Getting More from the Same Inputs</h3>
+                <p>Technical progress means producing the same output with fewer inputs, or more output from the same inputs. On an isoquant map, innovation shifts the isoquants <em>inward</em> toward the origin &mdash; the input combinations needed to produce a given output shrink.</p>
+
+                <p>Not all technical progress is created equal. <strong>Neutral</strong> progress reduces the need for both inputs proportionally. <strong>Labour-saving</strong> progress reduces the need for labour more than capital (think automation replacing workers). <strong>Capital-saving</strong> progress reduces the need for capital more than labour (think open-source software replacing expensive proprietary systems).</p>
+
+                <div class="callout callout-definition">
+                    <h4>Types of Technical Progress</h4>
+                    <p><strong>Neutral (Hicks-neutral):</strong> The production function becomes \(q = A(t) \cdot f(L, K)\), where \(A(t)\) increases over time. The MRTS at any given \(K/L\) ratio is unchanged &mdash; isoquants shrink symmetrically.</p>
+                    <p><strong>Labour-saving:</strong> The isoquant shifts inward more along the labour axis. At any given \(K/L\), the MRTS falls &mdash; labour becomes relatively less important.</p>
+                    <p><strong>Capital-saving:</strong> The isoquant shifts inward more along the capital axis. At any given \(K/L\), the MRTS rises &mdash; capital becomes relatively less important.</p>
+                </div>
+
+                <h3>Geometric Solution: How Innovation Shifts Isoquants</h3>
+
+                <div class="interactive-graph" id="techprog-container">
+                    <canvas id="techProgCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <button id="tpNeutralBtn" class="active-toggle">Neutral</button>
+                        <button id="tpLabourBtn">Labour-Saving</button>
+                        <button id="tpCapitalBtn">Capital-Saving</button>
+                        <label>
+                            Progress: <span class="value-display" id="tpProgDisplay">0%</span>
+                            <input type="range" id="tpProgSlider" min="0" max="50" step="5" value="0">
+                        </label>
+                        <button id="tpResetProgBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="tpProgInfo">
+                        Select a type of progress and increase the slider to see how the isoquant for q = 4 shifts inward.
+                    </div>
+                    <p class="graph-caption">Figure 6.5 &mdash; Technical progress shifts isoquants inward. The type of progress determines the direction of the shift.</p>
+                </div>
+
+                <p>Watch how neutral progress shrinks the isoquant symmetrically &mdash; the firm needs proportionally less of both inputs. Labour-saving progress pulls the isoquant primarily leftward (less labour needed), while capital-saving progress pulls it primarily downward (less capital needed). The practical implication: the direction of technical progress determines whether automation replaces workers or complements them.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The Direction of Progress Matters</h4>
+                    <p>Much of the debate about artificial intelligence and employment hinges on whether AI is labour-saving or labour-complementing. If AI is strongly labour-saving, firms can produce the same output with far fewer workers, putting downward pressure on wages. If it is neutral or capital-saving, workers benefit from higher productivity without displacement. The isoquant framework lets us reason precisely about these distinctions.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 6.6 FORMAL DERIVATIONS                        -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>6.6 Formal Mathematical Derivations</h2>
+
+                <p>This section collects the rigorous mathematical treatment of the production concepts developed intuitively above. We use the Cobb-Douglas production function \(q = A L^\alpha K^\beta\) as the running example, with the baseline case \(A = 1, \alpha = 0.5, \beta = 0.5\) so that \(q = \sqrt{LK}\).</p>
+
+                <h3>Marginal and Average Product</h3>
+                <p>For \(q = A L^\alpha K^\beta\):</p>
+
+                \[ MP_L = \frac{\partial q}{\partial L} = \alpha A L^{\alpha - 1} K^\beta = \alpha \frac{q}{L} \]
+
+                \[ MP_K = \frac{\partial q}{\partial K} = \beta A L^\alpha K^{\beta - 1} = \beta \frac{q}{K} \]
+
+                \[ AP_L = \frac{q}{L} = A L^{\alpha - 1} K^\beta \]
+
+                <p>Notice that \(MP_L = \alpha \cdot AP_L\). Since \(0 < \alpha < 1\), we have \(MP_L < AP_L\) for all \(L > 0\). For the standard Cobb-Douglas, MP is always below AP, and both decline monotonically. The crossing of MP and AP at AP's maximum is more visible with functional forms that allow an initial increasing phase (e.g., a cubic TP curve).</p>
+
+                <p>For the baseline case \(\alpha = \beta = 0.5\), \(K = 10\):</p>
+
+                \[ q = \sqrt{10L}, \quad MP_L = \frac{1}{2}\sqrt{\frac{10}{L}}, \quad AP_L = \sqrt{\frac{10}{L}} \]
+
+                <p>At \(L = 5\): \(q = \sqrt{50} \approx 7.07\), \(MP_L \approx 0.71\), \(AP_L \approx 1.41\).</p>
+
+                <h3>The MRTS and Isoquants</h3>
+                <p>The marginal rate of technical substitution is:</p>
+
+                \[ MRTS_{LK} = \frac{MP_L}{MP_K} = \frac{\alpha K}{\beta L} \]
+
+                <p>For \(\alpha = \beta = 0.5\): \(MRTS = K/L\). At the point \((L, K) = (4, 4)\) on the isoquant \(q = 4\): \(MRTS = 1\). This means the firm can give up 1 unit of capital for each extra unit of labour, maintaining the same output.</p>
+
+                <p>The isoquant equation (solving \(q = \sqrt{LK}\) for \(K\)):</p>
+
+                \[ K = \frac{q^2}{L} \]
+
+                <p>This is a rectangular hyperbola, exactly like the indifference curve for Cobb-Douglas utility. The analogy between consumer and producer theory is exact.</p>
+
+                <h3>Returns to Scale</h3>
+                <p>Multiply both inputs by \(t > 1\):</p>
+
+                \[ f(tL, tK) = A (tL)^\alpha (tK)^\beta = A t^{\alpha + \beta} L^\alpha K^\beta = t^{\alpha + \beta} \cdot q \]
+
+                <p>Therefore:</p>
+
+                \[ f(tL, tK) = t^{\alpha + \beta} \cdot f(L, K) \]
+
+                <p>The sum \(\alpha + \beta\) determines the returns to scale:</p>
+
+                \[ \alpha + \beta > 1 \Rightarrow \text{IRS}, \quad \alpha + \beta = 1 \Rightarrow \text{CRS}, \quad \alpha + \beta < 1 \Rightarrow \text{DRS} \]
+
+                <p>For our baseline \(\alpha = \beta = 0.5\): \(\alpha + \beta = 1\), so we have constant returns to scale. Doubling \(L\) and \(K\) exactly doubles \(q\).</p>
+
+                <h3>Euler's Theorem and Factor Payments</h3>
+                <p>For a CRS production function (\(\alpha + \beta = 1\)), Euler's theorem states:</p>
+
+                \[ L \cdot MP_L + K \cdot MP_K = q \]
+
+                <p>This is a remarkable result: if each input is paid its marginal product, the total payment to all inputs exactly exhausts total output. There is nothing left over &mdash; no "residual" or "economic profit." This provides a theoretical foundation for competitive factor pricing under CRS.</p>
+
+                <p><strong>Proof for Cobb-Douglas:</strong></p>
+
+                \[ L \cdot MP_L + K \cdot MP_K = L \cdot \alpha \frac{q}{L} + K \cdot \beta \frac{q}{K} = (\alpha + \beta) q = q \quad \text{(when } \alpha + \beta = 1\text{)} \]
+
+                <h3>Elasticity of Substitution</h3>
+                <p>The <strong>elasticity of substitution</strong> measures how easily the firm can substitute between inputs:</p>
+
+                \[ \sigma = \frac{d\ln(K/L)}{d\ln(MRTS_{LK})} \]
+
+                <p>For Cobb-Douglas: \(MRTS = (\alpha/\beta)(K/L)\), so \(\ln(MRTS) = \ln(\alpha/\beta) + \ln(K/L)\). Therefore:</p>
+
+                \[ \sigma = \frac{d\ln(K/L)}{d\ln(K/L)} = 1 \]
+
+                <p>The Cobb-Douglas elasticity of substitution is always 1, regardless of the parameter values. This means a 1% increase in the relative price of labour induces a 1% increase in the capital-to-labour ratio. More general functional forms &mdash; like the CES (constant elasticity of substitution) function \(q = A[\delta L^\rho + (1-\delta)K^\rho]^{1/\rho}\) &mdash; allow \(\sigma\) to take any positive value.</p>
+
+                <h3>Technical Progress: Hicks-Neutral Formulation</h3>
+                <p>With Hicks-neutral technical progress, the production function becomes:</p>
+
+                \[ q = A(t) \cdot f(L, K) \]
+
+                <p>where \(A(t)\) is the <strong>total factor productivity</strong> (TFP), increasing over time. The MRTS at any \(K/L\) ratio is unchanged because \(A(t)\) cancels in the ratio \(MP_L / MP_K\). For the growth rate of output:</p>
+
+                \[ \frac{\dot{q}}{q} = \frac{\dot{A}}{A} + \alpha \frac{\dot{L}}{L} + \beta \frac{\dot{K}}{K} \]
+
+                <p>This is the <strong>Solow growth accounting equation</strong>. The term \(\dot{A}/A\) &mdash; the growth rate of TFP &mdash; captures the contribution of technical progress that cannot be attributed to growth in measured inputs. It is often called the <strong>Solow residual</strong>.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Duality with Consumer Theory</h4>
+                    <p>The structural parallels are exact. The utility function \(U(q_1, q_2)\) corresponds to the production function \(q = f(L, K)\). Indifference curves correspond to isoquants. The MRS corresponds to the MRTS. The budget constraint corresponds to the isocost line (which we will meet in Chapter 7). The tangency condition \(MRS = p_1/p_2\) corresponds to \(MRTS = w/r\). And the Slutsky equation for consumers has an analogue in the firm's input demand response to factor price changes. Understanding one side of this duality makes the other almost immediate.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>In this chapter, we moved from the consumer side of the market to the firm side. A firm's technology is captured by its <strong>production function</strong> \(q = f(L, K)\), which maps inputs to the maximum achievable output. In the short run, with capital fixed, the <strong>total product curve</strong> shows how output responds to changes in labour alone.</p>
+
+                <p>The <strong>marginal product of labour</strong> is the extra output from one additional worker and, thanks to the law of diminishing marginal returns, eventually declines as more labour is added to a fixed stock of capital. The marginal product always intersects the <strong>average product</strong> at the latter's maximum &mdash; a result that follows from simple algebra and holds for any production function.</p>
+
+                <p><strong>Isoquants</strong> are the production counterpart of indifference curves: they show all input combinations yielding the same output. The slope of an isoquant is the <strong>MRTS</strong>, measuring how easily the firm can substitute one input for another. <strong>Returns to scale</strong> describe what happens when all inputs are increased proportionally: output may rise more than proportionally (IRS), exactly proportionally (CRS), or less than proportionally (DRS). For Cobb-Douglas production, the sum of the exponents \(\alpha + \beta\) determines the regime.</p>
+
+                <p>Finally, <strong>technical progress</strong> shifts isoquants inward, enabling the same output from fewer inputs. The direction of progress &mdash; neutral, labour-saving, or capital-saving &mdash; has important implications for labour markets and income distribution.</p>
+
+                <p>In the next chapter, we combine the production function with input prices to derive the firm's <strong>cost curves</strong> &mdash; the bridge from technology to supply decisions.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch5-applying-consumer-theory.html">&larr; Chapter 5: Applying Consumer Theory</a>
+                <span style="color: var(--color-text-lighter);">Chapter 7: Costs &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        const LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            tp: '#3b82f6', mp: '#3b82f6', ap: '#10b981',
+            tangent: '#ef4444', tangentFill: 'rgba(239, 68, 68, 0.1)',
+            iso1: '#8b5cf6', iso2: '#a78bfa', iso3: '#c4b5fd', iso4: '#ddd6fe',
+            isoHighlight: '#8b5cf6', isoFaded: '#ddd6fe',
+            optimal: '#10b981', optGlow: 'rgba(16, 185, 129, 0.3)',
+            budget: '#0a9396', budgetOld: '#aaaaaa',
+            ray: '#f59e0b', rayDot: '#f59e0b',
+            irs: '#10b981', crs: '#3b82f6', drs: '#ef4444',
+            newIso: '#ef4444', oldIso: '#aaaaaa',
+            arrowColor: '#0a9396',
+            dotCurrent: '#ef4444'
+        };
+
+        const DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            tp: '#60a5fa', mp: '#60a5fa', ap: '#34d399',
+            tangent: '#f87171', tangentFill: 'rgba(248, 113, 113, 0.1)',
+            iso1: '#a78bfa', iso2: '#c4b5fd', iso3: '#7c6faa', iso4: '#5a5080',
+            isoHighlight: '#a78bfa', isoFaded: '#5a5080',
+            optimal: '#34d399', optGlow: 'rgba(52, 211, 153, 0.35)',
+            budget: '#2ec4c8', budgetOld: '#707070',
+            ray: '#fbbf24', rayDot: '#fbbf24',
+            irs: '#34d399', crs: '#60a5fa', drs: '#f87171',
+            newIso: '#f87171', oldIso: '#707070',
+            arrowColor: '#2ec4c8',
+            dotCurrent: '#f87171'
+        };
+
+        const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        let C = darkMQ.matches ? DARK : LIGHT;
+
+        function getCtx(id) {
+            const cv = document.getElementById(id);
+            const dpr = window.devicePixelRatio || 1;
+            const r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            const ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx, w: r.width, h: r.height };
+        }
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep) {
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            for (let v = 0; v <= yMax; v += (yStep || 2)) {
+                const p = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, p.y); ctx.lineTo(ox + gw, p.y); ctx.stroke();
+            }
+            for (let v = 0; v <= xMax; v += (xStep || 2)) {
+                const p = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(p.x, oy); ctx.lineTo(p.x, oy + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel || '', ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel || '', 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (let v = xStep || 2; v <= xMax; v += (xStep || 2)) {
+                const p = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, p.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (let v = yStep || 2; v <= yMax; v += (yStep || 2)) {
+                const p = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v % 1 === 0 ? v : v.toFixed(1), ox - 6, p.y);
+            }
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            const p = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(p.x, p.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            const p = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            const ya = tp(0, y, ox, oy, gw, gh, xMax, yMax);
+            const xa = tp(x, 0, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+            ctx.beginPath(); ctx.moveTo(ya.x, p.y); ctx.lineTo(p.x, p.y); ctx.lineTo(p.x, xa.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawCurve(ctx, ox, oy, gw, gh, xMax, yMax, fn, xMin, xMaxC, color, dashed, lineWidth) {
+            ctx.strokeStyle = color; ctx.lineWidth = lineWidth || 2;
+            if (dashed) ctx.setLineDash([5, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); let started = false;
+            for (let x = xMin; x <= xMaxC; x += 0.1) {
+                const y = fn(x);
+                if (y < 0 || y > yMax * 1.1) continue;
+                const p = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+                if (!started) { ctx.moveTo(p.x, p.y); started = true; } else ctx.lineTo(p.x, p.y);
+            }
+            ctx.stroke(); ctx.setLineDash([]);
+        }
+
+        function drawIsoquant(ctx, ox, oy, gw, gh, xMax, yMax, qTarget, alpha, beta, color, dashed) {
+            // For q = L^alpha * K^beta, K = (q / L^alpha)^(1/beta)
+            ctx.strokeStyle = color; ctx.lineWidth = 2;
+            if (dashed) ctx.setLineDash([5, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); let started = false;
+            for (let L = 0.2; L <= xMax; L += 0.1) {
+                const K = Math.pow(qTarget / Math.pow(L, alpha), 1 / beta);
+                if (K < 0.1 || K > yMax) continue;
+                const p = tp(L, K, ox, oy, gw, gh, xMax, yMax);
+                if (!started) { ctx.moveTo(p.x, p.y); started = true; } else ctx.lineTo(p.x, p.y);
+            }
+            ctx.stroke(); ctx.setLineDash([]);
+        }
+
+        const Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        // ============================================================
+        // GRAPH 1: TOTAL PRODUCT CURVE
+        // ============================================================
+        (function() {
+            const kSlider = document.getElementById('tpKSlider');
+            const lSlider = document.getElementById('tpLSlider');
+            const kDisplay = document.getElementById('tpKDisplay');
+            const lDisplay = document.getElementById('tpLDisplay');
+            const info = document.getElementById('tpInfo');
+            const resetBtn = document.getElementById('tpResetBtn');
+
+            const alpha = 0.7, beta = 0.3;
+            const LMax = 20, qMax = 18;
+
+            function prodFn(L, K) { return Math.pow(L, alpha) * Math.pow(K, beta); }
+            function mpL(L, K) { return alpha * Math.pow(L, alpha - 1) * Math.pow(K, beta); }
+
+            function draw() {
+                const { ctx, w, h } = getCtx('tpCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                const K = parseFloat(kSlider.value);
+                const L = parseFloat(lSlider.value);
+                kDisplay.textContent = K;
+                lDisplay.textContent = L;
+
+                const ox = Marg.left, oy = Marg.top;
+                const gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, LMax, qMax, 'Labour (L)', 'Output (q)', 5, 2);
+
+                // TP curve
+                drawCurve(ctx, ox, oy, gw, gh, LMax, qMax, function(l) { return prodFn(l, K); }, 0.1, LMax, C.tp, false, 2.5);
+
+                // Current point
+                const q = prodFn(L, K);
+                const mp = mpL(L, K);
+                dot(ctx, L, q, ox, oy, gw, gh, LMax, qMax, C.dotCurrent, 6);
+                dashedTo(ctx, L, q, ox, oy, gw, gh, LMax, qMax, C.textMuted);
+
+                // Tangent line at current L
+                const tangentLen = 3;
+                const x1 = Math.max(0.5, L - tangentLen), x2 = Math.min(LMax, L + tangentLen);
+                const y1 = q + mp * (x1 - L), y2 = q + mp * (x2 - L);
+                ctx.strokeStyle = C.tangent; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                const p1 = tp(x1, Math.max(0, y1), ox, oy, gw, gh, LMax, qMax);
+                const p2 = tp(x2, Math.min(qMax, y2), ox, oy, gw, gh, LMax, qMax);
+                ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Label
+                const pLabel = tp(L + 1.5, q + 0.5, ox, oy, gw, gh, LMax, qMax);
+                ctx.fillStyle = C.text; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                ctx.fillText('q = ' + q.toFixed(1), pLabel.x, pLabel.y);
+
+                // Tangent slope label
+                const pSlope = tp(x2 - 0.3, Math.min(qMax - 0.5, y2 + 0.5), ox, oy, gw, gh, LMax, qMax);
+                ctx.fillStyle = C.tangent; ctx.font = '11px -apple-system, sans-serif';
+                ctx.fillText('slope = MP_L = ' + mp.toFixed(2), pSlope.x, pSlope.y);
+
+                // TP label on curve
+                const pCurve = tp(LMax - 1, prodFn(LMax - 1, K), ox, oy, gw, gh, LMax, qMax);
+                ctx.fillStyle = C.tp; ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'right';
+                if (prodFn(LMax - 1, K) < qMax) ctx.fillText('TP_L', pCurve.x - 5, pCurve.y - 10);
+
+                const ap = q / L;
+                info.innerHTML = 'K = ' + K + ', L = ' + L + ' &rarr; q = ' + q.toFixed(2) +
+                    ' | MP<sub>L</sub> = ' + mp.toFixed(2) + ' | AP<sub>L</sub> = ' + ap.toFixed(2);
+            }
+
+            kSlider.addEventListener('input', draw);
+            lSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() {
+                kSlider.value = 10; lSlider.value = 5; draw();
+            });
+
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 2: MP AND AP CURVES
+        // ============================================================
+        (function() {
+            const kSlider = document.getElementById('mpapKSlider');
+            const lSlider = document.getElementById('mpapLSlider');
+            const kDisplay = document.getElementById('mpapKDisplay');
+            const lDisplay = document.getElementById('mpapLDisplay');
+            const info = document.getElementById('mpapInfo');
+
+            const alpha = 0.7, beta = 0.3;
+            const LMax = 20, yMax = 4;
+
+            function mpL(L, K) { return alpha * Math.pow(L, alpha - 1) * Math.pow(K, beta); }
+            function apL(L, K) { return Math.pow(L, alpha - 1) * Math.pow(K, beta); }
+
+            function draw() {
+                const { ctx, w, h } = getCtx('mpapCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                const K = parseFloat(kSlider.value);
+                const L = parseFloat(lSlider.value);
+                kDisplay.textContent = K;
+                lDisplay.textContent = L;
+
+                const ox = Marg.left, oy = Marg.top;
+                const gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, LMax, yMax, 'Labour (L)', 'MP, AP', 5, 0.5);
+
+                // AP curve
+                drawCurve(ctx, ox, oy, gw, gh, LMax, yMax, function(l) { return apL(l, K); }, 0.5, LMax, C.ap, false, 2.5);
+
+                // MP curve
+                drawCurve(ctx, ox, oy, gw, gh, LMax, yMax, function(l) { return mpL(l, K); }, 0.5, LMax, C.mp, false, 2.5);
+
+                // Current L vertical line
+                const mpVal = mpL(L, K);
+                const apVal = apL(L, K);
+
+                ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                const pBot = tp(L, 0, ox, oy, gw, gh, LMax, yMax);
+                const pTop = tp(L, Math.min(yMax, Math.max(mpVal, apVal) + 0.3), ox, oy, gw, gh, LMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pBot.x, pBot.y); ctx.lineTo(pBot.x, pTop.y); ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Dots on current L
+                dot(ctx, L, mpVal, ox, oy, gw, gh, LMax, yMax, C.mp, 5);
+                dot(ctx, L, apVal, ox, oy, gw, gh, LMax, yMax, C.ap, 5);
+
+                // Labels
+                const pMP = tp(2, mpL(2, K), ox, oy, gw, gh, LMax, yMax);
+                ctx.fillStyle = C.mp; ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                ctx.fillText('MP_L', pMP.x + 8, pMP.y - 5);
+
+                const pAP = tp(2, apL(2, K), ox, oy, gw, gh, LMax, yMax);
+                ctx.fillStyle = C.ap; ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.fillText('AP_L', pAP.x + 8, pAP.y - 5);
+
+                // Note: for CD with alpha < 1, MP = alpha*AP < AP always, no crossing at interior
+                // Show the ratio
+                info.innerHTML = 'K = ' + K + ', L = ' + L +
+                    ' &rarr; MP<sub>L</sub> = ' + mpVal.toFixed(2) + ' | AP<sub>L</sub> = ' + apVal.toFixed(2) +
+                    ' | MP/AP = &alpha; = ' + alpha.toFixed(1);
+            }
+
+            kSlider.addEventListener('input', draw);
+            lSlider.addEventListener('input', draw);
+
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 3: ISOQUANT MAP
+        // ============================================================
+        (function() {
+            const qSlider = document.getElementById('isoQSlider');
+            const lSlider = document.getElementById('isoLSlider');
+            const qDisplay = document.getElementById('isoQDisplay');
+            const lDisplay = document.getElementById('isoLDisplay');
+            const info = document.getElementById('isoInfo');
+            const resetBtn = document.getElementById('isoResetBtn');
+
+            const alpha = 0.5, beta = 0.5; // q = sqrt(LK)
+            const LMax = 16, KMax = 16;
+
+            function kFromQ(q, L) { return (q * q) / L; }
+
+            function draw() {
+                const { ctx, w, h } = getCtx('isoquantCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                const qTarget = parseFloat(qSlider.value);
+                const L = parseFloat(lSlider.value);
+                qDisplay.textContent = qTarget;
+                lDisplay.textContent = L;
+
+                const ox = Marg.left, oy = Marg.top;
+                const gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, LMax, KMax, 'Labour (L)', 'Capital (K)', 2, 2);
+
+                // Background isoquants
+                const isoColors = [C.iso4, C.iso3, C.iso2, C.iso1];
+                for (let qi = 2; qi <= 8; qi += 2) {
+                    const cIdx = Math.min(3, Math.floor((qi - 2) / 2));
+                    const col = qi === qTarget ? C.isoHighlight : isoColors[cIdx];
+                    const isDashed = qi !== qTarget;
+                    drawIsoquant(ctx, ox, oy, gw, gh, LMax, KMax, qi, alpha, beta, col, isDashed);
+
+                    // Label isoquant
+                    const labelL = Math.min(LMax - 1, qi * qi / 1.5);
+                    const labelK = kFromQ(qi, labelL);
+                    if (labelK > 0.5 && labelK < KMax - 1) {
+                        const pLab = tp(labelL, labelK, ox, oy, gw, gh, LMax, KMax);
+                        ctx.fillStyle = col; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                        ctx.fillText('q=' + qi, pLab.x + 5, pLab.y - 5);
+                    }
+                }
+
+                // Current point on selected isoquant
+                const K = kFromQ(qTarget, L);
+                if (K > 0 && K <= KMax) {
+                    dashedTo(ctx, L, K, ox, oy, gw, gh, LMax, KMax, C.textMuted);
+                    dot(ctx, L, K, ox, oy, gw, gh, LMax, KMax, C.optimal, 6);
+
+                    // Glow
+                    const pOpt = tp(L, K, ox, oy, gw, gh, LMax, KMax);
+                    ctx.beginPath(); ctx.arc(pOpt.x, pOpt.y, 12, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.optGlow; ctx.fill();
+                    dot(ctx, L, K, ox, oy, gw, gh, LMax, KMax, C.optimal, 6);
+
+                    // MRTS tangent line
+                    const mrts = K / L; // for alpha=beta=0.5
+                    const tangLen = 2.5;
+                    const tx1 = Math.max(0.5, L - tangLen), tx2 = Math.min(LMax, L + tangLen);
+                    const ty1 = K + mrts * (L - tx1), ty2 = K - mrts * (tx2 - L);
+
+                    ctx.strokeStyle = C.tangent; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                    const pt1 = tp(tx1, Math.min(KMax, Math.max(0, ty1)), ox, oy, gw, gh, LMax, KMax);
+                    const pt2 = tp(tx2, Math.min(KMax, Math.max(0, ty2)), ox, oy, gw, gh, LMax, KMax);
+                    ctx.beginPath(); ctx.moveTo(pt1.x, pt1.y); ctx.lineTo(pt2.x, pt2.y); ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    // MRTS label
+                    ctx.fillStyle = C.tangent; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                    ctx.fillText('MRTS = ' + mrts.toFixed(2), pt2.x + 5, pt2.y);
+
+                    info.innerHTML = 'q = ' + qTarget + ', L = ' + L + ', K = ' + K.toFixed(1) +
+                        ' | MRTS = K/L = ' + mrts.toFixed(2);
+                } else {
+                    info.innerHTML = 'q = ' + qTarget + ', L = ' + L + ' — K off chart (' + K.toFixed(1) + ')';
+                }
+            }
+
+            qSlider.addEventListener('input', draw);
+            lSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() {
+                qSlider.value = 4; lSlider.value = 4; draw();
+            });
+
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 4: RETURNS TO SCALE
+        // ============================================================
+        (function() {
+            const irsBtn = document.getElementById('rtsIrsBtn');
+            const crsBtn = document.getElementById('rtsCrsBtn');
+            const drsBtn = document.getElementById('rtsDrsBtn');
+            const resetBtn = document.getElementById('rtsResetBtn');
+            const info = document.getElementById('rtsInfo');
+
+            let mode = 'crs'; // 'irs', 'crs', 'drs'
+
+            function getParams() {
+                if (mode === 'irs') return { alpha: 0.7, beta: 0.7, label: 'IRS (α+β = 1.4)' };
+                if (mode === 'drs') return { alpha: 0.3, beta: 0.3, label: 'DRS (α+β = 0.6)' };
+                return { alpha: 0.5, beta: 0.5, label: 'CRS (α+β = 1.0)' };
+            }
+
+            function setActive(btn) {
+                [irsBtn, crsBtn, drsBtn].forEach(b => b.classList.remove('active-toggle'));
+                btn.classList.add('active-toggle');
+            }
+
+            const LMax = 16, KMax = 16;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('rtsCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                const ox = Marg.left, oy = Marg.top;
+                const gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, LMax, KMax, 'Labour (L)', 'Capital (K)', 2, 2);
+
+                const { alpha, beta, label } = getParams();
+
+                // Draw isoquants for q = 1, 2, 3, ..., 7
+                const qLevels = [1, 2, 3, 4, 5, 6, 7];
+                const isoColors = [C.iso4, C.iso4, C.iso3, C.iso2, C.iso1, C.isoHighlight, C.isoHighlight];
+
+                qLevels.forEach(function(q, i) {
+                    const col = isoColors[Math.min(i, isoColors.length - 1)];
+                    drawIsoquant(ctx, ox, oy, gw, gh, LMax, KMax, q, alpha, beta, col, false);
+
+                    // Label
+                    const labelL = 0.8;
+                    const labelK = Math.pow(q / Math.pow(labelL, alpha), 1 / beta);
+                    if (labelK > 0.5 && labelK < KMax - 0.5) {
+                        const pLab = tp(labelL, labelK, ox, oy, gw, gh, LMax, KMax);
+                        ctx.fillStyle = col; ctx.font = '10px -apple-system, sans-serif'; ctx.textAlign = 'right';
+                        ctx.fillText('q=' + q, pLab.x - 3, pLab.y + 3);
+                    }
+                });
+
+                // Ray from origin (45-degree, K = L)
+                ctx.strokeStyle = C.ray; ctx.lineWidth = 1.5; ctx.setLineDash([6, 3]);
+                const pO = tp(0, 0, ox, oy, gw, gh, LMax, KMax);
+                const pR = tp(LMax, KMax, ox, oy, gw, gh, LMax, KMax);
+                ctx.beginPath(); ctx.moveTo(pO.x, pO.y); ctx.lineTo(pR.x, pR.y); ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Dots where ray crosses isoquants: on K=L ray, q = L^alpha * L^beta = L^(a+b)
+                // So L = q^(1/(a+b))
+                qLevels.forEach(function(q) {
+                    const L = Math.pow(q, 1 / (alpha + beta));
+                    if (L <= LMax && L <= KMax) {
+                        dot(ctx, L, L, ox, oy, gw, gh, LMax, KMax, C.rayDot, 5);
+                    }
+                });
+
+                // Label
+                ctx.fillStyle = C.ray; ctx.font = '12px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                const pRayLabel = tp(LMax - 2, KMax - 1, ox, oy, gw, gh, LMax, KMax);
+                ctx.fillText('K = L ray', pRayLabel.x, pRayLabel.y);
+
+                // Mode label
+                const modeColor = mode === 'irs' ? C.irs : mode === 'drs' ? C.drs : C.crs;
+                ctx.fillStyle = modeColor; ctx.font = 'bold 14px -apple-system, sans-serif'; ctx.textAlign = 'right';
+                ctx.fillText(label, ox + gw - 5, oy + 20);
+
+                info.innerHTML = '<strong>' + label + ':</strong> ' +
+                    (mode === 'crs' ? 'Isoquants are evenly spaced along the ray — doubling inputs exactly doubles output.' :
+                     mode === 'irs' ? 'Isoquants get closer together — doubling inputs more than doubles output. Larger firms are more efficient.' :
+                     'Isoquants spread apart — doubling inputs less than doubles output. Coordination costs limit scale.');
+            }
+
+            irsBtn.addEventListener('click', function() { mode = 'irs'; setActive(irsBtn); draw(); });
+            crsBtn.addEventListener('click', function() { mode = 'crs'; setActive(crsBtn); draw(); });
+            drsBtn.addEventListener('click', function() { mode = 'drs'; setActive(drsBtn); draw(); });
+            resetBtn.addEventListener('click', function() { mode = 'crs'; setActive(crsBtn); draw(); });
+
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 5: TECHNICAL PROGRESS
+        // ============================================================
+        (function() {
+            const neutralBtn = document.getElementById('tpNeutralBtn');
+            const labourBtn = document.getElementById('tpLabourBtn');
+            const capitalBtn = document.getElementById('tpCapitalBtn');
+            const progSlider = document.getElementById('tpProgSlider');
+            const progDisplay = document.getElementById('tpProgDisplay');
+            const resetBtn = document.getElementById('tpResetProgBtn');
+            const info = document.getElementById('tpProgInfo');
+
+            let progressType = 'neutral';
+
+            function setActive(btn) {
+                [neutralBtn, labourBtn, capitalBtn].forEach(b => b.classList.remove('active-toggle'));
+                btn.classList.add('active-toggle');
+            }
+
+            const alpha = 0.5, beta = 0.5;
+            const qTarget = 4;
+            const LMax = 16, KMax = 16;
+
+            function draw() {
+                const { ctx, w, h } = getCtx('techProgCanvas');
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                const prog = parseFloat(progSlider.value) / 100; // 0 to 0.5
+                progDisplay.textContent = Math.round(prog * 100) + '%';
+
+                const ox = Marg.left, oy = Marg.top;
+                const gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, LMax, KMax, 'Labour (L)', 'Capital (K)', 2, 2);
+
+                // Original isoquant for q = qTarget
+                drawIsoquant(ctx, ox, oy, gw, gh, LMax, KMax, qTarget, alpha, beta, C.oldIso, true);
+
+                // Label original
+                const origL = 12, origK = kFromQBase(qTarget, origL);
+                if (origK > 0.5 && origK < KMax) {
+                    const pOrig = tp(origL, origK, ox, oy, gw, gh, LMax, KMax);
+                    ctx.fillStyle = C.oldIso; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                    ctx.fillText('Original q=' + qTarget, pOrig.x + 5, pOrig.y - 5);
+                }
+
+                if (prog > 0) {
+                    // New isoquant: depends on type of progress
+                    // Neutral: A increases, so effective q = qTarget / (1+prog), same alpha, beta
+                    // Labour-saving: alpha effectively increases (labour more productive)
+                    // Capital-saving: beta effectively increases (capital more productive)
+
+                    ctx.strokeStyle = C.newIso; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                    ctx.beginPath(); let started = false;
+                    for (let L = 0.2; L <= LMax; L += 0.1) {
+                        let K;
+                        if (progressType === 'neutral') {
+                            // q = (1+prog) * L^0.5 * K^0.5, need K for q=qTarget
+                            const effQ = qTarget / (1 + prog);
+                            K = (effQ * effQ) / L;
+                        } else if (progressType === 'labour') {
+                            // Labour-saving: L becomes more effective
+                            // q = (L*(1+prog))^0.5 * K^0.5
+                            const effL = L * (1 + prog);
+                            K = (qTarget * qTarget) / effL;
+                        } else {
+                            // Capital-saving: K becomes more effective
+                            // q = L^0.5 * (K*(1+prog))^0.5
+                            // K*(1+prog) = q^2 / L => K = q^2 / (L * (1+prog))
+                            K = (qTarget * qTarget) / (L * (1 + prog));
+                        }
+                        if (K < 0.1 || K > KMax) continue;
+                        const p = tp(L, K, ox, oy, gw, gh, LMax, KMax);
+                        if (!started) { ctx.moveTo(p.x, p.y); started = true; } else ctx.lineTo(p.x, p.y);
+                    }
+                    ctx.stroke();
+
+                    // Label new isoquant
+                    const newL = 8;
+                    let newK;
+                    if (progressType === 'neutral') newK = (qTarget / (1 + prog)) * (qTarget / (1 + prog)) / newL;
+                    else if (progressType === 'labour') newK = (qTarget * qTarget) / (newL * (1 + prog));
+                    else newK = (qTarget * qTarget) / (newL * (1 + prog));
+                    if (newK > 0.5 && newK < KMax) {
+                        const pNew = tp(newL, newK, ox, oy, gw, gh, LMax, KMax);
+                        ctx.fillStyle = C.newIso; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                        ctx.fillText('New q=' + qTarget, pNew.x + 5, pNew.y + 15);
+                    }
+
+                    // Arrow showing direction of shift at K=L point
+                    const refL = qTarget; // on original iso at K=L: L = K = q (since q = sqrt(LK), K=L => q=L)
+                    const refK = refL;
+                    let newRefK, newRefL;
+                    if (progressType === 'neutral') {
+                        // Same ratio, just closer to origin
+                        const effQ = qTarget / (1 + prog);
+                        newRefL = effQ; newRefK = effQ;
+                    } else if (progressType === 'labour') {
+                        // On new iso at K/L ratio same as original: L*(1+prog) = L' => shift left
+                        newRefL = qTarget / Math.sqrt(1 + prog);
+                        newRefK = (qTarget * qTarget) / (newRefL * (1 + prog));
+                    } else {
+                        newRefL = qTarget / Math.sqrt(1 + prog);
+                        newRefK = (qTarget * qTarget) / (newRefL * (1 + prog));
+                    }
+
+                    if (refL <= LMax && refK <= KMax && newRefL > 0 && newRefK > 0) {
+                        // Draw arrow
+                        const pFrom = tp(refL, refK, ox, oy, gw, gh, LMax, KMax);
+                        const pTo = tp(newRefL, newRefK, ox, oy, gw, gh, LMax, KMax);
+                        ctx.strokeStyle = C.arrowColor; ctx.fillStyle = C.arrowColor; ctx.lineWidth = 2;
+                        ctx.beginPath(); ctx.moveTo(pFrom.x, pFrom.y); ctx.lineTo(pTo.x, pTo.y); ctx.stroke();
+                        const angle = Math.atan2(pTo.y - pFrom.y, pTo.x - pFrom.x);
+                        const hl = 8;
+                        ctx.beginPath();
+                        ctx.moveTo(pTo.x, pTo.y);
+                        ctx.lineTo(pTo.x - hl * Math.cos(angle - 0.4), pTo.y - hl * Math.sin(angle - 0.4));
+                        ctx.lineTo(pTo.x - hl * Math.cos(angle + 0.4), pTo.y - hl * Math.sin(angle + 0.4));
+                        ctx.closePath(); ctx.fill();
+                    }
+                }
+
+                // Background isoquants for context
+                [2, 6].forEach(function(q) {
+                    drawIsoquant(ctx, ox, oy, gw, gh, LMax, KMax, q, alpha, beta, C.iso4, true);
+                });
+
+                const typeLabel = progressType === 'neutral' ? 'Neutral' : progressType === 'labour' ? 'Labour-saving' : 'Capital-saving';
+                info.innerHTML = '<strong>' + typeLabel + ' progress (' + Math.round(prog * 100) + '%):</strong> ' +
+                    (prog === 0 ? 'Increase the slider to see the isoquant shift inward.' :
+                     progressType === 'neutral' ? 'Both inputs become proportionally more productive. The isoquant shrinks symmetrically.' :
+                     progressType === 'labour' ? 'Labour becomes relatively more productive. The isoquant shifts more along the L axis — fewer workers needed.' :
+                     'Capital becomes relatively more productive. The isoquant shifts more along the K axis — less machinery needed.');
+            }
+
+            function kFromQBase(q, L) { return (q * q) / L; }
+
+            neutralBtn.addEventListener('click', function() { progressType = 'neutral'; setActive(neutralBtn); draw(); });
+            labourBtn.addEventListener('click', function() { progressType = 'labour'; setActive(labourBtn); draw(); });
+            capitalBtn.addEventListener('click', function() { progressType = 'capital'; setActive(capitalBtn); draw(); });
+            progSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() {
+                progressType = 'neutral'; setActive(neutralBtn); progSlider.value = 0; draw();
+            });
+
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GLOBAL REDRAW
+        // ============================================================
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>
