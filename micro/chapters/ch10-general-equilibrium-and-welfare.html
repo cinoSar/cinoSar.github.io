@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 10: General Equilibrium and Welfare | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 140px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle {
+            background: var(--color-primary-dark);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 10: General Equilibrium and Welfare</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 10</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#exchange">10.1 General Equilibrium in Exchange</a></li>
+                <li><a href="#pareto">10.2 Pareto Efficiency</a></li>
+                <li><a href="#production">10.3 Production &amp; Exchange</a></li>
+                <li><a href="#welfare-theorems">10.4 The Two Welfare Theorems</a></li>
+                <li><a href="#formal-derivations">10.5 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: When Everything Is Connected</h2>
+                <p>In 2022, the UK government raised fuel duty in the Spring Statement. Petrol prices rose, as expected &mdash; but the effects rippled far beyond the forecourt. Commuters switched to trains, boosting rail revenues. Supermarket delivery costs increased, pushing up food prices. House prices in car-dependent rural areas softened, whilst homes near railway stations rose in value. A single policy change in one market reshaped dozens of others.</p>
+
+                <p>Until now, we have analysed markets in isolation &mdash; <em>partial equilibrium</em>. We studied how a tax affects the petrol market, holding everything else constant. But in reality, markets are interconnected. A change in one market alters prices and quantities in others, which feed back into the original market. To understand the full picture, we need <strong>general equilibrium</strong> analysis, which tracks all markets simultaneously.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>General equilibrium analysis considers all markets simultaneously, capturing the feedback effects that partial equilibrium ignores. The <strong>Edgeworth box</strong> shows how two consumers can trade to mutual advantage, the <strong>contract curve</strong> identifies all efficient allocations, and the <strong>welfare theorems</strong> establish the deep connection between competitive markets and economic efficiency.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to construct an Edgeworth box and identify the set of mutually beneficial trades, define Pareto efficiency and find the contract curve, derive the production possibilities frontier from an economy&rsquo;s technology, state the First and Second Welfare Theorems and explain their implications for policy, and use the condition MRS = MRT to characterise efficient resource allocation.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#exchange">General Equilibrium in Exchange</a> &mdash; the Edgeworth box and gains from trade</li>
+                    <li><a href="#pareto">Pareto Efficiency</a> &mdash; the contract curve and Pareto-improving trades</li>
+                    <li><a href="#production">Production &amp; Exchange</a> &mdash; the PPF and MRS = MRT</li>
+                    <li><a href="#welfare-theorems">The Two Welfare Theorems</a> &mdash; competitive markets and efficiency</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; the 2&times;2 exchange model and Walras&rsquo; law</li>
+                </ol>
+            </div>
+
+
+            <!-- ============================================ -->
+            <!-- 10.1 GENERAL EQUILIBRIUM IN EXCHANGE          -->
+            <!-- ============================================ -->
+            <section id="exchange" class="lesson-section section-geometric">
+                <h2>10.1 General Equilibrium in Exchange</h2>
+
+                <h3>Intuition: Trading to Mutual Advantage</h3>
+                <p>Consider a simple economy with two people &mdash; call them Alice and Bob &mdash; and two goods: food and clothing. There is no production; both goods already exist in fixed total quantities. Alice has 8 units of food and 2 units of clothing. Bob has 2 units of food and 8 units of clothing. The total endowment of the economy is 10 food and 10 clothing.</p>
+
+                <p>Alice, with lots of food but little clothing, values extra clothing highly. Bob, rich in clothing but short on food, values extra food highly. Both can gain from trade. But which trades are possible, and which are efficient?</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: The Edgeworth Box</h4>
+                    <p>The <strong>Edgeworth box</strong> is a diagram in which the width equals the total endowment of good 1 and the height equals the total endowment of good 2. Every point in the box represents a complete allocation &mdash; how much of each good each consumer holds. Alice&rsquo;s consumption is measured from the bottom-left origin; Bob&rsquo;s from the top-right origin (the box is &ldquo;flipped&rdquo; for Bob). Because totals are fixed, specifying Alice&rsquo;s bundle automatically determines Bob&rsquo;s.</p>
+                </div>
+
+                <p>The key insight is that we can draw <em>both</em> consumers&rsquo; indifference curves inside the same box. Alice&rsquo;s ICs curve in the usual way (convex towards her origin, bottom-left). Bob&rsquo;s ICs also curve towards <em>his</em> origin (top-right), so they appear concave when viewed from Alice&rsquo;s perspective. Any allocation where the two ICs overlap without being tangent leaves room for a Pareto-improving trade &mdash; a reallocation that makes at least one person better off without harming the other.</p>
+
+                <h3>Geometric Solution: The Edgeworth Box</h3>
+                <p>The graph below constructs an Edgeworth box for Alice and Bob. The endowment point (marked &omega;) shows the initial allocation: Alice has 8 food and 2 clothing, Bob has 2 food and 8 clothing. Use the sliders to move the allocation point and observe how both consumers&rsquo; indifference curves change. The shaded lens-shaped region between the two ICs through the endowment point identifies all allocations that are Pareto improvements over the initial endowment &mdash; both consumers prefer any point in this region to the endowment.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-edgeworth" width="600" height="500" style="width:600px;height:500px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Alice&rsquo;s food: <input type="range" id="slider-xa" min="1" max="9" step="0.5" value="8"> <span class="value-display" id="val-xa">8.0</span></label>
+                        <label>Alice&rsquo;s clothing: <input type="range" id="slider-ya" min="1" max="9" step="0.5" value="2"> <span class="value-display" id="val-ya">2.0</span></label>
+                        <button id="btn-reset-ew">Reset to Endowment</button>
+                    </div>
+                    <div class="graph-info" id="info-edgeworth"></div>
+                    <p class="graph-caption">Figure 10.1 &mdash; The Edgeworth box: Alice&rsquo;s origin is at the bottom-left, Bob&rsquo;s at the top-right. The shaded lens shows mutually beneficial trades from the endowment &omega;.</p>
+                </div>
+
+                <p>Notice that as you move the allocation towards the centre of the lens, both consumers reach higher indifference curves. When you reach a point where the two ICs are <em>tangent</em> &mdash; touching but not crossing &mdash; there is no further room for Pareto improvement. This tangency condition is the hallmark of efficiency in exchange.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>At any efficient allocation in the Edgeworth box, the two consumers&rsquo; indifference curves are tangent. This means their marginal rates of substitution are equal: \(\text{MRS}_A = \text{MRS}_B\). If the MRS values differed, the consumers could trade at a rate between the two MRS values and both gain.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 10.2 PARETO EFFICIENCY                        -->
+            <!-- ============================================ -->
+            <section id="pareto" class="lesson-section section-geometric">
+                <h2>10.2 Pareto Efficiency and the Contract Curve</h2>
+
+                <h3>Intuition: When No More Gains Are Possible</h3>
+                <p>An allocation is <strong>Pareto efficient</strong> (or Pareto optimal) if there is no feasible reallocation that makes at least one person better off without making anyone worse off. Put differently, at a Pareto-efficient allocation, every change that helps one person necessarily hurts another. It is impossible to make the pie bigger &mdash; the only thing left is to argue about how to slice it.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Contract Curve</h4>
+                    <p>The <strong>contract curve</strong> is the set of all Pareto-efficient allocations in the Edgeworth box. It is the locus of tangency points between Alice&rsquo;s and Bob&rsquo;s indifference curves. Equivalently, it traces out all points where \(\text{MRS}_A = \text{MRS}_B\).</p>
+                </div>
+
+                <p>The contract curve typically runs from one corner of the box to the other, curving through the interior. Every point on it is efficient, but different points on the curve involve different distributions of welfare. Points near Alice&rsquo;s origin give most of the goods to Bob (and vice versa). Efficiency says nothing about fairness &mdash; it only tells us whether further mutual gains are available.</p>
+
+                <div class="callout callout-warning">
+                    <h4>Common Misconception</h4>
+                    <p>Pareto efficiency does not mean &ldquo;socially desirable&rdquo; or &ldquo;fair.&rdquo; An allocation where Alice has everything and Bob has nothing is Pareto efficient (you cannot help Bob without hurting Alice), but most people would consider it deeply unfair. Efficiency and equity are separate criteria, and resolving the tension between them is one of the central challenges of welfare economics.</p>
+                </div>
+
+                <h3>Geometric Solution: The Contract Curve</h3>
+                <p>The graph below shows the contract curve inside the Edgeworth box. For Cobb-Douglas preferences \(U_A = x_A^{0.5} y_A^{0.5}\) and \(U_B = x_B^{0.5} y_B^{0.5}\), the contract curve is a straight line from corner to corner (the diagonal). With different preference parameters, the curve bows towards one side. Use the slider to adjust Alice&rsquo;s preference exponent and observe how the contract curve shifts.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-contract" width="600" height="500" style="width:600px;height:500px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Alice&rsquo;s &alpha;: <input type="range" id="slider-alpha" min="0.2" max="0.8" step="0.05" value="0.5"> <span class="value-display" id="val-alpha">0.50</span></label>
+                        <button id="btn-show-ics">Show ICs at Point</button>
+                    </div>
+                    <div class="graph-info" id="info-contract"></div>
+                    <p class="graph-caption">Figure 10.2 &mdash; The contract curve (green) and the Pareto-improving lens (shaded) from the endowment &omega;. Every tangency between Alice&rsquo;s and Bob&rsquo;s ICs lies on the contract curve.</p>
+                </div>
+
+                <p>When &alpha; = 0.5 (symmetric preferences), the contract curve is the diagonal of the box &mdash; Alice and Bob value both goods equally, so efficient allocations always give them goods in the same proportion. When &alpha; &gt; 0.5, Alice cares more about food (good 1), and the contract curve bows towards the top-left, giving Alice more food at each efficient allocation. The lens of Pareto improvements from the endowment is shown in yellow: only the portion of the contract curve inside this lens would be reached by voluntary trade.</p>
+
+                <div class="callout callout-example">
+                    <h4>Example: The Core</h4>
+                    <p>Economists call the segment of the contract curve inside the Pareto-improving lens the <strong>core</strong> of the economy. These are the only efficient allocations that both consumers would voluntarily agree to, starting from the given endowment. The competitive equilibrium always lies in the core &mdash; a result that connects free markets to mutually beneficial trade.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 10.3 PRODUCTION AND EXCHANGE                  -->
+            <!-- ============================================ -->
+            <section id="production" class="lesson-section section-geometric">
+                <h2>10.3 Production and Exchange</h2>
+
+                <h3>Intuition: From Technology to Choices</h3>
+                <p>So far we have assumed that the total quantities of goods are fixed. In reality, an economy can choose <em>what</em> to produce. With limited resources (labour, capital), producing more food means producing less clothing. The <strong>production possibilities frontier</strong> (PPF) shows the maximum combinations of outputs an economy can achieve given its resources and technology.</p>
+
+                <p>The slope of the PPF is the <strong>marginal rate of transformation</strong> (MRT): the amount of good 2 the economy must give up to produce one more unit of good 1. Efficiency requires not only that consumers&rsquo; MRS values are equal (exchange efficiency) but also that MRS equals MRT &mdash; the rate at which consumers are willing to trade goods must match the rate at which the economy can transform one good into the other.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Marginal Rate of Transformation</h4>
+                    <p>The <strong>marginal rate of transformation (MRT)</strong> is the absolute value of the slope of the production possibilities frontier. It equals the ratio of marginal costs: \(\text{MRT} = MC_x / MC_y\). At an efficient allocation, \(\text{MRS} = \text{MRT}\).</p>
+                </div>
+
+                <h3>Geometric Solution: The PPF and Efficient Allocation</h3>
+                <p>The graph below shows a concave PPF for an economy that can produce food (x-axis) and clothing (y-axis). A representative consumer&rsquo;s indifference curve is tangent to the PPF at the efficient output mix. Use the slider to move the production point along the PPF and observe how the tangent (MRT) changes. The efficient point is where MRS = MRT &mdash; the IC just touches the PPF.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-ppf" width="600" height="500" style="width:600px;height:500px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Food output: <input type="range" id="slider-ppf-x" min="1" max="9" step="0.25" value="5"> <span class="value-display" id="val-ppf-x">5.00</span></label>
+                        <button id="btn-find-optimal">Find MRS = MRT</button>
+                    </div>
+                    <div class="graph-info" id="info-ppf"></div>
+                    <p class="graph-caption">Figure 10.3 &mdash; The production possibilities frontier (PPF) and the efficient output mix where MRS = MRT. The IC is tangent to the PPF at the optimal point.</p>
+                </div>
+
+                <p>When the production point is to the left of the optimum, the PPF is relatively flat (MRT is low &mdash; food is cheap to produce at the margin) but the IC is steep (MRS is high &mdash; the consumer values additional food highly). There is a welfare gain from producing more food. The opposite holds to the right of the optimum. Only at the tangency is the economy simultaneously producing the right mix and allocating it efficiently.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>Full economic efficiency requires three conditions simultaneously: <strong>exchange efficiency</strong> (\(\text{MRS}_A = \text{MRS}_B\) for all pairs of consumers), <strong>production efficiency</strong> (the economy is on the PPF, not inside it), and <strong>output-mix efficiency</strong> (\(\text{MRS} = \text{MRT}\) so the right goods are being produced). The competitive equilibrium achieves all three.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 10.4 THE TWO WELFARE THEOREMS                 -->
+            <!-- ============================================ -->
+            <section id="welfare-theorems" class="lesson-section section-intuition">
+                <h2>10.4 The Two Welfare Theorems</h2>
+
+                <h3>The First Welfare Theorem</h3>
+                <div class="callout callout-definition">
+                    <h4>First Welfare Theorem</h4>
+                    <p>If all consumers and firms are price takers, all goods are traded in markets, and there are no externalities, then the <strong>competitive equilibrium is Pareto efficient</strong>.</p>
+                </div>
+
+                <p>This is the formal justification for Adam Smith&rsquo;s invisible hand. When every consumer maximises utility given market prices, each sets \(\text{MRS} = p_x / p_y\). Since all consumers face the same prices, all MRS values are equal. Similarly, profit-maximising firms set \(\text{MC}_x / \text{MC}_y = p_x / p_y = \text{MRT}\). So the competitive equilibrium automatically satisfies all three efficiency conditions.</p>
+
+                <p>The theorem is powerful but comes with important caveats. It requires perfect competition (no market power), complete markets (every good can be traded), and no externalities. When these conditions fail &mdash; as they do in monopoly, public goods, and pollution &mdash; the equilibrium is typically <em>not</em> Pareto efficient, creating a potential role for government intervention.</p>
+
+                <h3>The Second Welfare Theorem</h3>
+                <div class="callout callout-definition">
+                    <h4>Second Welfare Theorem</h4>
+                    <p>Under certain conditions (convex preferences and production sets), <strong>any Pareto-efficient allocation can be achieved as a competitive equilibrium</strong> after an appropriate redistribution of initial endowments (lump-sum transfers).</p>
+                </div>
+
+                <p>The Second Welfare Theorem is even more remarkable. It says that if society dislikes the distribution of welfare that the market produces, it need not abandon markets altogether. Instead, a government can redistribute endowments (through lump-sum taxes and transfers) and then let competitive markets allocate resources. The resulting equilibrium will be Pareto efficient and will correspond to whichever point on the contract curve society prefers.</p>
+
+                <div class="callout callout-warning">
+                    <h4>The Lump-Sum Transfer Problem</h4>
+                    <p>The Second Welfare Theorem sounds ideal in theory, but it requires <strong>lump-sum transfers</strong> &mdash; taxes and transfers that do not distort incentives. In practice, governments cannot observe consumers&rsquo; true abilities and preferences, so they must use distortionary taxes (like income tax) that create deadweight loss. This is the fundamental tension between efficiency and equity in public economics.</p>
+                </div>
+
+                <h3>Geometric Solution: Competitive Equilibrium in the Edgeworth Box</h3>
+                <p>The graph below shows how competitive equilibrium emerges in the Edgeworth box. A price line passes through the endowment point &omega;. Both consumers maximise utility by choosing the point on their budget line (the price line through &omega;) where their IC is tangent. At equilibrium, both consumers choose the <em>same</em> point &mdash; their demands are compatible and markets clear. Adjust the price ratio slider to see how the equilibrium shifts along the contract curve.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-ce" width="600" height="500" style="width:600px;height:500px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Price ratio \(p_x/p_y\): <input type="range" id="slider-price" min="0.3" max="3" step="0.05" value="1"> <span class="value-display" id="val-price">1.00</span></label>
+                        <button id="btn-find-ce">Find Equilibrium</button>
+                    </div>
+                    <div class="graph-info" id="info-ce"></div>
+                    <p class="graph-caption">Figure 10.4 &mdash; Competitive equilibrium in the Edgeworth box. The price line through &omega; serves as both consumers&rsquo; budget constraint. Equilibrium occurs where both ICs are tangent to this line.</p>
+                </div>
+
+                <p>At the equilibrium price ratio, Alice&rsquo;s demand exactly equals what Bob wants to supply, and vice versa. This is the general-equilibrium version of &ldquo;supply equals demand.&rdquo; The equilibrium allocation lies on the contract curve &mdash; confirming the First Welfare Theorem. If we changed the endowment (redistributed goods before trade), the new equilibrium would be at a different point on the contract curve &mdash; illustrating the Second Welfare Theorem.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 10.5 FORMAL DERIVATIONS                       -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>10.5 Formal Derivations</h2>
+
+                <h3>The 2&times;2 Exchange Model</h3>
+                <p>Consider an economy with two consumers (A and B) and two goods (x and y). Total endowments are \(\bar{x} = \omega_A^x + \omega_B^x\) and \(\bar{y} = \omega_A^y + \omega_B^y\). Each consumer has Cobb-Douglas preferences:</p>
+
+                \[
+                    U_A = (x_A)^{\alpha} (y_A)^{1-\alpha}, \qquad U_B = (x_B)^{\beta} (y_B)^{1-\beta}
+                \]
+
+                <p>Consumer A maximises utility subject to the budget constraint \(p_x x_A + p_y y_A = p_x \omega_A^x + p_y \omega_A^y\). Using the Cobb-Douglas demand functions (derived in Chapter 4), A&rsquo;s demands are:</p>
+
+                \[
+                    x_A^* = \frac{\alpha (p_x \omega_A^x + p_y \omega_A^y)}{p_x}, \qquad y_A^* = \frac{(1-\alpha)(p_x \omega_A^x + p_y \omega_A^y)}{p_y}
+                \]
+
+                <p>Similarly for B with parameter &beta;. Market clearing requires \(x_A^* + x_B^* = \bar{x}\) and \(y_A^* + y_B^* = \bar{y}\).</p>
+
+                <h3>Walras&rsquo; Law</h3>
+                <p>A fundamental result in general equilibrium is <strong>Walras&rsquo; law</strong>: if each consumer satisfies their budget constraint, the total value of excess demand across all markets sums to zero:</p>
+
+                \[
+                    p_x \bigl[(x_A^* - \omega_A^x) + (x_B^* - \omega_B^x)\bigr] + p_y \bigl[(y_A^* - \omega_A^y) + (y_B^* - \omega_B^y)\bigr] = 0
+                \]
+
+                <p>This means that if one market clears, the other must clear automatically. We can therefore normalise one price to 1 (say \(p_y = 1\)) and solve for the equilibrium price ratio \(p = p_x / p_y\) from a single market-clearing condition.</p>
+
+                <h3>Solving for Equilibrium</h3>
+                <p>With \(\omega_A = (8, 2)\), \(\omega_B = (2, 8)\), \(\bar{x} = \bar{y} = 10\), and \(\alpha = \beta = 0.5\), we normalise \(p_y = 1\) and solve the good-x market-clearing condition:</p>
+
+                \[
+                    x_A^* + x_B^* = 10
+                \]
+                \[
+                    \frac{0.5(8p + 2)}{p} + \frac{0.5(2p + 8)}{p} = 10
+                \]
+                \[
+                    \frac{4p + 1 + p + 4}{p} = 10 \quad \Rightarrow \quad 5p + 5 = 10p \quad \Rightarrow \quad p^* = 1
+                \]
+
+                <p>At \(p^* = 1\), Alice demands \(x_A^* = 0.5(8 + 2) = 5\) and \(y_A^* = 0.5 \cdot 10 = 5\). Bob likewise demands \(x_B^* = 5, y_B^* = 5\). The equilibrium allocation is (5, 5) for both &mdash; the centre of the Edgeworth box, right on the diagonal contract curve.</p>
+
+                <h3>The Contract Curve</h3>
+                <p>The contract curve is found by equating the consumers&rsquo; MRS values. For Cobb-Douglas preferences:</p>
+
+                \[
+                    \text{MRS}_A = \frac{\alpha}{1-\alpha} \cdot \frac{y_A}{x_A}, \qquad \text{MRS}_B = \frac{\beta}{1-\beta} \cdot \frac{y_B}{x_B}
+                \]
+
+                <p>Setting \(\text{MRS}_A = \text{MRS}_B\) and substituting \(x_B = \bar{x} - x_A\), \(y_B = \bar{y} - y_A\):</p>
+
+                \[
+                    \frac{\alpha}{1-\alpha} \cdot \frac{y_A}{x_A} = \frac{\beta}{1-\beta} \cdot \frac{\bar{y} - y_A}{\bar{x} - x_A}
+                \]
+
+                <p>When \(\alpha = \beta\), this simplifies to \(y_A / x_A = (\bar{y} - y_A) / (\bar{x} - x_A)\), which gives \(y_A = (\bar{y}/\bar{x}) x_A\) &mdash; a straight line through the origin. With \(\bar{x} = \bar{y} = 10\), the contract curve is simply \(y_A = x_A\), the diagonal.</p>
+
+                <h3>The PPF and Output-Mix Efficiency</h3>
+                <p>Suppose the economy has \(\bar{L}\) units of labour and can produce food with \(q_x = L_x^{0.5}\) and clothing with \(q_y = (\bar{L} - L_x)^{0.5}\). The PPF is found by eliminating \(L_x\):</p>
+
+                \[
+                    q_x^2 + q_y^2 = \bar{L}
+                \]
+
+                <p>This is a quarter-circle with radius \(\sqrt{\bar{L}}\). The MRT is:</p>
+
+                \[
+                    \text{MRT} = -\frac{dq_y}{dq_x} = \frac{q_x}{q_y} = \frac{MC_x}{MC_y}
+                \]
+
+                <p>Output-mix efficiency requires \(\text{MRS} = \text{MRT}\). For a consumer with Cobb-Douglas preferences \(U = q_x^{0.5} q_y^{0.5}\), \(\text{MRS} = q_y / q_x\). Setting \(\text{MRS} = \text{MRT}\) gives \(q_y / q_x = q_x / q_y\), so \(q_x = q_y\) &mdash; equal production of both goods at the efficient point.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>General equilibrium analysis extends our toolkit from single-market reasoning to economy-wide reasoning. The Edgeworth box provides a remarkably compact way to visualise all possible allocations between two consumers and two goods. Within it, the contract curve traces out every Pareto-efficient allocation &mdash; points where no further mutually beneficial trades exist, characterised by the tangency of indifference curves (\(\text{MRS}_A = \text{MRS}_B\)).</p>
+
+                <p>Adding production introduces the PPF and the marginal rate of transformation. Full efficiency requires not just exchange efficiency but also production efficiency (being on the PPF) and output-mix efficiency (\(\text{MRS} = \text{MRT}\)). The First Welfare Theorem tells us that competitive equilibrium achieves all three forms of efficiency simultaneously &mdash; a powerful vindication of market mechanisms.</p>
+
+                <p>The Second Welfare Theorem complements this by showing that any Pareto-efficient allocation is achievable through competitive markets, provided the government can redistribute endowments with lump-sum transfers. In practice, the impossibility of truly non-distortionary transfers means that efficiency and equity remain in tension &mdash; a theme that pervades public economics.</p>
+
+                <p>In the next chapter, we move from the idealised world of perfect competition to the opposite extreme: <strong>monopoly</strong>, where a single firm controls the entire market and wields market power to set prices above marginal cost.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch9-applying-the-competitive-model.html">&larr; Chapter 9: Applying the Competitive Model</a>
+                <span style="color: var(--color-text-lighter);">Chapter 11: Monopoly &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        /* ── Colour palettes ── */
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            icA: '#3b82f6', icAFill: 'rgba(59, 130, 246, 0.08)',
+            icB: '#ef4444', icBFill: 'rgba(239, 68, 68, 0.08)',
+            contract: '#10b981', contractGlow: 'rgba(16, 185, 129, 0.3)',
+            endowment: '#f59e0b', endowGlow: 'rgba(245, 158, 11, 0.3)',
+            allocation: '#0a9396', allocGlow: 'rgba(10, 147, 150, 0.3)',
+            lens: 'rgba(251, 191, 36, 0.15)', lensBorder: '#f59e0b',
+            priceLine: '#8b5cf6',
+            ppf: '#3b82f6', ppfFill: 'rgba(59, 130, 246, 0.06)',
+            ic: '#10b981', icFill: 'rgba(16, 185, 129, 0.08)',
+            tangent: '#ef4444', optimal: '#f59e0b', optGlow: 'rgba(245, 158, 11, 0.3)',
+            boxBorder: '#1a1a1a'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            icA: '#60a5fa', icAFill: 'rgba(96, 165, 250, 0.1)',
+            icB: '#f87171', icBFill: 'rgba(248, 113, 113, 0.1)',
+            contract: '#34d399', contractGlow: 'rgba(52, 211, 153, 0.3)',
+            endowment: '#fbbf24', endowGlow: 'rgba(251, 191, 36, 0.3)',
+            allocation: '#2ec4c8', allocGlow: 'rgba(46, 196, 200, 0.3)',
+            lens: 'rgba(251, 191, 36, 0.12)', lensBorder: '#fbbf24',
+            priceLine: '#a78bfa',
+            ppf: '#60a5fa', ppfFill: 'rgba(96, 165, 250, 0.08)',
+            ic: '#34d399', icFill: 'rgba(52, 211, 153, 0.1)',
+            tangent: '#f87171', optimal: '#fbbf24', optGlow: 'rgba(251, 191, 36, 0.3)',
+            boxBorder: '#d0d0d0'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        /* ── Shared helpers ── */
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        var Marg = { left: 55, top: 25, right: 55, bottom: 45 };
+
+        /* tp: data coords to pixel coords within box/graph area */
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(pt.x, oy + gh); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        /* Draw Edgeworth box outline with dual axes */
+        function drawBox(ctx, ox, oy, gw, gh, xMax, yMax) {
+            /* Grid */
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            var v, pt;
+            for (v = 1; v < xMax; v++) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            for (v = 1; v < yMax; v++) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            /* Box border */
+            ctx.strokeStyle = C.boxBorder; ctx.lineWidth = 2;
+            ctx.strokeRect(ox, oy, gw, gh);
+
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            /* Alice axes (bottom, left) */
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (v = 0; v <= xMax; v += 2) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (v = 0; v <= yMax; v += 2) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, ox - 6, pt.y);
+            }
+            /* Bob axes (top, right) */
+            ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+            for (v = 0; v <= xMax; v += 2) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(xMax - v, pt.x, oy - 4);
+            }
+            ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+            for (v = 0; v <= yMax; v += 2) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(yMax - v, ox + gw + 6, pt.y);
+            }
+
+            /* Axis labels */
+            ctx.fillStyle = C.icA; ctx.font = 'bold 12px -apple-system, sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            ctx.fillText("Alice's food →", ox + gw / 2, oy + gh + 20);
+            ctx.save(); ctx.translate(ox - 40, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText("Alice's clothing →", 0, 0); ctx.restore();
+
+            ctx.fillStyle = C.icB;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+            ctx.fillText("← Bob's food", ox + gw / 2, oy - 18);
+            ctx.save(); ctx.translate(ox + gw + 42, oy + gh / 2); ctx.rotate(Math.PI / 2);
+            ctx.fillText("← Bob's clothing", 0, 0); ctx.restore();
+        }
+
+        /* Draw a Cobb-Douglas IC: U = x^a * y^(1-a) => y = (U / x^a)^(1/(1-a)) */
+        function drawIC_A(ctx, ox, oy, gw, gh, xMax, yMax, Utarget, alpha, color, dashed) {
+            var exp = 1 / (1 - alpha);
+            ctx.strokeStyle = color; ctx.lineWidth = 2;
+            if (dashed) ctx.setLineDash([6, 4]); else ctx.setLineDash([]);
+            ctx.beginPath();
+            var started = false;
+            for (var xv = 0.05; xv <= xMax; xv += 0.05) {
+                var yv = Math.pow(Utarget / Math.pow(xv, alpha), exp);
+                if (yv < 0 || yv > yMax * 1.5) continue;
+                var pt = tp(xv, yv, ox, oy, gw, gh, xMax, yMax);
+                if (!started) { ctx.moveTo(pt.x, pt.y); started = true; }
+                else ctx.lineTo(pt.x, pt.y);
+            }
+            ctx.stroke(); ctx.setLineDash([]);
+        }
+
+        /* Bob's IC drawn from his origin (top-right). xB = xMax - x, yB = yMax - y */
+        function drawIC_B(ctx, ox, oy, gw, gh, xMax, yMax, Utarget, beta, color, dashed) {
+            var exp = 1 / (1 - beta);
+            ctx.strokeStyle = color; ctx.lineWidth = 2;
+            if (dashed) ctx.setLineDash([6, 4]); else ctx.setLineDash([]);
+            ctx.beginPath();
+            var started = false;
+            for (var xb = 0.05; xb <= xMax; xb += 0.05) {
+                var yb = Math.pow(Utarget / Math.pow(xb, beta), exp);
+                if (yb < 0 || yb > yMax * 1.5) continue;
+                var xa = xMax - xb;
+                var ya = yMax - yb;
+                var pt = tp(xa, ya, ox, oy, gw, gh, xMax, yMax);
+                if (!started) { ctx.moveTo(pt.x, pt.y); started = true; }
+                else ctx.lineTo(pt.x, pt.y);
+            }
+            ctx.stroke(); ctx.setLineDash([]);
+        }
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 1: Edgeworth Box with ICs                */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slXa = document.getElementById('slider-xa');
+            var slYa = document.getElementById('slider-ya');
+            var vXa = document.getElementById('val-xa');
+            var vYa = document.getElementById('val-ya');
+            var btnReset = document.getElementById('btn-reset-ew');
+            var info = document.getElementById('info-edgeworth');
+
+            var Xtot = 10, Ytot = 10;
+            var alpha = 0.5, beta = 0.5;
+            /* Endowment */
+            var wxa = 8, wya = 2;
+
+            function draw() {
+                var res = getCtx('canvas-edgeworth');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawBox(ctx, ox, oy, gw, gh, Xtot, Ytot);
+
+                var xa = parseFloat(slXa.value);
+                var ya = parseFloat(slYa.value);
+                vXa.textContent = xa.toFixed(1);
+                vYa.textContent = ya.toFixed(1);
+
+                var xb = Xtot - xa, yb = Ytot - ya;
+                var Ua = Math.pow(xa, alpha) * Math.pow(ya, 1 - alpha);
+                var Ub = Math.pow(xb, beta) * Math.pow(yb, 1 - beta);
+                var Uw_a = Math.pow(wxa, alpha) * Math.pow(wya, 1 - alpha);
+                var Uw_b = Math.pow(Xtot - wxa, beta) * Math.pow(Ytot - wya, 1 - beta);
+
+                /* Draw lens of Pareto improvements from endowment */
+                /* Fill region between ICs through endowment where both are better off */
+                ctx.save();
+                ctx.beginPath();
+                var exp_a = 1 / (1 - alpha);
+                var exp_b = 1 / (1 - beta);
+                /* Alice's IC through endowment (lower boundary of lens) */
+                var pts_a = [], pts_b = [];
+                for (var xv = 0.05; xv <= Xtot; xv += 0.1) {
+                    var yv_a = Math.pow(Uw_a / Math.pow(xv, alpha), exp_a);
+                    var yv_bIC = Math.pow(Uw_b / Math.pow(Xtot - xv, beta), exp_b);
+                    var ya_fromB = Ytot - yv_bIC;
+                    if (yv_a >= 0 && yv_a <= Ytot) pts_a.push({ x: xv, y: yv_a });
+                    if (ya_fromB >= 0 && ya_fromB <= Ytot) pts_b.push({ x: xv, y: ya_fromB });
+                }
+                /* Find intersection region and fill lens */
+                if (pts_a.length > 2 && pts_b.length > 2) {
+                    ctx.fillStyle = C.lens;
+                    ctx.beginPath();
+                    /* Alice's IC (going right) */
+                    var i, pt;
+                    var lensStarted = false;
+                    for (i = 0; i < pts_a.length; i++) {
+                        /* Only draw where Alice's IC is below Bob's IC (lens interior) */
+                        var yBob = Ytot - Math.pow(Uw_b / Math.pow(Xtot - pts_a[i].x, beta), exp_b);
+                        if (pts_a[i].y <= yBob + 0.1 && pts_a[i].y >= 0 && pts_a[i].x > 0) {
+                            pt = tp(pts_a[i].x, pts_a[i].y, ox, oy, gw, gh, Xtot, Ytot);
+                            if (!lensStarted) { ctx.moveTo(pt.x, pt.y); lensStarted = true; }
+                            else ctx.lineTo(pt.x, pt.y);
+                        }
+                    }
+                    /* Bob's IC (going back left) */
+                    for (i = pts_b.length - 1; i >= 0; i--) {
+                        var yAlice = Math.pow(Uw_a / Math.pow(pts_b[i].x, alpha), exp_a);
+                        if (pts_b[i].y >= yAlice - 0.1 && pts_b[i].y <= Ytot && pts_b[i].x > 0) {
+                            pt = tp(pts_b[i].x, pts_b[i].y, ox, oy, gw, gh, Xtot, Ytot);
+                            ctx.lineTo(pt.x, pt.y);
+                        }
+                    }
+                    ctx.closePath(); ctx.fill();
+                }
+                ctx.restore();
+
+                /* Draw ICs through endowment */
+                drawIC_A(ctx, ox, oy, gw, gh, Xtot, Ytot, Uw_a, alpha, C.icA, true);
+                drawIC_B(ctx, ox, oy, gw, gh, Xtot, Ytot, Uw_b, beta, C.icB, true);
+
+                /* Draw ICs through current allocation */
+                drawIC_A(ctx, ox, oy, gw, gh, Xtot, Ytot, Ua, alpha, C.icA, false);
+                drawIC_B(ctx, ox, oy, gw, gh, Xtot, Ytot, Ub, beta, C.icB, false);
+
+                /* Endowment point */
+                var wpt = tp(wxa, wya, ox, oy, gw, gh, Xtot, Ytot);
+                ctx.beginPath(); ctx.arc(wpt.x, wpt.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = C.endowGlow; ctx.fill();
+                dot(ctx, wxa, wya, ox, oy, gw, gh, Xtot, Ytot, C.endowment, 5);
+                ctx.fillStyle = C.endowment; ctx.font = 'bold 14px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('ω', wpt.x + 8, wpt.y - 4);
+
+                /* Current allocation point */
+                if (Math.abs(xa - wxa) > 0.1 || Math.abs(ya - wya) > 0.1) {
+                    var apt = tp(xa, ya, ox, oy, gw, gh, Xtot, Ytot);
+                    ctx.beginPath(); ctx.arc(apt.x, apt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.allocGlow; ctx.fill();
+                    dot(ctx, xa, ya, ox, oy, gw, gh, Xtot, Ytot, C.allocation, 5);
+                    dashedTo(ctx, xa, ya, ox, oy, gw, gh, Xtot, Ytot, C.textMuted);
+                }
+
+                /* Labels */
+                ctx.fillStyle = C.icA; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText('Alice', ox + 4, oy + gh - 16);
+                ctx.fillStyle = C.icB;
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Bob', ox + gw - 4, oy + 16);
+
+                /* Info */
+                var paretoImprove = (Ua >= Uw_a - 0.001 && Ub >= Uw_b - 0.001);
+                var mrsA = (alpha / (1 - alpha)) * (ya / Math.max(xa, 0.01));
+                var mrsB = (beta / (1 - beta)) * (yb / Math.max(xb, 0.01));
+                info.innerHTML =
+                    '<strong>Alice:</strong> (' + xa.toFixed(1) + ', ' + ya.toFixed(1) + '), U<sub>A</sub> = ' + Ua.toFixed(2) +
+                    ', MRS<sub>A</sub> = ' + mrsA.toFixed(2) +
+                    ' &nbsp;|&nbsp; <strong>Bob:</strong> (' + xb.toFixed(1) + ', ' + yb.toFixed(1) + '), U<sub>B</sub> = ' + Ub.toFixed(2) +
+                    ', MRS<sub>B</sub> = ' + mrsB.toFixed(2) +
+                    '<br>' + (paretoImprove ? '✓ Pareto improvement over endowment' : '✗ Not a Pareto improvement') +
+                    ' &nbsp;|&nbsp; ' + (Math.abs(mrsA - mrsB) < 0.15 ? '≈ Pareto efficient (MRS<sub>A</sub> ≈ MRS<sub>B</sub>)' : 'Not Pareto efficient (MRS<sub>A</sub> ≠ MRS<sub>B</sub>)');
+            }
+
+            slXa.addEventListener('input', draw);
+            slYa.addEventListener('input', draw);
+            btnReset.addEventListener('click', function() {
+                slXa.value = 8; slYa.value = 2; draw();
+            });
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 2: Contract Curve                        */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slAlpha = document.getElementById('slider-alpha');
+            var vAlpha = document.getElementById('val-alpha');
+            var btnICs = document.getElementById('btn-show-ics');
+            var info = document.getElementById('info-contract');
+            var showICs = false;
+
+            var Xtot = 10, Ytot = 10;
+            var beta = 0.5;
+            var wxa = 8, wya = 2;
+
+            function draw() {
+                var res = getCtx('canvas-contract');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawBox(ctx, ox, oy, gw, gh, Xtot, Ytot);
+
+                var alpha = parseFloat(slAlpha.value);
+                vAlpha.textContent = alpha.toFixed(2);
+
+                var Uw_a = Math.pow(wxa, alpha) * Math.pow(wya, 1 - alpha);
+                var Uw_b = Math.pow(Xtot - wxa, beta) * Math.pow(Ytot - wya, 1 - beta);
+
+                /* Draw lens from endowment */
+                var exp_a = 1 / (1 - alpha);
+                var exp_b = 1 / (1 - beta);
+                var pts_a = [], pts_b = [];
+                for (var xv = 0.05; xv <= Xtot; xv += 0.1) {
+                    var yv_a = Math.pow(Uw_a / Math.pow(xv, alpha), exp_a);
+                    var yv_bIC = Math.pow(Uw_b / Math.pow(Xtot - xv, beta), exp_b);
+                    var ya_fromB = Ytot - yv_bIC;
+                    if (yv_a >= 0 && yv_a <= Ytot) pts_a.push({ x: xv, y: yv_a });
+                    if (ya_fromB >= 0 && ya_fromB <= Ytot) pts_b.push({ x: xv, y: ya_fromB });
+                }
+                if (pts_a.length > 2 && pts_b.length > 2) {
+                    ctx.fillStyle = C.lens;
+                    ctx.beginPath();
+                    var i, pt, lensStarted = false;
+                    for (i = 0; i < pts_a.length; i++) {
+                        var yBob = Ytot - Math.pow(Uw_b / Math.pow(Math.max(Xtot - pts_a[i].x, 0.01), beta), exp_b);
+                        if (pts_a[i].y <= yBob + 0.1 && pts_a[i].y >= 0) {
+                            pt = tp(pts_a[i].x, pts_a[i].y, ox, oy, gw, gh, Xtot, Ytot);
+                            if (!lensStarted) { ctx.moveTo(pt.x, pt.y); lensStarted = true; }
+                            else ctx.lineTo(pt.x, pt.y);
+                        }
+                    }
+                    for (i = pts_b.length - 1; i >= 0; i--) {
+                        var yAlice = Math.pow(Uw_a / Math.pow(Math.max(pts_b[i].x, 0.01), alpha), exp_a);
+                        if (pts_b[i].y >= yAlice - 0.1 && pts_b[i].y <= Ytot) {
+                            pt = tp(pts_b[i].x, pts_b[i].y, ox, oy, gw, gh, Xtot, Ytot);
+                            ctx.lineTo(pt.x, pt.y);
+                        }
+                    }
+                    ctx.closePath(); ctx.fill();
+                }
+
+                /* ICs through endowment (dashed) */
+                drawIC_A(ctx, ox, oy, gw, gh, Xtot, Ytot, Uw_a, alpha, C.icA, true);
+                drawIC_B(ctx, ox, oy, gw, gh, Xtot, Ytot, Uw_b, beta, C.icB, true);
+
+                /* Contract curve: solve MRS_A = MRS_B for y_A as function of x_A */
+                /* (alpha/(1-alpha)) * yA/xA = (beta/(1-beta)) * (Ytot-yA)/(Xtot-xA) */
+                /* Let r = (alpha/(1-alpha)) / (beta/(1-beta)) = alpha(1-beta) / ((1-alpha)*beta) */
+                var r = (alpha * (1 - beta)) / ((1 - alpha) * beta);
+                ctx.strokeStyle = C.contract; ctx.lineWidth = 3; ctx.setLineDash([]);
+                ctx.beginPath();
+                var ccStarted = false;
+                var ccPoints = [];
+                for (var xc = 0.1; xc <= Xtot - 0.1; xc += 0.1) {
+                    /* r * yA / xA = (Ytot - yA) / (Xtot - xA) */
+                    /* r * yA * (Xtot - xA) = xA * (Ytot - yA) */
+                    /* yA * (r*(Xtot-xA) + xA) = xA * Ytot */
+                    var yc = (xc * Ytot) / (r * (Xtot - xc) + xc);
+                    if (yc >= 0 && yc <= Ytot) {
+                        pt = tp(xc, yc, ox, oy, gw, gh, Xtot, Ytot);
+                        if (!ccStarted) { ctx.moveTo(pt.x, pt.y); ccStarted = true; }
+                        else ctx.lineTo(pt.x, pt.y);
+                        ccPoints.push({ x: xc, y: yc });
+                    }
+                }
+                ctx.stroke();
+
+                /* Show ICs at midpoint of contract curve if toggled */
+                if (showICs && ccPoints.length > 0) {
+                    var mid = ccPoints[Math.floor(ccPoints.length / 2)];
+                    var Umid_a = Math.pow(mid.x, alpha) * Math.pow(mid.y, 1 - alpha);
+                    var Umid_b = Math.pow(Xtot - mid.x, beta) * Math.pow(Ytot - mid.y, 1 - beta);
+                    drawIC_A(ctx, ox, oy, gw, gh, Xtot, Ytot, Umid_a, alpha, C.icA, false);
+                    drawIC_B(ctx, ox, oy, gw, gh, Xtot, Ytot, Umid_b, beta, C.icB, false);
+                    dot(ctx, mid.x, mid.y, ox, oy, gw, gh, Xtot, Ytot, C.allocation, 5);
+                }
+
+                /* Endowment */
+                var wpt = tp(wxa, wya, ox, oy, gw, gh, Xtot, Ytot);
+                ctx.beginPath(); ctx.arc(wpt.x, wpt.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = C.endowGlow; ctx.fill();
+                dot(ctx, wxa, wya, ox, oy, gw, gh, Xtot, Ytot, C.endowment, 5);
+                ctx.fillStyle = C.endowment; ctx.font = 'bold 14px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('ω', wpt.x + 8, wpt.y - 4);
+
+                /* Label contract curve */
+                if (ccPoints.length > 5) {
+                    var lbl = ccPoints[Math.floor(ccPoints.length * 0.7)];
+                    var lpt = tp(lbl.x, lbl.y, ox, oy, gw, gh, Xtot, Ytot);
+                    ctx.fillStyle = C.contract; ctx.font = 'bold 11px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('Contract curve', lpt.x + 8, lpt.y - 4);
+                }
+
+                /* Corner labels */
+                ctx.fillStyle = C.icA; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText('Alice', ox + 4, oy + gh - 16);
+                ctx.fillStyle = C.icB; ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Bob', ox + gw - 4, oy + 16);
+
+                info.innerHTML =
+                    '<strong>Alice&rsquo;s α = ' + alpha.toFixed(2) + '</strong> (Bob&rsquo;s β = 0.50). ' +
+                    (Math.abs(alpha - 0.5) < 0.01 ? 'Symmetric preferences: contract curve is the diagonal.' :
+                    (alpha > 0.5 ? 'Alice values food more: contract curve bows towards top-left.' :
+                    'Alice values clothing more: contract curve bows towards bottom-right.'));
+            }
+
+            slAlpha.addEventListener('input', draw);
+            btnICs.addEventListener('click', function() {
+                showICs = !showICs;
+                this.classList.toggle('active-toggle', showICs);
+                draw();
+            });
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 3: PPF and MRS = MRT                     */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slX = document.getElementById('slider-ppf-x');
+            var vX = document.getElementById('val-ppf-x');
+            var btnOpt = document.getElementById('btn-find-optimal');
+            var info = document.getElementById('info-ppf');
+
+            /* PPF: x^2 + y^2 = R^2, with R = sqrt(50) so max ≈ 7.07 each */
+            var R2 = 50;
+            var R = Math.sqrt(R2);
+            var xMax = 10, yMax = 10;
+            var alpha = 0.5; /* consumer preference */
+
+            function ppfY(x) { return Math.sqrt(Math.max(R2 - x * x, 0)); }
+
+            /* Optimal: MRS = MRT => y/x = x/y => x = y => x^2 + x^2 = R2 => x = sqrt(R2/2) */
+            var xOpt = Math.sqrt(R2 / 2);
+
+            function draw() {
+                var res = getCtx('canvas-ppf');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                /* Draw axes (standard, not box) */
+                ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+                var v, pt;
+                for (v = 1; v <= yMax; v++) {
+                    pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+                }
+                for (v = 1; v <= xMax; v++) {
+                    pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+                }
+                ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+                ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+
+                ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                ctx.fillText('Food (x)', ox + gw / 2, oy + gh + 22);
+                for (v = 2; v <= xMax; v += 2) {
+                    pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText(v, pt.x, oy + gh + 4);
+                }
+                ctx.save(); ctx.translate(ox - 40, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+                ctx.textAlign = 'center'; ctx.fillText('Clothing (y)', 0, 0); ctx.restore();
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                for (v = 2; v <= yMax; v += 2) {
+                    pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText(v, ox - 6, pt.y);
+                }
+
+                /* PPF curve */
+                ctx.fillStyle = C.ppfFill;
+                ctx.beginPath();
+                pt = tp(0, R, ox, oy, gw, gh, xMax, yMax);
+                ctx.moveTo(pt.x, pt.y);
+                for (var xv = 0; xv <= R; xv += 0.05) {
+                    var yv = ppfY(xv);
+                    pt = tp(xv, yv, ox, oy, gw, gh, xMax, yMax);
+                    ctx.lineTo(pt.x, pt.y);
+                }
+                pt = tp(R, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.lineTo(pt.x, pt.y);
+                pt = tp(0, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.lineTo(pt.x, pt.y);
+                pt = tp(0, R, ox, oy, gw, gh, xMax, yMax);
+                ctx.lineTo(pt.x, pt.y);
+                ctx.closePath(); ctx.fill();
+
+                ctx.strokeStyle = C.ppf; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                for (var xv2 = 0; xv2 <= R; xv2 += 0.05) {
+                    pt = tp(xv2, ppfY(xv2), ox, oy, gw, gh, xMax, yMax);
+                    if (xv2 === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+
+                /* Current production point */
+                var x0 = parseFloat(slX.value);
+                if (x0 > R) x0 = R;
+                var y0 = ppfY(x0);
+                vX.textContent = x0.toFixed(2);
+
+                /* MRT at current point = x0 / y0 */
+                var MRT = y0 > 0.01 ? x0 / y0 : 999;
+
+                /* Draw tangent line at current point (slope = -MRT in data coords) */
+                var tLen = 3;
+                var tx1 = x0 - tLen, ty1 = y0 + tLen * MRT;
+                var tx2 = x0 + tLen, ty2 = y0 - tLen * MRT;
+                ctx.strokeStyle = C.tangent; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                var p1 = tp(Math.max(tx1, 0), Math.min(ty1, yMax), ox, oy, gw, gh, xMax, yMax);
+                var p2 = tp(Math.min(tx2, xMax), Math.max(ty2, 0), ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                ctx.setLineDash([]);
+
+                /* IC through production point: U = x^0.5 * y^0.5, so y = U^2 / x */
+                var U0 = Math.pow(x0, alpha) * Math.pow(y0, 1 - alpha);
+                if (U0 > 0.01) {
+                    ctx.strokeStyle = C.ic; ctx.lineWidth = 2; ctx.setLineDash([]);
+                    ctx.beginPath();
+                    var icStarted = false;
+                    for (var xi = 0.1; xi <= xMax; xi += 0.05) {
+                        var yi = Math.pow(U0 / Math.pow(xi, alpha), 1 / (1 - alpha));
+                        if (yi > yMax * 1.2 || yi < 0) continue;
+                        pt = tp(xi, yi, ox, oy, gw, gh, xMax, yMax);
+                        if (!icStarted) { ctx.moveTo(pt.x, pt.y); icStarted = true; }
+                        else ctx.lineTo(pt.x, pt.y);
+                    }
+                    ctx.stroke();
+                }
+
+                /* Production point */
+                dashedTo(ctx, x0, y0, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                var prodPt = tp(x0, y0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(prodPt.x, prodPt.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = C.optGlow; ctx.fill();
+                dot(ctx, x0, y0, ox, oy, gw, gh, xMax, yMax, C.optimal, 5);
+
+                /* Optimal point marker */
+                var yOpt = ppfY(xOpt);
+                if (Math.abs(x0 - xOpt) > 0.3) {
+                    dot(ctx, xOpt, yOpt, ox, oy, gw, gh, xMax, yMax, C.contract, 4);
+                    var optPt = tp(xOpt, yOpt, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillStyle = C.contract; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('MRS=MRT', optPt.x + 6, optPt.y - 4);
+                }
+
+                /* Labels */
+                ctx.fillStyle = C.ppf; ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                var ppfLbl = tp(1.5, ppfY(1.5) + 0.4, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('PPF', ppfLbl.x, ppfLbl.y);
+
+                ctx.fillStyle = C.ic; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'left';
+                var icLbl = tp(Math.min(x0 + 3, xMax - 1), Math.pow(U0 / Math.pow(Math.min(x0 + 3, xMax - 1), alpha), 1 / (1 - alpha)), ox, oy, gw, gh, xMax, yMax);
+                if (icLbl.y > oy && icLbl.y < oy + gh) ctx.fillText('IC', icLbl.x + 4, icLbl.y);
+
+                /* MRS at current point = y0 / x0 (for U = x^0.5 y^0.5) */
+                var MRS = x0 > 0.01 ? y0 / x0 : 999;
+                info.innerHTML =
+                    '<strong>Production:</strong> x = ' + x0.toFixed(2) + ', y = ' + y0.toFixed(2) +
+                    ' &nbsp;|&nbsp; <strong>MRT</strong> = ' + MRT.toFixed(2) +
+                    ' &nbsp;|&nbsp; <strong>MRS</strong> = ' + MRS.toFixed(2) +
+                    ' &nbsp;|&nbsp; U = ' + U0.toFixed(2) +
+                    '<br>' + (Math.abs(MRS - MRT) < 0.15 ? '✓ MRS ≈ MRT — efficient output mix' :
+                    (MRS > MRT ? '↑ MRS > MRT — produce more food (move right)' : '↓ MRS < MRT — produce less food (move left)'));
+            }
+
+            slX.addEventListener('input', draw);
+            btnOpt.addEventListener('click', function() {
+                slX.value = xOpt.toFixed(2); draw();
+            });
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 4: Competitive Equilibrium in Edgeworth  */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slPrice = document.getElementById('slider-price');
+            var vPrice = document.getElementById('val-price');
+            var btnCE = document.getElementById('btn-find-ce');
+            var info = document.getElementById('info-ce');
+
+            var Xtot = 10, Ytot = 10;
+            var alpha = 0.5, beta = 0.5;
+            var wxa = 8, wya = 2;
+            var wxb = 2, wyb = 8;
+
+            function draw() {
+                var res = getCtx('canvas-ce');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawBox(ctx, ox, oy, gw, gh, Xtot, Ytot);
+
+                var p = parseFloat(slPrice.value); /* px/py */
+                vPrice.textContent = p.toFixed(2);
+
+                /* Budget = income at prices. py = 1 */
+                var incA = p * wxa + wya; /* Alice's income */
+                var incB = p * wxb + wyb; /* Bob's income */
+
+                /* Cobb-Douglas demands */
+                var xA = alpha * incA / p;
+                var yA = (1 - alpha) * incA;
+                var xB = beta * incB / p;
+                var yB = (1 - beta) * incB;
+
+                /* Excess demand */
+                var excessX = xA + xB - Xtot;
+                var excessY = yA + yB - Ytot;
+
+                /* Contract curve (diagonal for symmetric) */
+                var r = (alpha * (1 - beta)) / ((1 - alpha) * beta);
+                ctx.strokeStyle = C.contract; ctx.lineWidth = 2; ctx.setLineDash([4, 3]);
+                ctx.beginPath();
+                var ccStarted = false;
+                for (var xc = 0.1; xc <= Xtot - 0.1; xc += 0.1) {
+                    var yc = (xc * Ytot) / (r * (Xtot - xc) + xc);
+                    if (yc >= 0 && yc <= Ytot) {
+                        var pt = tp(xc, yc, ox, oy, gw, gh, Xtot, Ytot);
+                        if (!ccStarted) { ctx.moveTo(pt.x, pt.y); ccStarted = true; }
+                        else ctx.lineTo(pt.x, pt.y);
+                    }
+                }
+                ctx.stroke(); ctx.setLineDash([]);
+
+                /* Price line through endowment: py*ya + px*xa = incA => ya = incA - p*xa */
+                ctx.strokeStyle = C.priceLine; ctx.lineWidth = 2; ctx.setLineDash([]);
+                var plx1 = 0, ply1 = incA;
+                var plx2 = incA / p, ply2 = 0;
+                /* Clip to box */
+                if (ply1 > Ytot) { ply1 = Ytot; plx1 = (incA - Ytot) / p; }
+                if (plx2 > Xtot) { plx2 = Xtot; ply2 = incA - p * Xtot; }
+                var pp1 = tp(plx1, ply1, ox, oy, gw, gh, Xtot, Ytot);
+                var pp2 = tp(plx2, Math.max(ply2, 0), ox, oy, gw, gh, Xtot, Ytot);
+                ctx.beginPath(); ctx.moveTo(pp1.x, pp1.y); ctx.lineTo(pp2.x, pp2.y); ctx.stroke();
+
+                /* ICs through demands */
+                var clampXA = Math.max(0.1, Math.min(xA, Xtot - 0.1));
+                var clampYA = Math.max(0.1, Math.min(yA, Ytot - 0.1));
+                var Ua = Math.pow(clampXA, alpha) * Math.pow(clampYA, 1 - alpha);
+                var clampXB = Math.max(0.1, Math.min(Xtot - clampXA, Xtot - 0.1));
+                var clampYB = Math.max(0.1, Math.min(Ytot - clampYA, Ytot - 0.1));
+                var Ub = Math.pow(Math.max(clampXB, 0.1), beta) * Math.pow(Math.max(clampYB, 0.1), 1 - beta);
+
+                drawIC_A(ctx, ox, oy, gw, gh, Xtot, Ytot, Ua, alpha, C.icA, false);
+                drawIC_B(ctx, ox, oy, gw, gh, Xtot, Ytot, Ub, beta, C.icB, false);
+
+                /* Endowment */
+                var wpt = tp(wxa, wya, ox, oy, gw, gh, Xtot, Ytot);
+                ctx.beginPath(); ctx.arc(wpt.x, wpt.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = C.endowGlow; ctx.fill();
+                dot(ctx, wxa, wya, ox, oy, gw, gh, Xtot, Ytot, C.endowment, 5);
+                ctx.fillStyle = C.endowment; ctx.font = 'bold 14px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('ω', wpt.x + 8, wpt.y - 4);
+
+                /* Demand point (Alice's optimal) */
+                if (clampXA > 0 && clampXA < Xtot && clampYA > 0 && clampYA < Ytot) {
+                    dashedTo(ctx, clampXA, clampYA, ox, oy, gw, gh, Xtot, Ytot, C.textMuted);
+                    var demPt = tp(clampXA, clampYA, ox, oy, gw, gh, Xtot, Ytot);
+                    ctx.beginPath(); ctx.arc(demPt.x, demPt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.allocGlow; ctx.fill();
+                    dot(ctx, clampXA, clampYA, ox, oy, gw, gh, Xtot, Ytot, C.allocation, 5);
+                }
+
+                /* Labels */
+                ctx.fillStyle = C.priceLine; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                var plLbl = tp(plx1 + 0.5, ply1 - 0.3, ox, oy, gw, gh, Xtot, Ytot);
+                ctx.fillText('Price line', plLbl.x, plLbl.y);
+
+                ctx.fillStyle = C.contract; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                var ccLbl = tp(7, (7 * Ytot) / (r * (Xtot - 7) + 7), ox, oy, gw, gh, Xtot, Ytot);
+                ctx.fillText('CC', ccLbl.x + 6, ccLbl.y);
+
+                ctx.fillStyle = C.icA; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText('Alice', ox + 4, oy + gh - 16);
+                ctx.fillStyle = C.icB; ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Bob', ox + gw - 4, oy + 16);
+
+                /* Info */
+                var isEquil = Math.abs(excessX) < 0.2 && Math.abs(excessY) < 0.2;
+                info.innerHTML =
+                    '<strong>p<sub>x</sub>/p<sub>y</sub> = ' + p.toFixed(2) + '</strong>' +
+                    ' &nbsp;|&nbsp; Alice demands (' + xA.toFixed(1) + ', ' + yA.toFixed(1) + ')' +
+                    ', Bob demands (' + xB.toFixed(1) + ', ' + yB.toFixed(1) + ')' +
+                    '<br>Excess demand for food: ' + excessX.toFixed(2) +
+                    ', for clothing: ' + excessY.toFixed(2) +
+                    ' &nbsp;|&nbsp; ' + (isEquil ?
+                    '✓ <strong>Competitive equilibrium!</strong> Markets clear.' :
+                    (excessX > 0 ? '↑ Excess demand for food — raise p<sub>x</sub>/p<sub>y</sub>' :
+                    '↓ Excess supply of food — lower p<sub>x</sub>/p<sub>y</sub>'));
+            }
+
+            slPrice.addEventListener('input', draw);
+            btnCE.addEventListener('click', function() {
+                /* For symmetric CD with these endowments, p* = 1 */
+                slPrice.value = 1; draw();
+            });
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ── Global redraw ── */
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>
