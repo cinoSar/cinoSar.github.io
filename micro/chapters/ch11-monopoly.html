@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 11: Monopoly | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 140px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle {
+            background: var(--color-primary-dark);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 11: Monopoly</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 11</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#sources">11.1 Sources of Monopoly</a></li>
+                <li><a href="#pricing">11.2 Monopoly Pricing</a></li>
+                <li><a href="#dwl">11.3 Deadweight Loss</a></li>
+                <li><a href="#natural-monopoly">11.4 Natural Monopoly &amp; Regulation</a></li>
+                <li><a href="#multiplant">11.5 Multi-Plant Monopoly</a></li>
+                <li><a href="#formal-derivations">11.6 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: The Price of Phoning Home</h2>
+                <p>Before 1984, British Telecom was the United Kingdom&rsquo;s sole telephone provider. A three-minute daytime call cost roughly 25p &mdash; equivalent to well over &pound;1 today. Business customers had no alternative, residential subscribers waited weeks for installation, and innovation was glacial. When the government privatised BT and allowed competition from Mercury Communications, call prices fell sharply and service improved. The difference was stark: a monopolist, facing no competitive pressure, had chosen high prices and low investment because it <em>could</em>.</p>
+
+                <p>In previous chapters, we studied firms that take the market price as given. A monopolist is the polar opposite: it <em>is</em> the market. Because it is the sole seller, its output decision determines the market price. This market power changes everything &mdash; the pricing rule, the welfare consequences, and the case for government intervention.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>A monopolist faces a downward-sloping demand curve and must lower its price to sell more. This means marginal revenue is less than price: each extra unit sold brings in revenue on that unit but reduces revenue on all previous units. The monopolist produces where <strong>MR = MC</strong> and charges a price <em>above</em> marginal cost, creating a <strong>deadweight loss</strong> &mdash; units that are worth more to consumers than they cost to produce, but that the monopolist refuses to supply.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to derive the monopolist&rsquo;s profit-maximising price and quantity, compute the deadweight loss from monopoly relative to perfect competition, explain the Lerner index and its connection to demand elasticity, analyse natural monopoly and evaluate alternative regulatory approaches, and determine how a multi-plant monopolist allocates production across facilities.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#sources">Sources of Monopoly</a> &mdash; barriers to entry and market power</li>
+                    <li><a href="#pricing">Monopoly Pricing</a> &mdash; MR = MC and the profit-maximising output</li>
+                    <li><a href="#dwl">Deadweight Loss</a> &mdash; welfare comparison with perfect competition</li>
+                    <li><a href="#natural-monopoly">Natural Monopoly &amp; Regulation</a> &mdash; declining costs and regulatory options</li>
+                    <li><a href="#multiplant">Multi-Plant Monopoly</a> &mdash; allocating output across plants</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; Lerner index, inverse elasticity rule, welfare formulae</li>
+                </ol>
+            </div>
+
+
+            <!-- ============================================ -->
+            <!-- 11.1 SOURCES OF MONOPOLY                      -->
+            <!-- ============================================ -->
+            <section id="sources" class="lesson-section section-intuition">
+                <h2>11.1 Sources of Monopoly</h2>
+
+                <p>A firm is a monopolist when it is the <em>sole</em> supplier of a good with no close substitutes. But why would an entire market have only one seller? Several mechanisms can create and sustain monopoly power.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Barriers to Entry</h4>
+                    <p><strong>Barriers to entry</strong> are factors that prevent potential competitors from entering a market. Without barriers, the prospect of monopoly profits would attract entrants until profits were competed away (as in the long-run competitive model of Chapter 8). Persistent monopoly requires persistent barriers.</p>
+                </div>
+
+                <p><strong>Legal barriers</strong> are the most straightforward. A patent grants an inventor the exclusive right to sell a product for a fixed period &mdash; typically 20 years. Pharmaceutical companies rely on patents to recoup research costs: a new drug can cost over &pound;1 billion to develop, and without patent protection, generic competitors would copy it immediately. Government franchises and licences also create legal monopolies: until recently, Royal Mail held a statutory monopoly on letter delivery in the UK.</p>
+
+                <p><strong>Natural monopoly</strong> arises when a single firm can supply the entire market at lower cost than two or more firms could. This typically happens in industries with very large fixed costs and low marginal costs &mdash; electricity transmission, water supply, railway infrastructure. The average cost curve declines over the entire relevant range of output, so a single firm is the most efficient market structure. We analyse this case in detail in Section 11.4.</p>
+
+                <p><strong>Control of essential inputs</strong> can also sustain monopoly. De Beers historically controlled the vast majority of the world&rsquo;s diamond supply. If a key raw material or technology is controlled by one firm, competitors simply cannot produce.</p>
+
+                <p><strong>Network effects</strong> arise when the value of a product increases with the number of users. Social media platforms and operating systems exhibit strong network effects: everyone uses the same platform because everyone else is already there. This can create a &ldquo;winner-takes-all&rdquo; dynamic that is difficult for new entrants to break.</p>
+
+                <div class="callout callout-example">
+                    <h4>Example: Thames Water</h4>
+                    <p>Thames Water supplies water and sewerage services to 15 million customers in London and the Thames Valley. It would make no economic sense to build a second network of pipes and treatment works alongside the existing one. The enormous sunk costs of infrastructure create a natural monopoly, which is why the industry is regulated by Ofwat, the water services regulator.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 11.2 MONOPOLY PRICING                         -->
+            <!-- ============================================ -->
+            <section id="pricing" class="lesson-section section-geometric">
+                <h2>11.2 Monopoly Pricing</h2>
+
+                <h3>Intuition: Why MR &lt; P</h3>
+                <p>A competitive firm can sell as much as it likes at the market price, so its marginal revenue equals price. A monopolist, by contrast, faces the entire market demand curve. To sell one more unit, it must lower the price &mdash; not just on the marginal unit, but on <em>all</em> the units it was already selling. This makes marginal revenue strictly less than price for every unit after the first.</p>
+
+                <p>Consider a simple linear demand curve \(P = a - bQ\). Total revenue is \(TR = PQ = aQ - bQ^2\), so marginal revenue is \(MR = a - 2bQ\). The MR curve has the same intercept as the demand curve but twice the slope &mdash; it lies below demand everywhere. The monopolist maximises profit by producing where MR = MC and then charging the price consumers are willing to pay for that quantity (read off the demand curve).</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>For a linear demand curve \(P = a - bQ\), the MR curve is \(MR = a - 2bQ\). It has the same vertical intercept and exactly twice the slope. The monopoly quantity is found where MR = MC, and the monopoly price is the demand curve evaluated at that quantity: \(P_m = a - bQ_m\). The gap \(P_m - MC\) is the monopolist&rsquo;s <strong>markup</strong>.</p>
+                </div>
+
+                <h3>Geometric Solution: Profit Maximisation</h3>
+                <p>The graph below shows a monopolist facing linear demand \(P = 50 - Q\) with constant marginal cost. Adjust the MC slider to see how the profit-maximising quantity, price, and profit change. The profit rectangle shows total economic profit: width = \(Q_m\), height = \(P_m - AC\).</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-monopoly" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Marginal cost (MC): <input type="range" id="slider-mc" min="2" max="40" step="1" value="10"> <span class="value-display" id="val-mc">&pound;10</span></label>
+                    </div>
+                    <div class="graph-info" id="info-monopoly"></div>
+                    <p class="graph-caption">Figure 11.1 &mdash; Monopoly profit maximisation. The firm produces where MR = MC and charges \(P_m\) off the demand curve. The shaded rectangle is economic profit.</p>
+                </div>
+
+                <p>As marginal cost rises, the monopolist reduces output, raises price, and earns a smaller profit. But even at relatively high costs, the monopolist still charges a price well above MC &mdash; the markup is a defining feature of monopoly. Only at MC = 50 (equal to the demand intercept) would the monopolist shut down entirely.</p>
+
+                <div class="callout callout-warning">
+                    <h4>Common Misconception</h4>
+                    <p>The monopolist does <strong>not</strong> charge the highest possible price. It could charge a very high price, but then it would sell very few units. The profit-maximising price balances the higher margin per unit against the loss in quantity sold. Monopoly pricing is strategic, not arbitrary.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 11.3 DEADWEIGHT LOSS                          -->
+            <!-- ============================================ -->
+            <section id="dwl" class="lesson-section section-geometric">
+                <h2>11.3 Deadweight Loss of Monopoly</h2>
+
+                <h3>Intuition: The Welfare Cost of Market Power</h3>
+                <p>In Chapter 9, we measured welfare using consumer surplus (CS) and producer surplus (PS). Under perfect competition, price equals marginal cost, and the sum CS + PS is maximised. A monopolist restricts output below the competitive level and charges a price above MC. Some surplus that consumers would have enjoyed is transferred to the monopolist (higher PS), but some surplus is destroyed entirely &mdash; this is the <strong>deadweight loss</strong> (DWL).</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Deadweight Loss of Monopoly</h4>
+                    <p>The <strong>deadweight loss</strong> is the reduction in total surplus (CS + PS) caused by the monopolist&rsquo;s output restriction. It equals the area of the triangle between the demand curve and the MC curve, from the monopoly quantity \(Q_m\) to the competitive quantity \(Q_c\). These are units worth more to consumers than they cost to produce, but the monopolist withholds them to keep the price high.</p>
+                </div>
+
+                <h3>Geometric Solution: Monopoly vs Competition</h3>
+                <p>Use the toggle to switch between the competitive outcome and the monopoly outcome. Under competition, the firm produces where P = MC, and all surplus goes to CS + PS with no DWL. Under monopoly, output contracts, price rises, and the grey triangle shows the deadweight loss.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-dwl" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <button id="btn-comp" class="active-toggle">Competition</button>
+                        <button id="btn-mono">Monopoly</button>
+                        <label>MC: <input type="range" id="slider-mc2" min="2" max="35" step="1" value="10"> <span class="value-display" id="val-mc2">&pound;10</span></label>
+                    </div>
+                    <div class="graph-info" id="info-dwl"></div>
+                    <p class="graph-caption">Figure 11.2 &mdash; Welfare under competition (left) and monopoly (right). The grey triangle is the deadweight loss from monopoly pricing.</p>
+                </div>
+
+                <p>The transfer from consumers to the monopolist (the rectangle between \(P_m\) and MC, from 0 to \(Q_m\)) is not a welfare loss to society as a whole &mdash; it is merely a redistribution from buyers to the seller. The true social cost is the DWL triangle: surplus that vanishes because the transactions between \(Q_m\) and \(Q_c\) never occur.</p>
+
+                <div class="callout callout-example">
+                    <h4>Example: Measuring the Cost</h4>
+                    <p>With demand \(P = 50 - Q\) and MC = &pound;10, the competitive outcome is \(Q_c = 40, P_c = 10\). The monopoly outcome is \(Q_m = 20, P_m = 30\). The DWL is \(\frac{1}{2}(P_m - MC)(Q_c - Q_m) = \frac{1}{2}(20)(20) = 200\). This is surplus that neither consumers nor the monopolist captures &mdash; it is simply lost.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 11.4 NATURAL MONOPOLY AND REGULATION           -->
+            <!-- ============================================ -->
+            <section id="natural-monopoly" class="lesson-section section-geometric">
+                <h2>11.4 Natural Monopoly and Regulation</h2>
+
+                <h3>Intuition: When One Firm Is Cheapest</h3>
+                <p>A <strong>natural monopoly</strong> exists when the average cost curve is still declining at the quantity the market demands. This happens when fixed costs are very large relative to marginal costs &mdash; think of the infrastructure required for water supply, electricity transmission, or railway tracks. Duplicating this infrastructure would be wasteful, so having a single supplier is efficient from a production standpoint.</p>
+
+                <p>The problem is that an unregulated natural monopolist would still set MR = MC and charge a price well above average cost. Regulators face a dilemma: forcing the firm to price at MC (the efficient outcome) may cause losses if MC &lt; AC, because the firm cannot cover its fixed costs. The three main regulatory approaches each involve trade-offs.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Three Regulatory Approaches</h4>
+                    <p><strong>Marginal-cost pricing</strong> (\(P = MC\)): maximises welfare but may require a government subsidy because the firm incurs losses when MC &lt; AC. <strong>Average-cost pricing</strong> (\(P = AC\)): the firm breaks even without a subsidy, but some DWL remains because P &gt; MC. <strong>Two-part tariff</strong>: a fixed access fee covers fixed costs, and a per-unit price equals MC. This achieves efficiency but may exclude consumers who cannot afford the access fee.</p>
+                </div>
+
+                <h3>Geometric Solution: Regulatory Options</h3>
+                <p>The graph below shows a natural monopolist with high fixed costs and constant marginal cost. The declining AC curve crosses the demand curve. Use the toggle buttons to compare the unregulated monopoly outcome with three regulatory alternatives. Adjust the fixed cost slider to see how the regulatory challenge changes with the size of fixed costs.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-natmon" width="600" height="480" style="width:600px;height:480px;"></canvas>
+                    <div class="graph-controls">
+                        <button id="btn-unreg" class="active-toggle">Unregulated</button>
+                        <button id="btn-mc-price">MC Pricing</button>
+                        <button id="btn-ac-price">AC Pricing</button>
+                        <button id="btn-twopart">Two-Part Tariff</button>
+                        <label>Fixed cost: <input type="range" id="slider-fc" min="100" max="800" step="25" value="400"> <span class="value-display" id="val-fc">&pound;400</span></label>
+                    </div>
+                    <div class="graph-info" id="info-natmon"></div>
+                    <p class="graph-caption">Figure 11.3 &mdash; Natural monopoly regulation. Compare unregulated monopoly with MC pricing, AC pricing, and two-part tariff outcomes.</p>
+                </div>
+
+                <p>Notice that as fixed costs rise, the gap between AC and MC widens, making the regulatory dilemma more acute. MC pricing generates larger losses that require bigger subsidies. AC pricing moves the price further from the efficient level, increasing DWL. The two-part tariff resolves the dilemma in principle but requires the regulator to know the firm&rsquo;s true costs &mdash; information the firm has every incentive to misrepresent.</p>
+
+                <div class="callout callout-warning">
+                    <h4>The Information Problem</h4>
+                    <p>All regulatory approaches require the regulator to know the firm&rsquo;s cost structure. In practice, regulated firms typically know their own costs better than the regulator does, creating an <strong>information asymmetry</strong>. Firms may exaggerate costs to justify higher regulated prices &mdash; a problem we revisit in Chapter 19 on asymmetric information.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 11.5 MULTI-PLANT MONOPOLY                     -->
+            <!-- ============================================ -->
+            <section id="multiplant" class="lesson-section section-geometric">
+                <h2>11.5 Multi-Plant Monopoly</h2>
+
+                <h3>Intuition: Allocating Production Across Plants</h3>
+                <p>Many monopolists operate multiple production facilities. A brewery might have plants in London and Manchester, each with different cost structures. How should the monopolist allocate total output across plants to minimise cost?</p>
+
+                <p>The answer follows the equimarginal principle: allocate production so that marginal cost is equalised across plants. If one plant has lower MC at the margin, shift production towards it until the MCs are equal. The firm&rsquo;s overall MC curve is the <em>horizontal sum</em> of the individual plants&rsquo; MC curves &mdash; at each MC level, add up the quantities each plant would produce.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>A multi-plant monopolist minimises cost by equating marginal cost across all plants: \(MC_1(q_1) = MC_2(q_2) = \ldots = MC\). The firm&rsquo;s aggregate MC is the horizontal sum of individual plant MCs. The monopolist then sets overall MR = aggregate MC to find total output and price.</p>
+                </div>
+
+                <h3>Geometric Solution: Two-Plant Allocation</h3>
+                <p>The graph shows a monopolist with two plants. Plant 1 has MC\(_1 = c_1 q_1\) and Plant 2 has MC\(_2 = c_2 q_2\). The right panel shows the aggregate MC (horizontal sum) and the MR curve. Adjust the cost parameters to see how production shifts between plants.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-multi" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Plant 1 cost (c₁): <input type="range" id="slider-c1" min="0.5" max="3" step="0.1" value="1"> <span class="value-display" id="val-c1">1.0</span></label>
+                        <label>Plant 2 cost (c₂): <input type="range" id="slider-c2" min="0.5" max="3" step="0.1" value="2"> <span class="value-display" id="val-c2">2.0</span></label>
+                    </div>
+                    <div class="graph-info" id="info-multi"></div>
+                    <p class="graph-caption">Figure 11.4 &mdash; Multi-plant monopoly. The firm equates MC across plants and sets MR equal to aggregate MC.</p>
+                </div>
+
+                <p>When the two plants have equal costs, production splits evenly. When one plant is cheaper, it takes a larger share. The aggregate MC curve is always flatter than either individual MC curve, because the firm has more flexibility to spread production. This means a multi-plant monopolist produces <em>more</em> (and charges less) than a single-plant monopolist with the same total capacity &mdash; diversification of production is beneficial even for a monopolist.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 11.6 FORMAL DERIVATIONS                       -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>11.6 Formal Derivations</h2>
+
+                <h3>Monopoly Profit Maximisation</h3>
+                <p>Let inverse demand be \(P(Q) = a - bQ\) and let the monopolist have constant marginal cost \(c\). The monopolist maximises profit:</p>
+
+                \[
+                    \pi = P(Q) \cdot Q - cQ = (a - bQ)Q - cQ = aQ - bQ^2 - cQ
+                \]
+
+                <p>The first-order condition is:</p>
+
+                \[
+                    \frac{d\pi}{dQ} = a - 2bQ - c = 0 \quad \Rightarrow \quad Q_m = \frac{a - c}{2b}
+                \]
+
+                <p>The monopoly price is:</p>
+
+                \[
+                    P_m = a - bQ_m = a - \frac{a - c}{2} = \frac{a + c}{2}
+                \]
+
+                <p>Monopoly profit is:</p>
+
+                \[
+                    \pi_m = (P_m - c)Q_m = \frac{(a - c)^2}{4b}
+                \]
+
+                <p>The second-order condition \(d^2\pi/dQ^2 = -2b < 0\) confirms this is a maximum.</p>
+
+                <h3>The Lerner Index</h3>
+                <p>The <strong>Lerner index</strong> measures market power as the proportional markup of price over marginal cost:</p>
+
+                \[
+                    L = \frac{P - MC}{P}
+                \]
+
+                <p>Under perfect competition, \(P = MC\) so \(L = 0\). For a monopolist, \(L > 0\). We can connect it to the price elasticity of demand. Since \(MR = P(1 + 1/\varepsilon_d)\) where \(\varepsilon_d < 0\), and the monopolist sets \(MR = MC\):</p>
+
+                \[
+                    P\left(1 + \frac{1}{\varepsilon_d}\right) = MC \quad \Rightarrow \quad \frac{P - MC}{P} = -\frac{1}{\varepsilon_d}
+                \]
+
+                <p>This is the <strong>inverse elasticity rule</strong>:</p>
+
+                \[
+                    L = \frac{P - MC}{P} = \frac{1}{|\varepsilon_d|}
+                \]
+
+                <p>A monopolist facing more elastic demand (higher \(|\varepsilon_d|\)) charges a smaller markup. A monopolist facing inelastic demand (low \(|\varepsilon_d|\)) charges a large markup. Note that a profit-maximising monopolist always operates on the elastic portion of the demand curve (\(|\varepsilon_d| > 1\)), because MR is negative in the inelastic region.</p>
+
+                <h3>Deadweight Loss Formula</h3>
+                <p>With linear demand \(P = a - bQ\) and constant MC = c, the competitive outcome is \(Q_c = (a - c)/b\), \(P_c = c\). The monopoly outcome is \(Q_m = (a - c)/(2b)\), \(P_m = (a + c)/2\). The DWL triangle has base \(Q_c - Q_m = (a - c)/(2b)\) and height \(P_m - c = (a - c)/2\):</p>
+
+                \[
+                    \text{DWL} = \frac{1}{2} \cdot \frac{a - c}{2b} \cdot \frac{a - c}{2} = \frac{(a - c)^2}{8b}
+                \]
+
+                <p>Comparing with monopoly profit \(\pi_m = (a - c)^2 / (4b)\), we see that \(\text{DWL} = \pi_m / 2\). The deadweight loss is exactly half the monopoly profit for this linear case.</p>
+
+                <h3>Multi-Plant Monopolist</h3>
+                <p>Suppose the firm has two plants with cost functions \(C_1(q_1) = \frac{1}{2}c_1 q_1^2\) and \(C_2(q_2) = \frac{1}{2}c_2 q_2^2\). Total output \(Q = q_1 + q_2\). The firm minimises cost for a given \(Q\) by equating marginal costs:</p>
+
+                \[
+                    MC_1 = c_1 q_1 = c_2 q_2 = MC_2 \quad \Rightarrow \quad q_1 = \frac{c_2}{c_1 + c_2} Q, \quad q_2 = \frac{c_1}{c_1 + c_2} Q
+                \]
+
+                <p>The aggregate MC is:</p>
+
+                \[
+                    MC(Q) = \frac{c_1 c_2}{c_1 + c_2} Q
+                \]
+
+                <p>The monopolist then sets \(MR = MC(Q)\) to find optimal total output, and allocates it across plants using the shares above.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>Monopoly is the polar opposite of perfect competition. A monopolist faces the entire market demand curve, which means marginal revenue is less than price. The profit-maximising rule MR = MC leads to a quantity below the competitive level and a price above marginal cost. The gap between price and MC &mdash; measured by the Lerner index &mdash; is inversely related to the elasticity of demand.</p>
+
+                <p>The welfare consequences are clear: monopoly creates a deadweight loss by withholding output that would be worth more to consumers than it costs to produce. For a linear demand curve with constant MC, the DWL equals exactly half the monopoly profit &mdash; a useful benchmark for gauging the social cost of market power.</p>
+
+                <p>Natural monopoly introduces a regulatory dilemma. When average cost is declining over the relevant range, a single firm is the efficient producer, but an unregulated monopolist will exploit its position. Marginal-cost pricing achieves efficiency but may require subsidies; average-cost pricing avoids losses but leaves some DWL; two-part tariffs can achieve the best of both worlds but require good information and may exclude some consumers.</p>
+
+                <p>In the next chapter, we extend the analysis to <strong>pricing and advertising</strong> &mdash; how firms with market power use price discrimination (charging different prices to different consumers) and advertising to increase their profits.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch10-general-equilibrium-and-welfare.html">&larr; Chapter 10: General Equilibrium and Welfare</a>
+                <span style="color: var(--color-text-lighter);">Chapter 12: Pricing and Advertising &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        /* ── Colour palettes ── */
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            demand: '#3b82f6', mr: '#8b5cf6', mc: '#ef4444', ac: '#f59e0b',
+            profit: 'rgba(16, 185, 129, 0.2)', profitBorder: '#10b981',
+            loss: 'rgba(239, 68, 68, 0.15)', lossBorder: '#ef4444',
+            cs: 'rgba(59, 130, 246, 0.2)', csBorder: '#3b82f6',
+            ps: 'rgba(239, 68, 68, 0.15)', psBorder: '#ef4444',
+            dwl: 'rgba(120, 120, 120, 0.25)', dwlBorder: '#888888',
+            transfer: 'rgba(245, 158, 11, 0.2)', transferBorder: '#f59e0b',
+            equilibrium: '#0a9396', eqGlow: 'rgba(10, 147, 150, 0.3)',
+            plant1: '#3b82f6', plant2: '#ef4444', aggregate: '#10b981',
+            priceLine: '#f59e0b', subsidy: 'rgba(139, 92, 246, 0.15)', subsidyBorder: '#8b5cf6'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            demand: '#60a5fa', mr: '#a78bfa', mc: '#f87171', ac: '#fbbf24',
+            profit: 'rgba(52, 211, 153, 0.2)', profitBorder: '#34d399',
+            loss: 'rgba(248, 113, 113, 0.15)', lossBorder: '#f87171',
+            cs: 'rgba(96, 165, 250, 0.2)', csBorder: '#60a5fa',
+            ps: 'rgba(248, 113, 113, 0.15)', psBorder: '#f87171',
+            dwl: 'rgba(160, 160, 160, 0.2)', dwlBorder: '#999999',
+            transfer: 'rgba(251, 191, 36, 0.2)', transferBorder: '#fbbf24',
+            equilibrium: '#2ec4c8', eqGlow: 'rgba(46, 196, 200, 0.3)',
+            plant1: '#60a5fa', plant2: '#f87171', aggregate: '#34d399',
+            priceLine: '#fbbf24', subsidy: 'rgba(167, 139, 250, 0.15)', subsidyBorder: '#a78bfa'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        /* ── Shared helpers ── */
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep) {
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            var v, pt;
+            for (v = 0; v <= yMax; v += (yStep || 5)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            for (v = 0; v <= xMax; v += (xStep || 5)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel || '', ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel || '', 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (v = xStep || 5; v <= xMax; v += (xStep || 5)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (v = yStep || 5; v <= yMax; v += (yStep || 5)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, ox - 6, pt.y);
+            }
+        }
+
+        function drawLine(ctx, x1, y1, x2, y2, ox, oy, gw, gh, xMax, yMax, color, lineWidth, dashed) {
+            var p1 = tp(x1, y1, ox, oy, gw, gh, xMax, yMax);
+            var p2 = tp(x2, y2, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = lineWidth || 2;
+            if (dashed) ctx.setLineDash([5, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function fillTriangle(ctx, x1, y1, x2, y2, x3, y3, ox, oy, gw, gh, xMax, yMax, color) {
+            var p1 = tp(x1, y1, ox, oy, gw, gh, xMax, yMax);
+            var p2 = tp(x2, y2, ox, oy, gw, gh, xMax, yMax);
+            var p3 = tp(x3, y3, ox, oy, gw, gh, xMax, yMax);
+            ctx.fillStyle = color;
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.closePath(); ctx.fill();
+        }
+
+        function fillRect4(ctx, x1, y1, x2, y2, x3, y3, x4, y4, ox, oy, gw, gh, xMax, yMax, color) {
+            var p1 = tp(x1, y1, ox, oy, gw, gh, xMax, yMax);
+            var p2 = tp(x2, y2, ox, oy, gw, gh, xMax, yMax);
+            var p3 = tp(x3, y3, ox, oy, gw, gh, xMax, yMax);
+            var p4 = tp(x4, y4, ox, oy, gw, gh, xMax, yMax);
+            ctx.fillStyle = color;
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.closePath(); ctx.fill();
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(pt.x, oy + gh); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 1: Monopoly Pricing                      */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slMC = document.getElementById('slider-mc');
+            var vMC = document.getElementById('val-mc');
+            var info = document.getElementById('info-monopoly');
+
+            /* P = 50 - Q, so MR = 50 - 2Q. MC = c (constant). */
+            var a = 50, b = 1;
+            var xMax = 55, yMax = 55;
+
+            function draw() {
+                var res = getCtx('canvas-monopoly');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, 'Quantity (Q)', 'Price (£)', 10, 10);
+
+                var mc = parseFloat(slMC.value);
+                vMC.textContent = '£' + mc;
+
+                var Qm = (a - mc) / (2 * b);
+                var Pm = a - b * Qm;
+
+                /* Profit rectangle */
+                if (Qm > 0) {
+                    fillRect4(ctx, 0, mc, 0, Pm, Qm, Pm, Qm, mc,
+                        ox, oy, gw, gh, xMax, yMax, C.profit);
+                    /* Border */
+                    var r1 = tp(0, mc, ox, oy, gw, gh, xMax, yMax);
+                    var r2 = tp(0, Pm, ox, oy, gw, gh, xMax, yMax);
+                    var r3 = tp(Qm, Pm, ox, oy, gw, gh, xMax, yMax);
+                    var r4 = tp(Qm, mc, ox, oy, gw, gh, xMax, yMax);
+                    ctx.strokeStyle = C.profitBorder; ctx.lineWidth = 1.5; ctx.setLineDash([]);
+                    ctx.beginPath(); ctx.moveTo(r1.x, r1.y); ctx.lineTo(r2.x, r2.y);
+                    ctx.lineTo(r3.x, r3.y); ctx.lineTo(r4.x, r4.y); ctx.closePath(); ctx.stroke();
+                }
+
+                /* Demand curve */
+                drawLine(ctx, 0, a, a / b, 0, ox, oy, gw, gh, xMax, yMax, C.demand, 2.5);
+                /* MR curve */
+                drawLine(ctx, 0, a, a / (2 * b), 0, ox, oy, gw, gh, xMax, yMax, C.mr, 2.5);
+                /* MC line */
+                drawLine(ctx, 0, mc, xMax, mc, ox, oy, gw, gh, xMax, yMax, C.mc, 2);
+
+                /* Equilibrium point */
+                dashedTo(ctx, Qm, Pm, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                var eqPt = tp(Qm, Pm, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(eqPt.x, eqPt.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = C.eqGlow; ctx.fill();
+                dot(ctx, Qm, Pm, ox, oy, gw, gh, xMax, yMax, C.equilibrium, 5);
+
+                /* MR = MC point */
+                dot(ctx, Qm, mc, ox, oy, gw, gh, xMax, yMax, C.mr, 4);
+
+                /* Labels */
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                var dlbl = tp(a / b - 4, 4, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.demand; ctx.fillText('D', dlbl.x, dlbl.y);
+                var mrlbl = tp(a / (2 * b) - 2, 4, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.mr; ctx.fillText('MR', mrlbl.x, mrlbl.y);
+                var mclbl = tp(xMax - 4, mc + 2, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.mc; ctx.textBaseline = 'top'; ctx.fillText('MC', mclbl.x, mclbl.y);
+
+                /* Pm and Qm labels */
+                ctx.fillStyle = C.text; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                var pmPt = tp(0, Pm, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('P_m', ox - 6, pmPt.y);
+
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                var qmPt = tp(Qm, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('Q_m', qmPt.x, oy + gh + 4);
+
+                /* Profit label */
+                if (Qm > 3) {
+                    ctx.fillStyle = C.profitBorder; ctx.font = 'bold 12px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    var profCenter = tp(Qm / 2, (Pm + mc) / 2, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText('Profit', profCenter.x, profCenter.y);
+                }
+
+                var profit = (Pm - mc) * Qm;
+                info.innerHTML =
+                    '<strong>MC = £' + mc + '</strong>' +
+                    ' &nbsp;|&nbsp; Q<sub>m</sub> = ' + Qm.toFixed(1) +
+                    ', P<sub>m</sub> = £' + Pm.toFixed(1) +
+                    ' &nbsp;|&nbsp; Profit = £' + profit.toFixed(0) +
+                    ' &nbsp;|&nbsp; Markup = £' + (Pm - mc).toFixed(1) +
+                    ' &nbsp;|&nbsp; Lerner index = ' + ((Pm - mc) / Pm).toFixed(3);
+            }
+
+            slMC.addEventListener('input', draw);
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 2: DWL - Competition vs Monopoly         */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var btnComp = document.getElementById('btn-comp');
+            var btnMono = document.getElementById('btn-mono');
+            var slMC2 = document.getElementById('slider-mc2');
+            var vMC2 = document.getElementById('val-mc2');
+            var info = document.getElementById('info-dwl');
+
+            var mode = 'comp';
+            var a = 50, b = 1;
+            var xMax = 55, yMax = 55;
+
+            function draw() {
+                var res = getCtx('canvas-dwl');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, 'Quantity (Q)', 'Price (£)', 10, 10);
+
+                var mc = parseFloat(slMC2.value);
+                vMC2.textContent = '£' + mc;
+
+                var Qc = (a - mc) / b;     /* competitive quantity */
+                var Pc = mc;                 /* competitive price */
+                var Qm = (a - mc) / (2 * b); /* monopoly quantity */
+                var Pm = (a + mc) / 2;       /* monopoly price */
+
+                if (mode === 'comp') {
+                    /* CS triangle: (0, a) to (0, Pc) to (Qc, Pc) */
+                    fillTriangle(ctx, 0, a, 0, Pc, Qc, Pc, ox, oy, gw, gh, xMax, yMax, C.cs);
+                    /* No PS with constant MC (PS = 0) */
+
+                    /* Demand */
+                    drawLine(ctx, 0, a, a / b, 0, ox, oy, gw, gh, xMax, yMax, C.demand, 2.5);
+                    /* MC */
+                    drawLine(ctx, 0, mc, xMax, mc, ox, oy, gw, gh, xMax, yMax, C.mc, 2);
+
+                    /* Equilibrium */
+                    dashedTo(ctx, Qc, Pc, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    dot(ctx, Qc, Pc, ox, oy, gw, gh, xMax, yMax, C.equilibrium, 5);
+
+                    /* Labels */
+                    ctx.fillStyle = C.csBorder; ctx.font = 'bold 12px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    var csCenter = tp(Qc / 3, (a + 2 * Pc) / 3, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText('CS', csCenter.x, csCenter.y);
+
+                    var totalCS = 0.5 * (a - mc) * Qc;
+                    info.innerHTML =
+                        '<strong>Perfect Competition:</strong> P<sub>c</sub> = MC = £' + mc +
+                        ', Q<sub>c</sub> = ' + Qc.toFixed(0) +
+                        ' &nbsp;|&nbsp; CS = £' + totalCS.toFixed(0) +
+                        ', PS = £0, DWL = £0 &nbsp;|&nbsp; Total surplus = £' + totalCS.toFixed(0);
+                } else {
+                    /* CS under monopoly: triangle (0, a) to (0, Pm) to (Qm, Pm) */
+                    fillTriangle(ctx, 0, a, 0, Pm, Qm, Pm, ox, oy, gw, gh, xMax, yMax, C.cs);
+
+                    /* Transfer rectangle (PS gain to monopolist): (0, mc) to (0, Pm) to (Qm, Pm) to (Qm, mc) */
+                    fillRect4(ctx, 0, mc, 0, Pm, Qm, Pm, Qm, mc, ox, oy, gw, gh, xMax, yMax, C.transfer);
+
+                    /* DWL triangle: (Qm, Pm) to (Qm, mc) to (Qc, mc) */
+                    fillTriangle(ctx, Qm, Pm, Qm, mc, Qc, mc, ox, oy, gw, gh, xMax, yMax, C.dwl);
+
+                    /* Demand */
+                    drawLine(ctx, 0, a, a / b, 0, ox, oy, gw, gh, xMax, yMax, C.demand, 2.5);
+                    /* MR */
+                    drawLine(ctx, 0, a, a / (2 * b), 0, ox, oy, gw, gh, xMax, yMax, C.mr, 2, true);
+                    /* MC */
+                    drawLine(ctx, 0, mc, xMax, mc, ox, oy, gw, gh, xMax, yMax, C.mc, 2);
+
+                    /* Equilibrium */
+                    dashedTo(ctx, Qm, Pm, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    var eqPt = tp(Qm, Pm, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(eqPt.x, eqPt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, Qm, Pm, ox, oy, gw, gh, xMax, yMax, C.equilibrium, 5);
+
+                    /* Competitive point (ghost) */
+                    dot(ctx, Qc, Pc, ox, oy, gw, gh, xMax, yMax, C.textMuted, 4);
+
+                    /* Labels */
+                    ctx.font = 'bold 11px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    ctx.fillStyle = C.csBorder;
+                    var csC = tp(Qm / 3, (a + 2 * Pm) / 3, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText('CS', csC.x, csC.y);
+                    ctx.fillStyle = C.transferBorder;
+                    var trC = tp(Qm / 2, (Pm + mc) / 2, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText('PS', trC.x, trC.y);
+                    ctx.fillStyle = C.dwlBorder;
+                    var dwlC = tp((2 * Qm + Qc) / 3, (Pm + 2 * mc) / 3, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText('DWL', dwlC.x, dwlC.y);
+
+                    var csM = 0.5 * (a - Pm) * Qm;
+                    var psM = (Pm - mc) * Qm;
+                    var dwlVal = 0.5 * (Pm - mc) * (Qc - Qm);
+                    info.innerHTML =
+                        '<strong>Monopoly:</strong> P<sub>m</sub> = £' + Pm.toFixed(0) +
+                        ', Q<sub>m</sub> = ' + Qm.toFixed(0) +
+                        ' &nbsp;|&nbsp; CS = £' + csM.toFixed(0) +
+                        ', PS = £' + psM.toFixed(0) +
+                        ', <strong>DWL = £' + dwlVal.toFixed(0) + '</strong>' +
+                        ' &nbsp;|&nbsp; Total surplus = £' + (csM + psM).toFixed(0) +
+                        ' (lost £' + dwlVal.toFixed(0) + ')';
+                }
+
+                /* Curve labels */
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                var dlbl = tp(a / b - 4, 4, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.demand; ctx.fillText('D', dlbl.x, dlbl.y);
+                if (mode === 'mono') {
+                    var mrlbl = tp(a / (2 * b) - 2, 4, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillStyle = C.mr; ctx.fillText('MR', mrlbl.x, mrlbl.y);
+                }
+                ctx.fillStyle = C.mc; ctx.textBaseline = 'top';
+                var mclbl = tp(xMax - 4, mc + 2, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('MC', mclbl.x, mclbl.y);
+            }
+
+            btnComp.addEventListener('click', function() {
+                mode = 'comp'; btnComp.classList.add('active-toggle'); btnMono.classList.remove('active-toggle'); draw();
+            });
+            btnMono.addEventListener('click', function() {
+                mode = 'mono'; btnMono.classList.add('active-toggle'); btnComp.classList.remove('active-toggle'); draw();
+            });
+            slMC2.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 3: Natural Monopoly & Regulation          */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var btnUnreg = document.getElementById('btn-unreg');
+            var btnMCp = document.getElementById('btn-mc-price');
+            var btnACp = document.getElementById('btn-ac-price');
+            var btnTP = document.getElementById('btn-twopart');
+            var slFC = document.getElementById('slider-fc');
+            var vFC = document.getElementById('val-fc');
+            var info = document.getElementById('info-natmon');
+
+            var regMode = 'unreg';
+            var btns = [btnUnreg, btnMCp, btnACp, btnTP];
+            var modes = ['unreg', 'mc-price', 'ac-price', 'twopart'];
+
+            /* Demand: P = 60 - Q. MC = 5 (constant). FC adjustable. AC = MC + FC/Q */
+            var a = 60, b = 1, mc = 5;
+            var xMax = 65, yMax = 70;
+
+            function setMode(m) {
+                regMode = m;
+                btns.forEach(function(btn, i) {
+                    btn.classList.toggle('active-toggle', modes[i] === m);
+                });
+                draw();
+            }
+
+            function draw() {
+                var res = getCtx('canvas-natmon');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, 'Quantity (Q)', 'Price (£)', 10, 10);
+
+                var fc = parseFloat(slFC.value);
+                vFC.textContent = '£' + fc;
+
+                /* AC curve: AC(Q) = mc + fc / Q */
+                ctx.strokeStyle = C.ac; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath();
+                var acStarted = false;
+                for (var q = 1; q <= xMax; q += 0.5) {
+                    var acVal = mc + fc / q;
+                    if (acVal > yMax * 1.2) continue;
+                    var pt = tp(q, acVal, ox, oy, gw, gh, xMax, yMax);
+                    if (!acStarted) { ctx.moveTo(pt.x, pt.y); acStarted = true; }
+                    else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+
+                /* Demand */
+                drawLine(ctx, 0, a, a / b, 0, ox, oy, gw, gh, xMax, yMax, C.demand, 2.5);
+                /* MC */
+                drawLine(ctx, 0, mc, xMax, mc, ox, oy, gw, gh, xMax, yMax, C.mc, 2);
+
+                /* Compute outcomes based on regime */
+                var Qout, Pout, profit, csVal, dwlVal, subsidy;
+                var Qc = (a - mc) / b; /* efficient (MC pricing) quantity */
+
+                if (regMode === 'unreg') {
+                    /* MR = MC => Q = (a - mc)/(2b) */
+                    Qout = (a - mc) / (2 * b);
+                    Pout = a - b * Qout;
+                    var acOut = mc + fc / Qout;
+                    profit = (Pout - acOut) * Qout;
+                    csVal = 0.5 * (a - Pout) * Qout;
+                    dwlVal = 0.5 * (Pout - mc) * (Qc - Qout);
+                    subsidy = 0;
+
+                    /* MR curve */
+                    drawLine(ctx, 0, a, a / (2 * b), 0, ox, oy, gw, gh, xMax, yMax, C.mr, 2, true);
+
+                    /* Profit/loss rectangle */
+                    if (profit >= 0) {
+                        fillRect4(ctx, 0, acOut, 0, Pout, Qout, Pout, Qout, acOut, ox, oy, gw, gh, xMax, yMax, C.profit);
+                    } else {
+                        fillRect4(ctx, 0, Pout, 0, acOut, Qout, acOut, Qout, Pout, ox, oy, gw, gh, xMax, yMax, C.loss);
+                    }
+
+                    /* DWL */
+                    fillTriangle(ctx, Qout, Pout, Qout, mc, Qc, mc, ox, oy, gw, gh, xMax, yMax, C.dwl);
+
+                    info.innerHTML =
+                        '<strong>Unregulated monopoly:</strong> Q = ' + Qout.toFixed(1) +
+                        ', P = £' + Pout.toFixed(1) +
+                        ', AC = £' + acOut.toFixed(1) +
+                        ' &nbsp;|&nbsp; Profit = £' + profit.toFixed(0) +
+                        ', CS = £' + csVal.toFixed(0) +
+                        ', <strong>DWL = £' + dwlVal.toFixed(0) + '</strong>';
+
+                } else if (regMode === 'mc-price') {
+                    Qout = Qc;
+                    Pout = mc;
+                    var acOut2 = mc + fc / Qout;
+                    profit = (Pout - acOut2) * Qout; /* negative */
+                    csVal = 0.5 * (a - Pout) * Qout;
+                    dwlVal = 0;
+                    subsidy = -profit;
+
+                    /* Loss rectangle */
+                    fillRect4(ctx, 0, Pout, 0, acOut2, Qout, acOut2, Qout, Pout, ox, oy, gw, gh, xMax, yMax, C.subsidy);
+
+                    info.innerHTML =
+                        '<strong>MC pricing (P = MC):</strong> Q = ' + Qout.toFixed(1) +
+                        ', P = £' + Pout.toFixed(0) +
+                        ', AC = £' + acOut2.toFixed(1) +
+                        ' &nbsp;|&nbsp; Loss = £' + profit.toFixed(0) +
+                        ' (requires subsidy of £' + subsidy.toFixed(0) + ')' +
+                        ' &nbsp;|&nbsp; CS = £' + csVal.toFixed(0) +
+                        ', DWL = £0 — <em>efficient!</em>';
+
+                } else if (regMode === 'ac-price') {
+                    /* P = AC => a - Q = mc + fc / Q => Q^2 - (a - mc)Q - fc = 0 */
+                    var disc = (a - mc) * (a - mc) + 4 * fc;
+                    Qout = ((a - mc) + Math.sqrt(disc)) / 2;
+                    if (Qout > Qc) Qout = Qc;
+                    Pout = a - b * Qout;
+                    profit = 0;
+                    csVal = 0.5 * (a - Pout) * Qout;
+                    dwlVal = 0.5 * (Pout - mc) * (Qc - Qout);
+                    subsidy = 0;
+
+                    /* Remaining DWL */
+                    fillTriangle(ctx, Qout, Pout, Qout, mc, Qc, mc, ox, oy, gw, gh, xMax, yMax, C.dwl);
+
+                    info.innerHTML =
+                        '<strong>AC pricing (P = AC):</strong> Q = ' + Qout.toFixed(1) +
+                        ', P = £' + Pout.toFixed(1) +
+                        ' &nbsp;|&nbsp; Profit = £0 (break-even)' +
+                        ' &nbsp;|&nbsp; CS = £' + csVal.toFixed(0) +
+                        ', <strong>DWL = £' + dwlVal.toFixed(0) + '</strong> (reduced but not eliminated)';
+
+                } else { /* twopart */
+                    Qout = Qc;
+                    Pout = mc;
+                    csVal = 0.5 * (a - Pout) * Qout;
+                    var accessFee = fc; /* just enough to cover FC */
+                    profit = 0;
+                    dwlVal = 0;
+                    subsidy = 0;
+
+                    /* Show the access fee as a small rectangle */
+                    ctx.fillStyle = C.transfer;
+                    var feePt1 = tp(0, mc + 3, ox, oy, gw, gh, xMax, yMax);
+                    var feePt2 = tp(8, mc, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillRect(feePt1.x, feePt1.y, feePt2.x - feePt1.x, feePt2.y - feePt1.y);
+                    ctx.strokeStyle = C.transferBorder; ctx.lineWidth = 1;
+                    ctx.strokeRect(feePt1.x, feePt1.y, feePt2.x - feePt1.x, feePt2.y - feePt1.y);
+                    ctx.fillStyle = C.transferBorder; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    ctx.fillText('Fee = £' + accessFee.toFixed(0), (feePt1.x + feePt2.x) / 2, (feePt1.y + feePt2.y) / 2);
+
+                    info.innerHTML =
+                        '<strong>Two-part tariff:</strong> Per-unit price = £' + mc + ' (= MC)' +
+                        ', Access fee = £' + accessFee.toFixed(0) + ' (covers FC)' +
+                        ' &nbsp;|&nbsp; Q = ' + Qout.toFixed(1) +
+                        ' &nbsp;|&nbsp; CS = £' + csVal.toFixed(0) + ' minus fee' +
+                        ', DWL = £0 — <em>efficient!</em>';
+                }
+
+                /* Equilibrium dot */
+                dashedTo(ctx, Qout, Pout, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                var eqPt2 = tp(Qout, Pout, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(eqPt2.x, eqPt2.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = C.eqGlow; ctx.fill();
+                dot(ctx, Qout, Pout, ox, oy, gw, gh, xMax, yMax, C.equilibrium, 5);
+
+                /* Curve labels */
+                ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                ctx.fillStyle = C.demand; ctx.textBaseline = 'bottom';
+                var dlbl = tp(a / b - 4, 4, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('D', dlbl.x, dlbl.y);
+                ctx.fillStyle = C.mc; ctx.textBaseline = 'top';
+                var mclbl = tp(xMax - 4, mc + 2, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('MC', mclbl.x, mclbl.y);
+                ctx.fillStyle = C.ac;
+                var acLbl = tp(xMax - 4, mc + fc / (xMax - 4) + 1, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('AC', acLbl.x, acLbl.y);
+            }
+
+            btns.forEach(function(btn, i) {
+                btn.addEventListener('click', function() { setMode(modes[i]); });
+            });
+            slFC.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 4: Multi-Plant Monopoly                   */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slC1 = document.getElementById('slider-c1');
+            var slC2 = document.getElementById('slider-c2');
+            var vC1 = document.getElementById('val-c1');
+            var vC2 = document.getElementById('val-c2');
+            var info = document.getElementById('info-multi');
+
+            /* Demand: P = 50 - Q. MC1 = c1 * q1, MC2 = c2 * q2. */
+            /* Aggregate MC = c1*c2/(c1+c2) * Q */
+            var a = 50, b = 1;
+            var xMax = 55, yMax = 55;
+
+            function draw() {
+                var res = getCtx('canvas-multi');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, 'Quantity (Q)', 'Price / Cost (£)', 10, 10);
+
+                var c1 = parseFloat(slC1.value);
+                var c2 = parseFloat(slC2.value);
+                vC1.textContent = c1.toFixed(1);
+                vC2.textContent = c2.toFixed(1);
+
+                /* Aggregate MC slope = c1*c2 / (c1+c2) */
+                var cAgg = (c1 * c2) / (c1 + c2);
+
+                /* MR = MC_agg => a - 2bQ = cAgg * Q => Q = a / (2b + cAgg) */
+                var Qtot = a / (2 * b + cAgg);
+                var MRstar = a - 2 * b * Qtot; /* = cAgg * Qtot */
+                var Pm = a - b * Qtot;
+
+                /* Plant allocations */
+                var q1 = (c2 / (c1 + c2)) * Qtot;
+                var q2 = (c1 / (c1 + c2)) * Qtot;
+
+                /* Draw MC curves */
+                /* MC1: from 0 to yMax/c1 */
+                drawLine(ctx, 0, 0, Math.min(yMax / c1, xMax), Math.min(yMax, c1 * xMax),
+                    ox, oy, gw, gh, xMax, yMax, C.plant1, 2);
+                /* MC2 */
+                drawLine(ctx, 0, 0, Math.min(yMax / c2, xMax), Math.min(yMax, c2 * xMax),
+                    ox, oy, gw, gh, xMax, yMax, C.plant2, 2);
+                /* Aggregate MC */
+                drawLine(ctx, 0, 0, Math.min(yMax / cAgg, xMax), Math.min(yMax, cAgg * xMax),
+                    ox, oy, gw, gh, xMax, yMax, C.aggregate, 2.5);
+
+                /* Demand */
+                drawLine(ctx, 0, a, a / b, 0, ox, oy, gw, gh, xMax, yMax, C.demand, 2.5);
+                /* MR */
+                drawLine(ctx, 0, a, a / (2 * b), 0, ox, oy, gw, gh, xMax, yMax, C.mr, 2, true);
+
+                /* Horizontal dashed line at MC* level */
+                drawLine(ctx, 0, MRstar, xMax, MRstar, ox, oy, gw, gh, xMax, yMax, C.textMuted, 1, true);
+
+                /* Points where MC* meets individual plant MCs */
+                /* MC1 = c1 * q1 = MRstar => q1 = MRstar / c1 */
+                dot(ctx, q1, MRstar, ox, oy, gw, gh, xMax, yMax, C.plant1, 4);
+                dot(ctx, q2, MRstar, ox, oy, gw, gh, xMax, yMax, C.plant2, 4);
+                dot(ctx, Qtot, MRstar, ox, oy, gw, gh, xMax, yMax, C.aggregate, 5);
+
+                /* Monopoly price point on demand */
+                dashedTo(ctx, Qtot, Pm, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                var eqPt = tp(Qtot, Pm, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(eqPt.x, eqPt.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = C.eqGlow; ctx.fill();
+                dot(ctx, Qtot, Pm, ox, oy, gw, gh, xMax, yMax, C.equilibrium, 5);
+
+                /* Labels */
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                var mc1Lbl = tp(Math.min(yMax / c1, xMax) - 2, Math.min(yMax, c1 * (Math.min(yMax / c1, xMax) - 2)), ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.plant1; ctx.fillText('MC₁', mc1Lbl.x + 4, mc1Lbl.y - 4);
+                var mc2Lbl = tp(Math.min(yMax / c2, xMax) - 2, Math.min(yMax, c2 * (Math.min(yMax / c2, xMax) - 2)), ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.plant2; ctx.fillText('MC₂', mc2Lbl.x + 4, mc2Lbl.y - 4);
+                var mcALbl = tp(Math.min(yMax / cAgg, xMax) - 3, Math.min(yMax, cAgg * (Math.min(yMax / cAgg, xMax) - 3)), ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.aggregate; ctx.fillText('MC_agg', mcALbl.x + 4, mcALbl.y - 4);
+
+                ctx.fillStyle = C.demand; ctx.font = 'bold 12px -apple-system, sans-serif';
+                var dlbl = tp(a / b - 4, 4, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('D', dlbl.x, dlbl.y);
+                ctx.fillStyle = C.mr;
+                var mrlbl = tp(a / (2 * b) - 2, 4, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('MR', mrlbl.x, mrlbl.y);
+
+                /* MC* label */
+                ctx.fillStyle = C.text; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                var mcStarPt = tp(0, MRstar, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('MC*', ox - 4, mcStarPt.y - 2);
+
+                var profit = (Pm - cAgg * Qtot / 2) * Qtot; /* approx using avg cost */
+                info.innerHTML =
+                    '<strong>c₁ = ' + c1.toFixed(1) + ', c₂ = ' + c2.toFixed(1) + '</strong>' +
+                    ' &nbsp;|&nbsp; MC* = £' + MRstar.toFixed(1) +
+                    ' &nbsp;|&nbsp; Plant 1: q₁ = ' + q1.toFixed(1) +
+                    ', Plant 2: q₂ = ' + q2.toFixed(1) +
+                    ' &nbsp;|&nbsp; Total Q = ' + Qtot.toFixed(1) +
+                    ', P = £' + Pm.toFixed(1) +
+                    '<br>Share: Plant 1 = ' + (100 * q1 / Qtot).toFixed(0) + '%' +
+                    ', Plant 2 = ' + (100 * q2 / Qtot).toFixed(0) + '% — ' +
+                    (Math.abs(c1 - c2) < 0.15 ? 'Equal costs: even split' :
+                    (c1 < c2 ? 'Plant 1 is cheaper: takes larger share' : 'Plant 2 is cheaper: takes larger share'));
+            }
+
+            slC1.addEventListener('input', draw);
+            slC2.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ── Global redraw ── */
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>
