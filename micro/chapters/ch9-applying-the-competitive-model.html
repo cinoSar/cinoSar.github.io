@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 9: Applying the Competitive Model | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 140px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle {
+            background: var(--color-primary-dark);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 9: Applying the Competitive Model</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 9</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#surplus">9.1 Consumer &amp; Producer Surplus</a></li>
+                <li><a href="#price-controls">9.2 Price Ceilings &amp; Floors</a></li>
+                <li><a href="#tariffs">9.3 Quotas &amp; Tariffs</a></li>
+                <li><a href="#taxes-subsidies">9.4 Taxes &amp; Subsidies</a></li>
+                <li><a href="#formal-derivations">9.5 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: Who Pays for the Carbon Tax?</h2>
+                <p>In 2021, the EU launched a carbon border adjustment mechanism (CBAM) &mdash; effectively a tariff on the carbon content of imports. Cement producers warned it would raise construction costs. Environmentalists argued it would save the planet. Economists asked the question that matters most for policy: <em>who actually bears the burden, and how much economic value is destroyed in the process?</em></p>
+
+                <p>To answer this, we need tools for measuring welfare &mdash; the gains and losses to buyers, sellers, and the government from any market intervention. In Chapter 8 we showed that the competitive equilibrium is efficient. Now we measure <em>how much</em> efficiency is lost when governments intervene, and <em>who</em> wins and loses.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>Every market intervention &mdash; taxes, subsidies, price controls, tariffs, quotas &mdash; creates winners and losers. <strong>Consumer surplus</strong> and <strong>producer surplus</strong> let us measure these gains and losses in pounds. The <strong>deadweight loss</strong> is the net loss to society: value destroyed that goes to nobody. These tools turn policy debates from hand-waving into arithmetic.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to compute consumer and producer surplus from a supply-and-demand diagram, measure the deadweight loss from price ceilings, price floors, taxes, subsidies, tariffs, and quotas, determine the incidence of a tax (who really pays), and evaluate trade policies using the welfare framework.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#surplus">Consumer &amp; Producer Surplus</a> &mdash; measuring gains from trade</li>
+                    <li><a href="#price-controls">Price Ceilings &amp; Floors</a> &mdash; rent controls, minimum wages, and DWL</li>
+                    <li><a href="#tariffs">Quotas &amp; Tariffs</a> &mdash; trade restrictions and their welfare effects</li>
+                    <li><a href="#taxes-subsidies">Taxes &amp; Subsidies</a> &mdash; incidence, revenue, and deadweight loss</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; the full mathematical treatment</li>
+                </ol>
+            </div>
+
+            <!-- ============================================ -->
+            <!-- 9.1 CONSUMER & PRODUCER SURPLUS               -->
+            <!-- ============================================ -->
+            <section id="surplus" class="lesson-section section-geometric">
+                <h2>9.1 Consumer and Producer Surplus</h2>
+
+                <h3>Intuition: Gains from Trade</h3>
+                <p>When you buy a coffee for £3 but would have been willing to pay £5, you receive a "bonus" of £2 &mdash; you got something worth £5 to you for only £3. This bonus is your <strong>consumer surplus</strong> on that unit. Aggregated across all units and all consumers, consumer surplus is the total amount by which buyers' willingness to pay exceeds the price they actually pay.</p>
+
+                <p>Similarly, if a farmer can produce a litre of milk for £0.20 but sells it for £0.30, the farmer earns £0.10 of <strong>producer surplus</strong> on that unit &mdash; revenue above and beyond the minimum needed to cover costs. Total producer surplus is the total amount by which price exceeds marginal cost across all units produced.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Surplus Definitions</h4>
+                    <p><strong>Consumer surplus (CS):</strong> The area below the demand curve and above the market price. It measures the total net benefit to all buyers.</p>
+                    <p><strong>Producer surplus (PS):</strong> The area above the supply curve and below the market price. It measures the total net benefit to all sellers.</p>
+                    <p><strong>Total surplus (TS):</strong> CS + PS. The total gains from trade. In a competitive equilibrium, total surplus is maximised.</p>
+                </div>
+
+                <h3>Geometric Solution: Measuring Surplus</h3>
+
+                <div class="interactive-graph" id="surplus-container">
+                    <canvas id="surplusCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            Demand intercept (a): <span class="value-display" id="surpADisplay">50</span>
+                            <input type="range" id="surpASlider" min="30" max="70" step="2" value="50">
+                        </label>
+                        <label>
+                            Supply slope (c): <span class="value-display" id="surpCDisplay">0.5</span>
+                            <input type="range" id="surpCSlider" min="0.2" max="1.5" step="0.1" value="0.5">
+                        </label>
+                        <button id="surpResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="surpInfo">
+                        Adjust demand or supply to see how the surplus areas change. CS (blue) + PS (red) = Total surplus.
+                    </div>
+                    <p class="graph-caption">Figure 9.1 &mdash; Consumer surplus (blue triangle) and producer surplus (red triangle) in competitive equilibrium.</p>
+                </div>
+
+                <p>At the competitive equilibrium, every unit for which the buyer's willingness to pay exceeds the seller's marginal cost is produced and traded. No further gains are possible &mdash; total surplus is maximised. Any intervention that moves the market away from this equilibrium must reduce total surplus, creating a <strong>deadweight loss</strong>.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The First Welfare Theorem, Illustrated</h4>
+                    <p>The competitive equilibrium maximises total surplus. This is the graphical version of the First Welfare Theorem: competitive markets are Pareto-efficient. No reallocation can make one person better off without making another worse off. The DWL from any policy measures the departure from this ideal.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 9.2 PRICE CEILINGS & FLOORS                  -->
+            <!-- ============================================ -->
+            <section id="price-controls" class="lesson-section section-geometric">
+                <h2>9.2 Price Ceilings and Floors</h2>
+
+                <h3>Intuition: Good Intentions, Bad Outcomes?</h3>
+                <p>Governments set <strong>price ceilings</strong> (maximum prices) to help buyers &mdash; rent controls to make housing affordable, usury laws to cap interest rates. They set <strong>price floors</strong> (minimum prices) to help sellers &mdash; minimum wages to protect workers, agricultural price supports to protect farmers. But both create deadweight loss by preventing mutually beneficial trades.</p>
+
+                <p>A price ceiling below the equilibrium price creates <strong>excess demand</strong> (shortage): more buyers want the good than sellers are willing to supply. A price floor above the equilibrium creates <strong>excess supply</strong> (surplus): more sellers want to sell than buyers want to buy. In both cases, the quantity traded is less than the competitive quantity, and some gains from trade are lost.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Price Controls</h4>
+                    <p><strong>Price ceiling:</strong> A legal maximum price. Binding only if set below the equilibrium price. Creates a shortage. Examples: rent controls, price caps on energy.</p>
+                    <p><strong>Price floor:</strong> A legal minimum price. Binding only if set above the equilibrium price. Creates a surplus. Examples: minimum wage, EU agricultural price supports.</p>
+                </div>
+
+                <h3>Geometric Solution: Deadweight Loss from Price Controls</h3>
+
+                <div class="interactive-graph" id="controls-container">
+                    <canvas id="controlsCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <button id="ctrlCeilingBtn" class="active-toggle">Price Ceiling</button>
+                        <button id="ctrlFloorBtn">Price Floor</button>
+                        <label>
+                            Controlled price: <span class="value-display" id="ctrlPDisplay">£15</span>
+                            <input type="range" id="ctrlPSlider" min="5" max="40" step="1" value="15">
+                        </label>
+                        <button id="ctrlResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="ctrlInfo">
+                        Set a ceiling below, or a floor above, the equilibrium price to see the DWL triangle and the shortage/surplus.
+                    </div>
+                    <p class="graph-caption">Figure 9.2 &mdash; A binding price control reduces the quantity traded and creates a deadweight loss (grey triangle).</p>
+                </div>
+
+                <p>With a binding price ceiling, the quantity traded falls to where supply meets the ceiling price. Buyers who get the good at the low price gain, but some buyers who would have traded at the equilibrium now cannot. The DWL triangle represents trades that would have benefited both buyer and seller but are now prevented by the ceiling.</p>
+
+                <p>With a binding price floor, the quantity traded falls to where demand meets the floor price. Sellers who sell at the high price gain, but some sellers who would have traded now cannot find buyers. The logic is symmetric.</p>
+
+                <div class="callout callout-example">
+                    <h4>Rent Controls in Practice</h4>
+                    <p>Stockholm introduced strict rent controls in the 1940s. By the 2010s, the average wait time for a rent-controlled flat exceeded 10 years, reaching 20 years in central Stockholm. The controls kept rents low for incumbents but created severe shortages, a black market in sublets, and underinvestment in maintenance. The DWL was substantial &mdash; not just the triangle on the graph, but also the misallocation of existing housing and the reduction in new construction.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 9.3 QUOTAS & TARIFFS                          -->
+            <!-- ============================================ -->
+            <section id="tariffs" class="lesson-section section-geometric">
+                <h2>9.3 Tariffs and Import Quotas</h2>
+
+                <h3>Intuition: Restricting Trade</h3>
+                <p>Consider a small open economy that can import steel at the world price \(P_W\). Domestic producers cannot compete at this price &mdash; they produce less, and imports fill the gap. A <strong>tariff</strong> (tax on imports) raises the domestic price to \(P_W + t\), helping domestic producers but hurting consumers. An <strong>import quota</strong> limits the quantity of imports directly, with similar effects.</p>
+
+                <p>The welfare analysis has four components: change in consumer surplus, change in producer surplus, tariff revenue collected by the government, and deadweight loss. The tariff creates two DWL triangles: one from the inefficient expansion of domestic production (production that costs more than the world price), and one from the reduction in consumption (consumers priced out of the market).</p>
+
+                <div class="callout callout-definition">
+                    <h4>Tariff Welfare Effects</h4>
+                    <p><strong>Consumers lose:</strong> They pay a higher price on all units, so CS falls.</p>
+                    <p><strong>Domestic producers gain:</strong> They sell more at a higher price, so PS rises.</p>
+                    <p><strong>Government gains:</strong> It collects tariff revenue = \(t \times \text{imports}\).</p>
+                    <p><strong>Net effect:</strong> Two DWL triangles remain &mdash; the tariff destroys more surplus than it redistributes.</p>
+                </div>
+
+                <h3>Geometric Solution: Tariff Analysis</h3>
+
+                <div class="interactive-graph" id="tariff-container">
+                    <canvas id="tariffCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <label>
+                            World price (P<sub>W</sub>): <span class="value-display" id="tarPwDisplay">£10</span>
+                            <input type="range" id="tarPwSlider" min="5" max="20" step="1" value="10">
+                        </label>
+                        <label>
+                            Tariff (t): <span class="value-display" id="tarTDisplay">£0</span>
+                            <input type="range" id="tarTSlider" min="0" max="15" step="1" value="0">
+                        </label>
+                        <button id="tarResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="tarInfo">
+                        Raise the tariff to see how domestic production expands, imports shrink, and DWL triangles appear.
+                    </div>
+                    <p class="graph-caption">Figure 9.3 &mdash; Tariff on imports. Green = PS gain, blue = government revenue, grey = DWL. The CS loss equals all coloured areas combined.</p>
+                </div>
+
+                <p>As you raise the tariff, the domestic price rises from \(P_W\) to \(P_W + t\). Domestic quantity supplied increases (inefficient domestic production replaces cheap imports), domestic quantity demanded decreases (consumers cut back), and imports shrink. The government collects revenue on the remaining imports. But two DWL triangles grow: the <strong>production distortion</strong> (left triangle) and the <strong>consumption distortion</strong> (right triangle). A tariff high enough to eliminate all imports is called a <strong>prohibitive tariff</strong> &mdash; it moves the market to the closed-economy equilibrium.</p>
+
+                <div class="callout callout-warning">
+                    <h4>Tariffs vs. Quotas</h4>
+                    <p>A tariff and a quota that restrict imports to the same quantity have identical effects on price, domestic production, and consumption. The key difference: with a tariff, the <strong>government</strong> collects the revenue (area between the two DWL triangles). With a quota, foreign exporters or domestic importers with quota licences capture this as <strong>quota rent</strong>. If the licences go to foreign firms, the importing country is even worse off under a quota than a tariff.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 9.4 TAXES & SUBSIDIES                         -->
+            <!-- ============================================ -->
+            <section id="taxes-subsidies" class="lesson-section section-geometric">
+                <h2>9.4 Taxes and Subsidies Revisited</h2>
+
+                <h3>Intuition: The Tax Wedge</h3>
+                <p>We first met taxes in Chapter 3. Now, armed with surplus analysis, we can fully decompose who gains, who loses, and what is destroyed. A per-unit tax \(\tau\) drives a <strong>wedge</strong> between the price buyers pay (\(P_b\)) and the price sellers receive (\(P_s = P_b - \tau\)). The quantity traded falls below the competitive level, creating deadweight loss.</p>
+
+                <p>A <strong>subsidy</strong> is a negative tax: the government pays \(s\) per unit, so sellers receive \(P_s = P_b + s\). Quantity traded rises above the competitive level. The government spends money, consumers and producers gain &mdash; but the total cost to the government exceeds the combined gains, creating DWL from overproduction.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Tax Incidence Depends on Elasticities</h4>
+                    <p>The burden of a tax falls more heavily on the side of the market that is <em>less elastic</em>. If demand is inelastic relative to supply, consumers bear most of the tax (the buyer's price rises nearly by the full tax). If supply is inelastic, producers bear most. The legal incidence (who writes the cheque) is irrelevant &mdash; a tax on sellers and a tax on buyers of the same size have identical economic effects.</p>
+                </div>
+
+                <h3>Geometric Solution: Full Welfare Decomposition</h3>
+
+                <div class="interactive-graph" id="tax-container">
+                    <canvas id="taxCanvas" width="600" height="450"></canvas>
+                    <div class="graph-controls">
+                        <button id="taxTaxBtn" class="active-toggle">Tax</button>
+                        <button id="taxSubBtn">Subsidy</button>
+                        <label>
+                            Amount (&tau;): <span class="value-display" id="taxTDisplay">£0</span>
+                            <input type="range" id="taxTSlider" min="0" max="20" step="1" value="0">
+                        </label>
+                        <button id="taxResetBtn">Reset</button>
+                    </div>
+                    <div class="graph-info" id="taxInfo">
+                        Increase the tax/subsidy to see the wedge, revenue/cost, and DWL. Toggle between tax and subsidy.
+                    </div>
+                    <p class="graph-caption">Figure 9.4 &mdash; Tax or subsidy wedge. Yellow = government revenue/cost. Grey = DWL. The incidence depends on relative elasticities.</p>
+                </div>
+
+                <p>With a tax, the supply curve shifts up by \(\tau\). The new equilibrium quantity is lower, the buyer's price is higher, and the seller's price is lower. Government revenue is the rectangle \(\tau \times Q_\tau\). The DWL triangle grows with the square of the tax rate &mdash; doubling the tax quadruples the deadweight loss. This is why economists generally prefer broad-based taxes at low rates to narrow taxes at high rates.</p>
+
+                <p>With a subsidy, the supply curve shifts down by \(s\). Quantity rises, the buyer's price falls, and the seller's price rises. The government's cost is \(s \times Q_s\), which exceeds the combined gain to consumers and producers &mdash; the excess is the DWL from overconsumption.</p>
+
+                <div class="callout callout-example">
+                    <h4>The DWL Grows with the Square of the Tax</h4>
+                    <p>The Harberger triangle formula says \(DWL \approx \frac{1}{2} \tau^2 \frac{Q_0}{P_0} \frac{\varepsilon_d \varepsilon_s}{\varepsilon_s - \varepsilon_d}\), where \(\varepsilon_d < 0\) is the elasticity of demand and \(\varepsilon_s > 0\) is the elasticity of supply. The \(\tau^2\) term is crucial: a 10% tax creates 4 times the DWL of a 5% tax. This "tax distortion grows quadratically" result is one of the most important in public finance.</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 9.5 FORMAL DERIVATIONS                        -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>9.5 Formal Mathematical Derivations</h2>
+
+                <p>We use linear supply and demand throughout: \(Q^D = a - bP\) and \(Q^S = cP\) (supply through the origin for simplicity). The baseline parameters are \(a = 50\), \(b = 1\), \(c = 1\).</p>
+
+                <h3>Competitive Equilibrium and Surplus</h3>
+                <p>Setting \(Q^D = Q^S\):</p>
+
+                \[ a - bP = cP \quad \Rightarrow \quad P^* = \frac{a}{b + c}, \quad Q^* = \frac{ac}{b + c} \]
+
+                <p>For \(a = 50, b = 1, c = 1\): \(P^* = 25, Q^* = 25\).</p>
+
+                <p>Consumer surplus is the triangle below demand and above price:</p>
+
+                \[ CS = \frac{1}{2}(a/b - P^*) \cdot Q^* = \frac{1}{2} \cdot \frac{a}{b} \cdot \frac{a}{b+c} \cdot \frac{ac}{b+c} = \frac{a^2 c}{2b(b+c)^2} \cdot b = \frac{a^2 c}{2(b+c)^2} \]
+
+                <p>More simply: \(CS = \frac{1}{2}(P_{max} - P^*) Q^* = \frac{1}{2}(50 - 25)(25) = 312.5\).</p>
+
+                <p>Producer surplus is the triangle above supply and below price:</p>
+
+                \[ PS = \frac{1}{2} P^* \cdot Q^* = \frac{1}{2}(25)(25) = 312.5 \]
+
+                <p>Total surplus: \(TS = CS + PS = 625\).</p>
+
+                <h3>Effect of a Per-Unit Tax</h3>
+                <p>A tax \(\tau\) on sellers shifts supply to \(Q^S = c(P - \tau)\). The new equilibrium:</p>
+
+                \[ a - bP_b = c(P_b - \tau) \quad \Rightarrow \quad P_b = \frac{a + c\tau}{b + c}, \quad P_s = P_b - \tau = \frac{a - b\tau}{b + c} \]
+
+                \[ Q_\tau = a - bP_b = \frac{ac - bc\tau}{b + c} = Q^* - \frac{bc\tau}{b+c} \]
+
+                <p>For \(\tau = 10\): \(P_b = 30, P_s = 20, Q_\tau = 20\).</p>
+
+                <p><strong>Tax incidence:</strong> Buyers' price rises by \(\Delta P_b = c\tau/(b+c)\). Sellers' price falls by \(\Delta P_s = b\tau/(b+c)\). With \(b = c\), the burden is split 50-50. More generally, the share borne by buyers is \(c/(b+c) = \varepsilon_s / (\varepsilon_s + |\varepsilon_d|)\) (expressed in terms of elasticities at the original equilibrium).</p>
+
+                <p><strong>Government revenue:</strong></p>
+
+                \[ R = \tau \cdot Q_\tau = \tau \left(Q^* - \frac{bc\tau}{b+c}\right) = 10 \times 20 = 200 \]
+
+                <p><strong>Deadweight loss:</strong></p>
+
+                \[ DWL = \frac{1}{2} \tau (Q^* - Q_\tau) = \frac{1}{2} \cdot \frac{bc\tau^2}{b+c} = \frac{1}{2} \cdot \frac{1 \cdot 1 \cdot 100}{2} = 25 \]
+
+                <p>Verification: \(CS_{new} = \frac{1}{2}(50 - 30)(20) = 200\). \(PS_{new} = \frac{1}{2}(20)(20) = 200\). \(CS_{new} + PS_{new} + R = 200 + 200 + 200 = 600 = TS - DWL = 625 - 25\). Checks out.</p>
+
+                <h3>Effect of a Tariff</h3>
+                <p>A small open economy faces world price \(P_W\). Domestic supply: \(Q^S = cP\). Domestic demand: \(Q^D = a - bP\). Free-trade imports: \(M = Q^D(P_W) - Q^S(P_W)\).</p>
+
+                <p>A tariff \(t\) raises the domestic price to \(P_W + t\):</p>
+
+                \[ Q^S_t = c(P_W + t), \quad Q^D_t = a - b(P_W + t), \quad M_t = Q^D_t - Q^S_t \]
+
+                <p><strong>Change in CS:</strong> \(\Delta CS = -[(P_W + t) - P_W] \cdot Q^D_t - \frac{1}{2}t(Q^D(P_W) - Q^D_t)\).</p>
+
+                <p>Simplifying: \(\Delta CS = -t \cdot Q^D(P_W) + \frac{1}{2}bt^2\). The full loss is a trapezoid.</p>
+
+                <p><strong>Change in PS:</strong> \(\Delta PS = t \cdot Q^S(P_W) + \frac{1}{2}ct^2\). The gain is a trapezoid.</p>
+
+                <p><strong>Government revenue:</strong> \(R = t \cdot M_t = t[(a - bP_W - bt) - (cP_W + ct)] = t[M - (b+c)t]\).</p>
+
+                <p><strong>DWL:</strong> Two triangles:</p>
+
+                \[ DWL = \frac{1}{2}ct^2 + \frac{1}{2}bt^2 = \frac{1}{2}(b+c)t^2 \]
+
+                <p>Again, DWL grows with the square of the intervention.</p>
+
+                <h3>Price Controls</h3>
+                <p>A binding price ceiling \(\bar{P} < P^*\) reduces quantity traded to \(Q_c = Q^S(\bar{P}) = c\bar{P}\). DWL:</p>
+
+                \[ DWL = \frac{1}{2}(P^D(Q_c) - P^S(Q_c))(Q^* - Q_c) \]
+
+                <p>where \(P^D(Q_c) = (a - Q_c)/b\) is the demand price at the restricted quantity and \(P^S(Q_c) = Q_c/c = \bar{P}\) is the supply price. For \(\bar{P} = 15\): \(Q_c = 15\), \(P^D(15) = 35\), \(DWL = \frac{1}{2}(35 - 15)(25 - 15) = 100\).</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>The Common Thread</h4>
+                    <p>Every intervention studied in this chapter &mdash; taxes, subsidies, ceilings, floors, tariffs, quotas &mdash; follows the same logic. It drives a wedge between the buyer's price and the seller's price (or between domestic and world price), reduces the quantity traded below the efficient level, and creates a DWL that grows with the <em>square</em> of the wedge. The only difference is who captures the rectangle between the two triangles: the government (taxes, tariffs), quota holders (quotas), or nobody (price controls, where the surplus is dissipated through queuing, rationing, or black markets).</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p><strong>Consumer surplus</strong> (the area below demand and above price) and <strong>producer surplus</strong> (the area above supply and below price) measure the gains from trade in a market. In competitive equilibrium, total surplus is maximised &mdash; no reallocation can improve on it.</p>
+
+                <p><strong>Price controls</strong> reduce the quantity traded and create deadweight loss. A ceiling below the equilibrium price causes shortages; a floor above it causes surpluses. <strong>Tariffs</strong> raise the domestic price above the world price, expanding domestic production inefficiently and restricting consumption, with two DWL triangles. <strong>Quotas</strong> have the same price and quantity effects but transfer the revenue rectangle to quota-holders rather than the government.</p>
+
+                <p><strong>Taxes</strong> drive a wedge between buyer and seller prices. The incidence falls more heavily on the less elastic side of the market, regardless of who legally pays. The DWL from any intervention grows with the <em>square</em> of the wedge &mdash; a central result for policy design. <strong>Subsidies</strong> reverse the direction (quantity rises above the efficient level) but also create DWL from overproduction.</p>
+
+                <p>In the next chapter, we move beyond partial equilibrium to <strong>general equilibrium</strong>, asking what happens when all markets are connected simultaneously.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch8-competitive-firms-and-markets.html">&larr; Chapter 8: Competitive Firms and Markets</a>
+                <span style="color: var(--color-text-lighter);">Chapter 10: General Equilibrium and Welfare &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            demand: '#3b82f6', supply: '#ef4444',
+            supplyShift: '#f87171',
+            cs: 'rgba(59, 130, 246, 0.2)', csBorder: '#3b82f6',
+            ps: 'rgba(239, 68, 68, 0.15)', psBorder: '#ef4444',
+            dwl: 'rgba(120, 120, 120, 0.25)', dwlBorder: '#888888',
+            revenue: 'rgba(245, 158, 11, 0.25)', revBorder: '#f59e0b',
+            psGain: 'rgba(16, 185, 129, 0.2)', psGainBorder: '#10b981',
+            equilibrium: '#0a9396', eqGlow: 'rgba(10, 147, 150, 0.3)',
+            priceLine: '#f59e0b', worldPrice: '#8b5cf6',
+            dotCurrent: '#0a9396',
+            shortage: '#ef4444', surplus: '#10b981'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            demand: '#60a5fa', supply: '#f87171',
+            supplyShift: '#fca5a5',
+            cs: 'rgba(96, 165, 250, 0.2)', csBorder: '#60a5fa',
+            ps: 'rgba(248, 113, 113, 0.15)', psBorder: '#f87171',
+            dwl: 'rgba(160, 160, 160, 0.2)', dwlBorder: '#999999',
+            revenue: 'rgba(251, 191, 36, 0.25)', revBorder: '#fbbf24',
+            psGain: 'rgba(52, 211, 153, 0.2)', psGainBorder: '#34d399',
+            equilibrium: '#2ec4c8', eqGlow: 'rgba(46, 196, 200, 0.3)',
+            priceLine: '#fbbf24', worldPrice: '#a78bfa',
+            dotCurrent: '#2ec4c8',
+            shortage: '#f87171', surplus: '#34d399'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep) {
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            var v, pt;
+            for (v = 0; v <= yMax; v += (yStep || 5)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            for (v = 0; v <= xMax; v += (xStep || 5)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel || '', ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel || '', 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (v = xStep || 5; v <= xMax; v += (xStep || 5)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (v = yStep || 5; v <= yMax; v += (yStep || 5)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, ox - 6, pt.y);
+            }
+        }
+
+        function drawLine(ctx, x1, y1, x2, y2, ox, oy, gw, gh, xMax, yMax, color, lineWidth, dashed) {
+            var p1 = tp(x1, y1, ox, oy, gw, gh, xMax, yMax);
+            var p2 = tp(x2, y2, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = lineWidth || 2;
+            if (dashed) ctx.setLineDash([5, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function fillTriangle(ctx, x1, y1, x2, y2, x3, y3, ox, oy, gw, gh, xMax, yMax, color) {
+            var p1 = tp(x1, y1, ox, oy, gw, gh, xMax, yMax);
+            var p2 = tp(x2, y2, ox, oy, gw, gh, xMax, yMax);
+            var p3 = tp(x3, y3, ox, oy, gw, gh, xMax, yMax);
+            ctx.fillStyle = color;
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.closePath(); ctx.fill();
+        }
+
+        function fillRect4(ctx, x1, y1, x2, y2, x3, y3, x4, y4, ox, oy, gw, gh, xMax, yMax, color) {
+            var p1 = tp(x1, y1, ox, oy, gw, gh, xMax, yMax);
+            var p2 = tp(x2, y2, ox, oy, gw, gh, xMax, yMax);
+            var p3 = tp(x3, y3, ox, oy, gw, gh, xMax, yMax);
+            var p4 = tp(x4, y4, ox, oy, gw, gh, xMax, yMax);
+            ctx.fillStyle = color;
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.closePath(); ctx.fill();
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            var ya = tp(0, y, ox, oy, gw, gh, xMax, yMax);
+            var xa = tp(x, 0, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+            ctx.beginPath(); ctx.moveTo(ya.x, pt.y); ctx.lineTo(pt.x, pt.y); ctx.lineTo(pt.x, xa.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        // Linear model: Qd = a - b*P, Qs = c*P
+        // Inverse: Pd = (a - Q)/b, Ps = Q/c
+
+        // ============================================================
+        // GRAPH 1: CONSUMER & PRODUCER SURPLUS
+        // ============================================================
+        (function() {
+            var aSlider = document.getElementById('surpASlider');
+            var cSlider = document.getElementById('surpCSlider');
+            var aDisplay = document.getElementById('surpADisplay');
+            var cDisplay = document.getElementById('surpCDisplay');
+            var info = document.getElementById('surpInfo');
+            var resetBtn = document.getElementById('surpResetBtn');
+
+            var b = 1;
+            var QMax = 60, PMax = 55;
+
+            function draw() {
+                var res = getCtx('surplusCanvas');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var a = parseFloat(aSlider.value);
+                var c = parseFloat(cSlider.value);
+                aDisplay.textContent = a;
+                cDisplay.textContent = c.toFixed(1);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, QMax, PMax, 'Quantity (Q)', 'Price (£)', 10, 5);
+
+                var Pstar = a / (b + c);
+                var Qstar = a * c / (b + c);
+                var Pmax = a / b;
+
+                // CS triangle
+                fillTriangle(ctx, 0, Pmax, Qstar, Pstar, 0, Pstar, ox, oy, gw, gh, QMax, PMax, C.cs);
+                // PS triangle
+                fillTriangle(ctx, 0, 0, Qstar, Pstar, 0, Pstar, ox, oy, gw, gh, QMax, PMax, C.ps);
+
+                // Demand line
+                drawLine(ctx, 0, Pmax, Math.min(QMax, a), 0, ox, oy, gw, gh, QMax, PMax, C.demand, 2.5);
+                // Supply line
+                var Qs_at_PMax = c * PMax;
+                drawLine(ctx, 0, 0, Math.min(QMax, Qs_at_PMax), Math.min(PMax, QMax / c), ox, oy, gw, gh, QMax, PMax, C.supply, 2.5);
+
+                // Equilibrium dot
+                dot(ctx, Qstar, Pstar, ox, oy, gw, gh, QMax, PMax, C.dotCurrent, 6);
+                dashedTo(ctx, Qstar, Pstar, ox, oy, gw, gh, QMax, PMax, C.textMuted);
+
+                // Labels
+                ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                ctx.fillStyle = C.demand;
+                var dLab = tp(Math.min(QMax - 5, a - 5), 5 / b, ox, oy, gw, gh, QMax, PMax);
+                ctx.fillText('D', dLab.x, dLab.y - 5);
+                ctx.fillStyle = C.supply;
+                var sLab = tp(Math.min(QMax - 5, c * (PMax - 5)), PMax - 5, ox, oy, gw, gh, QMax, PMax);
+                ctx.fillText('S', sLab.x + 5, sLab.y + 5);
+
+                // CS/PS labels
+                ctx.font = '12px -apple-system, sans-serif';
+                var csCenter = tp(Qstar / 3, Pstar + (Pmax - Pstar) / 3, ox, oy, gw, gh, QMax, PMax);
+                ctx.fillStyle = C.csBorder; ctx.textAlign = 'center';
+                ctx.fillText('CS', csCenter.x, csCenter.y);
+                var psCenter = tp(Qstar / 3, Pstar / 3, ox, oy, gw, gh, QMax, PMax);
+                ctx.fillStyle = C.psBorder;
+                ctx.fillText('PS', psCenter.x, psCenter.y);
+
+                var cs = 0.5 * (Pmax - Pstar) * Qstar;
+                var ps = 0.5 * Pstar * Qstar;
+                info.innerHTML = 'P* = £' + Pstar.toFixed(1) + ' | Q* = ' + Qstar.toFixed(1) +
+                    ' | CS = £' + cs.toFixed(0) + ' | PS = £' + ps.toFixed(0) +
+                    ' | Total surplus = £' + (cs + ps).toFixed(0);
+            }
+
+            aSlider.addEventListener('input', draw);
+            cSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() { aSlider.value = 50; cSlider.value = 0.5; draw(); });
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 2: PRICE CONTROLS (ceiling / floor)
+        // ============================================================
+        (function() {
+            var ceilingBtn = document.getElementById('ctrlCeilingBtn');
+            var floorBtn = document.getElementById('ctrlFloorBtn');
+            var pSlider = document.getElementById('ctrlPSlider');
+            var pDisplay = document.getElementById('ctrlPDisplay');
+            var info = document.getElementById('ctrlInfo');
+            var resetBtn = document.getElementById('ctrlResetBtn');
+
+            var mode = 'ceiling';
+            var a = 50, b = 1, c = 1;
+            var QMax = 60, PMax = 55;
+            var Pstar = a / (b + c), Qstar = a * c / (b + c);
+
+            function setActive(btn) {
+                [ceilingBtn, floorBtn].forEach(function(b) { b.classList.remove('active-toggle'); });
+                btn.classList.add('active-toggle');
+            }
+
+            function draw() {
+                var res = getCtx('controlsCanvas');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var Pc = parseFloat(pSlider.value);
+                pDisplay.textContent = '£' + Pc;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, QMax, PMax, 'Quantity (Q)', 'Price (£)', 10, 5);
+
+                var Pmax = a / b;
+                var binding = (mode === 'ceiling' && Pc < Pstar) || (mode === 'floor' && Pc > Pstar);
+
+                if (binding) {
+                    var Qtraded, Qd, Qs, Pd_at_Qt;
+                    if (mode === 'ceiling') {
+                        Qs = c * Pc;
+                        Qd = a - b * Pc;
+                        Qtraded = Qs; // short side
+                        Pd_at_Qt = (a - Qtraded) / b;
+                    } else {
+                        Qd = a - b * Pc;
+                        Qs = c * Pc;
+                        Qtraded = Qd; // short side
+                        Pd_at_Qt = Pc; // floor price
+                    }
+
+                    // DWL triangle
+                    if (mode === 'ceiling') {
+                        fillTriangle(ctx, Qtraded, Pd_at_Qt, Qstar, Pstar, Qtraded, Pc,
+                            ox, oy, gw, gh, QMax, PMax, C.dwl);
+                    } else {
+                        var Ps_at_Qt = Qtraded / c;
+                        fillTriangle(ctx, Qtraded, Pc, Qstar, Pstar, Qtraded, Ps_at_Qt,
+                            ox, oy, gw, gh, QMax, PMax, C.dwl);
+                    }
+
+                    // CS and PS under control
+                    if (mode === 'ceiling') {
+                        // CS: trapezoid from 0 to Qtraded between demand and ceiling
+                        fillRect4(ctx, 0, Pmax, Qtraded, Pd_at_Qt, Qtraded, Pc, 0, Pc,
+                            ox, oy, gw, gh, QMax, PMax, C.cs);
+                        // PS: triangle from 0 to Qtraded between supply and ceiling
+                        fillTriangle(ctx, 0, 0, Qtraded, Pc, 0, Pc,
+                            ox, oy, gw, gh, QMax, PMax, C.ps);
+                    } else {
+                        // CS: triangle from 0 to Qtraded between demand and floor
+                        fillTriangle(ctx, 0, Pmax, Qtraded, Pc, 0, Pc,
+                            ox, oy, gw, gh, QMax, PMax, C.cs);
+                        // PS: trapezoid
+                        var Ps_at_Qt2 = Qtraded / c;
+                        fillRect4(ctx, 0, Pc, Qtraded, Pc, Qtraded, Ps_at_Qt2, 0, 0,
+                            ox, oy, gw, gh, QMax, PMax, C.ps);
+                    }
+
+                    // Price control line
+                    drawLine(ctx, 0, Pc, QMax, Pc, ox, oy, gw, gh, QMax, PMax, C.priceLine, 2, true);
+
+                    // Shortage/surplus bracket
+                    if (mode === 'ceiling') {
+                        var pSh1 = tp(Qs, Pc - 1.5, ox, oy, gw, gh, QMax, PMax);
+                        var pSh2 = tp(Qd, Pc - 1.5, ox, oy, gw, gh, QMax, PMax);
+                        ctx.strokeStyle = C.shortage; ctx.lineWidth = 2;
+                        ctx.beginPath(); ctx.moveTo(pSh1.x, pSh1.y); ctx.lineTo(pSh2.x, pSh2.y); ctx.stroke();
+                        ctx.fillStyle = C.shortage; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                        ctx.fillText('Shortage = ' + (Qd - Qs).toFixed(0), (pSh1.x + pSh2.x) / 2, pSh1.y + 14);
+                    } else {
+                        var pSu1 = tp(Qd, Pc + 1.5, ox, oy, gw, gh, QMax, PMax);
+                        var pSu2 = tp(Qs, Pc + 1.5, ox, oy, gw, gh, QMax, PMax);
+                        ctx.strokeStyle = C.surplus; ctx.lineWidth = 2;
+                        ctx.beginPath(); ctx.moveTo(pSu1.x, pSu1.y); ctx.lineTo(pSu2.x, pSu2.y); ctx.stroke();
+                        ctx.fillStyle = C.surplus; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                        ctx.fillText('Surplus = ' + (Qs - Qd).toFixed(0), (pSu1.x + pSu2.x) / 2, pSu1.y - 6);
+                    }
+
+                    // DWL label
+                    ctx.fillStyle = C.dwlBorder; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                    var dwlPt = tp((Qtraded + Qstar) / 2, Pstar, ox, oy, gw, gh, QMax, PMax);
+                    ctx.fillText('DWL', dwlPt.x, dwlPt.y);
+
+                    var dwl;
+                    if (mode === 'ceiling') {
+                        dwl = 0.5 * (Pd_at_Qt - Pc) * (Qstar - Qtraded);
+                    } else {
+                        dwl = 0.5 * (Pc - Qtraded / c) * (Qstar - Qtraded);
+                    }
+
+                    info.innerHTML = (mode === 'ceiling' ? 'Ceiling' : 'Floor') + ' at £' + Pc +
+                        ' | Q traded = ' + Qtraded.toFixed(0) +
+                        ' | DWL = £' + dwl.toFixed(0) +
+                        ' | ' + (mode === 'ceiling' ? 'Shortage = ' + (Qd - Qs).toFixed(0) : 'Surplus = ' + (Qs - Qd).toFixed(0));
+                } else {
+                    // Not binding — show normal equilibrium
+                    fillTriangle(ctx, 0, Pmax, Qstar, Pstar, 0, Pstar, ox, oy, gw, gh, QMax, PMax, C.cs);
+                    fillTriangle(ctx, 0, 0, Qstar, Pstar, 0, Pstar, ox, oy, gw, gh, QMax, PMax, C.ps);
+
+                    drawLine(ctx, 0, Pc, QMax, Pc, ox, oy, gw, gh, QMax, PMax, C.priceLine, 2, true);
+                    dot(ctx, Qstar, Pstar, ox, oy, gw, gh, QMax, PMax, C.dotCurrent, 6);
+
+                    info.innerHTML = (mode === 'ceiling' ? 'Ceiling' : 'Floor') + ' at £' + Pc +
+                        ' — not binding (equilibrium P* = £' + Pstar.toFixed(0) + '). No effect on the market.';
+                }
+
+                // Draw supply and demand lines (on top)
+                drawLine(ctx, 0, Pmax, Math.min(QMax, a), 0, ox, oy, gw, gh, QMax, PMax, C.demand, 2.5);
+                drawLine(ctx, 0, 0, Math.min(QMax, c * PMax), PMax, ox, oy, gw, gh, QMax, PMax, C.supply, 2.5);
+
+                // Equilibrium dot
+                dot(ctx, Qstar, Pstar, ox, oy, gw, gh, QMax, PMax, C.dotCurrent, 5);
+
+                // Curve labels
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.fillStyle = C.demand; ctx.textAlign = 'left';
+                ctx.fillText('D', tp(a - 4, 4 / b, ox, oy, gw, gh, QMax, PMax).x, tp(a - 4, 4 / b, ox, oy, gw, gh, QMax, PMax).y - 5);
+                ctx.fillStyle = C.supply;
+                ctx.fillText('S', tp(c * (PMax - 4), PMax - 4, ox, oy, gw, gh, QMax, PMax).x + 5, tp(c * (PMax - 4), PMax - 4, ox, oy, gw, gh, QMax, PMax).y + 5);
+
+                // Price control label
+                ctx.fillStyle = C.priceLine; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'right';
+                var pcLab = tp(QMax - 1, Pc, ox, oy, gw, gh, QMax, PMax);
+                ctx.fillText(mode === 'ceiling' ? 'Ceiling' : 'Floor', pcLab.x, pcLab.y - 6);
+            }
+
+            ceilingBtn.addEventListener('click', function() { mode = 'ceiling'; setActive(ceilingBtn); pSlider.value = 15; draw(); });
+            floorBtn.addEventListener('click', function() { mode = 'floor'; setActive(floorBtn); pSlider.value = 35; draw(); });
+            pSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() { mode = 'ceiling'; setActive(ceilingBtn); pSlider.value = 15; draw(); });
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 3: TARIFFS
+        // ============================================================
+        (function() {
+            var pwSlider = document.getElementById('tarPwSlider');
+            var tSlider = document.getElementById('tarTSlider');
+            var pwDisplay = document.getElementById('tarPwDisplay');
+            var tDisplay = document.getElementById('tarTDisplay');
+            var info = document.getElementById('tarInfo');
+            var resetBtn = document.getElementById('tarResetBtn');
+
+            var a = 50, b = 1, c = 1;
+            var QMax = 60, PMax = 55;
+
+            function draw() {
+                var res = getCtx('tariffCanvas');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var Pw = parseFloat(pwSlider.value);
+                var t = parseFloat(tSlider.value);
+                pwDisplay.textContent = '£' + Pw;
+                tDisplay.textContent = '£' + t;
+
+                var Pt = Pw + t;
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, QMax, PMax, 'Quantity (Q)', 'Price (£)', 10, 5);
+
+                var Pmax = a / b;
+                var Qd_free = a - b * Pw;
+                var Qs_free = c * Pw;
+                var Qd_t = a - b * Pt;
+                var Qs_t = c * Pt;
+                var imports_free = Math.max(0, Qd_free - Qs_free);
+                var imports_t = Math.max(0, Qd_t - Qs_t);
+
+                if (t > 0 && Pt < Pmax) {
+                    // PS gain: trapezoid between Pw and Pt on supply side
+                    fillRect4(ctx, 0, Pt, Qs_t, Pt, Qs_free, Pw, 0, Pw,
+                        ox, oy, gw, gh, QMax, PMax, C.psGain);
+
+                    // Government revenue rectangle
+                    if (imports_t > 0) {
+                        fillRect4(ctx, Qs_t, Pt, Qd_t, Pt, Qd_t, Pw, Qs_t, Pw,
+                            ox, oy, gw, gh, QMax, PMax, C.revenue);
+                    }
+
+                    // DWL triangles
+                    // Left (production distortion)
+                    fillTriangle(ctx, Qs_free, Pw, Qs_t, Pt, Qs_t, Pw,
+                        ox, oy, gw, gh, QMax, PMax, C.dwl);
+                    // Right (consumption distortion)
+                    fillTriangle(ctx, Qd_t, Pt, Qd_free, Pw, Qd_t, Pw,
+                        ox, oy, gw, gh, QMax, PMax, C.dwl);
+                }
+
+                // World price line
+                drawLine(ctx, 0, Pw, QMax, Pw, ox, oy, gw, gh, QMax, PMax, C.worldPrice, 2, true);
+
+                // Domestic price line (with tariff)
+                if (t > 0) {
+                    drawLine(ctx, 0, Pt, QMax, Pt, ox, oy, gw, gh, QMax, PMax, C.priceLine, 2, true);
+                }
+
+                // Supply and demand
+                drawLine(ctx, 0, Pmax, Math.min(QMax, a), 0, ox, oy, gw, gh, QMax, PMax, C.demand, 2.5);
+                drawLine(ctx, 0, 0, Math.min(QMax, c * PMax), PMax, ox, oy, gw, gh, QMax, PMax, C.supply, 2.5);
+
+                // Labels
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.fillStyle = C.demand; ctx.textAlign = 'left';
+                ctx.fillText('D', tp(a - 4, 4, ox, oy, gw, gh, QMax, PMax).x, tp(a - 4, 4, ox, oy, gw, gh, QMax, PMax).y - 5);
+                ctx.fillStyle = C.supply;
+                ctx.fillText('S', tp(c * (PMax - 4), PMax - 4, ox, oy, gw, gh, QMax, PMax).x + 5, tp(c * (PMax - 4), PMax - 4, ox, oy, gw, gh, QMax, PMax).y + 5);
+
+                ctx.fillStyle = C.worldPrice; ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'right';
+                ctx.fillText('P_W = £' + Pw, tp(QMax - 1, Pw, ox, oy, gw, gh, QMax, PMax).x, tp(QMax - 1, Pw, ox, oy, gw, gh, QMax, PMax).y - 6);
+
+                if (t > 0) {
+                    ctx.fillStyle = C.priceLine;
+                    ctx.fillText('P_W + t = £' + Pt, tp(QMax - 1, Pt, ox, oy, gw, gh, QMax, PMax).x, tp(QMax - 1, Pt, ox, oy, gw, gh, QMax, PMax).y - 6);
+
+                    // Area labels
+                    ctx.font = '10px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                    if (Qs_t > Qs_free + 2) {
+                        ctx.fillStyle = C.psGainBorder;
+                        ctx.fillText('PS gain', tp((Qs_free + Qs_t) / 2, (Pw + Pt) / 2, ox, oy, gw, gh, QMax, PMax).x, tp((Qs_free + Qs_t) / 2, (Pw + Pt) / 2, ox, oy, gw, gh, QMax, PMax).y + 4);
+                    }
+                    if (imports_t > 3) {
+                        ctx.fillStyle = C.revBorder;
+                        ctx.fillText('Revenue', tp((Qs_t + Qd_t) / 2, (Pw + Pt) / 2, ox, oy, gw, gh, QMax, PMax).x, tp((Qs_t + Qd_t) / 2, (Pw + Pt) / 2, ox, oy, gw, gh, QMax, PMax).y + 4);
+                    }
+                    ctx.fillStyle = C.dwlBorder;
+                    if (Qs_t - Qs_free > 1.5) ctx.fillText('DWL', tp((Qs_free + Qs_t) / 2, Pw - 1, ox, oy, gw, gh, QMax, PMax).x, tp((Qs_free + Qs_t) / 2, Pw - 1, ox, oy, gw, gh, QMax, PMax).y);
+                    if (Qd_free - Qd_t > 1.5) ctx.fillText('DWL', tp((Qd_t + Qd_free) / 2, Pw - 1, ox, oy, gw, gh, QMax, PMax).x, tp((Qd_t + Qd_free) / 2, Pw - 1, ox, oy, gw, gh, QMax, PMax).y);
+                }
+
+                // Dots
+                dot(ctx, Qs_free, Pw, ox, oy, gw, gh, QMax, PMax, C.dotCurrent, 4);
+                dot(ctx, Qd_free, Pw, ox, oy, gw, gh, QMax, PMax, C.dotCurrent, 4);
+                if (t > 0) {
+                    dot(ctx, Qs_t, Pt, ox, oy, gw, gh, QMax, PMax, C.dotCurrent, 4);
+                    dot(ctx, Qd_t, Pt, ox, oy, gw, gh, QMax, PMax, C.dotCurrent, 4);
+                }
+
+                var dwl = 0.5 * (b + c) * t * t;
+                var rev = t * Math.max(0, imports_t);
+                info.innerHTML = 'P_W = £' + Pw + ' | Tariff = £' + t + ' | Domestic price = £' + Pt +
+                    ' | Imports: ' + imports_free.toFixed(0) + ' → ' + imports_t.toFixed(0) +
+                    ' | Revenue = £' + rev.toFixed(0) + ' | DWL = £' + dwl.toFixed(0);
+            }
+
+            pwSlider.addEventListener('input', draw);
+            tSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() { pwSlider.value = 10; tSlider.value = 0; draw(); });
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GRAPH 4: TAXES & SUBSIDIES
+        // ============================================================
+        (function() {
+            var taxBtn = document.getElementById('taxTaxBtn');
+            var subBtn = document.getElementById('taxSubBtn');
+            var tSlider = document.getElementById('taxTSlider');
+            var tDisplay = document.getElementById('taxTDisplay');
+            var info = document.getElementById('taxInfo');
+            var resetBtn = document.getElementById('taxResetBtn');
+
+            var mode = 'tax';
+            var a = 50, b = 1, c = 1;
+            var QMax = 60, PMax = 55;
+            var Pstar = a / (b + c), Qstar = a * c / (b + c);
+
+            function setActive(btn) {
+                [taxBtn, subBtn].forEach(function(bt) { bt.classList.remove('active-toggle'); });
+                btn.classList.add('active-toggle');
+            }
+
+            function draw() {
+                var res = getCtx('taxCanvas');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var tau = parseFloat(tSlider.value);
+                tDisplay.textContent = '£' + tau;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, QMax, PMax, 'Quantity (Q)', 'Price (£)', 10, 5);
+
+                var Pmax = a / b;
+
+                if (tau > 0) {
+                    var Pb, Ps, Qt;
+                    if (mode === 'tax') {
+                        Pb = (a + c * tau) / (b + c);
+                        Ps = Pb - tau;
+                        Qt = a - b * Pb;
+                    } else {
+                        // Subsidy: supply shifts down by tau
+                        Pb = (a - c * tau) / (b + c);
+                        Ps = Pb + tau;
+                        Qt = a - b * Pb;
+                    }
+
+                    if (Qt > 0) {
+                        // Government revenue/cost rectangle
+                        fillRect4(ctx, 0, Pb, Qt, Pb, Qt, Ps, 0, Ps,
+                            ox, oy, gw, gh, QMax, PMax, C.revenue);
+
+                        // DWL triangle
+                        if (mode === 'tax') {
+                            fillTriangle(ctx, Qt, Pb, Qstar, Pstar, Qt, Ps,
+                                ox, oy, gw, gh, QMax, PMax, C.dwl);
+                        } else {
+                            // Subsidy DWL: overproduction triangle
+                            fillTriangle(ctx, Qstar, Pstar, Qt, Pb, Qt, Ps,
+                                ox, oy, gw, gh, QMax, PMax, C.dwl);
+                        }
+
+                        // Shifted supply line
+                        if (mode === 'tax') {
+                            drawLine(ctx, 0, tau, Math.min(QMax, c * PMax + tau), PMax,
+                                ox, oy, gw, gh, QMax, PMax, C.supplyShift, 2, true);
+                        } else {
+                            var yIntercept = Math.max(0, -tau);
+                            drawLine(ctx, 0, yIntercept, Math.min(QMax, c * (PMax + tau)), PMax,
+                                ox, oy, gw, gh, QMax, PMax, C.supplyShift, 2, true);
+                        }
+
+                        // Price lines
+                        drawLine(ctx, 0, Pb, Qt + 5, Pb, ox, oy, gw, gh, QMax, PMax, C.demand, 1.5, true);
+                        drawLine(ctx, 0, Ps, Qt + 5, Ps, ox, oy, gw, gh, QMax, PMax, C.supply, 1.5, true);
+
+                        // Label prices
+                        ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                        ctx.fillStyle = C.demand;
+                        ctx.fillText('P_b = £' + Pb.toFixed(1), tp(Qt + 6, Pb, ox, oy, gw, gh, QMax, PMax).x, tp(Qt + 6, Pb, ox, oy, gw, gh, QMax, PMax).y + 4);
+                        ctx.fillStyle = C.supply;
+                        ctx.fillText('P_s = £' + Ps.toFixed(1), tp(Qt + 6, Ps, ox, oy, gw, gh, QMax, PMax).x, tp(Qt + 6, Ps, ox, oy, gw, gh, QMax, PMax).y + 4);
+
+                        // Wedge bracket
+                        var wedgeX = tp(Qt + 3, 0, ox, oy, gw, gh, QMax, PMax).x;
+                        var wedgeTop = tp(0, Pb, ox, oy, gw, gh, QMax, PMax).y;
+                        var wedgeBot = tp(0, Ps, ox, oy, gw, gh, QMax, PMax).y;
+                        ctx.strokeStyle = C.priceLine; ctx.lineWidth = 2;
+                        ctx.beginPath(); ctx.moveTo(wedgeX, wedgeTop); ctx.lineTo(wedgeX, wedgeBot); ctx.stroke();
+                        ctx.fillStyle = C.priceLine; ctx.font = '10px -apple-system, sans-serif'; ctx.textAlign = 'left';
+                        ctx.fillText('τ = £' + tau, wedgeX + 4, (wedgeTop + wedgeBot) / 2 + 3);
+
+                        // Area labels
+                        ctx.font = '10px -apple-system, sans-serif'; ctx.textAlign = 'center';
+                        ctx.fillStyle = C.revBorder;
+                        ctx.fillText(mode === 'tax' ? 'Revenue' : 'Gov. cost', tp(Qt / 2, (Pb + Ps) / 2, ox, oy, gw, gh, QMax, PMax).x, tp(Qt / 2, (Pb + Ps) / 2, ox, oy, gw, gh, QMax, PMax).y + 4);
+                        ctx.fillStyle = C.dwlBorder;
+                        var dwlX = mode === 'tax' ? (Qt + Qstar) / 2 : (Qstar + Qt) / 2;
+                        ctx.fillText('DWL', tp(dwlX, Pstar, ox, oy, gw, gh, QMax, PMax).x, tp(dwlX, Pstar, ox, oy, gw, gh, QMax, PMax).y);
+
+                        dot(ctx, Qt, Pb, ox, oy, gw, gh, QMax, PMax, C.dotCurrent, 5);
+                        dot(ctx, Qt, Ps, ox, oy, gw, gh, QMax, PMax, C.dotCurrent, 5);
+                    }
+                }
+
+                // Original supply and demand
+                drawLine(ctx, 0, Pmax, Math.min(QMax, a), 0, ox, oy, gw, gh, QMax, PMax, C.demand, 2.5);
+                drawLine(ctx, 0, 0, Math.min(QMax, c * PMax), PMax, ox, oy, gw, gh, QMax, PMax, C.supply, 2.5);
+
+                // Equilibrium dot
+                dot(ctx, Qstar, Pstar, ox, oy, gw, gh, QMax, PMax, C.equilibrium, 5);
+                dashedTo(ctx, Qstar, Pstar, ox, oy, gw, gh, QMax, PMax, C.textMuted);
+
+                // Curve labels
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.fillStyle = C.demand; ctx.textAlign = 'left';
+                ctx.fillText('D', tp(a - 4, 4, ox, oy, gw, gh, QMax, PMax).x, tp(a - 4, 4, ox, oy, gw, gh, QMax, PMax).y - 5);
+                ctx.fillStyle = C.supply;
+                ctx.fillText('S', tp(c * (PMax - 4), PMax - 4, ox, oy, gw, gh, QMax, PMax).x + 5, tp(c * (PMax - 4), PMax - 4, ox, oy, gw, gh, QMax, PMax).y + 5);
+
+                if (tau > 0 && mode === 'tax') {
+                    ctx.fillStyle = C.supplyShift; ctx.font = '11px -apple-system, sans-serif';
+                    ctx.fillText('S + τ', tp(c * (PMax - 4) + tau, PMax - 4, ox, oy, gw, gh, QMax, PMax).x + 5, tp(c * (PMax - 4) + tau, PMax - 4, ox, oy, gw, gh, QMax, PMax).y + 15);
+                }
+
+                var dwl = tau > 0 ? 0.5 * b * c * tau * tau / (b + c) : 0;
+                var revCost = tau > 0 ? tau * (a * c / (b + c) - b * c * tau / (b + c)) : 0;
+                info.innerHTML = (mode === 'tax' ? 'Tax' : 'Subsidy') + ' τ = £' + tau +
+                    (tau > 0 ? ' | Q = ' + (a * c / (b + c) - b * c * tau / (b + c)).toFixed(1) +
+                    ' | ' + (mode === 'tax' ? 'Revenue' : 'Gov. cost') + ' = £' + Math.abs(revCost).toFixed(0) +
+                    ' | DWL = £' + dwl.toFixed(0) : ' | No intervention — competitive equilibrium.');
+            }
+
+            taxBtn.addEventListener('click', function() { mode = 'tax'; setActive(taxBtn); tSlider.value = 0; draw(); });
+            subBtn.addEventListener('click', function() { mode = 'subsidy'; setActive(subBtn); tSlider.value = 0; draw(); });
+            tSlider.addEventListener('input', draw);
+            resetBtn.addEventListener('click', function() { mode = 'tax'; setActive(taxBtn); tSlider.value = 0; draw(); });
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+        // ============================================================
+        // GLOBAL REDRAW
+        // ============================================================
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>
