@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 13: Oligopoly and Monopolistic Competition | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: crosshair;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 140px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle {
+            background: var(--color-primary-dark);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 13: Oligopoly and Monopolistic Competition</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 13</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#cournot">13.1 Cournot Model</a></li>
+                <li><a href="#stackelberg">13.2 Stackelberg Model</a></li>
+                <li><a href="#bertrand">13.3 Bertrand Model</a></li>
+                <li><a href="#monopolistic-comp">13.4 Monopolistic Competition</a></li>
+                <li><a href="#collusion">13.5 Collusion &amp; Cartels</a></li>
+                <li><a href="#formal-derivations">13.6 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: The Supermarket Price War</h2>
+                <p>The UK grocery market is dominated by four firms &mdash; Tesco, Sainsbury&rsquo;s, Asda, and Morrisons &mdash; which together hold roughly 65% of the market. When Aldi and Lidl entered with aggressive low-price strategies, the established players faced a dilemma: match the discounters&rsquo; prices and sacrifice margins, or hold the line and lose customers? Tesco eventually launched its own budget range. Sainsbury&rsquo;s merged with Asda (though the deal was blocked on competition grounds). Every firm&rsquo;s best strategy depended on what its rivals did.</p>
+
+                <p>This is the world of <strong>oligopoly</strong> &mdash; a market with a small number of firms whose decisions are <em>strategically interdependent</em>. Unlike the competitive firm (which ignores rivals) or the monopolist (which has none), each oligopolist must anticipate how competitors will react to its choices. This chapter introduces the major models of oligopoly behaviour and their close cousin, monopolistic competition.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>The outcome in an oligopoly depends critically on <em>what</em> firms compete on (quantity or price), <em>when</em> they move (simultaneously or sequentially), and <em>whether</em> they can collude. The <strong>Cournot</strong> model (simultaneous quantity), <strong>Stackelberg</strong> model (sequential quantity), and <strong>Bertrand</strong> model (simultaneous price) each yield different equilibrium prices and quantities. Understanding which model fits a given industry is the economist&rsquo;s key task.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to derive best-response functions and Cournot&ndash;Nash equilibrium, explain the first-mover advantage in the Stackelberg model, state and interpret the Bertrand paradox, characterise long-run equilibrium under monopolistic competition, and analyse the incentive to collude and the incentive to cheat on a cartel agreement.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#cournot">Cournot Model</a> &mdash; simultaneous quantity competition</li>
+                    <li><a href="#stackelberg">Stackelberg Model</a> &mdash; sequential quantity competition</li>
+                    <li><a href="#bertrand">Bertrand Model</a> &mdash; price competition and the Bertrand paradox</li>
+                    <li><a href="#monopolistic-comp">Monopolistic Competition</a> &mdash; differentiation and long-run zero profit</li>
+                    <li><a href="#collusion">Collusion &amp; Cartels</a> &mdash; joint profit maximisation and the temptation to cheat</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; equilibrium solutions for all models</li>
+                </ol>
+            </div>
+
+
+            <!-- ============================================ -->
+            <!-- 13.1 COURNOT MODEL                            -->
+            <!-- ============================================ -->
+            <section id="cournot" class="lesson-section section-geometric">
+                <h2>13.1 The Cournot Model</h2>
+
+                <h3>Intuition: Simultaneous Quantity Competition</h3>
+                <p>In the <strong>Cournot model</strong>, two (or more) firms simultaneously choose how much to produce, and the market price is determined by total output via the demand curve. Each firm treats the other&rsquo;s output as fixed and chooses its own output to maximise profit. The result is a <strong>Nash equilibrium</strong>: neither firm can do better by unilaterally changing its output, given what the other is producing.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Best-Response Function</h4>
+                    <p>Firm \(i\)&rsquo;s <strong>best-response function</strong> (or reaction function) gives the profit-maximising output of firm \(i\) as a function of the other firm&rsquo;s output: \(q_i^*(q_j)\). In the Cournot equilibrium, both firms are simultaneously on their best-response functions: \(q_1^* = BR_1(q_2^*)\) and \(q_2^* = BR_2(q_1^*)\).</p>
+                </div>
+
+                <p>The best-response functions slope downward: if your rival produces more, the residual demand left for you shrinks, so your optimal output falls. Outputs are <strong>strategic substitutes</strong>. The Cournot equilibrium lies at the intersection of the two best-response curves.</p>
+
+                <h3>Geometric Solution: Best-Response Curves</h3>
+                <p>The graph below shows the best-response functions for two firms facing linear demand \(P = a - b(q_1 + q_2)\) with marginal costs \(c_1\) and \(c_2\). The Nash equilibrium is at the intersection. Adjust the cost parameters to see how the equilibrium shifts.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-cournot" width="600" height="500" style="width:600px;height:500px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Firm 1 cost (c₁): <input type="range" id="slider-c1" min="0" max="30" step="1" value="10"> <span class="value-display" id="val-c1">&pound;10</span></label>
+                        <label>Firm 2 cost (c₂): <input type="range" id="slider-c2" min="0" max="30" step="1" value="10"> <span class="value-display" id="val-c2">&pound;10</span></label>
+                    </div>
+                    <div class="graph-info" id="info-cournot"></div>
+                    <p class="graph-caption">Figure 13.1 &mdash; Cournot best-response functions and Nash equilibrium. The equilibrium is at the intersection where both firms are playing their best response.</p>
+                </div>
+
+                <p>When both firms have equal costs, the equilibrium is symmetric: each produces the same quantity. If firm 1&rsquo;s cost falls, its best-response curve shifts outward (it wants to produce more at every level of the rival&rsquo;s output), so in equilibrium firm 1 produces more and firm 2 produces less. The total Cournot output lies between the monopoly quantity and the competitive quantity, and the Cournot price lies between the monopoly price and the competitive price.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>With \(n\) symmetric Cournot firms, total output is \(Q = \frac{n}{n+1} Q_c\) where \(Q_c\) is the competitive output. As \(n \to \infty\), the Cournot outcome converges to perfect competition. With \(n = 1\) it is monopoly. Cournot oligopoly thus spans the entire range between the two extremes.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 13.2 STACKELBERG MODEL                        -->
+            <!-- ============================================ -->
+            <section id="stackelberg" class="lesson-section section-geometric">
+                <h2>13.2 The Stackelberg Model</h2>
+
+                <h3>Intuition: First-Mover Advantage</h3>
+                <p>What if one firm moves first? In the <strong>Stackelberg model</strong>, a <strong>leader</strong> chooses output before the <strong>follower</strong>, and the follower observes the leader&rsquo;s choice before deciding its own output. The leader can exploit its first-mover advantage by committing to a large output, knowing the follower will accommodate by producing less.</p>
+
+                <p>The leader maximises profit by substituting the follower&rsquo;s best-response function into its own profit function. Since it knows exactly how the follower will react, it effectively moves along the follower&rsquo;s best-response curve, picking the point that maximises its own profit. The result: the leader produces more and earns more than in the Cournot equilibrium; the follower produces less and earns less.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Stackelberg Equilibrium</h4>
+                    <p>In a <strong>Stackelberg equilibrium</strong>, the leader chooses output to maximise profit taking the follower&rsquo;s best-response function as given. The follower then best-responds to the leader&rsquo;s observed output. The leader&rsquo;s output exceeds its Cournot level; the follower&rsquo;s output is below its Cournot level. Total output is higher (and price lower) than in Cournot.</p>
+                </div>
+
+                <h3>Geometric Solution: Stackelberg vs Cournot</h3>
+                <p>The graph below compares the Cournot and Stackelberg outcomes. The Stackelberg equilibrium is where the leader&rsquo;s iso-profit curve is tangent to the follower&rsquo;s best-response curve. Toggle between models to see the difference.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-stackelberg" width="600" height="500" style="width:600px;height:500px;"></canvas>
+                    <div class="graph-controls">
+                        <button id="btn-cournot-s" class="active-toggle">Cournot</button>
+                        <button id="btn-stack-s">Stackelberg</button>
+                        <label>MC: <input type="range" id="slider-mc-s" min="0" max="30" step="1" value="10"> <span class="value-display" id="val-mc-s">&pound;10</span></label>
+                    </div>
+                    <div class="graph-info" id="info-stackelberg"></div>
+                    <p class="graph-caption">Figure 13.2 &mdash; Cournot equilibrium (intersection of BRs) vs Stackelberg equilibrium (tangency of leader&rsquo;s iso-profit with follower&rsquo;s BR).</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: Airbus vs Boeing</h4>
+                    <p>The commercial aircraft market has long been a duopoly between Airbus and Boeing. When Airbus committed to developing the A380 super-jumbo, Boeing chose not to compete directly and instead developed the fuel-efficient 787 Dreamliner. Airbus&rsquo;s large commitment acted as a Stackelberg move: by investing billions first, it shaped Boeing&rsquo;s subsequent choice. (Whether it was a <em>profitable</em> move is another question &mdash; the A380 was eventually discontinued.)</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 13.3 BERTRAND MODEL                           -->
+            <!-- ============================================ -->
+            <section id="bertrand" class="lesson-section section-geometric">
+                <h2>13.3 The Bertrand Model</h2>
+
+                <h3>Intuition: Price Competition and the Bertrand Paradox</h3>
+                <p>In the <strong>Bertrand model</strong>, firms compete on <em>price</em> rather than quantity. Each firm simultaneously announces a price, and the firm with the lower price captures the entire market (consumers buy from the cheapest source). If prices are equal, the market is split equally.</p>
+
+                <p>The striking result &mdash; the <strong>Bertrand paradox</strong> &mdash; is that with just two firms selling identical products, the equilibrium price equals marginal cost. Why? If either firm charged above MC, the other could undercut by a tiny amount and steal the entire market. This undercutting logic drives prices all the way down to MC, the competitive outcome, with just two firms.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Bertrand Paradox</h4>
+                    <p>The <strong>Bertrand paradox</strong> states that in a duopoly with homogeneous products, simultaneous price competition leads to the perfectly competitive outcome: \(P_1 = P_2 = MC\), with zero economic profit. Just two firms are enough to eliminate all market power &mdash; a dramatically different prediction from the Cournot model.</p>
+                </div>
+
+                <h3>Geometric Solution: Price Undercutting</h3>
+                <p>The graph below illustrates Bertrand price competition. Two firms with different marginal costs choose prices simultaneously. The undercutting dynamic pushes the equilibrium price towards the higher-cost firm&rsquo;s MC. Use the sliders to see how cost asymmetry affects the outcome.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-bertrand" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Firm 1 MC: <input type="range" id="slider-mc-b1" min="2" max="30" step="1" value="10"> <span class="value-display" id="val-mc-b1">&pound;10</span></label>
+                        <label>Firm 2 MC: <input type="range" id="slider-mc-b2" min="2" max="30" step="1" value="10"> <span class="value-display" id="val-mc-b2">&pound;10</span></label>
+                    </div>
+                    <div class="graph-info" id="info-bertrand"></div>
+                    <p class="graph-caption">Figure 13.3 &mdash; Bertrand price competition. Best-response functions in price space. The equilibrium is at the intersection, where both firms price at (or just below) the higher MC.</p>
+                </div>
+
+                <p>The Bertrand paradox relies on strong assumptions: identical products, no capacity constraints, and consumers who switch entirely to the cheaper firm. Relaxing any of these changes the result. With product differentiation, each firm retains some customers even at a higher price, and the equilibrium price exceeds MC. With capacity constraints, firms cannot serve the entire market by undercutting, and outcomes resemble Cournot. In practice, most oligopolies have some differentiation and some capacity limits, so the Bertrand paradox is a useful benchmark rather than a literal prediction.</p>
+
+                <div class="callout callout-warning">
+                    <h4>Which Model Is Right?</h4>
+                    <p>Cournot, Stackelberg, and Bertrand give different predictions for the same number of firms. The &ldquo;right&rdquo; model depends on the industry. Cournot fits industries where firms choose production capacity (oil, cement, steel). Bertrand fits industries where firms set prices with flexible output (retail, online markets). Stackelberg fits industries with a clear market leader (dominant firm with a competitive fringe). The choice of model is an empirical question.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 13.4 MONOPOLISTIC COMPETITION                 -->
+            <!-- ============================================ -->
+            <section id="monopolistic-comp" class="lesson-section section-geometric">
+                <h2>13.4 Monopolistic Competition</h2>
+
+                <h3>Intuition: Differentiation Without Barriers</h3>
+                <p><strong>Monopolistic competition</strong> sits between perfect competition and monopoly. Like a competitive market, there are many firms and free entry/exit. Like a monopolist, each firm faces a downward-sloping demand curve because its product is slightly different from competitors&rsquo;. Coffee shops in a city, restaurants on a high street, and clothing brands all operate in monopolistically competitive markets.</p>
+
+                <p>In the short run, a monopolistically competitive firm can earn positive or negative economic profit. In the long run, entry and exit drive economic profit to zero. New firms enter when profits are positive, shifting each existing firm&rsquo;s demand curve inward (each firm gets a smaller share). Entry continues until each firm&rsquo;s demand curve is just tangent to its LRAC curve &mdash; it charges a price equal to average cost and earns zero economic profit.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Monopolistic Competition Long-Run Equilibrium</h4>
+                    <p>In the long run, a monopolistically competitive firm produces where its demand curve is <strong>tangent</strong> to its long-run average cost curve. The firm charges \(P = LRAC\) (zero profit) but \(P > MC\) (the demand curve is downward-sloping). The firm operates with <strong>excess capacity</strong>: it produces less than the output that minimises LRAC.</p>
+                </div>
+
+                <h3>Geometric Solution: Long-Run Tangency</h3>
+                <p>The graph below shows a monopolistically competitive firm in the short run and long run. In the short run, the firm earns positive profit. As new firms enter, demand shifts inward. Use the slider to simulate entry until the demand curve is just tangent to LRAC.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-moncomp" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Number of firms (entry): <input type="range" id="slider-nfirms" min="2" max="20" step="1" value="3"> <span class="value-display" id="val-nfirms">3</span></label>
+                        <button id="btn-lr-eq">Find Long-Run Eq.</button>
+                    </div>
+                    <div class="graph-info" id="info-moncomp"></div>
+                    <p class="graph-caption">Figure 13.4 &mdash; Monopolistic competition: as firms enter, each firm&rsquo;s demand shifts inward until it is tangent to LRAC (zero profit).</p>
+                </div>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>Monopolistic competition involves a trade-off: consumers benefit from product <strong>variety</strong> (each firm offers something slightly different), but they pay for it through <strong>excess capacity</strong> (each firm produces below minimum efficient scale). Whether the variety benefit outweighs the efficiency cost is an empirical question that depends on consumer preferences for diversity.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 13.5 COLLUSION AND CARTELS                    -->
+            <!-- ============================================ -->
+            <section id="collusion" class="lesson-section section-geometric">
+                <h2>13.5 Collusion and Cartels</h2>
+
+                <h3>Intuition: The Temptation to Cheat</h3>
+                <p>If oligopolists could cooperate, they would jointly restrict output to the monopoly level and share the monopoly profit. A formal agreement to do so is a <strong>cartel</strong>. OPEC is the most famous example: oil-producing nations agree on production quotas to keep prices high.</p>
+
+                <p>The problem is that every cartel member has an individual incentive to <strong>cheat</strong>. If everyone else restricts output, the market price is high, and a cheater can produce more at that high price, earning extra profit at the cartel&rsquo;s expense. This is a classic <strong>prisoners&rsquo; dilemma</strong>: collective restraint is profitable for the group, but individual defection is profitable for each member.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Cartel</h4>
+                    <p>A <strong>cartel</strong> is an agreement among competing firms to coordinate output or pricing decisions, typically to restrict total output and raise prices towards the monopoly level. Cartels are illegal in most jurisdictions (including the UK under the Competition Act 1998) because they harm consumers. Despite this, cartels are regularly discovered &mdash; the European Commission has fined truck manufacturers, banks, and pharmaceutical companies billions of euros for collusion.</p>
+                </div>
+
+                <h3>Geometric Solution: Cartel vs Defection</h3>
+                <p>The graph below compares three outcomes: the Cournot duopoly equilibrium, the cartel (joint monopoly) outcome, and the defection outcome where one firm cheats on the cartel whilst the other sticks to the agreement. Toggle between scenarios to see profits change.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-cartel" width="600" height="500" style="width:600px;height:500px;"></canvas>
+                    <div class="graph-controls">
+                        <button id="btn-cartel-c" class="active-toggle">Cournot</button>
+                        <button id="btn-cartel-j">Cartel</button>
+                        <button id="btn-cartel-d">Firm 1 Defects</button>
+                        <label>MC: <input type="range" id="slider-mc-cart" min="0" max="25" step="1" value="10"> <span class="value-display" id="val-mc-cart">&pound;10</span></label>
+                    </div>
+                    <div class="graph-info" id="info-cartel"></div>
+                    <p class="graph-caption">Figure 13.5 &mdash; Cartel dynamics: compare Cournot equilibrium, cartel output, and the defection payoff. The defecting firm earns the highest individual profit.</p>
+                </div>
+
+                <p>The payoff ranking for each firm is: defect whilst the other cooperates &gt; joint cartel &gt; Cournot &gt; both defect. This is exactly the prisoners&rsquo; dilemma structure. In a one-shot game, defection is the dominant strategy, so the cartel collapses to Cournot. Sustaining collusion requires repeated interaction &mdash; the threat of future punishment (a &ldquo;price war&rdquo;) can discipline current behaviour, provided firms are patient enough. We explore this formally in Chapter 14 on game theory.</p>
+
+                <div class="callout callout-example">
+                    <h4>Example: OPEC</h4>
+                    <p>OPEC regularly sets production quotas, yet members routinely exceed them. Saudi Arabia, as the largest producer, often acts as a swing producer &mdash; cutting its own output to maintain the cartel price even when smaller members cheat. This is consistent with the theory: the largest member has the most to lose from a price collapse and therefore the strongest incentive to enforce discipline, even at the cost of shouldering a disproportionate share of the output restriction.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 13.6 FORMAL DERIVATIONS                       -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>13.6 Formal Derivations</h2>
+
+                <h3>Cournot Duopoly</h3>
+                <p>Let inverse demand be \(P = a - b(q_1 + q_2)\) and let both firms have constant marginal cost \(c\). Firm 1&rsquo;s profit is:</p>
+
+                \[
+                    \pi_1 = [a - b(q_1 + q_2)]q_1 - cq_1
+                \]
+
+                <p>The first-order condition:</p>
+
+                \[
+                    \frac{\partial \pi_1}{\partial q_1} = a - 2bq_1 - bq_2 - c = 0 \quad \Rightarrow \quad q_1^* = \frac{a - c - bq_2}{2b} = \frac{a - c}{2b} - \frac{q_2}{2}
+                \]
+
+                <p>This is firm 1&rsquo;s best-response function. By symmetry, \(q_2^* = (a - c)/(2b) - q_1/2\). In the symmetric equilibrium \(q_1^* = q_2^* = q^*\):</p>
+
+                \[
+                    q^* = \frac{a - c}{3b}, \quad Q^* = \frac{2(a - c)}{3b}, \quad P^* = \frac{a + 2c}{3}
+                \]
+
+                <p>Each firm&rsquo;s profit is \(\pi^* = \frac{(a - c)^2}{9b}\). Compare with monopoly profit \(\pi_m = \frac{(a - c)^2}{4b}\): Cournot duopoly profit is less than half of monopoly profit, because firms do not internalise the externality of additional output on the rival&rsquo;s revenue.</p>
+
+                <h3>Stackelberg Duopoly</h3>
+                <p>The leader (firm 1) substitutes the follower&rsquo;s best response \(q_2 = (a - c - bq_1)/(2b)\) into its own profit:</p>
+
+                \[
+                    \pi_1 = \left[a - b\left(q_1 + \frac{a - c - bq_1}{2b}\right)\right]q_1 - cq_1 = \frac{(a - c)q_1 - bq_1^2}{2}
+                \]
+
+                \[
+                    \frac{d\pi_1}{dq_1} = \frac{a - c - 2bq_1}{2} = 0 \quad \Rightarrow \quad q_1^L = \frac{a - c}{2b}
+                \]
+
+                <p>The follower produces \(q_2^F = (a - c)/(4b)\). Total output is \(Q = 3(a - c)/(4b)\), higher than Cournot. Leader profit is \((a - c)^2 / (8b)\), which exceeds Cournot profit \((a - c)^2 / (9b)\). Moving first is profitable.</p>
+
+                <h3>Bertrand Duopoly</h3>
+                <p>With identical products and equal MC = \(c\), the unique Nash equilibrium is \(P_1 = P_2 = c\). Any price above \(c\) is undercut by the rival; any price below \(c\) yields losses. With asymmetric costs \(c_1 < c_2\), the equilibrium has firm 1 pricing just below \(c_2\) and capturing the entire market.</p>
+
+                <h3>Monopolistic Competition</h3>
+                <p>Each firm \(i\) faces demand \(P_i = a_i - b_i q_i\) where \(a_i\) decreases as more firms enter (each firm&rsquo;s market share shrinks). Long-run equilibrium requires zero profit: the demand curve is tangent to LRAC at the chosen output. This implies \(P = LRAC\) and \(MR = MC\) simultaneously, which in turn implies the firm operates on the downward-sloping portion of LRAC (excess capacity).</p>
+
+                <h3>Cartel and Defection</h3>
+                <p>Joint monopoly output: each firm produces \(q_m = (a - c) / (4b)\), earning \(\pi_m = (a - c)^2 / (8b)\). If firm 1 defects (best-responds to \(q_2 = q_m\)):</p>
+
+                \[
+                    q_1^D = \frac{a - c - bq_m}{2b} = \frac{a - c}{2b} - \frac{a - c}{8b} = \frac{3(a - c)}{8b}
+                \]
+
+                \[
+                    \pi_1^D = \frac{9(a - c)^2}{64b}
+                \]
+
+                <p>Since \(9/64 > 1/8 = 8/64\), defection is profitable: \(\pi_1^D > \pi_m\). The temptation to cheat exceeds the reward from cooperation, confirming the prisoners&rsquo; dilemma structure.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>Oligopoly is defined by strategic interdependence: each firm&rsquo;s optimal decision depends on what its rivals do. The three canonical models &mdash; Cournot (simultaneous quantities), Stackelberg (sequential quantities), and Bertrand (simultaneous prices) &mdash; bracket the range of outcomes. Cournot yields prices and profits between monopoly and competition. Stackelberg gives the leader a first-mover advantage, producing more at the follower&rsquo;s expense. Bertrand, with its paradoxical prediction that two firms suffice for the competitive outcome, highlights the importance of the competitive instrument (price vs quantity) and product differentiation.</p>
+
+                <p>Monopolistic competition combines elements of competition and monopoly: many firms, free entry, but differentiated products. The long-run tangency condition &mdash; demand tangent to LRAC &mdash; gives zero profit but excess capacity and a price above marginal cost. The trade-off is between variety (which consumers value) and productive efficiency (which excess capacity sacrifices).</p>
+
+                <p>Collusion is the ever-present temptation in oligopoly. Joint monopoly profits are large, but every cartel member has an individual incentive to cheat. This prisoners&rsquo; dilemma lies at the heart of competition policy: cartels are illegal precisely because they harm consumers, and antitrust authorities invest heavily in detecting and punishing them.</p>
+
+                <p>In the next chapter, we develop the formal tools of <strong>game theory</strong> that underlie all of these strategic interactions &mdash; payoff matrices, Nash equilibrium, backward induction, and repeated games.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch12-pricing-and-advertising.html">&larr; Chapter 12: Pricing and Advertising</a>
+                <span style="color: var(--color-text-lighter);">Chapter 14: Game Theory &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        /* ── Colour palettes ── */
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            firm1: '#3b82f6', firm2: '#ef4444',
+            br1: '#3b82f6', br2: '#ef4444',
+            equilibrium: '#0a9396', eqGlow: 'rgba(10, 147, 150, 0.3)',
+            stackPt: '#f59e0b', stackGlow: 'rgba(245, 158, 11, 0.3)',
+            demand: '#3b82f6', mr: '#8b5cf6', mc: '#ef4444',
+            isoProfit: 'rgba(16, 185, 129, 0.12)', isoBorder: '#10b981',
+            cartel: '#f59e0b', cartelGlow: 'rgba(245, 158, 11, 0.3)',
+            defect: '#ef4444', defectGlow: 'rgba(239, 68, 68, 0.3)',
+            profit: 'rgba(16, 185, 129, 0.15)', profitBorder: '#10b981',
+            loss: 'rgba(239, 68, 68, 0.15)', lossBorder: '#ef4444',
+            lrac: '#f59e0b', demandMC: '#3b82f6', mrMC: '#8b5cf6',
+            forty5: '#aaaaaa'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            firm1: '#60a5fa', firm2: '#f87171',
+            br1: '#60a5fa', br2: '#f87171',
+            equilibrium: '#2ec4c8', eqGlow: 'rgba(46, 196, 200, 0.3)',
+            stackPt: '#fbbf24', stackGlow: 'rgba(251, 191, 36, 0.3)',
+            demand: '#60a5fa', mr: '#a78bfa', mc: '#f87171',
+            isoProfit: 'rgba(52, 211, 153, 0.12)', isoBorder: '#34d399',
+            cartel: '#fbbf24', cartelGlow: 'rgba(251, 191, 36, 0.3)',
+            defect: '#f87171', defectGlow: 'rgba(248, 113, 113, 0.3)',
+            profit: 'rgba(52, 211, 153, 0.15)', profitBorder: '#34d399',
+            loss: 'rgba(248, 113, 113, 0.15)', lossBorder: '#f87171',
+            lrac: '#fbbf24', demandMC: '#60a5fa', mrMC: '#a78bfa',
+            forty5: '#707070'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        /* ── Shared helpers ── */
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep) {
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            var v, pt;
+            for (v = 0; v <= yMax; v += (yStep || 5)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            for (v = 0; v <= xMax; v += (xStep || 5)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel || '', ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel || '', 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (v = xStep || 5; v <= xMax; v += (xStep || 5)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (v = yStep || 5; v <= yMax; v += (yStep || 5)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, ox - 6, pt.y);
+            }
+        }
+
+        function drawLine(ctx, x1, y1, x2, y2, ox, oy, gw, gh, xMax, yMax, color, lw, dashed) {
+            var p1 = tp(x1, y1, ox, oy, gw, gh, xMax, yMax);
+            var p2 = tp(x2, y2, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = lw || 2;
+            if (dashed) ctx.setLineDash([5, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(pt.x, oy + gh); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function fillRect4(ctx, x1, y1, x2, y2, x3, y3, x4, y4, ox, oy, gw, gh, xMax, yMax, color) {
+            var p1 = tp(x1, y1, ox, oy, gw, gh, xMax, yMax);
+            var p2 = tp(x2, y2, ox, oy, gw, gh, xMax, yMax);
+            var p3 = tp(x3, y3, ox, oy, gw, gh, xMax, yMax);
+            var p4 = tp(x4, y4, ox, oy, gw, gh, xMax, yMax);
+            ctx.fillStyle = color;
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
+            ctx.lineTo(p3.x, p3.y); ctx.lineTo(p4.x, p4.y); ctx.closePath(); ctx.fill();
+        }
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 1: Cournot Best-Response Curves           */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slC1 = document.getElementById('slider-c1');
+            var slC2 = document.getElementById('slider-c2');
+            var vC1 = document.getElementById('val-c1');
+            var vC2 = document.getElementById('val-c2');
+            var info = document.getElementById('info-cournot');
+
+            var a = 50, b = 1;
+
+            function draw() {
+                var res = getCtx('canvas-cournot');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var c1 = parseFloat(slC1.value);
+                var c2 = parseFloat(slC2.value);
+                vC1.textContent = '£' + c1;
+                vC2.textContent = '£' + c2;
+
+                var qMax = Math.max((a - Math.min(c1, c2)) / b, 10) * 0.6;
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, qMax, qMax, 'q₁ (Firm 1 output)', 'q₂ (Firm 2 output)', 5, 5);
+
+                /* BR1: q1 = (a - c1)/(2b) - q2/2 => q2 = (a - c1)/b - 2*q1 */
+                var br1_q2_int = (a - c1) / b; /* q2 intercept of BR1 line (when q1=0) */
+                var br1_q1_int = (a - c1) / (2 * b); /* q1 intercept (when q2=0) */
+                /* BR2: q2 = (a - c2)/(2b) - q1/2 */
+                var br2_q2_int = (a - c2) / (2 * b);
+                var br2_q1_int = (a - c2) / b;
+
+                /* Draw BR curves */
+                /* BR1: q1 on x-axis. q1*(q2) = (a-c1-b*q2)/(2b). Rewritten: q2 = (a-c1)/b - 2*q1 */
+                if (a > c1) drawLine(ctx, 0, br1_q2_int, br1_q1_int, 0, ox, oy, gw, gh, qMax, qMax, C.br1, 2.5);
+                /* BR2: q1 on x-axis, but BR2 gives q2 as function of q1: q2 = (a-c2)/(2b) - q1/2 */
+                if (a > c2) drawLine(ctx, 0, br2_q2_int, br2_q1_int, 0, ox, oy, gw, gh, qMax, qMax, C.br2, 2.5);
+
+                /* Cournot equilibrium */
+                /* q1* = (a - 2c1 + c2) / (3b), q2* = (a - 2c2 + c1) / (3b) */
+                var q1star = Math.max((a - 2 * c1 + c2) / (3 * b), 0);
+                var q2star = Math.max((a - 2 * c2 + c1) / (3 * b), 0);
+                var Pstar = a - b * (q1star + q2star);
+
+                dashedTo(ctx, q1star, q2star, ox, oy, gw, gh, qMax, qMax, C.textMuted);
+                var eqPt = tp(q1star, q2star, ox, oy, gw, gh, qMax, qMax);
+                ctx.beginPath(); ctx.arc(eqPt.x, eqPt.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = C.eqGlow; ctx.fill();
+                dot(ctx, q1star, q2star, ox, oy, gw, gh, qMax, qMax, C.equilibrium, 5);
+
+                /* Labels */
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                if (a > c1) {
+                    var br1Lbl = tp(br1_q1_int * 0.8, (a - c1) / b - 2 * (br1_q1_int * 0.8) + 1.5, ox, oy, gw, gh, qMax, qMax);
+                    ctx.fillStyle = C.br1; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('BR₁', br1Lbl.x, br1Lbl.y);
+                }
+                if (a > c2) {
+                    var br2Lbl = tp(1, br2_q2_int - 0.5, ox, oy, gw, gh, qMax, qMax);
+                    ctx.fillStyle = C.br2; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                    ctx.fillText('BR₂', br2Lbl.x, br2Lbl.y);
+                }
+
+                ctx.fillStyle = C.equilibrium; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Nash Eq.', eqPt.x + 8, eqPt.y - 4);
+
+                var pi1 = (Pstar - c1) * q1star;
+                var pi2 = (Pstar - c2) * q2star;
+                info.innerHTML =
+                    '<strong>Cournot equilibrium:</strong> q₁* = ' + q1star.toFixed(1) +
+                    ', q₂* = ' + q2star.toFixed(1) +
+                    ', Q = ' + (q1star + q2star).toFixed(1) +
+                    ', P = £' + Pstar.toFixed(1) +
+                    '<br>π₁ = £' + pi1.toFixed(0) + ', π₂ = £' + pi2.toFixed(0) +
+                    ', Total π = £' + (pi1 + pi2).toFixed(0) +
+                    ' &nbsp;|&nbsp; Competitive Q would be ' + ((a - Math.min(c1, c2)) / b).toFixed(0) +
+                    ', Monopoly Q would be ' + ((a - Math.min(c1, c2)) / (2 * b)).toFixed(0);
+            }
+
+            slC1.addEventListener('input', draw);
+            slC2.addEventListener('input', draw);
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 2: Stackelberg vs Cournot                 */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var btnC = document.getElementById('btn-cournot-s');
+            var btnS = document.getElementById('btn-stack-s');
+            var slMC = document.getElementById('slider-mc-s');
+            var vMC = document.getElementById('val-mc-s');
+            var info = document.getElementById('info-stackelberg');
+
+            var mode = 'cournot';
+            var a = 50, b = 1;
+
+            function draw() {
+                var res = getCtx('canvas-stackelberg');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var mc = parseFloat(slMC.value);
+                vMC.textContent = '£' + mc;
+
+                var qMax = Math.max((a - mc) / b * 0.55, 10);
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, qMax, qMax, 'q₁ (Firm 1)', 'q₂ (Firm 2)', 5, 5);
+
+                if (a <= mc) { info.innerHTML = 'MC exceeds demand intercept — no output.'; return; }
+
+                /* BR functions (symmetric) */
+                var brInt = (a - mc) / (2 * b); /* q-intercept when other = 0 */
+                var brMax = (a - mc) / b;        /* other-axis intercept */
+
+                /* BR1 in (q1, q2) space: q1 = brInt - q2/2 => q2 = brMax - 2*q1 */
+                drawLine(ctx, 0, brMax, brInt, 0, ox, oy, gw, gh, qMax, qMax, C.br1, 2);
+                /* BR2: q2 = brInt - q1/2 */
+                drawLine(ctx, 0, brInt, brMax, 0, ox, oy, gw, gh, qMax, qMax, C.br2, 2);
+
+                /* Cournot eq */
+                var qC = (a - mc) / (3 * b);
+
+                if (mode === 'cournot') {
+                    dashedTo(ctx, qC, qC, ox, oy, gw, gh, qMax, qMax, C.textMuted);
+                    var cPt = tp(qC, qC, ox, oy, gw, gh, qMax, qMax);
+                    ctx.beginPath(); ctx.arc(cPt.x, cPt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, qC, qC, ox, oy, gw, gh, qMax, qMax, C.equilibrium, 5);
+
+                    ctx.fillStyle = C.equilibrium; ctx.font = '11px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('Cournot NE', cPt.x + 8, cPt.y - 4);
+
+                    var Pc = a - b * 2 * qC;
+                    var piC = (Pc - mc) * qC;
+                    info.innerHTML =
+                        '<strong>Cournot:</strong> q₁ = q₂ = ' + qC.toFixed(1) +
+                        ', Q = ' + (2 * qC).toFixed(1) + ', P = £' + Pc.toFixed(1) +
+                        ' &nbsp;|&nbsp; π₁ = π₂ = £' + piC.toFixed(0);
+                } else {
+                    /* Stackelberg: leader q1L = (a-mc)/(2b), follower q2F = (a-mc)/(4b) */
+                    var q1L = (a - mc) / (2 * b);
+                    var q2F = (a - mc) / (4 * b);
+                    var Ps = a - b * (q1L + q2F);
+                    var pi1S = (Ps - mc) * q1L;
+                    var pi2S = (Ps - mc) * q2F;
+
+                    /* Draw iso-profit curve for leader through Stackelberg point */
+                    /* pi1 = (a - b*q1 - b*q2 - mc) * q1 = pi1S */
+                    /* q2 = (a - mc)/b - q1 - pi1S/(b*q1) */
+                    ctx.strokeStyle = C.isoBorder; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                    ctx.beginPath();
+                    var isoStarted = false;
+                    for (var qi = 0.5; qi <= qMax; qi += 0.2) {
+                        var q2iso = (a - mc) / b - qi - pi1S / (b * qi);
+                        if (q2iso < 0 || q2iso > qMax) { isoStarted = false; continue; }
+                        var pt = tp(qi, q2iso, ox, oy, gw, gh, qMax, qMax);
+                        if (!isoStarted) { ctx.moveTo(pt.x, pt.y); isoStarted = true; }
+                        else ctx.lineTo(pt.x, pt.y);
+                    }
+                    ctx.stroke(); ctx.setLineDash([]);
+
+                    /* Cournot point (ghost) */
+                    dot(ctx, qC, qC, ox, oy, gw, gh, qMax, qMax, C.textMuted, 4);
+                    var cGhost = tp(qC, qC, ox, oy, gw, gh, qMax, qMax);
+                    ctx.fillStyle = C.textMuted; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('Cournot', cGhost.x + 6, cGhost.y - 2);
+
+                    /* Stackelberg point */
+                    dashedTo(ctx, q1L, q2F, ox, oy, gw, gh, qMax, qMax, C.textMuted);
+                    var sPt = tp(q1L, q2F, ox, oy, gw, gh, qMax, qMax);
+                    ctx.beginPath(); ctx.arc(sPt.x, sPt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.stackGlow; ctx.fill();
+                    dot(ctx, q1L, q2F, ox, oy, gw, gh, qMax, qMax, C.stackPt, 5);
+
+                    ctx.fillStyle = C.stackPt; ctx.font = '11px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('Stackelberg', sPt.x + 8, sPt.y - 4);
+
+                    info.innerHTML =
+                        '<strong>Stackelberg:</strong> Leader q₁ = ' + q1L.toFixed(1) +
+                        ', Follower q₂ = ' + q2F.toFixed(1) +
+                        ', Q = ' + (q1L + q2F).toFixed(1) + ', P = £' + Ps.toFixed(1) +
+                        ' &nbsp;|&nbsp; π_leader = £' + pi1S.toFixed(0) +
+                        ', π_follower = £' + pi2S.toFixed(0) +
+                        '<br>Cournot comparison: q = ' + qC.toFixed(1) + ' each, π = £' + ((a - b * 2 * qC - mc) * qC).toFixed(0) + ' each' +
+                        ' — <em>Leader gains, follower loses</em>';
+                }
+
+                /* Labels */
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.fillStyle = C.br1; ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+                var br1L = tp(brInt - 1, 1, ox, oy, gw, gh, qMax, qMax);
+                ctx.fillText('BR₁', br1L.x, br1L.y);
+                ctx.fillStyle = C.br2; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                var br2L = tp(1, brInt - 1, ox, oy, gw, gh, qMax, qMax);
+                ctx.fillText('BR₂', br2L.x, br2L.y);
+            }
+
+            btnC.addEventListener('click', function() {
+                mode = 'cournot'; btnC.classList.add('active-toggle'); btnS.classList.remove('active-toggle'); draw();
+            });
+            btnS.addEventListener('click', function() {
+                mode = 'stackelberg'; btnS.classList.add('active-toggle'); btnC.classList.remove('active-toggle'); draw();
+            });
+            slMC.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 3: Bertrand Price Competition             */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slB1 = document.getElementById('slider-mc-b1');
+            var slB2 = document.getElementById('slider-mc-b2');
+            var vB1 = document.getElementById('val-mc-b1');
+            var vB2 = document.getElementById('val-mc-b2');
+            var info = document.getElementById('info-bertrand');
+
+            var a = 50;
+
+            function draw() {
+                var res = getCtx('canvas-bertrand');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var mc1 = parseFloat(slB1.value);
+                var mc2 = parseFloat(slB2.value);
+                vB1.textContent = '£' + mc1;
+                vB2.textContent = '£' + mc2;
+
+                var pMax = Math.max(mc1, mc2, a * 0.7) + 5;
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, pMax, pMax, 'p₁ (Firm 1 price)', 'p₂ (Firm 2 price)', 10, 10);
+
+                /* 45-degree line */
+                drawLine(ctx, 0, 0, pMax, pMax, ox, oy, gw, gh, pMax, pMax, C.forty5, 1, true);
+
+                /* Bertrand BR functions (simplified for homogeneous goods):
+                   BR1: p1 = mc1 if mc1 < p2; p1 = p2 - ε if p2 > mc1
+                   Graphically: p1 = mc1 for p2 >= mc1 (horizontal), then jumps.
+                   We'll draw stylised BRs: */
+
+                /* BR1: undercut p2 or price at mc1 */
+                /* For p2 > mc1: p1 = p2 - ε (just below 45-deg line, from mc1 upward) */
+                /* For p2 <= mc1: p1 = mc1 (no profitable undercutting) */
+                ctx.strokeStyle = C.br1; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                /* Horizontal at mc1 from 0 to mc1 */
+                var pt1 = tp(mc1, 0, ox, oy, gw, gh, pMax, pMax);
+                var pt2 = tp(mc1, mc1, ox, oy, gw, gh, pMax, pMax);
+                ctx.moveTo(pt1.x, pt1.y); ctx.lineTo(pt2.x, pt2.y);
+                /* Then just below 45-degree from (mc1, mc1) up */
+                var pt3 = tp(Math.min(pMax - 1, pMax), Math.min(pMax, pMax), ox, oy, gw, gh, pMax, pMax);
+                ctx.lineTo(pt3.x, pt3.y);
+                ctx.stroke();
+
+                /* BR2: p2 = mc2 for p1 <= mc2, then just below 45-deg */
+                ctx.strokeStyle = C.br2; ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                var ptA = tp(0, mc2, ox, oy, gw, gh, pMax, pMax);
+                var ptB = tp(mc2, mc2, ox, oy, gw, gh, pMax, pMax);
+                ctx.moveTo(ptA.x, ptA.y); ctx.lineTo(ptB.x, ptB.y);
+                var ptC = tp(pMax, Math.min(pMax - 1, pMax), ox, oy, gw, gh, pMax, pMax);
+                ctx.lineTo(ptC.x, ptC.y);
+                ctx.stroke();
+
+                /* Equilibrium point */
+                var peq = Math.max(mc1, mc2);
+                dashedTo(ctx, peq, peq, ox, oy, gw, gh, pMax, pMax, C.textMuted);
+                var eqPt = tp(peq, peq, ox, oy, gw, gh, pMax, pMax);
+                ctx.beginPath(); ctx.arc(eqPt.x, eqPt.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = C.eqGlow; ctx.fill();
+                dot(ctx, peq, peq, ox, oy, gw, gh, pMax, pMax, C.equilibrium, 5);
+
+                /* Labels */
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.fillStyle = C.br1; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('BR₁', tp(mc1 + 2, mc1 + 5, ox, oy, gw, gh, pMax, pMax).x, tp(mc1 + 2, mc1 + 5, ox, oy, gw, gh, pMax, pMax).y);
+                ctx.fillStyle = C.br2; ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+                ctx.fillText('BR₂', tp(mc2 + 5, mc2 + 2, ox, oy, gw, gh, pMax, pMax).x, tp(mc2 + 5, mc2 + 2, ox, oy, gw, gh, pMax, pMax).y);
+
+                ctx.fillStyle = C.equilibrium; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('NE', eqPt.x + 8, eqPt.y - 4);
+
+                /* Info */
+                var Qeq = Math.max(a - peq, 0);
+                if (mc1 === mc2) {
+                    info.innerHTML =
+                        '<strong>Bertrand equilibrium:</strong> p₁ = p₂ = MC = £' + peq +
+                        ' &nbsp;|&nbsp; Q = ' + Qeq.toFixed(0) + ' (split equally)' +
+                        ' &nbsp;|&nbsp; π₁ = π₂ = £0' +
+                        ' — <em>Bertrand paradox: two firms suffice for competition!</em>';
+                } else {
+                    var winner = mc1 < mc2 ? '1' : '2';
+                    var pEq = Math.max(mc1, mc2);
+                    var winnerMC = Math.min(mc1, mc2);
+                    var profit = (pEq - winnerMC) * Math.max(a - pEq, 0);
+                    info.innerHTML =
+                        '<strong>Bertrand equilibrium:</strong> p = £' + pEq + ' (just below higher MC)' +
+                        ' &nbsp;|&nbsp; Firm ' + winner + ' captures market (lower MC = £' + winnerMC + ')' +
+                        ' &nbsp;|&nbsp; π_winner ≈ £' + profit.toFixed(0) + ', π_loser = £0';
+                }
+            }
+
+            slB1.addEventListener('input', draw);
+            slB2.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 4: Monopolistic Competition               */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slN = document.getElementById('slider-nfirms');
+            var vN = document.getElementById('val-nfirms');
+            var btnLR = document.getElementById('btn-lr-eq');
+            var info = document.getElementById('info-moncomp');
+
+            /* Total market size = 120. Each firm gets share 120/n. */
+            /* Firm demand: P = (120/n) - q. MC = 5. FC = 100. AC = 5 + 100/q */
+            var mktSize = 120, mc = 5, fc = 100;
+            var xMax = 65, yMax = 70;
+
+            function draw() {
+                var res = getCtx('canvas-moncomp');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, 'Quantity (q)', 'Price / Cost (£)', 10, 10);
+
+                var n = parseFloat(slN.value);
+                vN.textContent = n;
+
+                var aFirm = mktSize / n; /* demand intercept for each firm */
+
+                /* LRAC curve: AC = mc + fc/q */
+                ctx.strokeStyle = C.lrac; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath();
+                var acStarted = false;
+                for (var q = 1; q <= xMax; q += 0.5) {
+                    var acVal = mc + fc / q;
+                    if (acVal > yMax * 1.1) continue;
+                    var pt = tp(q, acVal, ox, oy, gw, gh, xMax, yMax);
+                    if (!acStarted) { ctx.moveTo(pt.x, pt.y); acStarted = true; }
+                    else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+
+                /* Firm demand */
+                if (aFirm > 0) {
+                    drawLine(ctx, 0, aFirm, aFirm, 0, ox, oy, gw, gh, xMax, yMax, C.demandMC, 2.5);
+                    /* MR */
+                    drawLine(ctx, 0, aFirm, aFirm / 2, 0, ox, oy, gw, gh, xMax, yMax, C.mrMC, 2, true);
+                }
+                /* MC */
+                drawLine(ctx, 0, mc, xMax, mc, ox, oy, gw, gh, xMax, yMax, C.mc, 1.5);
+
+                /* Firm's optimal: MR = MC => aFirm - 2q = mc => q = (aFirm - mc)/2 */
+                var qStar = Math.max((aFirm - mc) / 2, 0);
+                var pStar = aFirm - qStar;
+                var acStar = mc + fc / Math.max(qStar, 0.1);
+                var profit = (pStar - acStar) * qStar;
+
+                /* Profit/loss rectangle */
+                if (qStar > 0 && Math.abs(profit) > 1) {
+                    if (profit > 0) {
+                        fillRect4(ctx, 0, acStar, 0, pStar, qStar, pStar, qStar, acStar,
+                            ox, oy, gw, gh, xMax, yMax, C.profit);
+                    } else {
+                        fillRect4(ctx, 0, pStar, 0, acStar, qStar, acStar, qStar, pStar,
+                            ox, oy, gw, gh, xMax, yMax, C.loss);
+                    }
+                }
+
+                /* Equilibrium point */
+                if (qStar > 0) {
+                    dashedTo(ctx, qStar, pStar, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    var eqPt = tp(qStar, pStar, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(eqPt.x, eqPt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, qStar, pStar, ox, oy, gw, gh, xMax, yMax, C.equilibrium, 5);
+                }
+
+                /* Labels */
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                if (aFirm > 2) {
+                    ctx.fillStyle = C.demandMC; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    var dLbl = tp(Math.min(aFirm - 3, xMax - 5), 3, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText('D', dLbl.x, dLbl.y);
+                    ctx.fillStyle = C.mrMC;
+                    var mrLbl = tp(Math.min(aFirm / 2 - 2, xMax - 5), 3, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText('MR', mrLbl.x, mrLbl.y);
+                }
+                ctx.fillStyle = C.lrac; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                var acLbl = tp(xMax - 5, mc + fc / (xMax - 5) + 1, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('LRAC', acLbl.x, acLbl.y);
+                ctx.fillStyle = C.mc;
+                var mcLbl = tp(xMax - 4, mc + 1, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('MC', mcLbl.x, mcLbl.y);
+
+                info.innerHTML =
+                    '<strong>n = ' + n + ' firms:</strong> Demand intercept = ' + aFirm.toFixed(1) +
+                    ', q* = ' + qStar.toFixed(1) + ', P = £' + pStar.toFixed(1) +
+                    ', AC = £' + acStar.toFixed(1) +
+                    ' &nbsp;|&nbsp; Profit = £' + profit.toFixed(0) +
+                    (Math.abs(profit) < 5 ? ' ≈ 0 — <em>long-run equilibrium (tangency)</em>' :
+                    (profit > 0 ? ' > 0 — entry would occur' : ' < 0 — exit would occur'));
+            }
+
+            slN.addEventListener('input', draw);
+            btnLR.addEventListener('click', function() {
+                /* Find n where profit ≈ 0: (aFirm - qStar) - (mc + fc/qStar) ≈ 0 where qStar = (aFirm-mc)/2 */
+                /* Solve numerically */
+                for (var nn = 2; nn <= 20; nn++) {
+                    var af = mktSize / nn;
+                    var qs = Math.max((af - mc) / 2, 0.1);
+                    var pr = (af - qs) * qs - mc * qs - fc;
+                    if (pr <= 0) { slN.value = nn; break; }
+                }
+                draw();
+            });
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 5: Cartel vs Defection                    */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var btnCC = document.getElementById('btn-cartel-c');
+            var btnCJ = document.getElementById('btn-cartel-j');
+            var btnCD = document.getElementById('btn-cartel-d');
+            var slMCcart = document.getElementById('slider-mc-cart');
+            var vMCcart = document.getElementById('val-mc-cart');
+            var info = document.getElementById('info-cartel');
+
+            var mode = 'cournot';
+            var a = 50, b = 1;
+
+            var btns = [btnCC, btnCJ, btnCD];
+            var modes = ['cournot', 'cartel', 'defect'];
+
+            function setMode(m) {
+                mode = m;
+                btns.forEach(function(btn, i) {
+                    btn.classList.toggle('active-toggle', modes[i] === m);
+                });
+                draw();
+            }
+
+            function draw() {
+                var res = getCtx('canvas-cartel');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var mc = parseFloat(slMCcart.value);
+                vMCcart.textContent = '£' + mc;
+
+                var qMax = Math.max((a - mc) / b * 0.55, 10);
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, qMax, qMax, 'q₁ (Firm 1)', 'q₂ (Firm 2)', 5, 5);
+
+                if (a <= mc) { info.innerHTML = 'MC exceeds demand intercept.'; return; }
+
+                /* BR curves */
+                var brInt = (a - mc) / (2 * b);
+                var brMax = (a - mc) / b;
+                drawLine(ctx, 0, brMax, brInt, 0, ox, oy, gw, gh, qMax, qMax, C.br1, 1.5, true);
+                drawLine(ctx, 0, brInt, brMax, 0, ox, oy, gw, gh, qMax, qMax, C.br2, 1.5, true);
+
+                /* Three outcomes */
+                var qCournot = (a - mc) / (3 * b);
+                var qCartel = (a - mc) / (4 * b); /* each firm's cartel share */
+                var qDefect = 3 * (a - mc) / (8 * b); /* defector output */
+                var qCooper = qCartel; /* cooperator sticks to cartel */
+
+                var Pc = a - b * 2 * qCournot;
+                var Pj = a - b * 2 * qCartel;
+                var Pd = a - b * (qDefect + qCooper);
+
+                var piC = (Pc - mc) * qCournot;
+                var piJ = (Pj - mc) * qCartel;
+                var piDefector = (Pd - mc) * qDefect;
+                var piCooperator = (Pd - mc) * qCooper;
+
+                var q1, q2, col, glowCol, label;
+                if (mode === 'cournot') {
+                    q1 = qCournot; q2 = qCournot; col = C.equilibrium; glowCol = C.eqGlow; label = 'Cournot NE';
+                } else if (mode === 'cartel') {
+                    q1 = qCartel; q2 = qCartel; col = C.cartel; glowCol = C.cartelGlow; label = 'Cartel';
+                } else {
+                    q1 = qDefect; q2 = qCooper; col = C.defect; glowCol = C.defectGlow; label = 'Defection';
+                }
+
+                /* All three points (ghosted) */
+                dot(ctx, qCournot, qCournot, ox, oy, gw, gh, qMax, qMax, C.textMuted, 3);
+                dot(ctx, qCartel, qCartel, ox, oy, gw, gh, qMax, qMax, C.textMuted, 3);
+                dot(ctx, qDefect, qCooper, ox, oy, gw, gh, qMax, qMax, C.textMuted, 3);
+
+                /* Active point */
+                dashedTo(ctx, q1, q2, ox, oy, gw, gh, qMax, qMax, C.textMuted);
+                var ePt = tp(q1, q2, ox, oy, gw, gh, qMax, qMax);
+                ctx.beginPath(); ctx.arc(ePt.x, ePt.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = glowCol; ctx.fill();
+                dot(ctx, q1, q2, ox, oy, gw, gh, qMax, qMax, col, 5);
+
+                ctx.fillStyle = col; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText(label, ePt.x + 8, ePt.y - 4);
+
+                /* Tiny labels for ghost points */
+                ctx.font = '9px -apple-system, sans-serif'; ctx.fillStyle = C.textMuted;
+                if (mode !== 'cournot') {
+                    var cpG = tp(qCournot, qCournot, ox, oy, gw, gh, qMax, qMax);
+                    ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+                    ctx.fillText('C', cpG.x - 4, cpG.y + 2);
+                }
+                if (mode !== 'cartel') {
+                    var jpG = tp(qCartel, qCartel, ox, oy, gw, gh, qMax, qMax);
+                    ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+                    ctx.fillText('J', jpG.x - 4, jpG.y + 2);
+                }
+                if (mode !== 'defect') {
+                    var dpG = tp(qDefect, qCooper, ox, oy, gw, gh, qMax, qMax);
+                    ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+                    ctx.fillText('D', dpG.x - 4, dpG.y + 2);
+                }
+
+                /* BR labels */
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.fillStyle = C.br1; ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+                ctx.fillText('BR₁', tp(brInt - 1, 1, ox, oy, gw, gh, qMax, qMax).x, tp(brInt - 1, 1, ox, oy, gw, gh, qMax, qMax).y);
+                ctx.fillStyle = C.br2; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText('BR₂', tp(1, brInt - 1, ox, oy, gw, gh, qMax, qMax).x, tp(1, brInt - 1, ox, oy, gw, gh, qMax, qMax).y);
+
+                if (mode === 'cournot') {
+                    info.innerHTML =
+                        '<strong>Cournot NE:</strong> q₁ = q₂ = ' + qCournot.toFixed(1) +
+                        ', P = £' + Pc.toFixed(1) +
+                        ' &nbsp;|&nbsp; π₁ = π₂ = £' + piC.toFixed(0);
+                } else if (mode === 'cartel') {
+                    info.innerHTML =
+                        '<strong>Cartel (joint monopoly):</strong> q₁ = q₂ = ' + qCartel.toFixed(1) +
+                        ', P = £' + Pj.toFixed(1) +
+                        ' &nbsp;|&nbsp; π₁ = π₂ = £' + piJ.toFixed(0) +
+                        ' &nbsp;|&nbsp; Higher than Cournot (£' + piC.toFixed(0) + ') — but unstable!';
+                } else {
+                    info.innerHTML =
+                        '<strong>Firm 1 defects, Firm 2 cooperates:</strong> q₁ = ' + qDefect.toFixed(1) +
+                        ', q₂ = ' + qCooper.toFixed(1) +
+                        ', P = £' + Pd.toFixed(1) +
+                        '<br>π_defector = £' + piDefector.toFixed(0) +
+                        ' > π_cartel = £' + piJ.toFixed(0) +
+                        ' — <em>Defection pays! This is the prisoners\' dilemma.</em>' +
+                        ' &nbsp;|&nbsp; π_cooperator = £' + piCooperator.toFixed(0);
+                }
+            }
+
+            btns.forEach(function(btn, i) {
+                btn.addEventListener('click', function() { setMode(modes[i]); });
+            });
+            slMCcart.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ── Global redraw ── */
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>
