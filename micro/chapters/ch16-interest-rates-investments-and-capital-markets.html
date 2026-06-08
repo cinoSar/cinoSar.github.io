@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 16: Interest Rates, Investments, and Capital Markets | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph { background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); }
+        .interactive-graph canvas { display: block; margin: 0 auto; cursor: crosshair; max-width: 100%; }
+        .graph-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-border-light); align-items: center; }
+        .graph-controls label { font-size: var(--font-size-sm); color: var(--color-text-light); display: flex; align-items: center; gap: 0.5rem; }
+        .graph-controls input[type="range"] { width: 140px; accent-color: var(--color-primary); }
+        .graph-controls .value-display { font-weight: var(--font-weight-semibold); color: var(--color-primary-dark); min-width: 3em; }
+        .graph-controls button { background: var(--color-primary); color: white; border: none; padding: 0.4rem 1rem; border-radius: var(--radius-sm); cursor: pointer; font-size: var(--font-size-sm); transition: background var(--transition-fast); }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle { background: var(--color-primary-dark); box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        .graph-info { margin-top: 0.75rem; padding: 0.75rem; background: var(--color-primary-pale); border-radius: var(--radius-sm); font-size: var(--font-size-sm); color: var(--color-text); }
+        .graph-caption { text-align: center; font-size: var(--font-size-sm); color: var(--color-text-light); margin-top: 0.5rem; font-style: italic; }
+        .chapter-nav { display: flex; justify-content: space-between; margin: 2rem 0; padding: 1rem 0; border-top: 1px solid var(--color-border); }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc { background: var(--color-background-alt); border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0; }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 16: Interest Rates, Investments, and Capital Markets</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 16</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#present-value">16.1 Present Value</a></li>
+                <li><a href="#investment">16.2 Investment Decisions</a></li>
+                <li><a href="#intertemporal">16.3 Intertemporal Choice</a></li>
+                <li><a href="#bonds">16.4 Bond Pricing</a></li>
+                <li><a href="#formal-derivations">16.5 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: Is the New Laboratory Worth It?</h2>
+                <p>A university is considering investing &pound;2 million in a new research laboratory. The facility would generate &pound;200,000 per year in research income for 20 years. On the surface, the total income (&pound;4 million) far exceeds the cost (&pound;2 million). But this reasoning is flawed: it ignores the fact that a pound received in 20 years is worth less than a pound received today. If the university could earn 8% per year by investing the &pound;2 million in financial markets instead, is the laboratory still worthwhile?</p>
+
+                <p>This is the fundamental question of <strong>intertemporal economics</strong>: how do we compare costs and benefits that occur at different points in time? The answer lies in the concept of <strong>present value</strong> &mdash; the value today of a sum to be received in the future, discounted at the appropriate interest rate. This chapter develops the tools for evaluating investments, modelling consumers&rsquo; saving and borrowing decisions, and understanding how interest rates are determined in capital markets.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>A pound today is worth more than a pound tomorrow, because today&rsquo;s pound can be invested to earn interest. The <strong>present value</strong> of a future payment \(X\) received in \(t\) years at interest rate \(r\) is \(PV = X/(1+r)^t\). An investment is worthwhile if and only if the <strong>net present value</strong> (NPV) &mdash; the present value of all benefits minus all costs &mdash; is positive.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to compute the present value of any stream of future payments, apply the NPV rule and internal rate of return to evaluate investment projects, model intertemporal consumption choice with a two-period budget constraint, explain the inverse relationship between bond prices and interest rates, and derive the Fisher equation linking nominal and real interest rates.</p>
+            </section>
+
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#present-value">Present Value</a> &mdash; discounting and the time value of money</li>
+                    <li><a href="#investment">Investment Decisions</a> &mdash; NPV, IRR, and project evaluation</li>
+                    <li><a href="#intertemporal">Intertemporal Choice</a> &mdash; saving, borrowing, and the interest rate</li>
+                    <li><a href="#bonds">Bond Pricing</a> &mdash; the inverse relationship between price and yield</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; Fisher equation, optimal allocation, bond mathematics</li>
+                </ol>
+            </div>
+
+
+            <!-- ============================================ -->
+            <!-- 16.1 PRESENT VALUE                            -->
+            <!-- ============================================ -->
+            <section id="present-value" class="lesson-section section-geometric">
+                <h2>16.1 Present Value</h2>
+
+                <h3>Intuition: Discounting the Future</h3>
+                <p>If the interest rate is 5%, &pound;100 invested today grows to &pound;105 in one year. Turning this around, &pound;105 received in one year is worth only &pound;100 today &mdash; we <strong>discount</strong> the future payment by dividing by \((1 + r)\). Over \(t\) years, the present value of a single payment \(X\) is:</p>
+
+                \[PV = \frac{X}{(1+r)^t}\]
+
+                <p>For a stream of payments \(X_1, X_2, \ldots, X_T\) received at the end of each year, the present value is the sum of all discounted payments:</p>
+
+                \[PV = \sum_{t=1}^{T} \frac{X_t}{(1+r)^t}\]
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Net Present Value</h4>
+                    <p>The <strong>net present value</strong> (NPV) of an investment that costs \(C_0\) today and generates a stream of future cash flows is \(\text{NPV} = -C_0 + \sum_{t=1}^{T} X_t / (1+r)^t\). The NPV rule: invest if and only if NPV &gt; 0.</p>
+                </div>
+
+                <h3>Geometric Solution: Present Value of a Payment Stream</h3>
+                <p>The graph below shows the present value of an annuity &mdash; a constant annual payment of &pound;200,000 for 20 years. The bars show each year&rsquo;s payment in nominal terms (all equal) and its discounted present value (shrinking over time). Adjust the interest rate to see how dramatically discounting affects distant payments.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-pv" width="600" height="420" style="width:600px;height:420px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Interest rate (r): <input type="range" id="slider-r-pv" min="0" max="15" step="0.5" value="5"> <span class="value-display" id="val-r-pv">5.0%</span></label>
+                        <label>Years (T): <input type="range" id="slider-T" min="5" max="30" step="1" value="20"> <span class="value-display" id="val-T">20</span></label>
+                    </div>
+                    <div class="graph-info" id="info-pv"></div>
+                    <p class="graph-caption">Figure 16.1 &mdash; Each bar shows the present value of a &pound;200k annual payment. Higher interest rates shrink distant payments dramatically.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: The University Laboratory</h4>
+                    <p>At r = 5%, the PV of 20 annual payments of &pound;200,000 is &pound;2,492,400 &mdash; the NPV is +&pound;492,400, so the investment is worthwhile. At r = 10%, the PV falls to &pound;1,702,700, giving NPV = &minus;&pound;297,300 &mdash; the investment destroys value. The interest rate is the crucial variable.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 16.2 INVESTMENT DECISIONS                     -->
+            <!-- ============================================ -->
+            <section id="investment" class="lesson-section section-geometric">
+                <h2>16.2 Investment Decisions</h2>
+
+                <h3>Intuition: NPV and IRR</h3>
+                <p>The NPV rule is straightforward: accept a project if NPV &gt; 0, reject if NPV &lt; 0. But decision-makers often want a single number that summarises a project&rsquo;s attractiveness without needing to specify a discount rate. The <strong>internal rate of return</strong> (IRR) fills this role: it is the discount rate that makes NPV exactly zero.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Internal Rate of Return</h4>
+                    <p>The <strong>internal rate of return</strong> (IRR) is the value of \(r\) that solves \(\text{NPV}(r) = 0\). The IRR rule: invest if IRR exceeds the cost of capital (the interest rate the firm must pay to borrow). For conventional projects (one initial outlay followed by positive cash flows), the IRR rule and NPV rule always agree.</p>
+                </div>
+
+                <h3>Geometric Solution: NPV as a Function of the Discount Rate</h3>
+                <p>The graph below plots NPV against the discount rate for the university laboratory project. The NPV curve slopes downward: higher discount rates reduce the value of future cash flows. The IRR is the point where the curve crosses zero. Adjust the initial cost and annual cash flow to see how the NPV profile and IRR change.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-npv" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Initial cost (&pound;k): <input type="range" id="slider-cost" min="500" max="4000" step="100" value="2000"> <span class="value-display" id="val-cost">&pound;2000k</span></label>
+                        <label>Annual cash flow (&pound;k): <input type="range" id="slider-cf" min="50" max="500" step="10" value="200"> <span class="value-display" id="val-cf">&pound;200k</span></label>
+                    </div>
+                    <div class="graph-info" id="info-npv"></div>
+                    <p class="graph-caption">Figure 16.2 &mdash; NPV as a function of the discount rate. The IRR is where NPV = 0. Projects with higher cash flows have higher IRRs.</p>
+                </div>
+
+                <div class="callout callout-warning">
+                    <h4>Limitations of IRR</h4>
+                    <p>The IRR rule has pitfalls. For non-conventional projects (where cash flows change sign more than once), multiple IRRs can exist. For mutually exclusive projects (choose one or the other), the project with the higher IRR is not always the better investment &mdash; NPV should be used to compare. And IRR cannot handle changing discount rates. When in doubt, use NPV.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 16.3 INTERTEMPORAL CHOICE                     -->
+            <!-- ============================================ -->
+            <section id="intertemporal" class="lesson-section section-geometric">
+                <h2>16.3 Intertemporal Choice</h2>
+
+                <h3>Intuition: Saving and Borrowing</h3>
+                <p>Consumers face intertemporal choices every day: save now for retirement or spend today? Take out a mortgage or rent? The <strong>two-period model</strong> captures the essence of these decisions. A consumer receives income \(Y_1\) in period 1 and \(Y_2\) in period 2, and chooses consumption \(C_1\) and \(C_2\) to maximise utility subject to the intertemporal budget constraint:</p>
+
+                \[C_1 + \frac{C_2}{1+r} = Y_1 + \frac{Y_2}{1+r}\]
+
+                <p>The right-hand side is the consumer&rsquo;s <strong>lifetime wealth</strong> in present-value terms. The consumer can shift consumption across periods by saving (if \(C_1 < Y_1\)) or borrowing (if \(C_1 > Y_1\)) at the interest rate \(r\).</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Intertemporal Budget Constraint</h4>
+                    <p>The <strong>intertemporal budget constraint</strong> shows all combinations of \(C_1\) and \(C_2\) the consumer can afford. Its slope is \(-(1+r)\): giving up one unit of \(C_1\) yields \(1+r\) units of \(C_2\) (the return from saving). A rise in \(r\) rotates the constraint around the endowment point, making saving more attractive (substitution effect) but also making the consumer richer if they are a net saver (income effect).</p>
+                </div>
+
+                <h3>Geometric Solution: Two-Period Consumption</h3>
+                <p>The graph shows the intertemporal budget constraint and an indifference curve. The consumer&rsquo;s endowment point (Y₁, Y₂) is marked. Adjust the interest rate to see the budget constraint rotate and the optimal consumption bundle shift.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-inter" width="600" height="500" style="width:600px;height:500px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Interest rate (r): <input type="range" id="slider-r-inter" min="0" max="30" step="1" value="10"> <span class="value-display" id="val-r-inter">10%</span></label>
+                        <label>Y₁: <input type="range" id="slider-y1" min="20" max="80" step="5" value="50"> <span class="value-display" id="val-y1">&pound;50k</span></label>
+                    </div>
+                    <div class="graph-info" id="info-inter"></div>
+                    <p class="graph-caption">Figure 16.3 &mdash; Intertemporal budget constraint and optimal consumption. The endowment point determines whether the consumer is a saver or borrower.</p>
+                </div>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>A rise in the interest rate has an ambiguous effect on saving. The <strong>substitution effect</strong> always increases saving (future consumption is cheaper). The <strong>income effect</strong> depends on whether the consumer is a net saver (richer, so saves less) or net borrower (poorer, so borrows less &mdash; effectively saves more). For net savers, the effects work in opposite directions, and the net effect is empirically small.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 16.4 BOND PRICING                             -->
+            <!-- ============================================ -->
+            <section id="bonds" class="lesson-section section-geometric">
+                <h2>16.4 Bond Pricing and the Yield Curve</h2>
+
+                <h3>Intuition: Why Bond Prices Move Inversely to Interest Rates</h3>
+                <p>A bond is a promise to pay a stream of fixed coupons plus a face value at maturity. The price of a bond is simply the present value of these future payments, discounted at the market interest rate (the <strong>yield</strong>). When interest rates rise, the discount factor increases, and the present value of the bond&rsquo;s fixed payments falls. When interest rates fall, bond prices rise. This inverse relationship is one of the most important facts in finance.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Bond Price</h4>
+                    <p>The price of a bond with annual coupon \(c\), face value \(F\), maturity \(T\), and yield \(y\) is:</p>
+                    <p>\[P = \sum_{t=1}^{T} \frac{c}{(1+y)^t} + \frac{F}{(1+y)^T} = c \cdot \frac{1 - (1+y)^{-T}}{y} + \frac{F}{(1+y)^T}\]</p>
+                    <p>When the coupon rate equals the yield, the bond trades at par (\(P = F\)). When the coupon rate exceeds the yield, it trades at a premium; when below, at a discount.</p>
+                </div>
+
+                <h3>Geometric Solution: Bond Price vs Yield</h3>
+                <p>The graph shows how a bond&rsquo;s price changes as the yield varies. The curve is convex: price falls more slowly as yield rises (a property called <strong>convexity</strong>). Adjust the coupon rate and maturity to see how they affect price sensitivity.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-bond" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Coupon rate (%): <input type="range" id="slider-coupon" min="0" max="12" step="0.5" value="5"> <span class="value-display" id="val-coupon">5.0%</span></label>
+                        <label>Maturity (years): <input type="range" id="slider-mat" min="1" max="30" step="1" value="10"> <span class="value-display" id="val-mat">10</span></label>
+                        <label>Current yield (%): <input type="range" id="slider-yield" min="0.5" max="15" step="0.25" value="5"> <span class="value-display" id="val-yield">5.0%</span></label>
+                    </div>
+                    <div class="graph-info" id="info-bond"></div>
+                    <p class="graph-caption">Figure 16.4 &mdash; Bond price as a function of yield. Longer-maturity bonds are more sensitive to interest rate changes (greater duration).</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: UK Gilt Losses in 2022</h4>
+                    <p>In 2022, the Bank of England raised the base rate from 0.25% to 3.5%. Long-dated UK government bonds (gilts) suffered severe price falls. A 30-year gilt lost roughly 40% of its value. Pension funds holding leveraged gilt positions faced margin calls, triggering the September 2022 gilt market crisis. The lesson: the inverse price&ndash;yield relationship, amplified by long duration, can create dramatic losses when rates rise sharply.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 16.5 FORMAL DERIVATIONS                       -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>16.5 Formal Derivations</h2>
+
+                <h3>The Fisher Equation</h3>
+                <p>The <strong>Fisher equation</strong> connects nominal and real interest rates. If the nominal rate is \(i\), the inflation rate is \(\pi\), and the real rate is \(r\):</p>
+
+                \[1 + i = (1 + r)(1 + \pi) \quad \Rightarrow \quad r \approx i - \pi\]
+
+                <p>The approximation holds when \(r\) and \(\pi\) are small. Investors care about the real rate because it determines the growth in purchasing power. The nominal rate adjusts to compensate for expected inflation.</p>
+
+                <h3>Optimal Intertemporal Allocation</h3>
+                <p>The consumer maximises \(U(C_1, C_2)\) subject to \(C_1 + C_2/(1+r) = W\), where \(W = Y_1 + Y_2/(1+r)\) is lifetime wealth. The Lagrangian is:</p>
+
+                \[
+                    \mathcal{L} = U(C_1, C_2) - \lambda\left[C_1 + \frac{C_2}{1+r} - W\right]
+                \]
+
+                <p>First-order conditions:</p>
+
+                \[
+                    \frac{\partial U}{\partial C_1} = \lambda, \qquad \frac{\partial U}{\partial C_2} = \frac{\lambda}{1+r}
+                \]
+
+                \[
+                    \Rightarrow \quad \frac{MU_1}{MU_2} = 1 + r \quad \Rightarrow \quad MRS_{C_1, C_2} = 1 + r
+                \]
+
+                <p>The consumer equates the marginal rate of substitution between present and future consumption to the gross interest rate. With Cobb-Douglas preferences \(U = C_1^{\alpha} C_2^{1-\alpha}\), the optimal choices are \(C_1^* = \alpha W\) and \(C_2^* = (1-\alpha)(1+r)W\).</p>
+
+                <h3>Annuity Formula</h3>
+                <p>The present value of an annuity paying \(X\) per year for \(T\) years at rate \(r\) is:</p>
+
+                \[
+                    PV = X \cdot \frac{1 - (1+r)^{-T}}{r}
+                \]
+
+                <p>As \(T \to \infty\), this converges to the <strong>perpetuity</strong> formula \(PV = X/r\). The university laboratory generating &pound;200,000 per year forever at 5% would be worth &pound;4 million.</p>
+
+                <h3>Bond Duration</h3>
+                <p><strong>Macaulay duration</strong> is the weighted average time to receipt of a bond&rsquo;s cash flows, where the weights are the present values of each cash flow as a fraction of the bond&rsquo;s price:</p>
+
+                \[
+                    D = \frac{1}{P} \sum_{t=1}^{T} t \cdot \frac{CF_t}{(1+y)^t}
+                \]
+
+                <p><strong>Modified duration</strong> \(D^* = D/(1+y)\) approximates the percentage price change for a small change in yield: \(\Delta P / P \approx -D^* \cdot \Delta y\). Longer-maturity bonds have greater duration and are more sensitive to rate changes.</p>
+
+                <h3>IRR Computation</h3>
+                <p>For the laboratory project with cost \(C_0 = 2000\) and annual cash flow \(X = 200\) for \(T = 20\) years, the IRR solves:</p>
+
+                \[
+                    200 \cdot \frac{1 - (1+r)^{-20}}{r} = 2000 \quad \Rightarrow \quad \frac{1 - (1+r)^{-20}}{r} = 10
+                \]
+
+                <p>This equation has no closed-form solution but can be solved numerically. The IRR is approximately 7.75%: the project is worthwhile if the cost of capital is below 7.75%.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>The time value of money is the foundation of all intertemporal economics. A pound today is worth more than a pound tomorrow because it can be invested at the interest rate. Present value translates future cash flows into today&rsquo;s pounds, enabling meaningful comparison of costs and benefits that occur at different times. The NPV rule &mdash; invest when NPV is positive &mdash; is the gold standard for project evaluation.</p>
+
+                <p>Consumers face intertemporal trade-offs too. The two-period model shows how saving and borrowing depend on the interest rate, income profile, and preferences for present versus future consumption. The substitution and income effects of an interest rate change work in opposite directions for savers, making the net effect on saving an empirical question.</p>
+
+                <p>Bond pricing illustrates present value in action. A bond&rsquo;s price is the discounted value of its coupon stream and face value; it moves inversely to the yield. Duration measures a bond&rsquo;s sensitivity to rate changes and explains why long-dated bonds are riskier in a rising-rate environment &mdash; a lesson the UK gilt market learned painfully in 2022.</p>
+
+                <p>In the next chapter, we introduce <strong>uncertainty</strong> &mdash; how rational agents make decisions when the outcomes of their choices are not known with certainty.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch15-factor-markets.html">&larr; Chapter 15: Factor Markets</a>
+                <span style="color: var(--color-text-lighter);">Chapter 17: Uncertainty &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            bar: '#3b82f6', barPV: '#10b981', barFill: 'rgba(59, 130, 246, 0.3)', pvFill: 'rgba(16, 185, 129, 0.5)',
+            npvPos: '#10b981', npvNeg: '#ef4444', npvLine: '#3b82f6',
+            irr: '#f59e0b', irrGlow: 'rgba(245, 158, 11, 0.3)',
+            budget: '#3b82f6', budgetOld: '#aaaaaa',
+            ic: '#10b981', icFill: 'rgba(16, 185, 129, 0.08)',
+            endowment: '#f59e0b', endowGlow: 'rgba(245, 158, 11, 0.3)',
+            optimal: '#0a9396', optGlow: 'rgba(10, 147, 150, 0.3)',
+            bond: '#3b82f6', bondFill: 'rgba(59, 130, 246, 0.08)',
+            par: '#aaaaaa', currentYield: '#ef4444',
+            equilibrium: '#0a9396', eqGlow: 'rgba(10, 147, 150, 0.3)',
+            zero: '#ef4444'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            bar: '#60a5fa', barPV: '#34d399', barFill: 'rgba(96, 165, 250, 0.3)', pvFill: 'rgba(52, 211, 153, 0.5)',
+            npvPos: '#34d399', npvNeg: '#f87171', npvLine: '#60a5fa',
+            irr: '#fbbf24', irrGlow: 'rgba(251, 191, 36, 0.3)',
+            budget: '#60a5fa', budgetOld: '#707070',
+            ic: '#34d399', icFill: 'rgba(52, 211, 153, 0.1)',
+            endowment: '#fbbf24', endowGlow: 'rgba(251, 191, 36, 0.3)',
+            optimal: '#2ec4c8', optGlow: 'rgba(46, 196, 200, 0.3)',
+            bond: '#60a5fa', bondFill: 'rgba(96, 165, 250, 0.1)',
+            par: '#707070', currentYield: '#f87171',
+            equilibrium: '#2ec4c8', eqGlow: 'rgba(46, 196, 200, 0.3)',
+            zero: '#f87171'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep) {
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            var v, pt;
+            for (v = 0; v <= yMax; v += (yStep || 5)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            for (v = 0; v <= xMax; v += (xStep || 5)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel || '', ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel || '', 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (v = xStep || 5; v <= xMax; v += (xStep || 5)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (v = yStep || 5; v <= yMax; v += (yStep || 5)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, ox - 6, pt.y);
+            }
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(pt.x, oy + gh); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 1: PV of Payment Stream (Bar Chart)       */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slR = document.getElementById('slider-r-pv');
+            var slT = document.getElementById('slider-T');
+            var vR = document.getElementById('val-r-pv');
+            var vT = document.getElementById('val-T');
+            var info = document.getElementById('info-pv');
+            var X = 200; /* £200k per year */
+
+            function draw() {
+                var res = getCtx('canvas-pv');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var r = parseFloat(slR.value) / 100;
+                var T = parseInt(slT.value);
+                vR.textContent = (r * 100).toFixed(1) + '%';
+                vT.textContent = T;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                /* Axes */
+                ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+                ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+                ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Year', ox + gw / 2, oy + gh + 38);
+                ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+                ctx.fillText('£ thousands', 0, 0); ctx.restore();
+
+                /* Y-axis labels */
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                for (var yv = 50; yv <= X; yv += 50) {
+                    var yPt = tp(0, yv, ox, oy, gw, gh, T + 1, X * 1.1);
+                    ctx.fillText(yv, ox - 6, yPt.y);
+                    ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+                    ctx.beginPath(); ctx.moveTo(ox, yPt.y); ctx.lineTo(ox + gw, yPt.y); ctx.stroke();
+                }
+
+                var barW = (gw / (T + 1)) * 0.7;
+                var gap = (gw / (T + 1)) * 0.3;
+                var totalPV = 0;
+
+                for (var t = 1; t <= T; t++) {
+                    var pv = r > 0 ? X / Math.pow(1 + r, t) : X;
+                    totalPV += pv;
+
+                    var bx = ox + (t / (T + 1)) * gw - barW / 2;
+
+                    /* Nominal bar (full height) */
+                    var nomPt = tp(0, X, 0, oy, 1, gh, 1, X * 1.1);
+                    var zeroPt = tp(0, 0, 0, oy, 1, gh, 1, X * 1.1);
+                    var barH = zeroPt.y - nomPt.y;
+                    ctx.fillStyle = C.barFill;
+                    ctx.fillRect(bx, nomPt.y, barW, barH);
+
+                    /* PV bar (shorter) */
+                    var pvPt = tp(0, pv, 0, oy, 1, gh, 1, X * 1.1);
+                    var pvH = zeroPt.y - pvPt.y;
+                    ctx.fillStyle = C.pvFill;
+                    ctx.fillRect(bx, pvPt.y, barW, pvH);
+
+                    /* Year label */
+                    if (T <= 15 || t % 2 === 0) {
+                        ctx.fillStyle = C.text; ctx.font = '10px -apple-system, sans-serif';
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                        ctx.fillText(t, bx + barW / 2, oy + gh + 4);
+                    }
+                }
+
+                /* Legend */
+                ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillStyle = C.barFill; ctx.fillRect(ox + 10, oy + 5, 14, 14);
+                ctx.fillStyle = C.text; ctx.fillText('Nominal (£' + X + 'k)', ox + 28, oy + 7);
+                ctx.fillStyle = C.pvFill; ctx.fillRect(ox + 10, oy + 24, 14, 14);
+                ctx.fillStyle = C.text; ctx.fillText('Present value', ox + 28, oy + 26);
+
+                var nomTotal = X * T;
+                info.innerHTML =
+                    '<strong>Annuity:</strong> £' + X + 'k/year for ' + T + ' years at r = ' + (r * 100).toFixed(1) + '%' +
+                    ' &nbsp;|&nbsp; Nominal total = £' + nomTotal.toFixed(0) + 'k' +
+                    ' &nbsp;|&nbsp; <strong>PV = £' + totalPV.toFixed(0) + 'k</strong>' +
+                    ' &nbsp;|&nbsp; Discount = £' + (nomTotal - totalPV).toFixed(0) + 'k (' + (100 * (nomTotal - totalPV) / nomTotal).toFixed(0) + '%)';
+            }
+
+            slR.addEventListener('input', draw);
+            slT.addEventListener('input', draw);
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 2: NPV vs Discount Rate                   */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slCost = document.getElementById('slider-cost');
+            var slCF = document.getElementById('slider-cf');
+            var vCost = document.getElementById('val-cost');
+            var vCF = document.getElementById('val-cf');
+            var info = document.getElementById('info-npv');
+
+            var T = 20;
+            var rMax = 0.20, xMax = 20; /* x-axis is r in % */
+            var yMinNPV = -2000, yMaxNPV = 4000;
+
+            function npvAt(cost, cf, r) {
+                if (r < 0.001) return cf * T - cost;
+                return -cost + cf * (1 - Math.pow(1 + r, -T)) / r;
+            }
+
+            function draw() {
+                var res = getCtx('canvas-npv');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var cost = parseFloat(slCost.value);
+                var cf = parseFloat(slCF.value);
+                vCost.textContent = '£' + cost + 'k';
+                vCF.textContent = '£' + cf + 'k';
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                /* Determine y range */
+                var npv0 = npvAt(cost, cf, 0.001);
+                var yTop = Math.max(npv0 * 1.2, 1000);
+                var yBot = -Math.max(cost * 0.6, 500);
+                var yRange = yTop - yBot;
+
+                function tyNPV(val) { return oy + (1 - (val - yBot) / yRange) * gh; }
+                function txNPV(r) { return ox + (r / rMax) * gw; }
+
+                /* Grid */
+                ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+                for (var rv = 2; rv <= xMax; rv += 2) {
+                    var xp = txNPV(rv / 100);
+                    ctx.beginPath(); ctx.moveTo(xp, oy); ctx.lineTo(xp, oy + gh); ctx.stroke();
+                }
+                var yStep = yRange > 4000 ? 1000 : 500;
+                for (var yv = Math.ceil(yBot / yStep) * yStep; yv <= yTop; yv += yStep) {
+                    var yp = tyNPV(yv);
+                    ctx.beginPath(); ctx.moveTo(ox, yp); ctx.lineTo(ox + gw, yp); ctx.stroke();
+                }
+
+                /* Axes */
+                ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+                ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+                /* Zero line */
+                var zeroY = tyNPV(0);
+                if (zeroY > oy && zeroY < oy + gh) {
+                    ctx.strokeStyle = C.zero; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+                    ctx.beginPath(); ctx.moveTo(ox, zeroY); ctx.lineTo(ox + gw, zeroY); ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Discount rate (%)', ox + gw / 2, oy + gh + 38);
+                ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+                ctx.fillText('NPV (£k)', 0, 0); ctx.restore();
+
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                for (var rl = 2; rl <= xMax; rl += 2) {
+                    ctx.fillText(rl + '%', txNPV(rl / 100), oy + gh + 4);
+                }
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                for (var yl = Math.ceil(yBot / yStep) * yStep; yl <= yTop; yl += yStep) {
+                    ctx.fillText(yl, ox - 6, tyNPV(yl));
+                }
+
+                /* NPV curve */
+                ctx.strokeStyle = C.npvLine; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                var irrVal = -1;
+                var prevNPV = npvAt(cost, cf, 0.001);
+                for (var rp = 0.1; rp <= rMax * 100; rp += 0.1) {
+                    var rr = rp / 100;
+                    var nv = npvAt(cost, cf, rr);
+                    var px = txNPV(rr);
+                    var py = tyNPV(nv);
+                    if (py < oy - 20 || py > oy + gh + 20) { prevNPV = nv; continue; }
+                    if (rp < 0.2) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+                    /* Find IRR crossing */
+                    if (prevNPV >= 0 && nv < 0 && irrVal < 0) {
+                        irrVal = (rp - 0.1 + 0.1 * prevNPV / (prevNPV - nv)) / 100;
+                    }
+                    prevNPV = nv;
+                }
+                ctx.stroke();
+
+                /* Shade positive NPV region */
+                if (zeroY > oy && zeroY < oy + gh) {
+                    ctx.fillStyle = C.npvPos + '15';
+                    ctx.beginPath();
+                    ctx.moveTo(ox, zeroY);
+                    for (var rp2 = 0.1; rp2 <= rMax * 100; rp2 += 0.2) {
+                        var nv2 = npvAt(cost, cf, rp2 / 100);
+                        if (nv2 < 0) break;
+                        ctx.lineTo(txNPV(rp2 / 100), tyNPV(nv2));
+                    }
+                    ctx.lineTo(txNPV(rp2 / 100), zeroY);
+                    ctx.closePath(); ctx.fill();
+                }
+
+                /* IRR marker */
+                if (irrVal > 0 && irrVal < rMax) {
+                    var irrPx = txNPV(irrVal);
+                    ctx.beginPath(); ctx.arc(irrPx, zeroY, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.irrGlow; ctx.fill();
+                    ctx.beginPath(); ctx.arc(irrPx, zeroY, 5, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.irr; ctx.fill();
+                    ctx.fillStyle = C.irr; ctx.font = 'bold 11px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('IRR = ' + (irrVal * 100).toFixed(1) + '%', irrPx, zeroY - 10);
+                }
+
+                info.innerHTML =
+                    '<strong>Cost = £' + cost + 'k, CF = £' + cf + 'k/year for ' + T + ' years</strong>' +
+                    ' &nbsp;|&nbsp; NPV at 5% = £' + npvAt(cost, cf, 0.05).toFixed(0) + 'k' +
+                    ', NPV at 10% = £' + npvAt(cost, cf, 0.10).toFixed(0) + 'k' +
+                    ' &nbsp;|&nbsp; <strong>IRR ≈ ' + (irrVal > 0 ? (irrVal * 100).toFixed(1) + '%' : 'N/A') + '</strong>';
+            }
+
+            slCost.addEventListener('input', draw);
+            slCF.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 3: Intertemporal Choice                   */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slR = document.getElementById('slider-r-inter');
+            var slY1 = document.getElementById('slider-y1');
+            var vR = document.getElementById('val-r-inter');
+            var vY1 = document.getElementById('val-y1');
+            var info = document.getElementById('info-inter');
+
+            var Y2 = 40; /* fixed period 2 income */
+            var alpha = 0.55; /* CD preference weight on C1 */
+            var xMax = 100, yMax = 120;
+
+            function draw() {
+                var res = getCtx('canvas-inter');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+                drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, 'C₁ (£k, period 1)', 'C₂ (£k, period 2)', 20, 20);
+
+                var r = parseFloat(slR.value) / 100;
+                var Y1 = parseFloat(slY1.value);
+                vR.textContent = (r * 100).toFixed(0) + '%';
+                vY1.textContent = '£' + Y1 + 'k';
+
+                var W = Y1 + Y2 / (1 + r); /* lifetime wealth */
+                /* Budget: C2 = (1+r)(W - C1) */
+                var c2Int = (1 + r) * W; /* C2 intercept (C1=0) */
+                var c1Int = W; /* C1 intercept (C2=0) */
+
+                /* Budget line */
+                var p1 = tp(0, Math.min(c2Int, yMax * 1.3), ox, oy, gw, gh, xMax, yMax);
+                var p2 = tp(Math.min(c1Int, xMax * 1.3), 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.budget; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+
+                /* Endowment point */
+                var ewPt = tp(Y1, Y2, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ewPt.x, ewPt.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = C.endowGlow; ctx.fill();
+                dot(ctx, Y1, Y2, ox, oy, gw, gh, xMax, yMax, C.endowment, 5);
+                ctx.fillStyle = C.endowment; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('(Y₁, Y₂)', ewPt.x + 8, ewPt.y - 4);
+
+                /* Optimal: C1* = alpha * W, C2* = (1-alpha)*(1+r)*W */
+                var C1star = alpha * W;
+                var C2star = (1 - alpha) * (1 + r) * W;
+
+                /* IC through optimal: U = C1^alpha * C2^(1-alpha) */
+                var Ustar = Math.pow(C1star, alpha) * Math.pow(C2star, 1 - alpha);
+                ctx.strokeStyle = C.ic; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath();
+                var icStarted = false;
+                for (var c1 = 1; c1 <= xMax; c1 += 0.5) {
+                    var c2 = Math.pow(Ustar / Math.pow(c1, alpha), 1 / (1 - alpha));
+                    if (c2 > yMax * 1.3 || c2 < 0) continue;
+                    var pt = tp(c1, c2, ox, oy, gw, gh, xMax, yMax);
+                    if (!icStarted) { ctx.moveTo(pt.x, pt.y); icStarted = true; }
+                    else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+
+                /* Optimal point */
+                if (C1star > 0 && C1star < xMax && C2star > 0 && C2star < yMax) {
+                    dashedTo(ctx, C1star, C2star, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    var oPt = tp(C1star, C2star, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(oPt.x, oPt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.optGlow; ctx.fill();
+                    dot(ctx, C1star, C2star, ox, oy, gw, gh, xMax, yMax, C.optimal, 5);
+                }
+
+                /* Labels */
+                ctx.fillStyle = C.budget; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+                ctx.fillText('Budget', p2.x - 4, p2.y + 4);
+                ctx.fillStyle = C.ic; ctx.textAlign = 'left';
+                var icLbl = tp(Math.min(C1star + 15, xMax - 5), Math.pow(Ustar / Math.pow(Math.min(C1star + 15, xMax - 5), alpha), 1 / (1 - alpha)), ox, oy, gw, gh, xMax, yMax);
+                if (icLbl.y > oy && icLbl.y < oy + gh) ctx.fillText('IC', icLbl.x + 4, icLbl.y);
+
+                var saving = Y1 - C1star;
+                info.innerHTML =
+                    '<strong>r = ' + (r * 100).toFixed(0) + '%</strong>' +
+                    ', Y₁ = £' + Y1 + 'k, Y₂ = £' + Y2 + 'k' +
+                    ', Wealth = £' + W.toFixed(0) + 'k' +
+                    ' &nbsp;|&nbsp; C₁* = £' + C1star.toFixed(0) + 'k, C₂* = £' + C2star.toFixed(0) + 'k' +
+                    '<br>' + (saving > 0.5 ? 'Saving £' + saving.toFixed(0) + 'k in period 1' :
+                    (saving < -0.5 ? 'Borrowing £' + (-saving).toFixed(0) + 'k in period 1' : 'Neither saving nor borrowing'));
+            }
+
+            slR.addEventListener('input', draw);
+            slY1.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 4: Bond Price vs Yield                    */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slCoupon = document.getElementById('slider-coupon');
+            var slMat = document.getElementById('slider-mat');
+            var slYield = document.getElementById('slider-yield');
+            var vCoupon = document.getElementById('val-coupon');
+            var vMat = document.getElementById('val-mat');
+            var vYield = document.getElementById('val-yield');
+            var info = document.getElementById('info-bond');
+
+            var F = 100; /* face value */
+            var yieldMax = 0.15, xMax = 15; /* x-axis: yield in % */
+            var priceMax = 250;
+
+            function bondPrice(couponRate, maturity, y) {
+                var c = couponRate * F;
+                if (y < 0.001) return c * maturity + F;
+                return c * (1 - Math.pow(1 + y, -maturity)) / y + F / Math.pow(1 + y, maturity);
+            }
+
+            function draw() {
+                var res = getCtx('canvas-bond');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var couponRate = parseFloat(slCoupon.value) / 100;
+                var mat = parseInt(slMat.value);
+                var curYield = parseFloat(slYield.value) / 100;
+                vCoupon.textContent = (couponRate * 100).toFixed(1) + '%';
+                vMat.textContent = mat;
+                vYield.textContent = (curYield * 100).toFixed(1) + '%';
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, xMax, priceMax, 'Yield (%)', 'Bond Price (£)', 2, 50);
+
+                /* Par line at F=100 */
+                var parPt = tp(0, F, ox, oy, gw, gh, xMax, priceMax);
+                ctx.strokeStyle = C.par; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+                ctx.beginPath(); ctx.moveTo(ox, parPt.y); ctx.lineTo(ox + gw, parPt.y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.par; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Par (£100)', ox + gw - 4, parPt.y - 2);
+
+                /* Price-yield curve */
+                ctx.strokeStyle = C.bond; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                for (var yp = 0.1; yp <= xMax; yp += 0.05) {
+                    var pr = bondPrice(couponRate, mat, yp / 100);
+                    if (pr > priceMax * 1.2) continue;
+                    var pt = tp(yp, pr, ox, oy, gw, gh, xMax, priceMax);
+                    if (yp < 0.2) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+
+                /* Current yield marker */
+                var curPrice = bondPrice(couponRate, mat, curYield);
+                if (curPrice <= priceMax && curYield * 100 <= xMax) {
+                    dashedTo(ctx, curYield * 100, curPrice, ox, oy, gw, gh, xMax, priceMax, C.textMuted);
+                    var cPt = tp(curYield * 100, curPrice, ox, oy, gw, gh, xMax, priceMax);
+                    ctx.beginPath(); ctx.arc(cPt.x, cPt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, curYield * 100, curPrice, ox, oy, gw, gh, xMax, priceMax, C.equilibrium, 5);
+                }
+
+                /* Duration calculation */
+                var dur = 0;
+                for (var t = 1; t <= mat; t++) {
+                    var cft = (t < mat) ? couponRate * F : couponRate * F + F;
+                    dur += t * cft / Math.pow(1 + curYield, t);
+                }
+                dur = dur / curPrice;
+                var modDur = dur / (1 + curYield);
+
+                var premium = curPrice > F + 0.5 ? 'Premium' : (curPrice < F - 0.5 ? 'Discount' : 'Par');
+                info.innerHTML =
+                    '<strong>Coupon = ' + (couponRate * 100).toFixed(1) + '%, Maturity = ' + mat + ' years, Yield = ' + (curYield * 100).toFixed(1) + '%</strong>' +
+                    ' &nbsp;|&nbsp; Price = <strong>£' + curPrice.toFixed(2) + '</strong> (' + premium + ')' +
+                    '<br>Macaulay duration = ' + dur.toFixed(2) + ' years' +
+                    ', Modified duration = ' + modDur.toFixed(2) +
+                    ' &nbsp;|&nbsp; 1% yield ↑ → price ≈ ' + (modDur * 1).toFixed(1) + '% ↓';
+            }
+
+            slCoupon.addEventListener('input', draw);
+            slMat.addEventListener('input', draw);
+            slYield.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ── Global redraw ── */
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>
