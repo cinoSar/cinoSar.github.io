@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 15: Factor Markets | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph { background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); }
+        .interactive-graph canvas { display: block; margin: 0 auto; cursor: crosshair; max-width: 100%; }
+        .graph-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-border-light); align-items: center; }
+        .graph-controls label { font-size: var(--font-size-sm); color: var(--color-text-light); display: flex; align-items: center; gap: 0.5rem; }
+        .graph-controls input[type="range"] { width: 140px; accent-color: var(--color-primary); }
+        .graph-controls .value-display { font-weight: var(--font-weight-semibold); color: var(--color-primary-dark); min-width: 3em; }
+        .graph-controls button { background: var(--color-primary); color: white; border: none; padding: 0.4rem 1rem; border-radius: var(--radius-sm); cursor: pointer; font-size: var(--font-size-sm); transition: background var(--transition-fast); }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle { background: var(--color-primary-dark); box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        .graph-info { margin-top: 0.75rem; padding: 0.75rem; background: var(--color-primary-pale); border-radius: var(--radius-sm); font-size: var(--font-size-sm); color: var(--color-text); }
+        .graph-caption { text-align: center; font-size: var(--font-size-sm); color: var(--color-text-light); margin-top: 0.5rem; font-style: italic; }
+        .chapter-nav { display: flex; justify-content: space-between; margin: 2rem 0; padding: 1rem 0; border-top: 1px solid var(--color-border); }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc { background: var(--color-background-alt); border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0; }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 15: Factor Markets</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 15</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#labour-demand">15.1 Demand for Labour</a></li>
+                <li><a href="#labour-supply">15.2 Supply of Labour</a></li>
+                <li><a href="#equilibrium">15.3 Labour Market Equilibrium</a></li>
+                <li><a href="#capital">15.4 Capital Markets</a></li>
+                <li><a href="#formal-derivations">15.5 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: Why Are Footballers Paid Millions?</h2>
+                <p>In 2023, the average Premier League footballer earned over &pound;3 million per year. A nurse in the NHS earned roughly &pound;35,000. Both work hard, both provide value to society, yet the pay gap is staggering. Why?</p>
+
+                <p>The answer lies not in moral judgements about &ldquo;fairness&rdquo; but in the economics of <strong>factor markets</strong> &mdash; the markets where firms buy the inputs (labour, capital, land) they use in production. A footballer&rsquo;s wage is determined by the <em>demand</em> for footballers (driven by the enormous revenues of Premier League clubs) and the <em>supply</em> of world-class talent (extremely scarce). A nurse&rsquo;s wage reflects the demand for nursing services (large but budget-constrained) and the supply of qualified nurses (also large). Factor prices are determined by the same supply-and-demand logic as output prices, but with an important twist: the demand for factors is <strong>derived</strong> from the demand for the goods they produce.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>The demand for a factor of production is a <strong>derived demand</strong>: it comes not from the factor itself but from the output it helps produce. A firm hires labour up to the point where the <strong>marginal revenue product</strong> (MRP) &mdash; the extra revenue from hiring one more unit &mdash; equals the factor price. When the factor market is competitive, the wage equals MRP. When the employer has market power (monopsony), the wage falls below MRP, creating a deadweight loss.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to derive the demand for labour from the marginal revenue product, explain the income-leisure trade-off and the backward-bending labour supply curve, compare competitive and monopsony labour market equilibria, analyse the demand for capital using the user cost of capital, and apply factor market analysis to real-world wage differentials.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#labour-demand">Demand for Labour</a> &mdash; marginal revenue product and derived demand</li>
+                    <li><a href="#labour-supply">Supply of Labour</a> &mdash; income-leisure choice and backward bending</li>
+                    <li><a href="#equilibrium">Labour Market Equilibrium</a> &mdash; competition vs monopsony</li>
+                    <li><a href="#capital">Capital Markets</a> &mdash; rental rate and investment decisions</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; MRP, monopsony, and factor demand</li>
+                </ol>
+            </div>
+
+
+            <!-- ============================================ -->
+            <!-- 15.1 DEMAND FOR LABOUR                        -->
+            <!-- ============================================ -->
+            <section id="labour-demand" class="lesson-section section-geometric">
+                <h2>15.1 Demand for Labour</h2>
+
+                <h3>Intuition: Hiring Until MRP = w</h3>
+                <p>Why does a firm hire workers? Because each worker produces output that the firm can sell. The <strong>marginal revenue product of labour</strong> (MRP<sub>L</sub>) is the additional revenue the firm earns from hiring one more worker: MRP<sub>L</sub> = MR &times; MP<sub>L</sub>. For a competitive firm (where MR = P), this simplifies to MRP<sub>L</sub> = P &times; MP<sub>L</sub>, which is called the <strong>value of the marginal product</strong> (VMP<sub>L</sub>).</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Marginal Revenue Product</h4>
+                    <p>The <strong>marginal revenue product of labour</strong> is \(\text{MRP}_L = MR \times MP_L\). For a competitive firm, \(\text{MRP}_L = P \times MP_L = \text{VMP}_L\). The firm&rsquo;s demand curve for labour <em>is</em> its MRP<sub>L</sub> curve: it hires workers up to the point where \(\text{MRP}_L = w\), the market wage.</p>
+                </div>
+
+                <p>Because of diminishing marginal returns (Chapter 6), MP<sub>L</sub> declines as more workers are hired. This makes the MRP curve downward-sloping &mdash; the firm&rsquo;s demand for labour is a decreasing function of the wage. If the output price rises, the entire MRP curve shifts up, and the firm hires more workers at any given wage.</p>
+
+                <h3>Geometric Solution: The MRP Curve</h3>
+                <p>The graph below shows a firm&rsquo;s MRP curve derived from a Cobb-Douglas production function \(q = L^{0.7}\) (with capital fixed). Adjust the output price to see how the demand for labour shifts. The wage line shows the going market wage; the firm hires where MRP = w.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-mrp" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Output price (P): <input type="range" id="slider-price" min="5" max="40" step="1" value="20"> <span class="value-display" id="val-price">&pound;20</span></label>
+                        <label>Wage (w): <input type="range" id="slider-wage" min="2" max="25" step="0.5" value="10"> <span class="value-display" id="val-wage">&pound;10</span></label>
+                    </div>
+                    <div class="graph-info" id="info-mrp"></div>
+                    <p class="graph-caption">Figure 15.1 &mdash; The firm&rsquo;s demand for labour is its MRP<sub>L</sub> curve. The firm hires where MRP<sub>L</sub> = w.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: Why Tech Workers Earn More</h4>
+                    <p>Software engineers command high salaries because the output price of software (revenue per user) is high and the marginal product of a skilled engineer is substantial. A single developer can build features used by millions. The MRP is enormous, and wages reflect that. By contrast, in industries with low output prices or easily substitutable labour, MRP and wages are lower.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 15.2 SUPPLY OF LABOUR                         -->
+            <!-- ============================================ -->
+            <section id="labour-supply" class="lesson-section section-geometric">
+                <h2>15.2 Supply of Labour</h2>
+
+                <h3>Intuition: The Income&ndash;Leisure Trade-Off</h3>
+                <p>Workers choose how many hours to work by trading off <strong>income</strong> (from working) against <strong>leisure</strong> (the time not spent working). A higher wage has two effects. The <strong>substitution effect</strong> makes leisure more expensive (each hour of leisure &ldquo;costs&rdquo; more in forgone wages), encouraging more work. The <strong>income effect</strong> makes the worker richer, and if leisure is a normal good, the worker wants more of it &mdash; encouraging less work.</p>
+
+                <p>At low wages, the substitution effect dominates: higher wages lead to more hours worked, and the labour supply curve slopes upward. But at high wages, the income effect can dominate: workers feel rich enough to &ldquo;buy&rdquo; more leisure, and hours worked fall. The result is a <strong>backward-bending labour supply curve</strong>.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Backward-Bending Labour Supply</h4>
+                    <p>The <strong>backward-bending labour supply curve</strong> slopes upward at low wages (substitution effect dominates) and bends backward at high wages (income effect dominates). The worker supplies fewer hours as the wage increases beyond a certain point, because the additional income is worth less than the leisure it displaces.</p>
+                </div>
+
+                <h3>Geometric Solution: Labour Supply and the Wage</h3>
+                <p>The graph below shows individual labour supply as a function of the wage. At low wages, the curve slopes upward normally. Beyond the &ldquo;bend&rdquo; wage, it curves backward. Adjust the bend point to see how preferences for leisure affect the shape.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-supply" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Bend wage: <input type="range" id="slider-bend" min="10" max="35" step="1" value="20"> <span class="value-display" id="val-bend">&pound;20</span></label>
+                        <label>Current wage: <input type="range" id="slider-curw" min="2" max="40" step="0.5" value="15"> <span class="value-display" id="val-curw">&pound;15</span></label>
+                    </div>
+                    <div class="graph-info" id="info-supply"></div>
+                    <p class="graph-caption">Figure 15.2 &mdash; The backward-bending labour supply curve. Below the bend wage, the substitution effect dominates; above it, the income effect dominates.</p>
+                </div>
+
+                <div class="callout callout-warning">
+                    <h4>Market vs Individual Supply</h4>
+                    <p>Even if individual labour supply curves bend backward, the <em>market</em> supply curve typically slopes upward throughout the relevant range. Higher wages attract new workers into the labour force (people who were not working before), offsetting the backward-bending behaviour of those already employed. The market supply of labour is the horizontal sum of all individual supply curves plus the entry margin.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 15.3 LABOUR MARKET EQUILIBRIUM                -->
+            <!-- ============================================ -->
+            <section id="equilibrium" class="lesson-section section-geometric">
+                <h2>15.3 Labour Market Equilibrium</h2>
+
+                <h3>Intuition: Competition vs Monopsony</h3>
+                <p>In a <strong>competitive labour market</strong>, many firms compete for workers. Each firm is a wage taker: it hires at the market wage where the total demand for labour (sum of all firms&rsquo; MRP curves) equals total supply. The equilibrium wage equals the MRP &mdash; workers are paid what they are worth at the margin.</p>
+
+                <p>A <strong>monopsony</strong> is a market with a single buyer of labour. Just as a monopolist restricts output to raise the price, a monopsonist restricts hiring to lower the wage. But hiring one more worker requires raising the wage for <em>all</em> workers (since the supply curve slopes upward), making the <strong>marginal expenditure</strong> on labour (ME<sub>L</sub>) greater than the wage. The monopsonist hires where MRP = ME and pays the wage read off the supply curve &mdash; below MRP.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Monopsony</h4>
+                    <p>A <strong>monopsony</strong> is a market with a single buyer. The monopsonist&rsquo;s <strong>marginal expenditure</strong> exceeds the supply price because hiring an additional unit requires raising the price paid to all units. The monopsony equilibrium has a lower quantity and lower price than the competitive equilibrium, creating a <strong>deadweight loss</strong>.</p>
+                </div>
+
+                <h3>Geometric Solution: Competitive vs Monopsony</h3>
+                <p>Toggle between competitive and monopsony equilibrium. Under monopsony, the ME curve lies above the supply curve, and the firm hires fewer workers at a lower wage than the competitive outcome.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-monopsony" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <button id="btn-comp-lm" class="active-toggle">Competitive</button>
+                        <button id="btn-mono-lm">Monopsony</button>
+                        <label>Demand shift: <input type="range" id="slider-dshift" min="20" max="50" step="1" value="35"> <span class="value-display" id="val-dshift">35</span></label>
+                    </div>
+                    <div class="graph-info" id="info-monopsony"></div>
+                    <p class="graph-caption">Figure 15.3 &mdash; Competitive vs monopsony labour market. Under monopsony, ME<sub>L</sub> &gt; w, and the firm hires fewer workers at a lower wage.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: The NHS as Monopsonist</h4>
+                    <p>The National Health Service is by far the largest employer of nurses in the UK. Economic studies have found evidence of monopsony power: nurses&rsquo; wages are below their MRP, and employment is below the competitive level. This is one reason governments periodically raise NHS pay bands &mdash; a minimum wage in a monopsony market can actually <em>increase</em> both employment and wages simultaneously, a result impossible in a competitive market.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 15.4 CAPITAL MARKETS                          -->
+            <!-- ============================================ -->
+            <section id="capital" class="lesson-section section-geometric">
+                <h2>15.4 Capital Markets</h2>
+
+                <h3>Intuition: Renting Machines</h3>
+                <p>Just as firms hire labour, they also use capital &mdash; machines, buildings, equipment. The demand for capital follows the same logic: a firm employs capital up to the point where the <strong>marginal revenue product of capital</strong> (MRP<sub>K</sub>) equals the <strong>rental rate</strong> (r), the cost of using one unit of capital for one period.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: User Cost of Capital</h4>
+                    <p>The <strong>user cost of capital</strong> is the total cost of using one unit of capital for one period. It includes the interest cost (opportunity cost of the funds tied up), depreciation, and any expected capital gains or losses: \(r = i \cdot P_K + \delta \cdot P_K - \Delta P_K\), where \(i\) is the interest rate, \(\delta\) is the depreciation rate, and \(\Delta P_K\) is the expected price change.</p>
+                </div>
+
+                <p>The firm&rsquo;s demand curve for capital is its MRP<sub>K</sub> curve, which slopes downward due to diminishing marginal returns. A lower rental rate encourages firms to use more capital-intensive techniques; a higher rate pushes them towards labour-intensive methods. In long-run equilibrium, the ratio of factor prices equals the ratio of marginal products: \(w / r = MP_L / MP_K\) &mdash; the familiar cost-minimisation condition from Chapter 7.</p>
+
+                <h3>Geometric Solution: Demand for Capital</h3>
+                <p>The graph below shows a firm&rsquo;s demand for capital (MRP<sub>K</sub>) and the market rental rate. Adjust the interest rate and depreciation rate to see how the user cost of capital changes and affects the optimal capital stock.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-capital" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Interest rate (i): <input type="range" id="slider-intrate" min="1" max="15" step="0.5" value="5"> <span class="value-display" id="val-intrate">5%</span></label>
+                        <label>Depreciation (&delta;): <input type="range" id="slider-depr" min="1" max="20" step="0.5" value="10"> <span class="value-display" id="val-depr">10%</span></label>
+                        <label>Capital price (P<sub>K</sub>): <input type="range" id="slider-pk" min="50" max="200" step="10" value="100"> <span class="value-display" id="val-pk">&pound;100</span></label>
+                    </div>
+                    <div class="graph-info" id="info-capital"></div>
+                    <p class="graph-caption">Figure 15.4 &mdash; Demand for capital and the user cost. The firm employs capital where MRP<sub>K</sub> equals the rental rate r.</p>
+                </div>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>Factor markets are mirrors of output markets. The demand for each factor is derived from the demand for the output it produces. In competitive factor markets, each factor is paid its marginal revenue product. In the long run, firms choose the capital&ndash;labour ratio that minimises cost, giving the tangency condition \(\text{MRTS} = w/r\) from Chapter 7. Factor prices thus determine not only <em>how much</em> of each factor is used but <em>how</em> goods are produced.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 15.5 FORMAL DERIVATIONS                       -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>15.5 Formal Derivations</h2>
+
+                <h3>Competitive Labour Demand</h3>
+                <p>A competitive firm produces \(q = f(L, \bar{K})\) and sells at price \(P\). Profit is:</p>
+
+                \[
+                    \pi = P \cdot f(L, \bar{K}) - wL - r\bar{K}
+                \]
+
+                <p>The first-order condition for labour:</p>
+
+                \[
+                    \frac{\partial \pi}{\partial L} = P \cdot MP_L - w = 0 \quad \Rightarrow \quad P \cdot MP_L = w \quad \Rightarrow \quad \text{VMP}_L = w
+                \]
+
+                <p>For a Cobb-Douglas production function \(q = L^{\alpha}\), \(MP_L = \alpha L^{\alpha - 1}\), so the demand for labour is:</p>
+
+                \[
+                    P \cdot \alpha L^{\alpha - 1} = w \quad \Rightarrow \quad L^* = \left(\frac{\alpha P}{w}\right)^{1/(1-\alpha)}
+                \]
+
+                <h3>Monopsony</h3>
+                <p>The monopsonist faces an upward-sloping supply curve \(w = a + bL\). Total expenditure on labour is \(wL = aL + bL^2\). Marginal expenditure is:</p>
+
+                \[
+                    ME_L = \frac{d(wL)}{dL} = a + 2bL
+                \]
+
+                <p>The ME curve has the same intercept as the supply curve but twice the slope &mdash; exactly analogous to the relationship between demand and MR for a monopolist. The monopsonist hires where \(\text{MRP}_L = ME_L\):</p>
+
+                \[
+                    P \cdot MP_L = a + 2bL_m
+                \]
+
+                <p>and pays the wage \(w_m = a + bL_m\), which is below the MRP. The deadweight loss triangle has base \(L_c - L_m\) and height \(w_c - w_m\), where subscripts \(c\) and \(m\) denote competitive and monopsony outcomes.</p>
+
+                <h3>Backward-Bending Labour Supply</h3>
+                <p>The worker maximises \(U(\text{Consumption}, \text{Leisure})\) subject to \(C = w(T - \ell) + Y_0\), where \(T\) is total time, \(\ell\) is leisure, and \(Y_0\) is non-labour income. Hours worked are \(h = T - \ell\). Using Cobb-Douglas preferences \(U = C^{\beta} \ell^{1-\beta}\):</p>
+
+                \[
+                    \ell^* = (1-\beta) \cdot \frac{wT + Y_0}{w}, \qquad h^* = T - \ell^* = \beta T - (1-\beta)\frac{Y_0}{w}
+                \]
+
+                <p>When \(Y_0 = 0\), \(h^* = \beta T\) is constant &mdash; Cobb-Douglas preferences give a vertical supply curve. With \(Y_0 > 0\), raising \(w\) increases \(h\) (the second term shrinks). To generate backward bending, we need non-homothetic preferences or the &ldquo;target income&rdquo; model where workers have a target earnings level.</p>
+
+                <h3>User Cost of Capital</h3>
+                <p>A firm that owns a machine with purchase price \(P_K\), interest rate \(i\), depreciation rate \(\delta\), and expected price appreciation \(g = \Delta P_K / P_K\) faces a user cost:</p>
+
+                \[
+                    r = (i + \delta - g) \cdot P_K
+                \]
+
+                <p>The firm employs capital where \(\text{MRP}_K = r\). With \(q = K^{\gamma}\), \(MP_K = \gamma K^{\gamma - 1}\), and the optimal capital stock is:</p>
+
+                \[
+                    K^* = \left(\frac{\gamma P}{r}\right)^{1/(1-\gamma)}
+                \]
+
+                <p>A fall in the interest rate reduces \(r\) and increases the desired capital stock &mdash; this is the channel through which monetary policy stimulates investment.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>Factor markets determine the prices of labour, capital, and other inputs. The central principle is <strong>derived demand</strong>: the demand for a factor comes from the demand for the output it helps produce. A competitive firm hires each factor up to the point where its marginal revenue product equals its price. This explains why footballers earn millions (enormous MRP driven by huge revenues and scarce talent) whilst equally hardworking nurses earn far less (large supply relative to budget-constrained demand).</p>
+
+                <p>Labour supply reflects the trade-off between income and leisure. At low wages, the substitution effect dominates and supply slopes upward; at high wages, the income effect can dominate, producing the backward-bending curve. Market supply is typically upward-sloping because higher wages attract new entrants even when some individuals reduce their hours.</p>
+
+                <p>Monopsony &mdash; a single buyer of labour &mdash; is the factor-market analogue of monopoly. The monopsonist restricts hiring to push down wages, creating a deadweight loss. Interestingly, a well-designed minimum wage can increase both employment and wages in a monopsony market, a result with important implications for labour policy.</p>
+
+                <p>In the next chapter, we turn to <strong>interest rates, investment, and capital markets</strong> &mdash; how the time value of money governs investment decisions and intertemporal choice.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch14-game-theory.html">&larr; Chapter 14: Game Theory</a>
+                <span style="color: var(--color-text-lighter);">Chapter 16: Interest Rates, Investments, and Capital Markets &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            demand: '#3b82f6', supply: '#ef4444', me: '#8b5cf6',
+            mrp: '#3b82f6', mrpFill: 'rgba(59, 130, 246, 0.08)',
+            wage: '#f59e0b',
+            equilibrium: '#0a9396', eqGlow: 'rgba(10, 147, 150, 0.3)',
+            dwl: 'rgba(120, 120, 120, 0.25)', dwlBorder: '#888888',
+            profit: 'rgba(16, 185, 129, 0.15)', profitBorder: '#10b981',
+            se: '#10b981', ie: '#ef4444',
+            rental: '#f59e0b', capital: '#3b82f6'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            demand: '#60a5fa', supply: '#f87171', me: '#a78bfa',
+            mrp: '#60a5fa', mrpFill: 'rgba(96, 165, 250, 0.1)',
+            wage: '#fbbf24',
+            equilibrium: '#2ec4c8', eqGlow: 'rgba(46, 196, 200, 0.3)',
+            dwl: 'rgba(160, 160, 160, 0.2)', dwlBorder: '#999999',
+            profit: 'rgba(52, 211, 153, 0.15)', profitBorder: '#34d399',
+            se: '#34d399', ie: '#f87171',
+            rental: '#fbbf24', capital: '#60a5fa'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep) {
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            var v, pt;
+            for (v = 0; v <= yMax; v += (yStep || 5)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            for (v = 0; v <= xMax; v += (xStep || 5)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel || '', ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel || '', 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (v = xStep || 5; v <= xMax; v += (xStep || 5)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (v = yStep || 5; v <= yMax; v += (yStep || 5)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, ox - 6, pt.y);
+            }
+        }
+
+        function drawLine(ctx, x1, y1, x2, y2, ox, oy, gw, gh, xMax, yMax, color, lw, dashed) {
+            var p1 = tp(x1, y1, ox, oy, gw, gh, xMax, yMax);
+            var p2 = tp(x2, y2, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = lw || 2;
+            if (dashed) ctx.setLineDash([5, 4]); else ctx.setLineDash([]);
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(pt.x, oy + gh); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function fillTriangle(ctx, x1, y1, x2, y2, x3, y3, ox, oy, gw, gh, xMax, yMax, color) {
+            var p1 = tp(x1, y1, ox, oy, gw, gh, xMax, yMax);
+            var p2 = tp(x2, y2, ox, oy, gw, gh, xMax, yMax);
+            var p3 = tp(x3, y3, ox, oy, gw, gh, xMax, yMax);
+            ctx.fillStyle = color;
+            ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.lineTo(p3.x, p3.y); ctx.closePath(); ctx.fill();
+        }
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 1: MRP Curve (Labour Demand)              */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slPrice = document.getElementById('slider-price');
+            var slWage = document.getElementById('slider-wage');
+            var vPrice = document.getElementById('val-price');
+            var vWage = document.getElementById('val-wage');
+            var info = document.getElementById('info-mrp');
+
+            var alpha = 0.7;
+            var xMax = 25, yMax = 45;
+
+            function mrp(L, P) { return P * alpha * Math.pow(Math.max(L, 0.01), alpha - 1); }
+
+            function draw() {
+                var res = getCtx('canvas-mrp');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+                drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, 'Labour (L)', 'Wage / MRP (£)', 5, 5);
+
+                var P = parseFloat(slPrice.value);
+                var wage = parseFloat(slWage.value);
+                vPrice.textContent = '£' + P;
+                vWage.textContent = '£' + wage;
+
+                /* MRP curve */
+                ctx.strokeStyle = C.mrp; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                for (var L = 0.2; L <= xMax; L += 0.1) {
+                    var v = mrp(L, P);
+                    if (v > yMax * 1.3) continue;
+                    var pt = tp(L, v, ox, oy, gw, gh, xMax, yMax);
+                    if (L < 0.3) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+
+                /* Wage line */
+                drawLine(ctx, 0, wage, xMax, wage, ox, oy, gw, gh, xMax, yMax, C.wage, 2);
+
+                /* Optimal L: P * alpha * L^(alpha-1) = wage => L = (alpha*P/wage)^(1/(1-alpha)) */
+                var Lstar = Math.pow(alpha * P / wage, 1 / (1 - alpha));
+                if (Lstar > 0 && Lstar < xMax) {
+                    dashedTo(ctx, Lstar, wage, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    var ePt = tp(Lstar, wage, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ePt.x, ePt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, Lstar, wage, ox, oy, gw, gh, xMax, yMax, C.equilibrium, 5);
+                }
+
+                /* Labels */
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.fillStyle = C.mrp; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                var mrpLbl = tp(xMax - 3, mrp(xMax - 3, P), ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('MRP_L', mrpLbl.x + 4, mrpLbl.y - 2);
+                ctx.fillStyle = C.wage; ctx.textBaseline = 'bottom';
+                var wLbl = tp(xMax - 2, wage + 1.5, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('w', wLbl.x, wLbl.y);
+
+                var q = Math.pow(Lstar, alpha);
+                info.innerHTML =
+                    '<strong>P = £' + P + ', w = £' + wage + '</strong>' +
+                    ' &nbsp;|&nbsp; L* = ' + Lstar.toFixed(1) + ' workers' +
+                    ', q = ' + q.toFixed(1) + ' units' +
+                    ', MRP at L* = £' + mrp(Lstar, P).toFixed(1) +
+                    ' = w ✓';
+            }
+
+            slPrice.addEventListener('input', draw);
+            slWage.addEventListener('input', draw);
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 2: Backward-Bending Labour Supply         */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slBend = document.getElementById('slider-bend');
+            var slCurW = document.getElementById('slider-curw');
+            var vBend = document.getElementById('val-bend');
+            var vCurW = document.getElementById('val-curw');
+            var info = document.getElementById('info-supply');
+
+            var xMax = 20, yMax = 45; /* x = hours, y = wage */
+
+            function hoursWorked(w, wBend) {
+                /* Model: h = k * w for w <= wBend, then h decreases */
+                /* h = hMax - m*(w - wBend)^2 for w > wBend */
+                var hMax = 0.6 * wBend; /* peak hours at bend wage */
+                if (w <= wBend) {
+                    return hMax * (w / wBend);
+                } else {
+                    var excess = w - wBend;
+                    var decay = hMax * 0.002;
+                    return Math.max(hMax - decay * excess * excess, 1);
+                }
+            }
+
+            function draw() {
+                var res = getCtx('canvas-supply');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+                drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, 'Hours worked (h)', 'Wage (£/hr)', 5, 5);
+
+                var wBend = parseFloat(slBend.value);
+                var curW = parseFloat(slCurW.value);
+                vBend.textContent = '£' + wBend;
+                vCurW.textContent = '£' + curW;
+
+                /* Draw supply curve (wage on y-axis, hours on x-axis) */
+                ctx.strokeStyle = C.supply; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                var started = false;
+                for (var wv = 1; wv <= yMax; wv += 0.3) {
+                    var hv = hoursWorked(wv, wBend);
+                    if (hv > xMax) continue;
+                    var pt = tp(hv, wv, ox, oy, gw, gh, xMax, yMax);
+                    if (!started) { ctx.moveTo(pt.x, pt.y); started = true; }
+                    else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+
+                /* Mark bend point */
+                var hBend = hoursWorked(wBend, wBend);
+                dot(ctx, hBend, wBend, ox, oy, gw, gh, xMax, yMax, C.se, 5);
+                ctx.fillStyle = C.se; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                var bPt = tp(hBend, wBend, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('Bend point', bPt.x + 8, bPt.y - 2);
+
+                /* Current wage line and point */
+                drawLine(ctx, 0, curW, xMax, curW, ox, oy, gw, gh, xMax, yMax, C.wage, 1.5, true);
+                var hCur = hoursWorked(curW, wBend);
+                dashedTo(ctx, hCur, curW, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                var ePt = tp(hCur, curW, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ePt.x, ePt.y, 8, 0, 2 * Math.PI);
+                ctx.fillStyle = C.eqGlow; ctx.fill();
+                dot(ctx, hCur, curW, ox, oy, gw, gh, xMax, yMax, C.equilibrium, 5);
+
+                /* SE/IE annotation */
+                ctx.font = '11px -apple-system, sans-serif';
+                if (curW < wBend) {
+                    ctx.fillStyle = C.se; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                    ctx.fillText('SE dominates', ox + gw / 2, oy + 8);
+                    ctx.fillText('(upward-sloping)', ox + gw / 2, oy + 22);
+                } else {
+                    ctx.fillStyle = C.ie; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                    ctx.fillText('IE dominates', ox + gw / 2, oy + 8);
+                    ctx.fillText('(backward-bending)', ox + gw / 2, oy + 22);
+                }
+
+                /* Label */
+                ctx.fillStyle = C.supply; ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                var sLbl = tp(hoursWorked(yMax * 0.7, wBend), yMax * 0.7, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('S_L', sLbl.x + 8, sLbl.y);
+
+                info.innerHTML =
+                    '<strong>Wage = £' + curW + '</strong>' +
+                    ' &nbsp;|&nbsp; Hours = ' + hCur.toFixed(1) +
+                    ' &nbsp;|&nbsp; Bend wage = £' + wBend +
+                    ' &nbsp;|&nbsp; ' + (curW < wBend ? 'Below bend: ↑ wage → ↑ hours (SE > IE)' :
+                    'Above bend: ↑ wage → ↓ hours (IE > SE)');
+            }
+
+            slBend.addEventListener('input', draw);
+            slCurW.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 3: Competitive vs Monopsony               */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var btnComp = document.getElementById('btn-comp-lm');
+            var btnMono = document.getElementById('btn-mono-lm');
+            var slDshift = document.getElementById('slider-dshift');
+            var vDshift = document.getElementById('val-dshift');
+            var info = document.getElementById('info-monopsony');
+
+            var mode = 'comp';
+            /* Supply: w = 2 + 0.8L. ME = 2 + 1.6L. Demand (MRP): w = a - L */
+            var sInt = 2, sSlope = 0.8;
+            var xMax = 30, yMax = 40;
+
+            function draw() {
+                var res = getCtx('canvas-monopsony');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+                drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, 'Labour (L)', 'Wage (£)', 5, 5);
+
+                var a = parseFloat(slDshift.value);
+                vDshift.textContent = a;
+
+                /* Supply: w = sInt + sSlope * L */
+                drawLine(ctx, 0, sInt, (yMax - sInt) / sSlope, yMax, ox, oy, gw, gh, xMax, yMax, C.supply, 2.5);
+                /* Demand (MRP): w = a - L */
+                drawLine(ctx, 0, a, Math.min(a, xMax), Math.max(a - Math.min(a, xMax), 0), ox, oy, gw, gh, xMax, yMax, C.demand, 2.5);
+
+                /* Competitive equilibrium: a - L = sInt + sSlope*L => L = (a - sInt)/(1 + sSlope) */
+                var Lc = (a - sInt) / (1 + sSlope);
+                var wc = sInt + sSlope * Lc;
+
+                if (mode === 'comp') {
+                    dashedTo(ctx, Lc, wc, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    var ePt = tp(Lc, wc, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ePt.x, ePt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, Lc, wc, ox, oy, gw, gh, xMax, yMax, C.equilibrium, 5);
+
+                    info.innerHTML =
+                        '<strong>Competitive equilibrium:</strong> L = ' + Lc.toFixed(1) +
+                        ', w = £' + wc.toFixed(1) +
+                        ' &nbsp;|&nbsp; MRP = w at equilibrium ✓';
+                } else {
+                    /* ME: w = sInt + 2*sSlope*L */
+                    drawLine(ctx, 0, sInt, (yMax - sInt) / (2 * sSlope), yMax, ox, oy, gw, gh, xMax, yMax, C.me, 2, true);
+
+                    /* Monopsony: a - L = sInt + 2*sSlope*L => L = (a - sInt)/(1 + 2*sSlope) */
+                    var Lm = (a - sInt) / (1 + 2 * sSlope);
+                    var wm = sInt + sSlope * Lm;
+                    var mrpM = a - Lm;
+
+                    /* DWL triangle: (Lm, wm), (Lm, mrpM), (Lc, wc) */
+                    fillTriangle(ctx, Lm, wm, Lm, mrpM, Lc, wc, ox, oy, gw, gh, xMax, yMax, C.dwl);
+
+                    /* Competitive point (ghost) */
+                    dot(ctx, Lc, wc, ox, oy, gw, gh, xMax, yMax, C.textMuted, 3);
+                    var cGhost = tp(Lc, wc, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillStyle = C.textMuted; ctx.font = '9px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('Comp.', cGhost.x + 4, cGhost.y - 2);
+
+                    /* Monopsony point */
+                    dashedTo(ctx, Lm, wm, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    /* Also dash from Lm to MRP */
+                    var mrpPt = tp(Lm, mrpM, ox, oy, gw, gh, xMax, yMax);
+                    ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+                    ctx.beginPath(); ctx.moveTo(ox, mrpPt.y); ctx.lineTo(mrpPt.x, mrpPt.y); ctx.stroke();
+                    ctx.setLineDash([]);
+
+                    var ePt2 = tp(Lm, wm, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ePt2.x, ePt2.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, Lm, wm, ox, oy, gw, gh, xMax, yMax, C.equilibrium, 5);
+                    dot(ctx, Lm, mrpM, ox, oy, gw, gh, xMax, yMax, C.demand, 4);
+
+                    /* Exploitation gap label */
+                    ctx.fillStyle = C.demand; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                    ctx.fillText('MRP = £' + mrpM.toFixed(1), mrpPt.x + 8, mrpPt.y);
+                    ctx.fillStyle = C.supply;
+                    ctx.fillText('w = £' + wm.toFixed(1), ePt2.x + 8, ePt2.y + 12);
+
+                    var dwlVal = 0.5 * (mrpM - wm) * (Lc - Lm);
+                    info.innerHTML =
+                        '<strong>Monopsony:</strong> L = ' + Lm.toFixed(1) +
+                        ', w = £' + wm.toFixed(1) +
+                        ', MRP = £' + mrpM.toFixed(1) +
+                        ' &nbsp;|&nbsp; Exploitation: £' + (mrpM - wm).toFixed(1) + '/worker' +
+                        ' &nbsp;|&nbsp; DWL = £' + dwlVal.toFixed(0) +
+                        '<br>Competitive: L = ' + Lc.toFixed(1) + ', w = £' + wc.toFixed(1);
+                }
+
+                /* Labels */
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.fillStyle = C.demand; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                var dLbl = tp(Math.min(a - 2, xMax - 3), 3, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('MRP_L', dLbl.x, dLbl.y);
+                ctx.fillStyle = C.supply; ctx.textBaseline = 'bottom';
+                var sLbl2 = tp((yMax - sInt) / sSlope - 2, yMax - 1, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('S_L', sLbl2.x, sLbl2.y);
+                if (mode === 'mono') {
+                    ctx.fillStyle = C.me;
+                    var meLbl = tp((yMax - sInt) / (2 * sSlope) - 1, yMax - 1, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText('ME_L', meLbl.x, meLbl.y);
+                    ctx.fillStyle = C.dwlBorder; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    var dwlC = tp((2 * Lm + Lc) / 3, (wm + wc + (a - Lm)) / 3, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText('DWL', dwlC.x, dwlC.y);
+                }
+            }
+
+            btnComp.addEventListener('click', function() {
+                mode = 'comp'; btnComp.classList.add('active-toggle'); btnMono.classList.remove('active-toggle'); draw();
+            });
+            btnMono.addEventListener('click', function() {
+                mode = 'mono'; btnMono.classList.add('active-toggle'); btnComp.classList.remove('active-toggle'); draw();
+            });
+            slDshift.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 4: Demand for Capital                     */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slInt = document.getElementById('slider-intrate');
+            var slDepr = document.getElementById('slider-depr');
+            var slPK = document.getElementById('slider-pk');
+            var vInt = document.getElementById('val-intrate');
+            var vDepr = document.getElementById('val-depr');
+            var vPK = document.getElementById('val-pk');
+            var info = document.getElementById('info-capital');
+
+            /* MRP_K = P * gamma * K^(gamma-1). Use P=20, gamma=0.5 */
+            var P = 20, gamma = 0.5;
+            var xMax = 30, yMax = 35;
+
+            function mrpK(K) { return P * gamma * Math.pow(Math.max(K, 0.01), gamma - 1); }
+
+            function draw() {
+                var res = getCtx('canvas-capital');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+                drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, 'Capital (K)', 'Rental rate / MRP_K (£)', 5, 5);
+
+                var i = parseFloat(slInt.value) / 100;
+                var d = parseFloat(slDepr.value) / 100;
+                var pk = parseFloat(slPK.value);
+                vInt.textContent = (i * 100).toFixed(1) + '%';
+                vDepr.textContent = (d * 100).toFixed(1) + '%';
+                vPK.textContent = '£' + pk;
+
+                var r = (i + d) * pk; /* user cost (assuming no price change) */
+
+                /* MRP_K curve */
+                ctx.strokeStyle = C.capital; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                for (var K = 0.2; K <= xMax; K += 0.1) {
+                    var v = mrpK(K);
+                    if (v > yMax * 1.3) continue;
+                    var pt = tp(K, v, ox, oy, gw, gh, xMax, yMax);
+                    if (K < 0.3) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+
+                /* Rental rate line */
+                if (r <= yMax) {
+                    drawLine(ctx, 0, r, xMax, r, ox, oy, gw, gh, xMax, yMax, C.rental, 2);
+                }
+
+                /* Optimal K: MRP_K = r => P*gamma*K^(gamma-1) = r => K = (gamma*P/r)^(1/(1-gamma)) */
+                var Kstar = Math.pow(gamma * P / r, 1 / (1 - gamma));
+                if (Kstar > 0 && Kstar < xMax && r <= yMax) {
+                    dashedTo(ctx, Kstar, r, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    var ePt = tp(Kstar, r, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ePt.x, ePt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, Kstar, r, ox, oy, gw, gh, xMax, yMax, C.equilibrium, 5);
+                }
+
+                /* Labels */
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.fillStyle = C.capital; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                var kLbl = tp(xMax - 4, mrpK(xMax - 4), ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('MRP_K', kLbl.x + 4, kLbl.y - 2);
+                if (r <= yMax) {
+                    ctx.fillStyle = C.rental; ctx.textBaseline = 'bottom';
+                    var rLbl = tp(xMax - 4, r + 1.5, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText('r = £' + r.toFixed(1), rLbl.x, rLbl.y);
+                }
+
+                info.innerHTML =
+                    '<strong>User cost:</strong> r = (i + δ) × P<sub>K</sub> = (' +
+                    (i * 100).toFixed(1) + '% + ' + (d * 100).toFixed(1) + '%) × £' + pk +
+                    ' = <strong>£' + r.toFixed(1) + '</strong>/period' +
+                    ' &nbsp;|&nbsp; K* = ' + Kstar.toFixed(1) + ' units' +
+                    '<br>↑ interest rate or ↑ depreciation → ↑ user cost → ↓ capital demand';
+            }
+
+            slInt.addEventListener('input', draw);
+            slDepr.addEventListener('input', draw);
+            slPK.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ── Global redraw ── */
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>
