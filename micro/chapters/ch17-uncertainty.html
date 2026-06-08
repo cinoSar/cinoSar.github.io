@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 17: Uncertainty | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph { background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); }
+        .interactive-graph canvas { display: block; margin: 0 auto; cursor: crosshair; max-width: 100%; }
+        .graph-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-border-light); align-items: center; }
+        .graph-controls label { font-size: var(--font-size-sm); color: var(--color-text-light); display: flex; align-items: center; gap: 0.5rem; }
+        .graph-controls input[type="range"] { width: 140px; accent-color: var(--color-primary); }
+        .graph-controls .value-display { font-weight: var(--font-weight-semibold); color: var(--color-primary-dark); min-width: 3em; }
+        .graph-controls button { background: var(--color-primary); color: white; border: none; padding: 0.4rem 1rem; border-radius: var(--radius-sm); cursor: pointer; font-size: var(--font-size-sm); transition: background var(--transition-fast); }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle { background: var(--color-primary-dark); box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        .graph-info { margin-top: 0.75rem; padding: 0.75rem; background: var(--color-primary-pale); border-radius: var(--radius-sm); font-size: var(--font-size-sm); color: var(--color-text); }
+        .graph-caption { text-align: center; font-size: var(--font-size-sm); color: var(--color-text-light); margin-top: 0.5rem; font-style: italic; }
+        .chapter-nav { display: flex; justify-content: space-between; margin: 2rem 0; padding: 1rem 0; border-top: 1px solid var(--color-border); }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc { background: var(--color-background-alt); border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0; }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 17: Uncertainty</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 17</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#eu-theory">17.1 Expected Utility</a></li>
+                <li><a href="#risk-aversion">17.2 Risk Aversion</a></li>
+                <li><a href="#insurance">17.3 Insurance</a></li>
+                <li><a href="#diversification">17.4 Diversification</a></li>
+                <li><a href="#formal-derivations">17.5 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: Should You Buy Travel Insurance?</h2>
+                <p>You are booking a &pound;3,000 holiday. The airline offers travel insurance for &pound;80. After reading the small print, you estimate a 5% chance of having to cancel, in which case you would lose the entire &pound;3,000. The expected loss is therefore 0.05 &times; &pound;3,000 = &pound;150 &mdash; almost twice the &pound;80 premium. On purely expected-value grounds, the insurance looks like a bargain.</p>
+
+                <p>But now suppose the insurer offers a cheaper policy at &pound;40 &mdash; below the expected loss. Would you still buy it? Most people would. And a strictly expected-value-maximising agent should too, since EV(insure) &gt; EV(do not insure). But what if the premium were &pound;200 &mdash; above the expected loss? A strict expected-value maximiser would refuse. Yet many people still buy. And what explains why someone would pay &pound;80 for insurance when the expected loss is only &pound;60? Something richer than expected monetary value is at work.</p>
+
+                <p>The resolution lies in <strong>expected utility theory</strong>. People do not maximise expected monetary value; they maximise the expected <em>utility</em> of wealth. Because the marginal utility of money diminishes, losing &pound;3,000 causes far more disutility than a 5% chance of losing &pound;3,000 implies on average. A risk-averse agent will pay a premium above the expected loss to avoid uncertainty.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>Rational agents with <strong>diminishing marginal utility of wealth</strong> are <em>risk averse</em>: they strictly prefer a certain outcome to a fair gamble with the same expected value. The maximum amount they would pay to eliminate a risk &mdash; the <strong>risk premium</strong> &mdash; is determined by the curvature of their utility function. Insurance, diversification, and hedging all exploit this willingness to pay for certainty.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to explain why expected value maximisation is an inadequate model of choice under uncertainty, apply expected utility theory to rank lotteries and evaluate insurance decisions, derive the certainty equivalent and risk premium for a given utility function, use the state-contingent consumption diagram to show why full insurance is optimal when premiums are actuarially fair, and explain how diversification reduces portfolio risk by exploiting imperfect correlation between assets.</p>
+            </section>
+
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#eu-theory">Expected Value and Expected Utility</a> &mdash; why EV maximisation fails</li>
+                    <li><a href="#risk-aversion">Risk Aversion</a> &mdash; certainty equivalent and risk premium</li>
+                    <li><a href="#insurance">Insurance</a> &mdash; state-contingent consumption and fair insurance</li>
+                    <li><a href="#diversification">Diversification</a> &mdash; portfolio theory and the risk-return frontier</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; Arrow-Pratt measures, optimal insurance, CAPM</li>
+                </ol>
+            </div>
+
+
+            <!-- ============================================ -->
+            <!-- 17.1 EXPECTED VALUE AND EXPECTED UTILITY      -->
+            <!-- ============================================ -->
+            <section id="eu-theory" class="lesson-section section-geometric">
+                <h2>17.1 Expected Value and Expected Utility</h2>
+
+                <h3>Intuition: The St Petersburg Paradox</h3>
+                <p>In 1713, Nicolaus Bernoulli posed a puzzle that stumped mathematicians for decades. A casino flips a fair coin repeatedly until heads appears. If heads comes on the first flip, you win &pound;2; on the second, &pound;4; on the third, &pound;8; and so on &mdash; the prize doubles each round. How much should a rational person pay to play?</p>
+
+                <p>The expected value of the game is \(\frac{1}{2} \cdot 2 + \frac{1}{4} \cdot 4 + \frac{1}{8} \cdot 8 + \cdots = 1 + 1 + 1 + \cdots = \infty\). Yet no reasonable person would pay more than a few pounds to enter. Something is wrong with pure expected-value reasoning.</p>
+
+                <p>Daniel Bernoulli&rsquo;s resolution (1738) was that people maximise the expected <em>utility</em> of outcomes, not their expected monetary value. If utility grows more slowly than wealth &mdash; as with \(U(W) = \ln W\) &mdash; the expected utility of the St Petersburg game is finite, matching observed willingness to pay.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Expected Utility</h4>
+                    <p>For a lottery with outcomes \(W_1, \ldots, W_n\) occurring with probabilities \(p_1, \ldots, p_n\) (where \(\sum p_i = 1\)), the <strong>expected utility</strong> is \(EU = \sum_{i=1}^{n} p_i \cdot U(W_i)\). An agent is an <em>expected utility maximiser</em> if they rank lotteries according to their EU.</p>
+                </div>
+
+                <h3>Geometric Solution: EU vs U(EV)</h3>
+                <p>The graph below shows a concave utility function \(U(W) = \sqrt{W}\). Two wealth outcomes &mdash; a bad state (low wealth) and a good state (high wealth) &mdash; are marked on the curve. The grey dashed <strong>chord</strong> connecting them shows all probability-weighted averages of utility. For a given probability \(p\) of the bad state, the expected utility EU falls on the chord at the expected wealth EV. By Jensen&rsquo;s inequality (concavity), EU is always <em>below</em> \(U(EV)\) &mdash; the utility of the expected wealth. Adjust the sliders to see how the gap changes with the probability and the spread of outcomes.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-eu" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Prob. bad state (p): <input type="range" id="slider-p-eu" min="0.05" max="0.95" step="0.05" value="0.4"> <span class="value-display" id="val-p-eu">0.40</span></label>
+                        <label>Bad-state wealth (£k): <input type="range" id="slider-wb" min="5" max="40" step="5" value="20"> <span class="value-display" id="val-wb">£20k</span></label>
+                        <label>Good-state wealth (£k): <input type="range" id="slider-wg" min="55" max="95" step="5" value="80"> <span class="value-display" id="val-wg">£80k</span></label>
+                    </div>
+                    <div class="graph-info" id="info-eu"></div>
+                    <p class="graph-caption">Figure 17.1 &mdash; For a concave utility function, EU (point on the chord) lies below U(EV) (point on the curve). The gap reflects the utility cost of bearing risk.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: The Travel Insurance Decision</h4>
+                    <p>With wealth &pound;80k and a 5% chance of losing &pound;60k (cancellation), the expected wealth is &pound;77k. Using \(U = \sqrt{W}\): \(EU = 0.05\sqrt{20} + 0.95\sqrt{80} \approx 8.72\). The utility of the expected wealth is \(\sqrt{77} \approx 8.77\). The gap \(8.77 - 8.72 = 0.05\) may seem small, but it implies a willingness to pay roughly &pound;0.9k for insurance &mdash; even against a risk with expected loss of only &pound;3k. The concavity of utility makes insurance valuable.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 17.2 RISK AVERSION                            -->
+            <!-- ============================================ -->
+            <section id="risk-aversion" class="lesson-section section-geometric">
+                <h2>17.2 Risk Aversion</h2>
+
+                <h3>Intuition: Certainty Equivalent and Risk Premium</h3>
+                <p>Two monetary measures quantify how much an agent dislikes risk. The <strong>certainty equivalent</strong> (CE) is the certain wealth level that yields the same utility as the risky gamble: \(U(CE) = EU\). A risk-averse agent has \(CE < EV\): they would accept a certain sum <em>below</em> the expected value in order to escape uncertainty.</p>
+
+                <p>The <strong>risk premium</strong> (RP) is the maximum amount the agent would pay to replace the gamble with its expected value: \(RP = EV - CE\). For a concave utility function, \(RP > 0\). For a linear utility function (risk-neutral agent), \(RP = 0\). For a convex utility function (risk-loving agent), \(RP < 0\) &mdash; the agent prefers the gamble and must be compensated to accept a certain outcome.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definitions: CE and Risk Premium</h4>
+                    <p>The <strong>certainty equivalent</strong> is \(CE = U^{-1}(EU)\). The <strong>risk premium</strong> is \(RP = EV - CE\). A concave utility function implies \(CE < EV\) and \(RP > 0\) (risk aversion); a linear function implies \(CE = EV\) and \(RP = 0\) (risk neutrality); a convex function implies \(CE > EV\) and \(RP < 0\) (risk loving).</p>
+                </div>
+
+                <h3>Geometric Solution: Reading CE and RP from the Graph</h3>
+                <p>The graph shows CE and RP for three types of utility function. The EU level is marked as a horizontal line; where it intersects the utility curve gives CE on the horizontal axis. The gap between EV and CE is the risk premium. Toggle between utility types to see how the relationship reverses for a risk-loving agent.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-ra" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Prob. bad state (p): <input type="range" id="slider-p-ra" min="0.05" max="0.95" step="0.05" value="0.4"> <span class="value-display" id="val-p-ra">0.40</span></label>
+                        <button id="btn-concave" class="active-toggle">Concave (risk averse)</button>
+                        <button id="btn-linear">Linear (risk neutral)</button>
+                        <button id="btn-convex">Convex (risk loving)</button>
+                    </div>
+                    <div class="graph-info" id="info-ra"></div>
+                    <p class="graph-caption">Figure 17.2 &mdash; CE and risk premium for three utility types. Risk aversion: CE &lt; EV, RP &gt; 0. Risk neutrality: CE = EV, RP = 0. Risk loving: CE &gt; EV, RP &lt; 0.</p>
+                </div>
+
+                <div class="callout callout-warning">
+                    <h4>Common Mistake: Confusing EU with EV</h4>
+                    <p>Expected value (EV) is a weighted average of monetary outcomes: \(EV = \sum p_i W_i\). Expected utility (EU) is a weighted average of utility values: \(EU = \sum p_i U(W_i)\). They are only equal when \(U\) is linear. The entire content of expected utility theory is that people care about EU, not EV, which is why they are willing to pay a risk premium to avoid uncertainty.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: Computing the Risk Premium</h4>
+                    <p>With \(U = \sqrt{W}\), \(W_B = 20\), \(W_G = 80\), and \(p = 0.4\): \(EU = 0.4\sqrt{20} + 0.6\sqrt{80} \approx 7.15\). The CE is \(EU^2 \approx 51.1\) and the EV is \(0.4 \times 20 + 0.6 \times 80 = 56\). The risk premium is \(56 - 51.1 = \pounds4.9\text{k}\). This agent would forego &pound;4,900 in expected wealth for the security of a certain outcome.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 17.3 INSURANCE                                -->
+            <!-- ============================================ -->
+            <section id="insurance" class="lesson-section section-geometric">
+                <h2>17.3 Insurance</h2>
+
+                <h3>Intuition: Trading Across States of the World</h3>
+                <p>The state-contingent framework reframes insurance geometrically. Instead of thinking about probabilities and payoffs, we think about consumption in two possible <em>states of the world</em>: the bad state (loss occurs) and the good state (no loss). The consumer&rsquo;s uninsured <em>endowment</em> is a point in this two-dimensional space with high consumption in the good state and low consumption in the bad state.</p>
+
+                <p>Insurance allows the consumer to trade good-state consumption for bad-state consumption, moving along a <em>budget line</em> in state-contingent space. With <strong>actuarially fair insurance</strong> (premium equal to the expected payout), the budget line has slope \(-p/(1-p)\). For a risk-averse expected utility maximiser, the optimal choice is always <em>full insurance</em> &mdash; moving exactly to the 45&deg; certainty line, where consumption is equal in both states.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Actuarially Fair Insurance</h4>
+                    <p>Insurance with coverage \(k\) is <strong>actuarially fair</strong> if the premium equals the expected payout: premium \(= p \cdot k\). The consumer&rsquo;s budget line in state-contingent space has slope \(-p/(1-p)\) and passes through the endowment. A risk-averse EU maximiser always chooses full coverage (\(k = L\)) with fair insurance.</p>
+                </div>
+
+                <h3>Geometric Solution: Moving to the Certainty Line</h3>
+                <p>The graph shows state-contingent consumption space. The uninsured endowment lies below the 45&deg; certainty line. Dragging the coverage slider moves the bundle along the fair-insurance budget line towards full certainty. The expected utility indifference curve (in purple) rises as coverage increases, and reaches its highest attainable level exactly on the 45&deg; line.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-ins" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Coverage k (£k): <input type="range" id="slider-k" min="0" max="60" step="2" value="0"> <span class="value-display" id="val-k">£0k</span></label>
+                        <label>Loss probability (p): <input type="range" id="slider-p-ins" min="0.1" max="0.5" step="0.05" value="0.3"> <span class="value-display" id="val-p-ins">0.30</span></label>
+                    </div>
+                    <div class="graph-info" id="info-ins"></div>
+                    <p class="graph-caption">Figure 17.3 &mdash; State-contingent consumption diagram. Fair insurance moves the bundle along the blue budget line toward the 45&deg; certainty line. Full coverage is optimal for a risk-averse agent.</p>
+                </div>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight: Why Full Insurance is Optimal</h4>
+                    <p>At any point on the 45&deg; certainty line, the slope of the expected-utility indifference curve equals \(-p/(1-p)\) &mdash; exactly the slope of the fair-insurance budget line. Tangency therefore occurs on the certainty line itself. Any premium <em>loading</em> above the actuarially fair rate steepens the budget line, shifting the tangency below the 45&deg; line and inducing partial insurance. This is why most real insurance is less than fully comprehensive: insurers charge loadings to cover administrative costs and profit margins.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 17.4 DIVERSIFICATION                          -->
+            <!-- ============================================ -->
+            <section id="diversification" class="lesson-section section-geometric">
+                <h2>17.4 Diversification</h2>
+
+                <h3>Intuition: Not All Eggs in One Basket</h3>
+                <p>Insurance transfers idiosyncratic risk to an insurer who can pool it. But many financial risks cannot be insured directly &mdash; they must be managed by spreading wealth across assets whose returns do not move together. This is <strong>diversification</strong>. The key result is that the risk of a portfolio depends not just on the risks of the individual assets, but on how they are <em>correlated</em>. When two assets move in opposite directions, their risks partially cancel.</p>
+
+                <p>Consider a low-risk bond fund and a high-risk equity index. If their returns are perfectly correlated (\(\rho = 1\)), mixing them moves you along a straight line between the two assets in risk-return space &mdash; no diversification benefit. If correlation is imperfect (\(\rho < 1\)), the portfolio curve bows left, offering lower risk for the same expected return. When \(\rho = -1\), perfect hedging is possible: some combination of the two assets produces zero variance.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Portfolio Variance</h4>
+                    <p>For weight \(w\) in Asset A and \(1-w\) in Asset B, the portfolio expected return is \(\mu_p = w\mu_A + (1-w)\mu_B\) and variance is \(\sigma_p^2 = w^2\sigma_A^2 + (1-w)^2\sigma_B^2 + 2w(1-w)\rho\,\sigma_A\sigma_B\), where \(\rho \in [-1,1]\) is the correlation coefficient between the two asset returns.</p>
+                </div>
+
+                <h3>Geometric Solution: The Risk-Return Frontier</h3>
+                <p>The graph plots all achievable risk-return combinations for a portfolio of two assets. Move the correlation slider to see how the frontier changes shape. When \(\rho\) falls below 1, the frontier bows left and the minimum-variance portfolio (green dot) achieves lower risk than either asset alone. The highlighted blue segment is the <strong>efficient frontier</strong> &mdash; no rational investor should hold a portfolio below the minimum-variance point, since a higher expected return is available at the same risk.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-div" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Correlation (&rho;): <input type="range" id="slider-rho" min="-1" max="1" step="0.05" value="0.3"> <span class="value-display" id="val-rho">0.30</span></label>
+                        <label>Weight in A (w): <input type="range" id="slider-w" min="0" max="1" step="0.05" value="0.5"> <span class="value-display" id="val-w">0.50</span></label>
+                    </div>
+                    <div class="graph-info" id="info-div"></div>
+                    <p class="graph-caption">Figure 17.4 &mdash; Portfolio risk-return frontier for two assets. Lower correlation bows the frontier leftward, reducing the minimum achievable variance. The blue segment is the efficient frontier.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: UK Equities and Gilts, 2000&ndash;2024</h4>
+                    <p>Over the past 25 years, UK equities (FTSE All-Share) and long-dated gilts have had a correlation close to zero &mdash; and during market stress episodes (the dot-com crash, the 2008 financial crisis) it turned negative. A 60/40 equity-gilt portfolio achieved a Sharpe ratio substantially above either asset held alone. The 2022 gilt crisis showed, however, that correlations are not stable: when inflation rose sharply, gilts and equities fell together, breaking the diversification benefit precisely when it was most needed.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 17.5 FORMAL DERIVATIONS                       -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>17.5 Formal Derivations</h2>
+
+                <h3>Arrow-Pratt Measures of Risk Aversion</h3>
+                <p>The degree of risk aversion is characterised by the curvature of the utility function. The <strong>Arrow-Pratt coefficient of absolute risk aversion</strong> is:</p>
+
+                \[A(W) = -\frac{U''(W)}{U'(W)}\]
+
+                <p>A higher value of \(A(W)\) means the agent is more risk averse. For \(U = \sqrt{W}\): \(U' = \frac{1}{2}W^{-1/2}\), \(U'' = -\frac{1}{4}W^{-3/2}\), so \(A(W) = \frac{1}{2W}\). Risk aversion decreases with wealth (decreasing absolute risk aversion, DARA), which is empirically realistic: wealthier people tend to hold more risky assets in absolute terms.</p>
+
+                <p>The <strong>coefficient of relative risk aversion</strong> scales by wealth:</p>
+
+                \[R(W) = W \cdot A(W) = -\frac{W \cdot U''(W)}{U'(W)}\]
+
+                <p>For \(U = \ln W\): \(U' = 1/W\), \(U'' = -1/W^2\), so \(R(W) = 1\) (constant relative risk aversion, CRRA). The general CRRA utility family is \(U(W) = W^{1-\gamma}/(1-\gamma)\) for \(\gamma \neq 1\), where \(\gamma\) is the coefficient of relative risk aversion. Values of \(\gamma\) between 1 and 4 are most consistent with observed asset-pricing data.</p>
+
+                <h3>Optimal Insurance with an Actuarially Fair Premium</h3>
+                <p>A consumer with initial wealth \(W\) faces loss \(L\) with probability \(p\). She purchases coverage \(k \in [0,L]\) at premium \(pk\) (actuarially fair). Expected utility as a function of coverage is:</p>
+
+                \[EU(k) = p \cdot U\bigl(W - L + k(1-p)\bigr) + (1-p) \cdot U\bigl(W - pk\bigr)\]
+
+                <p>Differentiating with respect to \(k\) and setting to zero:</p>
+
+                \[\frac{dEU}{dk} = p(1-p)\,U'(C_B) - p(1-p)\,U'(C_G) = 0 \quad \Rightarrow \quad U'(C_B) = U'(C_G)\]
+
+                <p>Since \(U'' < 0\) implies \(U'\) is strictly decreasing, the only solution is \(C_B = C_G\), i.e., full insurance (\(k = L\)). The consumer equates marginal utility across all states, which requires equal consumption in both states.</p>
+
+                <h3>The Arrow Approximation for the Risk Premium</h3>
+                <p>For small risks, the risk premium can be approximated using a second-order Taylor expansion. Consider adding a zero-mean noise term \(\tilde\varepsilon\) (variance \(\sigma^2\)) to certain wealth \(W\). The risk premium \(\pi\) satisfying \(U(W - \pi) = E[U(W + \tilde\varepsilon)]\) is approximately:</p>
+
+                \[\pi \approx \tfrac{1}{2}\,A(W)\cdot\sigma^2\]
+
+                <p>The risk premium is proportional to absolute risk aversion and to the variance of the risk. Doubling either one doubles the premium. This formula also shows why risk aversion, not just the sign of \(U''\), determines the cost of risk: two agents with the same \(U''\) but different wealth levels will pay different risk premiums if they have DARA preferences.</p>
+
+                <h3>Portfolio Theory: Minimum-Variance Portfolio</h3>
+                <p>Minimising \(\sigma_p^2 = w^2\sigma_A^2 + (1-w)^2\sigma_B^2 + 2w(1-w)\rho\,\sigma_A\sigma_B\) with respect to \(w\) gives the minimum-variance weight:</p>
+
+                \[w^* = \frac{\sigma_B^2 - \rho\,\sigma_A\sigma_B}{\sigma_A^2 + \sigma_B^2 - 2\rho\,\sigma_A\sigma_B}\]
+
+                <p>When \(\rho = -1\), the minimum variance is zero and the perfectly hedged portfolio has \(w^* = \sigma_B/(\sigma_A + \sigma_B)\). When \(\rho = 1\), the frontier degenerates to a straight line and the minimum variance equals \((\sigma_A\sigma_B/(\sigma_A+\sigma_B))^2\cdot(\sigma_A+\sigma_B)^2/\sigma_A^2\); no diversification benefit exists.</p>
+
+                <h3>CAPM: Pricing Systematic Risk</h3>
+                <p>In equilibrium, when all investors hold mean-variance efficient portfolios, only undiversifiable (systematic) risk is compensated. The <strong>Capital Asset Pricing Model</strong> states:</p>
+
+                \[E[R_i] - R_f = \beta_i\bigl(E[R_m] - R_f\bigr), \qquad \beta_i = \frac{\text{Cov}(R_i, R_m)}{\text{Var}(R_m)}\]
+
+                <p>where \(R_f\) is the risk-free rate and \(E[R_m]\) is the expected market return. Idiosyncratic risk can be diversified away and attracts no premium. A share with \(\beta > 1\) (e.g., technology stocks) is more volatile than the market and commands a higher expected return; one with \(\beta < 1\) (e.g., utilities) is defensive. The CAPM is the direct equilibrium consequence of the mean-variance preferences developed in this chapter.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>Expected utility theory resolves the St Petersburg Paradox and explains a wide range of observed behaviour under uncertainty. By maximising the expected utility of wealth rather than expected wealth itself, agents with concave utility &mdash; risk-averse agents &mdash; assign extra weight to bad outcomes relative to their probability. The utility cost of risk is captured monetarily by the risk premium: the amount a risk-averse agent would forego in expected wealth to eliminate uncertainty entirely.</p>
+
+                <p>The state-contingent consumption diagram provides a clean geometric treatment of insurance. The uninsured endowment lies off the 45&deg; certainty line; actuarially fair insurance is a budget line with slope \(-p/(1-p)\); and the tangency condition confirms that full coverage is optimal for any risk-averse expected utility maximiser. Premium loading above the actuarially fair rate shifts the optimal bundle below the certainty line, explaining why real-world insurance is rarely fully comprehensive.</p>
+
+                <p>Diversification addresses risk from the portfolio side. Combining assets with imperfect correlation reduces the variance of the portfolio below the weighted average of the individual variances. The risk-return frontier bows leftward as correlation falls, and the efficient frontier identifies the best achievable trade-off. In competitive equilibrium, the CAPM shows that only systematic (non-diversifiable) risk carries a return premium &mdash; idiosyncratic risk is unrewarded because it can be eliminated for free.</p>
+
+                <p>In the next chapter, we turn to <strong>externalities and public goods</strong> &mdash; situations where individual rational behaviour leads to market outcomes that are collectively inefficient.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch16-interest-rates-investments-and-capital-markets.html">&larr; Chapter 16: Interest Rates, Investments, and Capital Markets</a>
+                <span style="color: var(--color-text-lighter);">Chapter 18: Externalities and Public Goods &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            utility: '#8b5cf6', utilityFill: 'rgba(139,92,246,0.08)',
+            chord: '#aaaaaa',
+            eu: '#ef4444', euGlow: 'rgba(239,68,68,0.25)',
+            uev: '#10b981', uevGlow: 'rgba(16,185,129,0.25)',
+            ev: '#f59e0b',
+            ce: '#3b82f6', ceGlow: 'rgba(59,130,246,0.25)',
+            rp: '#ef4444',
+            utilLinear: '#f59e0b', utilConvex: '#10b981',
+            certLine: '#10b981', certFill: 'rgba(16,185,129,0.06)',
+            endowment: '#ef4444', endowGlow: 'rgba(239,68,68,0.25)',
+            budget: '#3b82f6',
+            optimal: '#10b981', optGlow: 'rgba(16,185,129,0.3)',
+            ic: '#8b5cf6',
+            assetA: '#3b82f6', assetB: '#ef4444',
+            frontier: '#8b5cf6', frontierFill: 'rgba(139,92,246,0.07)',
+            mvp: '#10b981', mvpGlow: 'rgba(16,185,129,0.3)',
+            portfolio: '#f59e0b', portGlow: 'rgba(245,158,11,0.3)',
+            efficient: '#3b82f6'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            utility: '#a78bfa', utilityFill: 'rgba(167,139,250,0.1)',
+            chord: '#707070',
+            eu: '#f87171', euGlow: 'rgba(248,113,113,0.25)',
+            uev: '#34d399', uevGlow: 'rgba(52,211,153,0.25)',
+            ev: '#fbbf24',
+            ce: '#60a5fa', ceGlow: 'rgba(96,165,250,0.25)',
+            rp: '#f87171',
+            utilLinear: '#fbbf24', utilConvex: '#34d399',
+            certLine: '#34d399', certFill: 'rgba(52,211,153,0.06)',
+            endowment: '#f87171', endowGlow: 'rgba(248,113,113,0.25)',
+            budget: '#60a5fa',
+            optimal: '#34d399', optGlow: 'rgba(52,211,153,0.3)',
+            ic: '#a78bfa',
+            assetA: '#60a5fa', assetB: '#f87171',
+            frontier: '#a78bfa', frontierFill: 'rgba(167,139,250,0.08)',
+            mvp: '#34d399', mvpGlow: 'rgba(52,211,153,0.3)',
+            portfolio: '#fbbf24', portGlow: 'rgba(251,191,36,0.3)',
+            efficient: '#60a5fa'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function drawGrid(ctx, ox, oy, gw, gh, xMax, yMax, xStep, yStep) {
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            var v, pt;
+            for (v = xStep; v <= xMax; v += xStep) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            for (v = yStep; v <= yMax; v += yStep) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+        }
+
+        function axisLabels(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep, xFmt, yFmt) {
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel, ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel, 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (var v = xStep; v <= xMax; v += xStep) {
+                var pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(xFmt ? xFmt(v) : v, pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (var vv = yStep; vv <= yMax; vv += yStep) {
+                var ptt = tp(0, vv, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(yFmt ? yFmt(vv) : vv, ox - 6, ptt.y);
+            }
+        }
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 1: Expected Utility vs U(EV)                  */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var slP  = document.getElementById('slider-p-eu');
+            var slWb = document.getElementById('slider-wb');
+            var slWg = document.getElementById('slider-wg');
+            var vP   = document.getElementById('val-p-eu');
+            var vWb  = document.getElementById('val-wb');
+            var vWg  = document.getElementById('val-wg');
+            var info = document.getElementById('info-eu');
+            var xMax = 100, yMax = 12;
+
+            function draw() {
+                var res = getCtx('canvas-eu');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var p  = parseFloat(slP.value);
+                var Wb = parseFloat(slWb.value);
+                var Wg = parseFloat(slWg.value);
+                vP.textContent  = p.toFixed(2);
+                vWb.textContent = '£' + Wb + 'k';
+                vWg.textContent = '£' + Wg + 'k';
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawGrid(ctx, ox, oy, gw, gh, xMax, yMax, 20, 2);
+                axisLabels(ctx, ox, oy, gw, gh, xMax, yMax,
+                    'Wealth W (£k)', 'Utility U(W)', 20, 2, null, null);
+
+                /* Utility curve fill */
+                ctx.beginPath();
+                ctx.moveTo(tp(0, 0, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, 0, ox, oy, gw, gh, xMax, yMax).y);
+                for (var wi = 0; wi <= xMax; wi += 0.5) {
+                    var ui = Math.sqrt(wi);
+                    var pti = tp(wi, ui, ox, oy, gw, gh, xMax, yMax);
+                    ctx.lineTo(pti.x, pti.y);
+                }
+                ctx.lineTo(ox + gw, oy + gh); ctx.lineTo(ox, oy + gh);
+                ctx.closePath(); ctx.fillStyle = C.utilityFill; ctx.fill();
+
+                /* Utility curve */
+                ctx.strokeStyle = C.utility; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                var uStarted = false;
+                for (var wc = 0.5; wc <= xMax; wc += 0.5) {
+                    var uc = Math.sqrt(wc);
+                    var ptc = tp(wc, uc, ox, oy, gw, gh, xMax, yMax);
+                    if (!uStarted) { ctx.moveTo(ptc.x, ptc.y); uStarted = true; }
+                    else ctx.lineTo(ptc.x, ptc.y);
+                }
+                ctx.stroke();
+
+                /* Label */
+                ctx.fillStyle = C.utility; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                var mlp = tp(55, Math.sqrt(55), ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('U(W) = √W', mlp.x + 4, mlp.y + 4);
+
+                var UWb = Math.sqrt(Wb), UWg = Math.sqrt(Wg);
+                var EV  = p * Wb + (1 - p) * Wg;
+                var EU  = p * UWb + (1 - p) * UWg;
+                var UEV = Math.sqrt(EV);
+                var CE  = EU * EU;
+
+                /* Chord */
+                var ptb = tp(Wb, UWb, ox, oy, gw, gh, xMax, yMax);
+                var ptg = tp(Wg, UWg, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.chord; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                ctx.beginPath(); ctx.moveTo(ptb.x, ptb.y); ctx.lineTo(ptg.x, ptg.y); ctx.stroke();
+                ctx.setLineDash([]);
+
+                /* Outcome dots */
+                ctx.beginPath(); ctx.arc(ptb.x, ptb.y, 7, 0, 2 * Math.PI);
+                ctx.fillStyle = C.euGlow; ctx.fill();
+                dot(ctx, Wb, UWb, ox, oy, gw, gh, xMax, yMax, C.eu, 4);
+                ctx.beginPath(); ctx.arc(ptg.x, ptg.y, 7, 0, 2 * Math.PI);
+                ctx.fillStyle = C.uevGlow; ctx.fill();
+                dot(ctx, Wg, UWg, ox, oy, gw, gh, xMax, yMax, C.uev, 4);
+                ctx.fillStyle = C.text; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('W_B=' + Wb, ptb.x, ptb.y - 7);
+                ctx.fillText('W_G=' + Wg, ptg.x, ptg.y - 7);
+
+                /* EV dashed vertical */
+                var ptEVx = tp(EV, 0, ox, oy, gw, gh, xMax, yMax);
+                var ptUEV = tp(EV, UEV, ox, oy, gw, gh, xMax, yMax);
+                var ptEUpt = tp(EV, EU, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.ev; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                ctx.beginPath(); ctx.moveTo(ptEVx.x, oy + gh); ctx.lineTo(ptEVx.x, ptUEV.y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.ev; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                ctx.fillText('EV=' + EV.toFixed(0), ptEVx.x, oy + gh + 4);
+
+                /* U(EV) glow + dot */
+                ctx.beginPath(); ctx.arc(ptUEV.x, ptUEV.y, 9, 0, 2 * Math.PI);
+                ctx.fillStyle = C.uevGlow; ctx.fill();
+                dot(ctx, EV, UEV, ox, oy, gw, gh, xMax, yMax, C.uev, 5);
+                ctx.fillStyle = C.uev; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('U(EV)=' + UEV.toFixed(2), ptUEV.x - 8, ptUEV.y);
+
+                /* EU glow + dot */
+                ctx.beginPath(); ctx.arc(ptEUpt.x, ptEUpt.y, 9, 0, 2 * Math.PI);
+                ctx.fillStyle = C.euGlow; ctx.fill();
+                dot(ctx, EV, EU, ox, oy, gw, gh, xMax, yMax, C.eu, 5);
+                ctx.fillStyle = C.eu; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('EU=' + EU.toFixed(2), ptEUpt.x - 8, ptEUpt.y);
+
+                /* Gap segment */
+                ctx.strokeStyle = C.eu; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(ptEUpt.x + 8, ptEUpt.y);
+                ctx.lineTo(ptUEV.x + 8, ptUEV.y);
+                ctx.stroke();
+                ctx.fillStyle = C.eu; ctx.font = 'italic 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                ctx.fillText('gap', ptUEV.x + 12, (ptEUpt.y + ptUEV.y) / 2);
+
+                /* CE on x-axis */
+                if (CE > 0 && CE < xMax) {
+                    var ptCEx = tp(CE, 0, ox, oy, gw, gh, xMax, yMax);
+                    ctx.strokeStyle = C.ce; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                    ctx.beginPath(); ctx.moveTo(ptCEx.x, oy + gh); ctx.lineTo(ptCEx.x, ptEUpt.y); ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.fillStyle = C.ce; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                    ctx.fillText('CE=' + CE.toFixed(0), ptCEx.x, oy + gh + 17);
+                }
+
+                info.innerHTML =
+                    '<strong>p=' + p.toFixed(2) + '</strong>' +
+                    ', W_B=£' + Wb + 'k, W_G=£' + Wg + 'k' +
+                    ' &nbsp;|&nbsp; EV = £' + EV.toFixed(1) + 'k' +
+                    ' &nbsp;|&nbsp; EU = ' + EU.toFixed(3) +
+                    ', U(EV) = ' + UEV.toFixed(3) +
+                    ' &nbsp;|&nbsp; CE = £' + CE.toFixed(1) + 'k' +
+                    ' &nbsp;|&nbsp; <strong>Risk premium = £' + (EV - CE).toFixed(1) + 'k</strong>';
+            }
+
+            slP.addEventListener('input', draw);
+            slWb.addEventListener('input', draw);
+            slWg.addEventListener('input', draw);
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 2: Certainty Equivalent and Risk Premium      */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var slP = document.getElementById('slider-p-ra');
+            var vP  = document.getElementById('val-p-ra');
+            var btnConcave = document.getElementById('btn-concave');
+            var btnLinear  = document.getElementById('btn-linear');
+            var btnConvex  = document.getElementById('btn-convex');
+            var info = document.getElementById('info-ra');
+
+            var utilType = 'concave';
+            var Wb = 20, Wg = 80;
+            var xMax = 100, yMax = 12;
+
+            function uFn(ww) {
+                if (utilType === 'concave') return Math.sqrt(ww);
+                if (utilType === 'linear')  return ww / 10;
+                return Math.pow(ww, 1.5) / 1000;
+            }
+            function uInv(u) {
+                if (utilType === 'concave') return u * u;
+                if (utilType === 'linear')  return u * 10;
+                return Math.pow(u * 1000, 2 / 3);
+            }
+            function uCol() {
+                if (utilType === 'concave') return C.utility;
+                if (utilType === 'linear')  return C.utilLinear;
+                return C.utilConvex;
+            }
+
+            function setBtn(t) {
+                utilType = t;
+                btnConcave.classList.toggle('active-toggle', t === 'concave');
+                btnLinear.classList.toggle('active-toggle',  t === 'linear');
+                btnConvex.classList.toggle('active-toggle',  t === 'convex');
+                draw();
+            }
+            btnConcave.addEventListener('click', function() { setBtn('concave'); });
+            btnLinear.addEventListener('click',  function() { setBtn('linear'); });
+            btnConvex.addEventListener('click',  function() { setBtn('convex'); });
+
+            function draw() {
+                var res = getCtx('canvas-ra');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var p = parseFloat(slP.value);
+                vP.textContent = p.toFixed(2);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawGrid(ctx, ox, oy, gw, gh, xMax, yMax, 20, 2);
+                axisLabels(ctx, ox, oy, gw, gh, xMax, yMax,
+                    'Wealth W (£k)', 'Utility U(W)', 20, 2, null, null);
+
+                /* Utility curve */
+                var col = uCol();
+                ctx.strokeStyle = col; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                var uStarted = false;
+                for (var wc = 0; wc <= xMax; wc += 0.5) {
+                    var uc = uFn(wc);
+                    if (uc > yMax * 1.1 || uc < 0) { uStarted = false; continue; }
+                    var ptc = tp(wc, uc, ox, oy, gw, gh, xMax, yMax);
+                    if (!uStarted) { ctx.moveTo(ptc.x, ptc.y); uStarted = true; }
+                    else ctx.lineTo(ptc.x, ptc.y);
+                }
+                ctx.stroke();
+
+                var UWb = uFn(Wb), UWg = uFn(Wg);
+                var EV  = p * Wb + (1 - p) * Wg;
+                var EU  = p * UWb + (1 - p) * UWg;
+                var CE  = uInv(EU);
+                var RP  = EV - CE;
+
+                /* Chord */
+                var ptb = tp(Wb, UWb, ox, oy, gw, gh, xMax, yMax);
+                var ptg = tp(Wg, UWg, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.chord; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                ctx.beginPath(); ctx.moveTo(ptb.x, ptb.y); ctx.lineTo(ptg.x, ptg.y); ctx.stroke();
+                ctx.setLineDash([]);
+                dot(ctx, Wb, UWb, ox, oy, gw, gh, xMax, yMax, C.text, 4);
+                dot(ctx, Wg, UWg, ox, oy, gw, gh, xMax, yMax, C.text, 4);
+
+                /* EU horizontal dashed line */
+                var ptEU = tp(0, EU, ox, oy, gw, gh, xMax, yMax);
+                if (ptEU.y > oy && ptEU.y < oy + gh) {
+                    ctx.strokeStyle = C.eu; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                    ctx.beginPath(); ctx.moveTo(ox, ptEU.y); ctx.lineTo(ox + gw, ptEU.y); ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.fillStyle = C.eu; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                    ctx.fillText('EU=' + EU.toFixed(2), ox + 4, ptEU.y - 7);
+                }
+
+                /* EU point on chord */
+                var ptEUch = tp(EV, EU, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptEUch.x, ptEUch.y, 7, 0, 2 * Math.PI);
+                ctx.fillStyle = C.euGlow; ctx.fill();
+                dot(ctx, EV, EU, ox, oy, gw, gh, xMax, yMax, C.eu, 4);
+
+                /* CE */
+                if (CE > 0 && CE < xMax) {
+                    var ptCEy  = tp(CE, EU, ox, oy, gw, gh, xMax, yMax);
+                    var ptCEx  = tp(CE, 0,  ox, oy, gw, gh, xMax, yMax);
+                    ctx.strokeStyle = C.ce; ctx.lineWidth = 1.5; ctx.setLineDash([3, 3]);
+                    ctx.beginPath(); ctx.moveTo(ptCEx.x, oy + gh); ctx.lineTo(ptCEx.x, ptCEy.y); ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.beginPath(); ctx.arc(ptCEy.x, ptCEy.y, 7, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.ceGlow; ctx.fill();
+                    dot(ctx, CE, EU, ox, oy, gw, gh, xMax, yMax, C.ce, 4);
+                    ctx.fillStyle = C.ce; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                    ctx.fillText('CE=' + CE.toFixed(0), ptCEx.x, oy + gh + 4);
+                }
+
+                /* EV on x-axis */
+                var ptEVx = tp(EV, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.ev; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                ctx.fillText('EV=' + EV.toFixed(0), ptEVx.x, oy + gh + 17);
+
+                /* RP bracket */
+                if (CE > 0 && CE < xMax && Math.abs(RP) > 0.5) {
+                    var yBrk = oy + gh + 30;
+                    var xCE  = tp(CE, 0, ox, oy, gw, gh, xMax, yMax).x;
+                    var xEV  = ptEVx.x;
+                    var x1 = Math.min(xCE, xEV), x2 = Math.max(xCE, xEV);
+                    ctx.strokeStyle = C.rp; ctx.lineWidth = 1.5; ctx.setLineDash([]);
+                    ctx.beginPath();
+                    ctx.moveTo(x1, yBrk - 3); ctx.lineTo(x1, yBrk + 3); ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(x1, yBrk); ctx.lineTo(x2, yBrk); ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(x2, yBrk - 3); ctx.lineTo(x2, yBrk + 3); ctx.stroke();
+                    ctx.fillStyle = C.rp; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                    ctx.fillText('RP=' + RP.toFixed(1), (x1 + x2) / 2, yBrk + 2);
+                }
+
+                var typeLabel = utilType === 'concave' ? 'Concave — Risk Averse' :
+                                utilType === 'linear'  ? 'Linear — Risk Neutral' :
+                                                         'Convex — Risk Loving';
+                var rpLabel = RP > 0.1 ? '(risk averse)' : RP < -0.1 ? '(risk loving)' : '(risk neutral)';
+                info.innerHTML =
+                    '<strong>' + typeLabel + '</strong>' +
+                    ' &nbsp;|&nbsp; p=' + p.toFixed(2) +
+                    ', EV=£' + EV.toFixed(1) + 'k, EU=' + EU.toFixed(3) +
+                    ' &nbsp;|&nbsp; CE=£' + CE.toFixed(1) + 'k' +
+                    ' &nbsp;|&nbsp; <strong>Risk Premium=£' + RP.toFixed(1) + 'k ' + rpLabel + '</strong>';
+            }
+
+            slP.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 3: State-Contingent Insurance Diagram         */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var slK    = document.getElementById('slider-k');
+            var slPIns = document.getElementById('slider-p-ins');
+            var vK     = document.getElementById('val-k');
+            var vPIns  = document.getElementById('val-p-ins');
+            var info   = document.getElementById('info-ins');
+
+            var W = 80, L = 60;   /* wealth = 80, potential loss = 60  =>  endowment (20, 80) */
+            var xMax = 100, yMax = 100;
+
+            function draw() {
+                var res = getCtx('canvas-ins');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var k = parseFloat(slK.value);
+                var p = parseFloat(slPIns.value);
+                vK.textContent    = '£' + k + 'k';
+                vPIns.textContent = p.toFixed(2);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawGrid(ctx, ox, oy, gw, gh, xMax, yMax, 20, 20);
+                axisLabels(ctx, ox, oy, gw, gh, xMax, yMax,
+                    'Consumption in bad state Cᴮ (£k)',
+                    'Consumption in good state Cᴳ (£k)',
+                    20, 20, null, null);
+
+                /* 45-degree certainty line */
+                var pt45_0 = tp(0, 0,       ox, oy, gw, gh, xMax, yMax);
+                var pt45_1 = tp(95, 95,     ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.certLine; ctx.lineWidth = 1.5; ctx.setLineDash([6, 4]);
+                ctx.beginPath(); ctx.moveTo(pt45_0.x, pt45_0.y); ctx.lineTo(pt45_1.x, pt45_1.y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.certLine; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('45° Certainty line', pt45_1.x - 2, pt45_1.y - 4);
+
+                /* Endowment */
+                var CB0 = W - L;   /* = 20 */
+                var CG0 = W;       /* = 80 */
+
+                /* Full-insurance bundle (optimal) */
+                var CBfull = CB0 + L * (1 - p);
+                var CGfull = CG0 - p * L;
+
+                /* Budget line: extend from k=-8 to k=L+8 for display */
+                var kExt = L + 8;
+                var CBext = CB0 + kExt * (1 - p);
+                var CGext = CG0 - p * kExt;
+                var ptBStart = tp(CB0 - 8 * (1 - p), CG0 + p * 8, ox, oy, gw, gh, xMax, yMax);
+                var ptBEnd   = tp(CBext, CGext, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.budget; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath(); ctx.moveTo(ptBStart.x, ptBStart.y); ctx.lineTo(ptBEnd.x, ptBEnd.y); ctx.stroke();
+                ctx.fillStyle = C.budget; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+                ctx.fillText('Fair insurance', ptBEnd.x - 2, ptBEnd.y + 2);
+
+                /* Current bundle */
+                var CBk = CB0 + k * (1 - p);
+                var CGk = CG0 - p * k;
+
+                /* Indifference curve through current bundle  (U = p*sqrt(CB) + (1-p)*sqrt(CG) = EUk) */
+                var EUk = p * Math.sqrt(CBk) + (1 - p) * Math.sqrt(CGk);
+                ctx.strokeStyle = C.ic; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath();
+                var icStarted = false;
+                for (var cb = 0.5; cb <= xMax; cb += 0.5) {
+                    var rem = (EUk - p * Math.sqrt(cb)) / (1 - p);
+                    if (rem <= 0) continue;
+                    var cg = rem * rem;
+                    if (cg > yMax * 1.1) continue;
+                    var ptic = tp(cb, cg, ox, oy, gw, gh, xMax, yMax);
+                    if (!icStarted) { ctx.moveTo(ptic.x, ptic.y); icStarted = true; }
+                    else ctx.lineTo(ptic.x, ptic.y);
+                }
+                ctx.stroke();
+                /* IC label */
+                if (icStarted) {
+                    var icLblCB = CBk + 10;
+                    var icLblRem = (EUk - p * Math.sqrt(icLblCB)) / (1 - p);
+                    if (icLblRem > 0 && icLblCB < xMax) {
+                        var ptIClbl = tp(icLblCB, icLblRem * icLblRem, ox, oy, gw, gh, xMax, yMax);
+                        if (ptIClbl.y > oy + 5 && ptIClbl.y < oy + gh - 5) {
+                            ctx.fillStyle = C.ic; ctx.font = '10px -apple-system, sans-serif';
+                            ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                            ctx.fillText('EU indiff.', ptIClbl.x + 4, ptIClbl.y);
+                        }
+                    }
+                }
+
+                /* Endowment dot */
+                var ptEnd = tp(CB0, CG0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptEnd.x, ptEnd.y, 9, 0, 2 * Math.PI);
+                ctx.fillStyle = C.endowGlow; ctx.fill();
+                dot(ctx, CB0, CG0, ox, oy, gw, gh, xMax, yMax, C.endowment, 5);
+                ctx.fillStyle = C.endowment; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Endowment (' + CB0 + ', ' + CG0 + ')', ptEnd.x + 7, ptEnd.y - 4);
+
+                /* Full-insurance optimal dot */
+                var ptFull = tp(CBfull, CGfull, ox, oy, gw, gh, xMax, yMax);
+                dot(ctx, CBfull, CGfull, ox, oy, gw, gh, xMax, yMax, C.uev, 4);
+                ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                ctx.beginPath(); ctx.moveTo(ptFull.x, ptFull.y); ctx.lineTo(ptFull.x, oy + gh); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(ox, ptFull.y); ctx.lineTo(ptFull.x, ptFull.y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.uev; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Full coverage (' + CBfull.toFixed(0) + ', ' + CGfull.toFixed(0) + ')', ptFull.x + 6, ptFull.y - 4);
+
+                /* Current bundle dot (if k > 0) */
+                if (k > 0.5) {
+                    var ptCur = tp(CBk, CGk, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ptCur.x, ptCur.y, 9, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.optGlow; ctx.fill();
+                    dot(ctx, CBk, CGk, ox, oy, gw, gh, xMax, yMax, C.optimal, 5);
+                    ctx.fillStyle = C.optimal; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                    ctx.fillText('k=' + k + ': (' + CBk.toFixed(0) + ', ' + CGk.toFixed(0) + ')', ptCur.x + 7, ptCur.y + 4);
+                }
+
+                var EU0    = p * Math.sqrt(CB0) + (1 - p) * Math.sqrt(CG0);
+                var EUfull = Math.sqrt(CBfull);
+                var premium = (p * k).toFixed(1);
+                info.innerHTML =
+                    '<strong>W=£' + W + 'k, L=£' + L + 'k, p=' + p.toFixed(2) + '</strong>' +
+                    ' &nbsp;|&nbsp; Coverage k=£' + k + 'k, Premium=£' + premium + 'k' +
+                    '<br>C_B=£' + CBk.toFixed(1) + 'k, C_G=£' + CGk.toFixed(1) + 'k' +
+                    ' &nbsp;|&nbsp; EU=' + EUk.toFixed(3) +
+                    ' (uninsured: ' + EU0.toFixed(3) + ', fully insured: ' + EUfull.toFixed(3) + ')' +
+                    '<br>Full coverage: C_B=C_G=£' + CBfull.toFixed(1) + 'k, premium=£' + (p * L).toFixed(1) + 'k';
+            }
+
+            slK.addEventListener('input', draw);
+            slPIns.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 4: Portfolio Risk-Return Frontier             */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var slRho = document.getElementById('slider-rho');
+            var slW   = document.getElementById('slider-w');
+            var vRho  = document.getElementById('val-rho');
+            var vW    = document.getElementById('val-w');
+            var info  = document.getElementById('info-div');
+
+            /* Asset parameters (in % units) */
+            var muA = 7, sigA = 12;
+            var muB = 13, sigB = 24;
+            var xMax = 30, yMax = 16;
+
+            function portStat(ww, rho) {
+                var mu  = ww * muA + (1 - ww) * muB;
+                var v   = ww * ww * sigA * sigA +
+                          (1 - ww) * (1 - ww) * sigB * sigB +
+                          2 * ww * (1 - ww) * rho * sigA * sigB;
+                return { mu: mu, sig: Math.sqrt(Math.max(0, v)) };
+            }
+
+            function mvpW(rho) {
+                var num = sigB * sigB - rho * sigA * sigB;
+                var den = sigA * sigA + sigB * sigB - 2 * rho * sigA * sigB;
+                if (den < 0.001) return 0.5;
+                return Math.max(0, Math.min(1, num / den));
+            }
+
+            function draw() {
+                var res = getCtx('canvas-div');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var rho = parseFloat(slRho.value);
+                var wA  = parseFloat(slW.value);
+                vRho.textContent = rho.toFixed(2);
+                vW.textContent   = wA.toFixed(2);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawGrid(ctx, ox, oy, gw, gh, xMax, yMax, 5, 2);
+                axisLabels(ctx, ox, oy, gw, gh, xMax, yMax,
+                    'σ — Portfolio Risk (%)',
+                    'μ — Expected Return (%)',
+                    5, 2,
+                    function(v) { return v + '%'; },
+                    function(v) { return v + '%'; });
+
+                var wMVP = mvpW(rho);
+                var mvpSt = portStat(wMVP, rho);
+
+                /* Full frontier curve */
+                ctx.strokeStyle = C.frontier; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                var fStarted = false;
+                for (var wf = 0; wf <= 100; wf++) {
+                    var sf = portStat(wf / 100, rho);
+                    if (sf.sig > xMax * 1.05 || sf.mu < 0) continue;
+                    var pf = tp(sf.sig, sf.mu, ox, oy, gw, gh, xMax, yMax);
+                    if (!fStarted) { ctx.moveTo(pf.x, pf.y); fStarted = true; }
+                    else ctx.lineTo(pf.x, pf.y);
+                }
+                ctx.stroke();
+
+                /* Efficient frontier (w from wMVP to 1) = upper part */
+                ctx.strokeStyle = C.efficient; ctx.lineWidth = 3.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                var eStarted = false;
+                for (var we = Math.round(wMVP * 100); we <= 100; we++) {
+                    var se = portStat(we / 100, rho);
+                    if (se.sig > xMax * 1.05) continue;
+                    var pe = tp(se.sig, se.mu, ox, oy, gw, gh, xMax, yMax);
+                    if (!eStarted) { ctx.moveTo(pe.x, pe.y); eStarted = true; }
+                    else ctx.lineTo(pe.x, pe.y);
+                }
+                ctx.stroke();
+
+                /* Asset A */
+                var ptA = tp(sigA, muA, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptA.x, ptA.y, 9, 0, 2 * Math.PI);
+                ctx.fillStyle = C.assetA + '44'; ctx.fill();
+                dot(ctx, sigA, muA, ox, oy, gw, gh, xMax, yMax, C.assetA, 5);
+                ctx.fillStyle = C.assetA; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('Asset A (' + sigA + '%, ' + muA + '%)', ptA.x - 8, ptA.y);
+
+                /* Asset B */
+                var ptB = tp(sigB, muB, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptB.x, ptB.y, 9, 0, 2 * Math.PI);
+                ctx.fillStyle = C.assetB + '44'; ctx.fill();
+                dot(ctx, sigB, muB, ox, oy, gw, gh, xMax, yMax, C.assetB, 5);
+                ctx.fillStyle = C.assetB; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                ctx.fillText('Asset B (' + sigB + '%, ' + muB + '%)', ptB.x + 8, ptB.y);
+
+                /* MVP */
+                var ptMVP = tp(mvpSt.sig, mvpSt.mu, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptMVP.x, ptMVP.y, 10, 0, 2 * Math.PI);
+                ctx.fillStyle = C.mvpGlow; ctx.fill();
+                dot(ctx, mvpSt.sig, mvpSt.mu, ox, oy, gw, gh, xMax, yMax, C.mvp, 5);
+                ctx.fillStyle = C.mvp; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('MVP σ=' + mvpSt.sig.toFixed(1) + '%', ptMVP.x + 7, ptMVP.y - 3);
+
+                /* Selected portfolio */
+                var sp = portStat(wA, rho);
+                if (sp.sig <= xMax && sp.mu >= 0 && sp.mu <= yMax) {
+                    var ptSP = tp(sp.sig, sp.mu, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ptSP.x, ptSP.y, 10, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.portGlow; ctx.fill();
+                    dot(ctx, sp.sig, sp.mu, ox, oy, gw, gh, xMax, yMax, C.portfolio, 5);
+                    ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                    ctx.beginPath(); ctx.moveTo(ptSP.x, oy + gh); ctx.lineTo(ptSP.x, ptSP.y); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(ox, ptSP.y); ctx.lineTo(ptSP.x, ptSP.y); ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                /* Legend */
+                ctx.strokeStyle = C.efficient; ctx.lineWidth = 3; ctx.setLineDash([]);
+                ctx.beginPath(); ctx.moveTo(ox + 10, oy + 9); ctx.lineTo(ox + 28, oy + 9); ctx.stroke();
+                ctx.fillStyle = C.text; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                ctx.fillText('Efficient frontier', ox + 32, oy + 9);
+                ctx.strokeStyle = C.frontier; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath(); ctx.moveTo(ox + 10, oy + 23); ctx.lineTo(ox + 28, oy + 23); ctx.stroke();
+                ctx.fillText('Full frontier', ox + 32, oy + 23);
+
+                var sharpe = sp.sig > 0.1 ? (sp.mu / sp.sig).toFixed(2) : 'N/A';
+                info.innerHTML =
+                    '<strong>ρ=' + rho.toFixed(2) + '</strong>' +
+                    ', w_A=' + (wA * 100).toFixed(0) + '%, w_B=' + ((1 - wA) * 100).toFixed(0) + '%' +
+                    ' &nbsp;|&nbsp; μ_p=' + sp.mu.toFixed(1) + '%, σ_p=' + sp.sig.toFixed(1) + '%' +
+                    ' &nbsp;|&nbsp; Sharpe=' + sharpe +
+                    '<br>MVP: w_A=' + (wMVP * 100).toFixed(0) + '%, σ=' + mvpSt.sig.toFixed(1) + '%, μ=' + mvpSt.mu.toFixed(1) + '%';
+            }
+
+            slRho.addEventListener('input', draw);
+            slW.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ── Global redraw ── */
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>

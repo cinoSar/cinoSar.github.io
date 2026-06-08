@@ -588,7 +588,44 @@ Reference textbook: Perloff, *Microeconomics*, 7th edition (used loosely as a st
 
 ---
 
-## 7. Running Examples and Continuity
+## 7. Progress Tracker
+
+### Completed Chapters (DO NOT rebuild these)
+
+| Ch | Title | File | Graphs | Size |
+|----|-------|------|--------|------|
+| 2 | Supply and Demand | ch2-supply-and-demand.html | 5 | ~65 KB |
+| 3 | Applying Supply and Demand | ch3-applying-supply-and-demand.html | 5 | ~65 KB |
+| 4 | Consumer Choice | ch4-consumer-choice.html | 5 | ~70 KB |
+| 5 | Applying Consumer Theory | ch5-applying-consumer-theory.html | 5 | ~68 KB |
+| 6 | Firms and Production | ch6-firms-and-production.html | 5 | 72 KB |
+| 7 | Costs | ch7-costs.html | 4 | 66 KB |
+| 8 | Competitive Firms and Markets | ch8-competitive-firms-and-markets.html | 4 | 67 KB |
+| 9 | Applying the Competitive Model | ch9-applying-the-competitive-model.html | 4 | 66 KB |
+| 10 | General Equilibrium and Welfare | ch10-general-equilibrium-and-welfare.html | 4 | 73 KB |
+| 11 | Monopoly | ch11-monopoly.html | 4 | 68 KB |
+| 12 | Pricing and Advertising | ch12-pricing-and-advertising.html | 4 | 65 KB |
+| 13 | Oligopoly and Monopolistic Competition | ch13-oligopoly-and-monopolistic-competition.html | 5 | 71 KB |
+| 14 | Game Theory | ch14-game-theory.html | 4 | 70 KB |
+| 15 | Factor Markets | ch15-factor-markets.html | 4 | 54 KB |
+| 16 | Interest Rates, Investments, and Capital Markets | ch16-interest-rates-investments-and-capital-markets.html | 4 | 54 KB |
+
+**All 15 chapters above are fully linked:** index.html cards are active, and each chapter's forward/backward navigation links work. Chapter 1 is "Coming soon" (no content planned yet).
+
+### Remaining Chapters (build these next)
+
+- **Chapter 17:** Uncertainty
+- **Chapter 18:** Externalities and Public Goods
+- **Chapter 19:** Asymmetric Information
+- **Chapter 20:** Contracts and Moral Hazards
+
+### Key Bug Fix to Remember
+
+In Chapter 8, a `started = false;` assignment without `var` in `'use strict'` mode caused a ReferenceError that silently killed Graphs 3 and 4. **Always use `var` declarations in strict mode.** Check for this in every chapter with `grep -nP '^\s+started\s*=' FILE`.
+
+---
+
+## 8. Running Examples and Continuity
 
 - **Chapters 4–5** use Cobb-Douglas utility: U = q₁ · q₂, with Y = 30, p₁ = 5, p₂ = 3.
 - **Chapters 6–7** should use Cobb-Douglas production: q = L^α K^β (default α = β = 0.5, so q = √(LK)). This parallels the consumer theory structure and lets students see the duality.
@@ -597,7 +634,7 @@ Reference textbook: Perloff, *Microeconomics*, 7th edition (used loosely as a st
 
 ---
 
-## 8. Quality Checklist (run after each chapter)
+## 9. Quality Checklist (run after each chapter)
 
 ```bash
 cd "micro/chapters"
@@ -632,7 +669,7 @@ Expectations:
 
 ---
 
-## 9. Style and Tone
+## 10. Style and Tone
 
 - **British English** throughout (colour, labour, minimise, optimise, behaviour, defence).
 - Second person where appropriate ("As you raise the price slider…").
