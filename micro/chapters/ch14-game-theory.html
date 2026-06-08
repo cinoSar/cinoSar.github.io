@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 14: Game Theory | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        .interactive-graph canvas {
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+            max-width: 100%;
+        }
+        .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-border-light);
+            align-items: center;
+        }
+        .graph-controls label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-controls input[type="range"] {
+            width: 140px;
+            accent-color: var(--color-primary);
+        }
+        .graph-controls .value-display {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-primary-dark);
+            min-width: 3em;
+        }
+        .graph-controls button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            transition: background var(--transition-fast);
+        }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle {
+            background: var(--color-primary-dark);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .graph-info {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+        .graph-caption {
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 14: Game Theory</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 14</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#normal-form">14.1 Normal-Form Games</a></li>
+                <li><a href="#nash-eq">14.2 Nash Equilibrium</a></li>
+                <li><a href="#sequential">14.3 Sequential Games</a></li>
+                <li><a href="#repeated">14.4 Repeated Games</a></li>
+                <li><a href="#applications">14.5 Applications</a></li>
+                <li><a href="#formal-derivations">14.6 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: The Logic of Strategic Interaction</h2>
+                <p>During the Cold War, the United States and the Soviet Union each faced a stark choice: build more nuclear weapons or negotiate disarmament. If both disarmed, the world would be safer and both sides could redirect military spending to productive uses. But if one side disarmed whilst the other built weapons, the disarmer would be dangerously vulnerable. Each side&rsquo;s best move depended entirely on what the other did.</p>
+
+                <p>This is not just a geopolitical curiosity &mdash; it is the logic of <strong>strategic interaction</strong> that pervades economics. Firms deciding whether to enter a market, workers negotiating wages, countries setting trade policy, and consumers bidding in auctions all face decisions where the outcome depends on others&rsquo; choices. <strong>Game theory</strong> provides the formal framework for analysing these situations.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>Game theory studies situations where the payoff to each decision-maker depends on the actions of all participants. A <strong>game</strong> is defined by its players, their available strategies, and the payoffs for each combination of strategies. The central solution concept is <strong>Nash equilibrium</strong>: a set of strategies from which no player can profitably deviate unilaterally.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to represent strategic interactions as normal-form and extensive-form games, identify dominant strategies and Nash equilibria in pure and mixed strategies, apply backward induction to sequential games, analyse repeated games and the conditions under which cooperation can be sustained, and apply game theory to entry deterrence, bargaining, and auction design.</p>
+            </section>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#normal-form">Normal-Form Games</a> &mdash; payoff matrices and dominant strategies</li>
+                    <li><a href="#nash-eq">Nash Equilibrium</a> &mdash; pure and mixed strategies</li>
+                    <li><a href="#sequential">Sequential Games</a> &mdash; game trees and backward induction</li>
+                    <li><a href="#repeated">Repeated Games</a> &mdash; cooperation, punishment, and the folk theorem</li>
+                    <li><a href="#applications">Applications</a> &mdash; entry deterrence, bargaining, and auctions</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; mixed strategy computation and discounted payoffs</li>
+                </ol>
+            </div>
+
+
+            <!-- ============================================ -->
+            <!-- 14.1 NORMAL-FORM GAMES                        -->
+            <!-- ============================================ -->
+            <section id="normal-form" class="lesson-section section-geometric">
+                <h2>14.1 Normal-Form Games</h2>
+
+                <h3>Intuition: Players, Strategies, Payoffs</h3>
+                <p>A <strong>normal-form</strong> (or strategic-form) game is the simplest way to represent a strategic interaction. It specifies three elements: the <em>players</em>, the <em>strategies</em> available to each player, and the <em>payoffs</em> each player receives for every possible combination of strategies.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Dominant Strategy</h4>
+                    <p>A strategy is <strong>dominant</strong> if it yields a higher payoff than any alternative strategy, regardless of what the other players do. If both players have a dominant strategy, the game has a <strong>dominant strategy equilibrium</strong> &mdash; each player plays their dominant strategy, and neither has any incentive to deviate.</p>
+                </div>
+
+                <p>The most famous game in economics is the <strong>Prisoners&rsquo; Dilemma</strong>. Two suspects are held separately. Each can either Cooperate (stay silent) or Defect (confess). If both cooperate, each gets a light sentence. If both defect, each gets a moderate sentence. If one cooperates and the other defects, the defector goes free and the cooperator gets a heavy sentence. Defecting is a dominant strategy for both &mdash; yet mutual cooperation would make both better off. The tension between individual rationality and collective welfare is the heart of the dilemma.</p>
+
+                <h3>Geometric Solution: Interactive Payoff Matrix</h3>
+                <p>The graph below shows a 2&times;2 payoff matrix. Click on any cell to highlight it. Best responses are marked with arrows. Toggle between classic games to see how the structure changes.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-matrix" width="600" height="400" style="width:600px;height:400px;"></canvas>
+                    <div class="graph-controls">
+                        <button id="btn-pd" class="active-toggle">Prisoners&rsquo; Dilemma</button>
+                        <button id="btn-bos">Battle of Sexes</button>
+                        <button id="btn-hawk">Hawk&ndash;Dove</button>
+                        <button id="btn-match">Matching Pennies</button>
+                    </div>
+                    <div class="graph-info" id="info-matrix"></div>
+                    <p class="graph-caption">Figure 14.1 &mdash; Normal-form game with best responses highlighted. Cells where both players are best-responding are Nash equilibria.</p>
+                </div>
+
+                <div class="callout callout-warning">
+                    <h4>Not Every Game Has a Dominant Strategy</h4>
+                    <p>The Prisoners&rsquo; Dilemma is special because both players have dominant strategies. In many games &mdash; Battle of the Sexes, Hawk&ndash;Dove, Matching Pennies &mdash; players&rsquo; best responses depend on what the other does. For these games, we need the more general concept of Nash equilibrium.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 14.2 NASH EQUILIBRIUM                         -->
+            <!-- ============================================ -->
+            <section id="nash-eq" class="lesson-section section-geometric">
+                <h2>14.2 Nash Equilibrium</h2>
+
+                <h3>Intuition: Mutual Best Responses</h3>
+                <p>A <strong>Nash equilibrium</strong> is a combination of strategies &mdash; one for each player &mdash; such that no player can improve their payoff by unilaterally changing their strategy. Each player is playing a <em>best response</em> to the other. It is not necessarily the best outcome for society, nor even for the players themselves (as the Prisoners&rsquo; Dilemma shows), but it is <em>stable</em>: once reached, no one has an incentive to move.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Mixed Strategy</h4>
+                    <p>A <strong>pure strategy</strong> is a definite choice of action. A <strong>mixed strategy</strong> is a probability distribution over pure strategies &mdash; the player randomises, choosing each action with a specified probability. Nash proved that every finite game has at least one Nash equilibrium, possibly in mixed strategies. In a mixed-strategy NE, each player is <em>indifferent</em> between the strategies they randomise over.</p>
+                </div>
+
+                <p>Finding a mixed-strategy NE requires setting each player&rsquo;s expected payoffs equal across the strategies in the mix. If Player 1 mixes between strategies A and B, Player 2&rsquo;s mixing probabilities must make Player 1 indifferent between A and B. This &ldquo;indifference principle&rdquo; is the key computational tool.</p>
+
+                <h3>Geometric Solution: Mixed Strategy Best Responses</h3>
+                <p>The graph below plots best-response functions in probability space. The x-axis is the probability that Player 1 plays their first strategy (p), and the y-axis is the probability that Player 2 plays their first strategy (q). Nash equilibria occur where the best-response curves intersect. Use the slider to adjust payoffs and see how the equilibrium shifts.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-mixed" width="600" height="500" style="width:600px;height:500px;"></canvas>
+                    <div class="graph-controls">
+                        <button id="btn-mix-pd" class="active-toggle">Prisoners&rsquo; Dilemma</button>
+                        <button id="btn-mix-bos">Battle of Sexes</button>
+                        <button id="btn-mix-mp">Matching Pennies</button>
+                        <button id="btn-mix-hd">Hawk&ndash;Dove</button>
+                    </div>
+                    <div class="graph-info" id="info-mixed"></div>
+                    <p class="graph-caption">Figure 14.2 &mdash; Best-response functions in mixed-strategy space. Nash equilibria are at the intersections of BR₁ (blue) and BR₂ (red).</p>
+                </div>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>Games can have zero, one, or multiple pure-strategy Nash equilibria &mdash; but Nash&rsquo;s theorem guarantees at least one NE exists when mixed strategies are allowed. The Prisoners&rsquo; Dilemma has one pure NE (Defect, Defect). Battle of the Sexes has two pure NE and one mixed NE. Matching Pennies has no pure NE but one mixed NE at (½, ½).</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 14.3 SEQUENTIAL GAMES                         -->
+            <!-- ============================================ -->
+            <section id="sequential" class="lesson-section section-geometric">
+                <h2>14.3 Sequential Games</h2>
+
+                <h3>Intuition: Thinking Backwards</h3>
+                <p>In a <strong>sequential game</strong> (or extensive-form game), players move in order, and later movers can observe what earlier movers did. The natural solution method is <strong>backward induction</strong>: start at the end of the game tree, determine the optimal action at each final decision node, then work backwards to the beginning. The resulting strategy profile is a <strong>subgame perfect equilibrium</strong> (SPE) &mdash; it is a Nash equilibrium in every subgame.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Subgame Perfect Equilibrium</h4>
+                    <p>A <strong>subgame perfect equilibrium</strong> (SPE) is a strategy profile that constitutes a Nash equilibrium in every subgame of the original game. It rules out &ldquo;incredible threats&rdquo; &mdash; promises or threats that would not be in a player&rsquo;s interest to carry out if the relevant subgame were actually reached.</p>
+                </div>
+
+                <p>The classic example is the entry game: an incumbent monopolist threatens to start a price war if an entrant enters the market. In the normal form, &ldquo;enter, accommodate&rdquo; and &ldquo;stay out, fight&rdquo; are both Nash equilibria. But backward induction reveals that &ldquo;fight&rdquo; is not credible: if the entrant does enter, the incumbent prefers to accommodate. The only SPE is &ldquo;enter, accommodate.&rdquo;</p>
+
+                <h3>Geometric Solution: Game Tree with Backward Induction</h3>
+                <p>The graph below shows an entry game as a game tree. Player 1 (Entrant) moves first, choosing Enter or Stay Out. If Enter, Player 2 (Incumbent) chooses Accommodate or Fight. Click &ldquo;Solve by Backward Induction&rdquo; to see the SPE path highlighted. Toggle to see a different sequential game.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-tree" width="600" height="420" style="width:600px;height:420px;"></canvas>
+                    <div class="graph-controls">
+                        <button id="btn-entry-game" class="active-toggle">Entry Game</button>
+                        <button id="btn-ultimatum">Ultimatum Game</button>
+                        <button id="btn-solve-bi">Solve by Backward Induction</button>
+                    </div>
+                    <div class="graph-info" id="info-tree"></div>
+                    <p class="graph-caption">Figure 14.3 &mdash; Extensive-form game tree. Backward induction highlights the subgame perfect equilibrium path.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: Credible Commitment</h4>
+                    <p>If the incumbent could <em>commit</em> to fighting &mdash; for example, by building excess capacity that makes fighting less costly &mdash; the threat becomes credible. The entrant, foreseeing a fight, might choose to stay out. This is the logic of <strong>strategic commitment</strong>: taking an irreversible action that changes the payoffs of future decisions. We saw this in Chapter 13 with Stackelberg&rsquo;s first-mover advantage.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 14.4 REPEATED GAMES                           -->
+            <!-- ============================================ -->
+            <section id="repeated" class="lesson-section section-geometric">
+                <h2>14.4 Repeated Games</h2>
+
+                <h3>Intuition: The Shadow of the Future</h3>
+                <p>In a one-shot Prisoners&rsquo; Dilemma, defection is the only NE. But most real interactions are repeated &mdash; firms compete quarter after quarter, countries negotiate year after year. When players expect to interact again, the <strong>shadow of the future</strong> changes the calculus: cooperating today can be sustained if the threat of future punishment (retaliation by the other player) outweighs the short-term gain from defecting.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Grim Trigger Strategy</h4>
+                    <p>Under a <strong>grim trigger</strong> strategy, a player cooperates as long as the other player has always cooperated. If the other player ever defects, the grim trigger player defects forever after. Cooperation is sustainable in an infinitely repeated game if the discount factor \(\delta\) is high enough: the present value of future cooperation must exceed the one-shot gain from defection.</p>
+                </div>
+
+                <p>The <strong>folk theorem</strong> extends this insight: in an infinitely repeated game with sufficiently patient players, <em>any</em> individually rational payoff can be sustained as a Nash equilibrium. This is both powerful and troubling &mdash; it means theory alone cannot pin down a unique prediction for repeated games.</p>
+
+                <h3>Geometric Solution: Cooperation and the Discount Factor</h3>
+                <p>The graph below shows the discounted payoff streams from cooperation and defection in a repeated Prisoners&rsquo; Dilemma. Adjust the discount factor &delta; to see when cooperation becomes sustainable. When &delta; is high enough, the present value of perpetual cooperation exceeds the gain from defecting once and then facing punishment forever.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-repeated" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Discount factor (&delta;): <input type="range" id="slider-delta" min="0" max="0.99" step="0.01" value="0.5"> <span class="value-display" id="val-delta">0.50</span></label>
+                        <button id="btn-find-threshold">Find Threshold &delta;</button>
+                    </div>
+                    <div class="graph-info" id="info-repeated"></div>
+                    <p class="graph-caption">Figure 14.4 &mdash; Repeated Prisoners&rsquo; Dilemma: cooperation payoff vs defection payoff as a function of the discount factor &delta;.</p>
+                </div>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>Cooperation in a repeated Prisoners&rsquo; Dilemma requires \(\delta \geq \frac{T - R}{T - P}\), where \(T\) is the temptation payoff (defect whilst other cooperates), \(R\) is the reward (mutual cooperation), and \(P\) is the punishment (mutual defection). More patient players (higher &delta;) and smaller temptation gains make cooperation easier to sustain.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 14.5 APPLICATIONS                             -->
+            <!-- ============================================ -->
+            <section id="applications" class="lesson-section section-intuition">
+                <h2>14.5 Applications</h2>
+
+                <h3>Entry Deterrence</h3>
+                <p>We previewed entry deterrence in Section 14.3. A richer version has the incumbent choosing an investment level (capacity, advertising, R&amp;D) before the entrant decides whether to enter. If the investment credibly reduces the entrant&rsquo;s post-entry profit below zero, entry is deterred. The key is <em>credibility</em>: the investment must be sunk (irreversible) so the incumbent cannot walk it back after the entrant decides.</p>
+
+                <div class="callout callout-example">
+                    <h4>Example: Predatory Pricing</h4>
+                    <p>In the 1990s, several low-cost airlines accused established carriers of predatory pricing &mdash; temporarily cutting fares below cost to drive out entrants, then raising prices once the threat was gone. Game theory shows this strategy is only rational if the incumbent&rsquo;s losses during the price war are less than the present value of monopoly profits after the entrant exits. The UK Competition and Markets Authority (CMA) treats predatory pricing as an abuse of dominant position.</p>
+                </div>
+
+                <h3>Bargaining</h3>
+                <p>Nash&rsquo;s bargaining solution and Rubinstein&rsquo;s alternating-offers model show how two parties divide a surplus. In Rubinstein&rsquo;s model, players take turns proposing a split, and the other player accepts or rejects. If both are equally patient, the first mover gets slightly more than half (a first-mover advantage). As the time between offers shrinks, the outcome converges to the Nash bargaining solution: an even split if the parties are symmetric.</p>
+
+                <h3>Auctions</h3>
+                <p>Auctions are games where bidders compete for an item by submitting bids. The four standard auction formats &mdash; English (ascending), Dutch (descending), first-price sealed-bid, and second-price sealed-bid (Vickrey) &mdash; differ in their rules but share a common strategic structure. The <strong>revenue equivalence theorem</strong> states that under certain conditions (risk-neutral bidders, independent private values), all four formats yield the same expected revenue to the seller.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Vickrey Auction</h4>
+                    <p>In a <strong>Vickrey (second-price sealed-bid) auction</strong>, each bidder submits a sealed bid. The highest bidder wins but pays the <em>second-highest</em> bid. The dominant strategy is to bid one&rsquo;s true valuation: there is no incentive to shade the bid down or to bid above one&rsquo;s value. This <strong>incentive compatibility</strong> makes the Vickrey auction a cornerstone of mechanism design.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 14.6 FORMAL DERIVATIONS                       -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>14.6 Formal Derivations</h2>
+
+                <h3>Mixed-Strategy Nash Equilibrium</h3>
+                <p>Consider a 2&times;2 game with payoff matrix:</p>
+
+                \[
+                    \begin{pmatrix} (a_1, a_2) & (b_1, b_2) \\ (c_1, c_2) & (d_1, d_2) \end{pmatrix}
+                \]
+
+                <p>Let Player 1 play Top with probability \(p\) and Player 2 play Left with probability \(q\). Player 1&rsquo;s expected payoffs are:</p>
+
+                \[
+                    E[\pi_1 | \text{Top}] = q \cdot a_1 + (1-q) \cdot b_1, \qquad E[\pi_1 | \text{Bottom}] = q \cdot c_1 + (1-q) \cdot d_1
+                \]
+
+                <p>For Player 1 to mix, these must be equal:</p>
+
+                \[
+                    q \cdot a_1 + (1-q) \cdot b_1 = q \cdot c_1 + (1-q) \cdot d_1 \quad \Rightarrow \quad q^* = \frac{d_1 - b_1}{a_1 - b_1 - c_1 + d_1}
+                \]
+
+                <p>Similarly, for Player 2 to mix:</p>
+
+                \[
+                    p^* = \frac{d_2 - c_2}{a_2 - c_2 - b_2 + d_2}
+                \]
+
+                <p>Notice the counterintuitive result: Player 1&rsquo;s mixing probability is determined by Player <em>2&rsquo;s</em> payoffs, and vice versa. Each player&rsquo;s mix is calibrated to make the <em>other</em> player indifferent.</p>
+
+                <h3>Subgame Perfect Equilibrium via Backward Induction</h3>
+                <p>Consider the entry game: Entrant chooses Enter (E) or Stay Out (S). If E, Incumbent chooses Accommodate (A) or Fight (F). Payoffs: (E, A) gives (2, 1); (E, F) gives (&minus;1, &minus;1); S gives (0, 3).</p>
+
+                <p><strong>Step 1</strong> (last mover): If Entrant enters, Incumbent compares A (payoff 1) to F (payoff &minus;1). Incumbent chooses A.</p>
+
+                <p><strong>Step 2</strong> (first mover): Entrant anticipates accommodation. Enter gives payoff 2, Stay Out gives 0. Entrant enters.</p>
+
+                <p>SPE: (Enter, Accommodate) with payoffs (2, 1). The &ldquo;Stay Out, Fight&rdquo; NE is eliminated because Fight is not credible.</p>
+
+                <h3>Repeated Prisoners&rsquo; Dilemma</h3>
+                <p>Standard PD payoffs: mutual cooperation gives \(R = 3\), mutual defection gives \(P = 1\), temptation gives \(T = 5\), sucker gives \(S = 0\). Under grim trigger with discount factor \(\delta\):</p>
+
+                <p><strong>Cooperate forever:</strong> payoff = \(R + \delta R + \delta^2 R + \ldots = \frac{R}{1-\delta}\).</p>
+
+                <p><strong>Defect once, then punished:</strong> payoff = \(T + \delta P + \delta^2 P + \ldots = T + \frac{\delta P}{1-\delta}\).</p>
+
+                <p>Cooperation is sustainable if:</p>
+
+                \[
+                    \frac{R}{1-\delta} \geq T + \frac{\delta P}{1-\delta} \quad \Rightarrow \quad \delta \geq \frac{T - R}{T - P} = \frac{5 - 3}{5 - 1} = \frac{1}{2}
+                \]
+
+                <p>So cooperation can be sustained whenever \(\delta \geq 0.5\). More patient players and less tempting deviations make cooperation easier.</p>
+
+                <h3>Revenue Equivalence</h3>
+                <p>With \(n\) risk-neutral bidders whose valuations are i.i.d. draws from a distribution \(F\) on \([0, \bar{v}]\), the expected revenue in any standard auction equals the expected value of the second-highest order statistic:</p>
+
+                \[
+                    E[\text{Revenue}] = E[v_{(n-1:n)}] = \int_0^{\bar{v}} v \cdot n(n-1) F(v)^{n-2} f(v) [1-F(v)] \, dv
+                \]
+
+                <p>This holds for English, Dutch, first-price sealed-bid, and Vickrey auctions. The result breaks down with risk-averse bidders, correlated values, or asymmetric bidders.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>Game theory provides the mathematical language for analysing strategic interaction. Normal-form games represent simultaneous decisions with payoff matrices; extensive-form games represent sequential decisions with game trees. The central solution concept, Nash equilibrium, captures the idea of mutual best response &mdash; no player can profitably deviate alone. Nash&rsquo;s theorem guarantees that at least one NE exists, though it may be in mixed strategies.</p>
+
+                <p>Sequential games add the refinement of subgame perfection, which eliminates Nash equilibria that rely on incredible threats. Backward induction is the practical tool for finding SPE. The entry game illustrates how commitment &mdash; making threats credible through irreversible investment &mdash; can change the equilibrium outcome.</p>
+
+                <p>Repeated games transform the analysis of cooperation. The folk theorem shows that patient players can sustain a wide range of outcomes, including mutual cooperation in the Prisoners&rsquo; Dilemma. The threshold discount factor provides a precise condition for when cooperation is viable. Applications to entry deterrence, bargaining, and auctions demonstrate the breadth and power of game-theoretic reasoning.</p>
+
+                <p>In the next chapter, we turn from output markets to <strong>factor markets</strong> &mdash; the markets for labour, capital, and other inputs that firms use in production.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch13-oligopoly-and-monopolistic-competition.html">&larr; Chapter 13: Oligopoly and Monopolistic Competition</a>
+                <span style="color: var(--color-text-lighter);">Chapter 15: Factor Markets &rarr; Coming Soon</span>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- INTERACTIVE GRAPHS - JAVASCRIPT              -->
+    <!-- ============================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        /* ── Colour palettes ── */
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            player1: '#3b82f6', player2: '#ef4444',
+            br1: '#3b82f6', br2: '#ef4444',
+            equilibrium: '#0a9396', eqGlow: 'rgba(10, 147, 150, 0.3)',
+            cellBg: '#f8f9fa', cellHover: '#e8f4f8', cellNE: 'rgba(10, 147, 150, 0.15)',
+            cellBorder: '#dee2e6', bestResp: '#10b981',
+            treeLine: '#555555', treeNode: '#3b82f6', treeNodeInc: '#ef4444',
+            treePath: '#10b981', treePathGlow: 'rgba(16, 185, 129, 0.3)',
+            payoff: '#1a1a1a',
+            cooperate: '#10b981', defect: '#ef4444',
+            coopFill: 'rgba(16, 185, 129, 0.15)', defectFill: 'rgba(239, 68, 68, 0.15)',
+            threshold: '#f59e0b'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            player1: '#60a5fa', player2: '#f87171',
+            br1: '#60a5fa', br2: '#f87171',
+            equilibrium: '#2ec4c8', eqGlow: 'rgba(46, 196, 200, 0.3)',
+            cellBg: '#3a3a3a', cellHover: '#4a5568', cellNE: 'rgba(46, 196, 200, 0.15)',
+            cellBorder: '#555555', bestResp: '#34d399',
+            treeLine: '#aaaaaa', treeNode: '#60a5fa', treeNodeInc: '#f87171',
+            treePath: '#34d399', treePathGlow: 'rgba(52, 211, 153, 0.3)',
+            payoff: '#d0d0d0',
+            cooperate: '#34d399', defect: '#f87171',
+            coopFill: 'rgba(52, 211, 153, 0.15)', defectFill: 'rgba(248, 113, 113, 0.15)',
+            threshold: '#fbbf24'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        /* ── Shared helpers ── */
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function drawAxBase(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep) {
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            var v, pt;
+            for (v = 0; v <= yMax; v += (yStep || 0.1)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            for (v = 0; v <= xMax; v += (xStep || 0.1)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel || '', ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel || '', 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (v = xStep || 0.2; v <= xMax; v += (xStep || 0.2)) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v.toFixed(1), pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (v = yStep || 0.2; v <= yMax; v += (yStep || 0.2)) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v.toFixed(1), ox - 6, pt.y);
+            }
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 1: Payoff Matrix                          */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var info = document.getElementById('info-matrix');
+            var games = {
+                pd: {
+                    name: "Prisoners' Dilemma",
+                    rows: ['Cooperate', 'Defect'], cols: ['Cooperate', 'Defect'],
+                    payoffs: [[[3,3],[0,5]],[[5,0],[1,1]]],
+                    p1name: 'Suspect 1', p2name: 'Suspect 2'
+                },
+                bos: {
+                    name: 'Battle of the Sexes',
+                    rows: ['Opera', 'Football'], cols: ['Opera', 'Football'],
+                    payoffs: [[[3,2],[0,0]],[[0,0],[2,3]]],
+                    p1name: 'Player 1', p2name: 'Player 2'
+                },
+                hawk: {
+                    name: 'Hawk–Dove',
+                    rows: ['Hawk', 'Dove'], cols: ['Hawk', 'Dove'],
+                    payoffs: [[[-2,-2],[4,0]],[[0,4],[2,2]]],
+                    p1name: 'Player 1', p2name: 'Player 2'
+                },
+                match: {
+                    name: 'Matching Pennies',
+                    rows: ['Heads', 'Tails'], cols: ['Heads', 'Tails'],
+                    payoffs: [[[1,-1],[-1,1]],[[-1,1],[1,-1]]],
+                    p1name: 'Player 1', p2name: 'Player 2'
+                }
+            };
+            var currentGame = 'pd';
+
+            function findBR(game) {
+                var pay = game.payoffs;
+                /* BR for P1 (row player): for each column, which row gives higher payoff to P1? */
+                var br1 = []; /* [col] -> best row index */
+                for (var j = 0; j < 2; j++) {
+                    br1.push(pay[0][j][0] >= pay[1][j][0] ? 0 : 1);
+                }
+                /* BR for P2 (col player): for each row, which col gives higher payoff to P2? */
+                var br2 = [];
+                for (var i = 0; i < 2; i++) {
+                    br2.push(pay[i][0][1] >= pay[i][1][1] ? 0 : 1);
+                }
+                /* NE: cells where i = br1[j] AND j = br2[i] */
+                var ne = [];
+                for (var ii = 0; ii < 2; ii++) {
+                    for (var jj = 0; jj < 2; jj++) {
+                        if (br1[jj] === ii && br2[ii] === jj) ne.push([ii, jj]);
+                    }
+                }
+                return { br1: br1, br2: br2, ne: ne };
+            }
+
+            function draw() {
+                var res = getCtx('canvas-matrix');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var game = games[currentGame];
+                var pay = game.payoffs;
+                var analysis = findBR(game);
+
+                /* Matrix layout */
+                var mLeft = 130, mTop = 80;
+                var cellW = 140, cellH = 100;
+                var matW = cellW * 2, matH = cellH * 2;
+
+                /* Column headers */
+                ctx.fillStyle = C.player2; ctx.font = 'bold 14px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText(game.p2name, mLeft + matW / 2, mTop - 30);
+                ctx.font = '13px -apple-system, sans-serif';
+                ctx.fillText(game.cols[0], mLeft + cellW / 2, mTop - 6);
+                ctx.fillText(game.cols[1], mLeft + cellW + cellW / 2, mTop - 6);
+
+                /* Row headers */
+                ctx.fillStyle = C.player1; ctx.font = 'bold 14px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.save(); ctx.translate(mLeft - 50, mTop + matH / 2); ctx.rotate(-Math.PI / 2);
+                ctx.fillText(game.p1name, 0, 0); ctx.restore();
+                ctx.font = '13px -apple-system, sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(game.rows[0], mLeft - 12, mTop + cellH / 2);
+                ctx.fillText(game.rows[1], mLeft - 12, mTop + cellH + cellH / 2);
+
+                /* Draw cells */
+                for (var i = 0; i < 2; i++) {
+                    for (var j = 0; j < 2; j++) {
+                        var cx = mLeft + j * cellW;
+                        var cy = mTop + i * cellH;
+
+                        /* Check if NE */
+                        var isNE = false;
+                        for (var k = 0; k < analysis.ne.length; k++) {
+                            if (analysis.ne[k][0] === i && analysis.ne[k][1] === j) isNE = true;
+                        }
+
+                        ctx.fillStyle = isNE ? C.cellNE : C.cellBg;
+                        ctx.fillRect(cx, cy, cellW, cellH);
+                        ctx.strokeStyle = C.cellBorder; ctx.lineWidth = 1.5;
+                        ctx.strokeRect(cx, cy, cellW, cellH);
+
+                        /* Payoffs */
+                        ctx.font = 'bold 18px -apple-system, sans-serif';
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        /* P1 payoff (top-left of cell) */
+                        ctx.fillStyle = C.player1;
+                        ctx.fillText(pay[i][j][0], cx + cellW * 0.35, cy + cellH * 0.4);
+                        /* Comma */
+                        ctx.fillStyle = C.text;
+                        ctx.fillText(',', cx + cellW * 0.5, cy + cellH * 0.4);
+                        /* P2 payoff (top-right) */
+                        ctx.fillStyle = C.player2;
+                        ctx.fillText(pay[i][j][1], cx + cellW * 0.65, cy + cellH * 0.4);
+
+                        /* Best response markers */
+                        if (analysis.br1[j] === i) {
+                            /* This row is P1's BR given column j */
+                            ctx.fillStyle = C.bestResp; ctx.font = '10px -apple-system, sans-serif';
+                            ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                            ctx.fillText('BR₁ ✓', cx + 6, cy + cellH - 6);
+                        }
+                        if (analysis.br2[i] === j) {
+                            ctx.fillStyle = C.bestResp; ctx.font = '10px -apple-system, sans-serif';
+                            ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                            ctx.fillText('BR₂ ✓', cx + cellW - 6, cy + cellH - 6);
+                        }
+
+                        if (isNE) {
+                            ctx.strokeStyle = C.equilibrium; ctx.lineWidth = 3;
+                            ctx.strokeRect(cx + 2, cy + 2, cellW - 4, cellH - 4);
+                            ctx.fillStyle = C.equilibrium; ctx.font = 'bold 10px -apple-system, sans-serif';
+                            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                            ctx.fillText('NASH EQ.', cx + cellW / 2, cy + 4);
+                        }
+                    }
+                }
+
+                /* Info */
+                var neStr = analysis.ne.length === 0 ? 'No pure-strategy NE' :
+                    analysis.ne.map(function(ne) {
+                        return '(' + game.rows[ne[0]] + ', ' + game.cols[ne[1]] + ')';
+                    }).join(' and ');
+                var dom1 = (analysis.br1[0] === analysis.br1[1]) ? game.rows[analysis.br1[0]] : 'None';
+                var dom2 = (analysis.br2[0] === analysis.br2[1]) ? game.cols[analysis.br2[0]] : 'None';
+                info.innerHTML =
+                    '<strong>' + game.name + '</strong>' +
+                    ' &nbsp;|&nbsp; Pure NE: ' + neStr +
+                    '<br>Dominant strategy P1: ' + dom1 +
+                    ', P2: ' + dom2;
+            }
+
+            document.getElementById('btn-pd').addEventListener('click', function() { currentGame = 'pd'; updateButtons(); draw(); });
+            document.getElementById('btn-bos').addEventListener('click', function() { currentGame = 'bos'; updateButtons(); draw(); });
+            document.getElementById('btn-hawk').addEventListener('click', function() { currentGame = 'hawk'; updateButtons(); draw(); });
+            document.getElementById('btn-match').addEventListener('click', function() { currentGame = 'match'; updateButtons(); draw(); });
+
+            function updateButtons() {
+                var map = { pd: 'btn-pd', bos: 'btn-bos', hawk: 'btn-hawk', match: 'btn-match' };
+                for (var k in map) {
+                    document.getElementById(map[k]).classList.toggle('active-toggle', k === currentGame);
+                }
+            }
+
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 2: Mixed Strategy Best Responses          */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var info = document.getElementById('info-mixed');
+            var gamesList = {
+                pd:  { name: "Prisoners' Dilemma", payoffs: [[[3,3],[0,5]],[[5,0],[1,1]]] },
+                bos: { name: 'Battle of Sexes', payoffs: [[[3,2],[0,0]],[[0,0],[2,3]]] },
+                mp:  { name: 'Matching Pennies', payoffs: [[[1,-1],[-1,1]],[[-1,1],[1,-1]]] },
+                hd:  { name: 'Hawk–Dove', payoffs: [[[-2,-2],[4,0]],[[0,4],[2,2]]] }
+            };
+            var currentGame = 'pd';
+
+            function draw() {
+                var res = getCtx('canvas-mixed');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxBase(ctx, ox, oy, gw, gh, 1, 1, 'p (P1 plays Row 1)', 'q (P2 plays Col 1)', 0.2, 0.2);
+
+                var pay = gamesList[currentGame].payoffs;
+                var a1 = pay[0][0][0], b1 = pay[0][1][0], c1 = pay[1][0][0], d1 = pay[1][1][0];
+                var a2 = pay[0][0][1], b2 = pay[0][1][1], c2 = pay[1][0][1], d2 = pay[1][1][1];
+
+                /* BR1: P1's BR as function of q */
+                /* E[Top] = q*a1 + (1-q)*b1; E[Bot] = q*c1 + (1-q)*d1 */
+                /* Top > Bot when q*(a1-c1) + (1-q)*(b1-d1) > 0 */
+                /* q*(a1-c1-b1+d1) > d1-b1 */
+                var denom1 = a1 - c1 - b1 + d1;
+                var qStar = denom1 !== 0 ? (d1 - b1) / denom1 : -1;
+
+                /* BR2: P2's BR as function of p */
+                var denom2 = a2 - b2 - c2 + d2;
+                var pStar = denom2 !== 0 ? (d2 - c2) / denom2 : -1;
+
+                /* Draw BR1 (blue): this is q -> p mapping, but we draw p on x-axis */
+                /* Actually: BR1 tells P1's optimal p given q. */
+                /* If denom1 > 0: Top is better when q > qStar */
+                /* BR1 in (p, q) space: p=1 for q>qStar, p=0 for q<qStar, p=[0,1] at q=qStar */
+                ctx.lineWidth = 3; ctx.setLineDash([]);
+                if (qStar >= 0 && qStar <= 1 && denom1 !== 0) {
+                    /* Vertical segment at q=qStar (P1 indifferent) */
+                    var dir = denom1 > 0 ? 1 : -1; /* Top better above or below qStar */
+                    var pHigh = dir > 0 ? 1 : 0;
+                    var pLow = dir > 0 ? 0 : 1;
+                    /* BR1: horizontal at q < qStar => p = pLow */
+                    ctx.strokeStyle = C.br1;
+                    var pt1 = tp(pLow, 0, ox, oy, gw, gh, 1, 1);
+                    var pt2 = tp(pLow, qStar, ox, oy, gw, gh, 1, 1);
+                    ctx.beginPath(); ctx.moveTo(pt1.x, pt1.y); ctx.lineTo(pt2.x, pt2.y); ctx.stroke();
+                    /* Vertical at q = qStar */
+                    var pt3 = tp(pHigh, qStar, ox, oy, gw, gh, 1, 1);
+                    ctx.beginPath(); ctx.moveTo(pt2.x, pt2.y); ctx.lineTo(pt3.x, pt3.y); ctx.stroke();
+                    /* Horizontal at q > qStar => p = pHigh */
+                    var pt4 = tp(pHigh, 1, ox, oy, gw, gh, 1, 1);
+                    ctx.beginPath(); ctx.moveTo(pt3.x, pt3.y); ctx.lineTo(pt4.x, pt4.y); ctx.stroke();
+                } else {
+                    /* Dominant strategy for P1 */
+                    var domP = (a1 + b1 >= c1 + d1) ? 1 : 0; /* always Top or always Bottom */
+                    ctx.strokeStyle = C.br1;
+                    var ptA = tp(domP, 0, ox, oy, gw, gh, 1, 1);
+                    var ptB = tp(domP, 1, ox, oy, gw, gh, 1, 1);
+                    ctx.beginPath(); ctx.moveTo(ptA.x, ptA.y); ctx.lineTo(ptB.x, ptB.y); ctx.stroke();
+                }
+
+                /* Draw BR2 (red): BR2 tells P2's optimal q given p */
+                if (pStar >= 0 && pStar <= 1 && denom2 !== 0) {
+                    var dir2 = denom2 > 0 ? 1 : -1;
+                    var qHigh = dir2 > 0 ? 1 : 0;
+                    var qLow = dir2 > 0 ? 0 : 1;
+                    ctx.strokeStyle = C.br2;
+                    var ptR1 = tp(0, qLow, ox, oy, gw, gh, 1, 1);
+                    var ptR2 = tp(pStar, qLow, ox, oy, gw, gh, 1, 1);
+                    ctx.beginPath(); ctx.moveTo(ptR1.x, ptR1.y); ctx.lineTo(ptR2.x, ptR2.y); ctx.stroke();
+                    var ptR3 = tp(pStar, qHigh, ox, oy, gw, gh, 1, 1);
+                    ctx.beginPath(); ctx.moveTo(ptR2.x, ptR2.y); ctx.lineTo(ptR3.x, ptR3.y); ctx.stroke();
+                    var ptR4 = tp(1, qHigh, ox, oy, gw, gh, 1, 1);
+                    ctx.beginPath(); ctx.moveTo(ptR3.x, ptR3.y); ctx.lineTo(ptR4.x, ptR4.y); ctx.stroke();
+                } else {
+                    var domQ = (a2 + c2 >= b2 + d2) ? 1 : 0;
+                    ctx.strokeStyle = C.br2;
+                    var ptC = tp(0, domQ, ox, oy, gw, gh, 1, 1);
+                    var ptD = tp(1, domQ, ox, oy, gw, gh, 1, 1);
+                    ctx.beginPath(); ctx.moveTo(ptC.x, ptC.y); ctx.lineTo(ptD.x, ptD.y); ctx.stroke();
+                }
+
+                /* Mark NE intersections */
+                /* Pure NE at corners */
+                var pay2 = gamesList[currentGame].payoffs;
+                var corners = [[1,1],[1,0],[0,1],[0,0]]; /* (p,q) */
+                for (var ci = 0; ci < corners.length; ci++) {
+                    var p = corners[ci][0], q = corners[ci][1];
+                    var row = 1 - p, col = 1 - q; /* row 0 = Top = p=1 */
+                    var e1Top = q * a1 + (1 - q) * b1;
+                    var e1Bot = q * c1 + (1 - q) * d1;
+                    var e2Left = p * a2 + (1 - p) * c2;
+                    var e2Right = p * b2 + (1 - p) * d2;
+                    var isBR1 = (p === 1 && e1Top >= e1Bot) || (p === 0 && e1Bot >= e1Top);
+                    var isBR2 = (q === 1 && e2Left >= e2Right) || (q === 0 && e2Right >= e2Left);
+                    if (isBR1 && isBR2) {
+                        var ept = tp(p, q, ox, oy, gw, gh, 1, 1);
+                        ctx.beginPath(); ctx.arc(ept.x, ept.y, 8, 0, 2 * Math.PI);
+                        ctx.fillStyle = C.eqGlow; ctx.fill();
+                        dot(ctx, p, q, ox, oy, gw, gh, 1, 1, C.equilibrium, 5);
+                    }
+                }
+                /* Mixed NE */
+                if (pStar > 0 && pStar < 1 && qStar > 0 && qStar < 1) {
+                    var mpt = tp(pStar, qStar, ox, oy, gw, gh, 1, 1);
+                    ctx.beginPath(); ctx.arc(mpt.x, mpt.y, 8, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, pStar, qStar, ox, oy, gw, gh, 1, 1, C.equilibrium, 5);
+                    ctx.fillStyle = C.equilibrium; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('Mixed NE (' + pStar.toFixed(2) + ', ' + qStar.toFixed(2) + ')', mpt.x + 8, mpt.y - 4);
+                }
+
+                /* Labels */
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.fillStyle = C.br1; ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+                ctx.fillText('BR₁', ox + gw - 4, oy + 4);
+                ctx.fillStyle = C.br2; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('BR₂', ox + 4, oy + gh - 4);
+
+                var mixedStr = (pStar > 0 && pStar < 1 && qStar > 0 && qStar < 1) ?
+                    'Mixed NE: p* = ' + pStar.toFixed(3) + ', q* = ' + qStar.toFixed(3) : 'No interior mixed NE';
+                info.innerHTML = '<strong>' + gamesList[currentGame].name + '</strong> &nbsp;|&nbsp; ' + mixedStr;
+            }
+
+            document.getElementById('btn-mix-pd').addEventListener('click', function() { currentGame = 'pd'; updateBtns(); draw(); });
+            document.getElementById('btn-mix-bos').addEventListener('click', function() { currentGame = 'bos'; updateBtns(); draw(); });
+            document.getElementById('btn-mix-mp').addEventListener('click', function() { currentGame = 'mp'; updateBtns(); draw(); });
+            document.getElementById('btn-mix-hd').addEventListener('click', function() { currentGame = 'hd'; updateBtns(); draw(); });
+
+            function updateBtns() {
+                var map = { pd: 'btn-mix-pd', bos: 'btn-mix-bos', mp: 'btn-mix-mp', hd: 'btn-mix-hd' };
+                for (var k in map) document.getElementById(map[k]).classList.toggle('active-toggle', k === currentGame);
+            }
+
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 3: Game Tree                              */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var info = document.getElementById('info-tree');
+            var solved = false;
+            var currentTree = 'entry';
+
+            var trees = {
+                entry: {
+                    name: 'Entry Game',
+                    /* Root: Entrant chooses Enter or Stay Out */
+                    nodes: [
+                        { label: 'Entrant', x: 300, y: 40, player: 1 },
+                        { label: 'Incumbent', x: 150, y: 180, player: 2 },
+                        /* Terminals */
+                        { label: '(2, 1)', x: 75, y: 320, terminal: true, p1: 2, p2: 1 },
+                        { label: '(−1, −1)', x: 225, y: 320, terminal: true, p1: -1, p2: -1 },
+                        { label: '(0, 3)', x: 450, y: 180, terminal: true, p1: 0, p2: 3 }
+                    ],
+                    edges: [
+                        { from: 0, to: 1, label: 'Enter' },
+                        { from: 0, to: 4, label: 'Stay Out' },
+                        { from: 1, to: 2, label: 'Accommodate' },
+                        { from: 1, to: 3, label: 'Fight' }
+                    ],
+                    spePath: [0, 1, 2], /* Enter -> Accommodate */
+                    speText: 'SPE: (Enter, Accommodate). Fight is not credible — Incumbent prefers to accommodate.'
+                },
+                ultimatum: {
+                    name: 'Ultimatum Game',
+                    nodes: [
+                        { label: 'Proposer', x: 300, y: 40, player: 1 },
+                        { label: 'Responder', x: 130, y: 180, player: 2 },
+                        { label: 'Responder', x: 470, y: 180, player: 2 },
+                        { label: '(7, 3)', x: 65, y: 320, terminal: true, p1: 7, p2: 3 },
+                        { label: '(0, 0)', x: 195, y: 320, terminal: true, p1: 0, p2: 0 },
+                        { label: '(5, 5)', x: 405, y: 320, terminal: true, p1: 5, p2: 5 },
+                        { label: '(0, 0)', x: 535, y: 320, terminal: true, p1: 0, p2: 0 }
+                    ],
+                    edges: [
+                        { from: 0, to: 1, label: 'Offer £3' },
+                        { from: 0, to: 2, label: 'Offer £5' },
+                        { from: 1, to: 3, label: 'Accept' },
+                        { from: 1, to: 4, label: 'Reject' },
+                        { from: 2, to: 5, label: 'Accept' },
+                        { from: 2, to: 6, label: 'Reject' }
+                    ],
+                    spePath: [0, 1, 3], /* Offer £3 -> Accept */
+                    speText: 'SPE: Proposer offers £3, Responder accepts. Responder accepts any positive offer (better than £0).'
+                }
+            };
+
+            function draw() {
+                var res = getCtx('canvas-tree');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var tree = trees[currentTree];
+                var nodes = tree.nodes;
+                var edges = tree.edges;
+
+                /* Draw edges */
+                for (var e = 0; e < edges.length; e++) {
+                    var fromN = nodes[edges[e].from];
+                    var toN = nodes[edges[e].to];
+
+                    var isOnPath = false;
+                    if (solved) {
+                        var path = tree.spePath;
+                        for (var pi = 0; pi < path.length - 1; pi++) {
+                            if (edges[e].from === path[pi] && edges[e].to === path[pi + 1]) isOnPath = true;
+                        }
+                    }
+
+                    ctx.strokeStyle = isOnPath ? C.treePath : C.treeLine;
+                    ctx.lineWidth = isOnPath ? 3 : 1.5;
+                    ctx.beginPath(); ctx.moveTo(fromN.x, fromN.y); ctx.lineTo(toN.x, toN.y); ctx.stroke();
+
+                    /* Edge label */
+                    var mx = (fromN.x + toN.x) / 2;
+                    var my = (fromN.y + toN.y) / 2;
+                    var dx = toN.x - fromN.x;
+                    ctx.fillStyle = isOnPath ? C.treePath : C.text;
+                    ctx.font = (isOnPath ? 'bold ' : '') + '12px -apple-system, sans-serif';
+                    ctx.textAlign = dx < 0 ? 'right' : 'left';
+                    ctx.textBaseline = 'bottom';
+                    ctx.fillText(edges[e].label, mx + (dx < 0 ? -8 : 8), my - 4);
+                }
+
+                /* Draw nodes */
+                for (var n = 0; n < nodes.length; n++) {
+                    var node = nodes[n];
+
+                    var isOnSPE = false;
+                    if (solved) {
+                        for (var si = 0; si < tree.spePath.length; si++) {
+                            if (tree.spePath[si] === n) isOnSPE = true;
+                        }
+                    }
+
+                    if (node.terminal) {
+                        /* Terminal node: rectangle with payoffs */
+                        var tw = 60, th = 24;
+                        ctx.fillStyle = isOnSPE ? C.cellNE : C.cellBg;
+                        ctx.fillRect(node.x - tw / 2, node.y - th / 2, tw, th);
+                        ctx.strokeStyle = isOnSPE ? C.equilibrium : C.cellBorder;
+                        ctx.lineWidth = isOnSPE ? 2 : 1;
+                        ctx.strokeRect(node.x - tw / 2, node.y - th / 2, tw, th);
+
+                        ctx.fillStyle = C.payoff; ctx.font = '12px -apple-system, sans-serif';
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        ctx.fillText(node.label, node.x, node.y);
+                    } else {
+                        /* Decision node: circle */
+                        var nodeColor = node.player === 1 ? C.treeNode : C.treeNodeInc;
+                        if (isOnSPE) {
+                            ctx.beginPath(); ctx.arc(node.x, node.y, 22, 0, 2 * Math.PI);
+                            ctx.fillStyle = C.treePathGlow; ctx.fill();
+                        }
+                        ctx.beginPath(); ctx.arc(node.x, node.y, 16, 0, 2 * Math.PI);
+                        ctx.fillStyle = nodeColor; ctx.fill();
+                        ctx.strokeStyle = C.canvasBg; ctx.lineWidth = 2; ctx.stroke();
+
+                        ctx.fillStyle = '#ffffff'; ctx.font = 'bold 9px -apple-system, sans-serif';
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        var shortLabel = node.label.substring(0, 3);
+                        ctx.fillText(shortLabel, node.x, node.y);
+
+                        /* Full label above */
+                        ctx.fillStyle = nodeColor; ctx.font = '11px -apple-system, sans-serif';
+                        ctx.textBaseline = 'bottom';
+                        ctx.fillText(node.label, node.x, node.y - 20);
+                    }
+                }
+
+                /* Legend */
+                ctx.font = '11px -apple-system, sans-serif'; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillStyle = C.treeNode; ctx.fillText('● Player 1', w - 130, 10);
+                ctx.fillStyle = C.treeNodeInc; ctx.fillText('● Player 2', w - 130, 28);
+
+                info.innerHTML = solved ? '<strong>Backward induction:</strong> ' + tree.speText :
+                    '<strong>' + tree.name + '</strong> — Click "Solve by Backward Induction" to find the SPE.';
+            }
+
+            document.getElementById('btn-entry-game').addEventListener('click', function() {
+                currentTree = 'entry'; solved = false;
+                document.getElementById('btn-entry-game').classList.add('active-toggle');
+                document.getElementById('btn-ultimatum').classList.remove('active-toggle');
+                draw();
+            });
+            document.getElementById('btn-ultimatum').addEventListener('click', function() {
+                currentTree = 'ultimatum'; solved = false;
+                document.getElementById('btn-ultimatum').classList.add('active-toggle');
+                document.getElementById('btn-entry-game').classList.remove('active-toggle');
+                draw();
+            });
+            document.getElementById('btn-solve-bi').addEventListener('click', function() { solved = true; draw(); });
+
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════ */
+        /* GRAPH 4: Repeated PD — Discount Factor          */
+        /* ══════════════════════════════════════════════ */
+        (function() {
+            var slDelta = document.getElementById('slider-delta');
+            var vDelta = document.getElementById('val-delta');
+            var btnThresh = document.getElementById('btn-find-threshold');
+            var info = document.getElementById('info-repeated');
+
+            /* PD payoffs: R=3, T=5, P=1, S=0 */
+            var R = 3, T = 5, P = 1, S = 0;
+            var deltaThresh = (T - R) / (T - P); /* = 0.5 */
+
+            function draw() {
+                var res = getCtx('canvas-repeated');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+                var xMax = 1, yMax = 12;
+
+                /* Custom axes for delta */
+                ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+                var v, pt;
+                for (v = 0; v <= yMax; v += 2) {
+                    pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+                }
+                for (v = 0; v <= xMax; v += 0.1) {
+                    pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+                }
+                ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+                ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+
+                ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.fillText('Discount factor (δ)', ox + gw / 2, oy + gh + 38);
+                ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+                ctx.fillText('Present value of payoff stream', 0, 0); ctx.restore();
+
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                for (v = 0.2; v <= 1; v += 0.2) {
+                    pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText(v.toFixed(1), pt.x, oy + gh + 4);
+                }
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                for (v = 2; v <= yMax; v += 2) {
+                    pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillText(v, ox - 6, pt.y);
+                }
+
+                var delta = parseFloat(slDelta.value);
+                vDelta.textContent = delta.toFixed(2);
+
+                /* Cooperate payoff: R / (1 - delta) */
+                /* Defect payoff: T + delta * P / (1 - delta) */
+                /* Draw both as functions of delta */
+
+                /* Cooperation curve */
+                ctx.strokeStyle = C.cooperate; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                for (var d = 0; d < 0.99; d += 0.005) {
+                    var coopV = R / (1 - d);
+                    if (coopV > yMax * 1.5) continue;
+                    var pt2 = tp(d, coopV, ox, oy, gw, gh, xMax, yMax);
+                    if (d < 0.01) ctx.moveTo(pt2.x, pt2.y); else ctx.lineTo(pt2.x, pt2.y);
+                }
+                ctx.stroke();
+
+                /* Defection curve */
+                ctx.strokeStyle = C.defect; ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                for (var d2 = 0; d2 < 0.99; d2 += 0.005) {
+                    var defV = T + d2 * P / (1 - d2);
+                    if (defV > yMax * 1.5) continue;
+                    var pt3 = tp(d2, defV, ox, oy, gw, gh, xMax, yMax);
+                    if (d2 < 0.01) ctx.moveTo(pt3.x, pt3.y); else ctx.lineTo(pt3.x, pt3.y);
+                }
+                ctx.stroke();
+
+                /* Threshold line */
+                var thrPt = tp(deltaThresh, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.threshold; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                ctx.beginPath(); ctx.moveTo(thrPt.x, oy); ctx.lineTo(thrPt.x, oy + gh); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.threshold; ctx.font = '11px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('δ* = ' + deltaThresh.toFixed(2), thrPt.x, oy - 2);
+
+                /* Current delta marker */
+                var coopNow = delta < 0.999 ? R / (1 - delta) : R * 1000;
+                var defNow = delta < 0.999 ? T + delta * P / (1 - delta) : T + P * 1000;
+                if (coopNow <= yMax) {
+                    dot(ctx, delta, coopNow, ox, oy, gw, gh, xMax, yMax, C.cooperate, 5);
+                }
+                if (defNow <= yMax) {
+                    dot(ctx, delta, defNow, ox, oy, gw, gh, xMax, yMax, C.defect, 5);
+                }
+
+                /* Shade region where cooperation is sustainable */
+                ctx.fillStyle = C.coopFill;
+                ctx.beginPath();
+                var fillStarted = false;
+                for (var d3 = deltaThresh; d3 < 0.99; d3 += 0.005) {
+                    var cv = R / (1 - d3);
+                    var dv = T + d3 * P / (1 - d3);
+                    if (cv > yMax || dv > yMax) continue;
+                    var ptTop = tp(d3, cv, ox, oy, gw, gh, xMax, yMax);
+                    if (!fillStarted) { ctx.moveTo(ptTop.x, ptTop.y); fillStarted = true; }
+                    else ctx.lineTo(ptTop.x, ptTop.y);
+                }
+                for (var d4 = 0.985; d4 >= deltaThresh; d4 -= 0.005) {
+                    var dv2 = T + d4 * P / (1 - d4);
+                    if (dv2 > yMax) continue;
+                    var ptBot = tp(d4, dv2, ox, oy, gw, gh, xMax, yMax);
+                    ctx.lineTo(ptBot.x, ptBot.y);
+                }
+                ctx.closePath(); ctx.fill();
+
+                /* Labels */
+                ctx.font = 'bold 12px -apple-system, sans-serif';
+                ctx.fillStyle = C.cooperate; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                var coopLbl = tp(0.15, R / (1 - 0.15) + 0.5, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('Cooperate', coopLbl.x, coopLbl.y);
+                ctx.fillStyle = C.defect; ctx.textBaseline = 'top';
+                var defLbl = tp(0.15, T + 0.15 * P / (1 - 0.15) - 0.3, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText('Defect', defLbl.x, defLbl.y);
+
+                var sustainable = delta >= deltaThresh;
+                info.innerHTML =
+                    '<strong>δ = ' + delta.toFixed(2) + '</strong>' +
+                    ' &nbsp;|&nbsp; Cooperate PV = ' + (coopNow <= 999 ? coopNow.toFixed(1) : '∞') +
+                    ', Defect PV = ' + (defNow <= 999 ? defNow.toFixed(1) : '∞') +
+                    ' &nbsp;|&nbsp; Threshold δ* = ' + deltaThresh.toFixed(2) +
+                    '<br>' + (sustainable ?
+                    '✓ <strong>Cooperation is sustainable.</strong> The green region shows where cooperating dominates defecting.' :
+                    '✗ Cooperation is <strong>not</strong> sustainable. The temptation to defect outweighs future punishment.');
+            }
+
+            slDelta.addEventListener('input', draw);
+            btnThresh.addEventListener('click', function() { slDelta.value = deltaThresh; draw(); });
+
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ── Global redraw ── */
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>
