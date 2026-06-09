@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 11: Causal Inference &amp; Research Design | Statistics for Econometrics</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .chapter-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--color-border);
+        }
+        .chapter-nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc {
+            background: var(--color-background-alt);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        .code-number { color: #b5cea8; }
+        .output-block {
+            background: var(--color-background-alt);
+            border-left: 3px solid var(--color-primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            padding: 1rem 1.2rem;
+            margin: 0.5rem 0 1.5rem;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .notebook-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            align-items: center;
+        }
+        .notebook-actions span {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-light);
+        }
+        .notebook-actions a {
+            display: inline-block;
+            color: white;
+            background: var(--color-primary);
+            padding: 0.4rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            transition: background var(--transition-fast);
+        }
+        .notebook-actions a:hover { background: var(--color-primary-dark); }
+        .key-concept {
+            background: var(--color-primary-pale);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .key-concept h4 {
+            margin-top: 0;
+            color: var(--color-primary-dark);
+        }
+        .exercise {
+            background: var(--color-background-alt);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .exercise h4 {
+            margin-top: 0;
+            color: var(--color-section-intuition);
+        }
+        .ascii-diagram {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: var(--radius-md);
+            padding: 1.2rem 1.5rem;
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Statistics for Econometrics</h1>
+            </a>
+            <p class="site-subtitle">Module 11: Causal Inference &amp; Research Design</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Course Index</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#potential-outcomes">11.1 The Potential Outcomes Framework</a></li>
+                <li><a href="#diff-in-diff">11.2 Difference-in-Differences</a></li>
+                <li><a href="#parallel-trends">11.3 Parallel Trends &amp; Validity Tests</a></li>
+                <li><a href="#event-study">11.4 Event Study Design</a></li>
+                <li><a href="#rdd">11.5 Regression Discontinuity Design</a></li>
+                <li><a href="#workflow">11.6 Choosing a Research Design</a></li>
+                <li><a href="#exercises">Exercises</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <div class="notebook-actions">
+                <span>Run this module yourself:</span>
+                <a href="https://colab.research.google.com/github/cinoSar/cinosar.github.io/blob/main/statistics/downloads/11_causal_inference.ipynb" target="_blank">Open in Google Colab</a>
+                <a href="../downloads/11_causal_inference.ipynb" download>Download Notebook</a>
+            </div>
+
+            <div class="toc" id="toc">
+                <h3>In This Module</h3>
+                <ol>
+                    <li><a href="#potential-outcomes">The Potential Outcomes Framework</a></li>
+                    <li><a href="#diff-in-diff">Difference-in-Differences</a></li>
+                    <li><a href="#parallel-trends">Parallel Trends &amp; Validity Tests</a></li>
+                    <li><a href="#event-study">Event Study Design</a></li>
+                    <li><a href="#rdd">Regression Discontinuity Design</a></li>
+                    <li><a href="#workflow">Choosing a Research Design</a></li>
+                    <li><a href="#exercises">Exercises</a></li>
+                </ol>
+            </div>
+
+            <!-- ==================== 11.1 POTENTIAL OUTCOMES ==================== -->
+            <section id="potential-outcomes">
+                <h2>11.1 &mdash; The Potential Outcomes Framework</h2>
+
+                <p>Every method in this module is grounded in a single, powerful idea: the <strong>potential outcomes framework</strong>, also known as the Rubin Causal Model. It gives causal inference a rigorous mathematical language.</p>
+
+                <h3>The Fundamental Problem of Causal Inference</h3>
+
+                <p>For unit \(i\), define two potential outcomes:</p>
+
+                <ul>
+                    <li>\(Y_i(1)\): the outcome unit \(i\) would experience <em>if treated</em></li>
+                    <li>\(Y_i(0)\): the outcome unit \(i\) would experience <em>if not treated</em></li>
+                </ul>
+
+                <p>The <strong>individual treatment effect</strong> is:</p>
+
+                <p>\[\tau_i = Y_i(1) - Y_i(0)\]</p>
+
+                <p>This is the quantity we want. The problem: we only ever observe <em>one</em> potential outcome for each unit. A firm is either treated by a policy or it is not; a worker either participates in a training programme or they don't. We never observe the same unit in both states simultaneously. This is the <strong>fundamental problem of causal inference</strong>.</p>
+
+                <h3>From Individual to Average Effects</h3>
+
+                <p>Since \(\tau_i\) is unobservable, econometrics targets population averages:</p>
+
+                <p>\[\text{ATE} = \mathbb{E}[Y_i(1) - Y_i(0)]\]</p>
+
+                <p>This is the <strong>Average Treatment Effect</strong> (ATE): the average effect if we randomly assigned the entire population to treatment. Often, we care about a different estimand:</p>
+
+                <p>\[\text{ATT} = \mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1]\]</p>
+
+                <p>The <strong>Average Treatment Effect on the Treated</strong> (ATT): the average effect among those who actually received treatment. In policy evaluation, ATT is usually the quantity of interest — we want to know whether the policy worked <em>for the people it applied to</em>.</p>
+
+                <h3>Why Simple Comparisons Fail</h3>
+
+                <p>A naive estimator compares treated and untreated units:</p>
+
+                <p>\[\mathbb{E}[Y_i \mid D_i = 1] - \mathbb{E}[Y_i \mid D_i = 0]\]</p>
+
+                <p>Expand this:</p>
+
+                <p>\[\underbrace{\mathbb{E}[Y_i(1) - Y_i(0) \mid D_i = 1]}_{\text{ATT}} + \underbrace{\mathbb{E}[Y_i(0) \mid D_i = 1] - \mathbb{E}[Y_i(0) \mid D_i = 0]}_{\text{Selection bias}}\]</p>
+
+                <p>The second term is <strong>selection bias</strong>: treated units may differ from untreated units in ways that affect outcomes regardless of treatment. Workers who enrol in job training may already be more motivated. Firms that adopt a new technology may already be more productive. The entire challenge of causal inference is to eliminate selection bias.</p>
+
+                <h3>The Role of Research Design</h3>
+
+                <p>Randomised controlled trials (RCTs) eliminate selection bias by construction: if assignment is random, \(\mathbb{E}[Y_i(0) \mid D_i = 1] = \mathbb{E}[Y_i(0) \mid D_i = 0]\). But RCTs are expensive, often infeasible, and sometimes unethical. The methods in this module — DiD, RDD, event studies — are <strong>quasi-experimental designs</strong> that exploit features of naturally occurring data to approximate the logic of a randomised experiment.</p>
+
+                <div class="key-concept">
+                    <h4>Key Concept: The Credibility Revolution</h4>
+                    <p>Since the 1990s, empirical economics has undergone a "credibility revolution": a shift away from structural models and OLS regressions towards research designs that credibly identify causal effects. The tools in this module — DiD, RDD, event studies — are the workhorses of modern applied microeconometrics. Understanding them is essential for reading and producing credible empirical research.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 11.2 DIFFERENCE-IN-DIFFERENCES ==================== -->
+            <section id="diff-in-diff">
+                <h2>11.2 &mdash; Difference-in-Differences</h2>
+
+                <h3>The Intuition</h3>
+
+                <p>Suppose a new environmental regulation takes effect in Region A but not Region B. We want to know whether the policy reduced pollution. A naive before-after comparison for Region A is confounded by other things that changed over time (economic conditions, weather). A naive treated-vs-control comparison is confounded by the fact that the regions may differ in baseline pollution levels.</p>
+
+                <p><strong>Difference-in-Differences (DiD)</strong> solves both problems by taking two differences:</p>
+
+                <ol>
+                    <li><em>First difference:</em> within each region, the change in outcomes from before to after the policy.</li>
+                    <li><em>Second difference:</em> the difference between the treated region's change and the control region's change.</li>
+                </ol>
+
+                <p>The control region provides the <strong>counterfactual trend</strong>: what would have happened in the treated region absent the policy.</p>
+
+                <h3>The DiD Estimand</h3>
+
+                <p>With two periods (pre and post) and two groups (treated and control):</p>
+
+                <p>\[\hat{\tau}^{DiD} = (\bar{Y}_{T,\text{post}} - \bar{Y}_{T,\text{pre}}) - (\bar{Y}_{C,\text{post}} - \bar{Y}_{C,\text{pre}})\]</p>
+
+                <p>This can be rewritten as a 2×2 table:</p>
+
+<div class="ascii-diagram"><code>              Before    After    Difference
+Treated:       Y_T0      Y_T1    (Y_T1 - Y_T0)
+Control:       Y_C0      Y_C1    (Y_C1 - Y_C0)
+─────────────────────────────────────────────
+DiD:                             (Y_T1 - Y_T0) - (Y_C1 - Y_C0)</code></div>
+
+                <h3>DiD as a Regression</h3>
+
+                <p>With more than two periods or multiple units, DiD is estimated as a regression. Let \(D_i\) be a dummy equal to 1 for treated units, \(Post_t\) a dummy equal to 1 for the post-treatment period, and their interaction \(D_i \times Post_t\) the DiD term:</p>
+
+                <p>\[Y_{it} = \alpha + \beta_1 D_i + \beta_2 Post_t + \beta_3 (D_i \times Post_t) + \varepsilon_{it}\]</p>
+
+                <p>The coefficient \(\beta_3\) is the DiD estimator: the differential change in outcomes for treated units relative to control units after treatment.</p>
+
+                <p>Equivalently, in a panel with unit and time fixed effects (as in Module 10):</p>
+
+                <p>\[Y_{it} = \alpha_i + \lambda_t + \beta_3 (D_i \times Post_t) + \varepsilon_{it}\]</p>
+
+                <p>The unit effects \(\alpha_i\) absorb all time-invariant unit differences; the time effects \(\lambda_t\) absorb all common time trends. The interaction \(\beta_3\) identifies the causal effect.</p>
+
+                <h3>Simulating and Estimating DiD in Python</h3>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> statsmodels.formula.api <span class="code-keyword">as</span> smf
+
+np.random.<span class="code-function">seed</span>(<span class="code-number">42</span>)
+
+<span class="code-comment"># Simulate DiD data: 100 treated firms, 100 control firms, 4 periods</span>
+n_firms = <span class="code-number">200</span>
+n_periods = <span class="code-number">4</span>
+treatment_period = <span class="code-number">2</span>  <span class="code-comment"># treatment occurs between period 2 and 3</span>
+true_effect = <span class="code-number">5.0</span>
+
+firm_ids = np.<span class="code-function">repeat</span>(np.<span class="code-function">arange</span>(n_firms), n_periods)
+time_ids = np.<span class="code-function">tile</span>(np.<span class="code-function">arange</span>(n_periods), n_firms)
+treated = (firm_ids < <span class="code-number">100</span>).astype(<span class="code-function">int</span>)  <span class="code-comment"># first 100 firms are treated</span>
+post = (time_ids >= treatment_period).astype(<span class="code-function">int</span>)
+
+<span class="code-comment"># Firm fixed effects (unobserved heterogeneity)</span>
+firm_fe = np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">3</span>, n_firms)[firm_ids]
+
+<span class="code-comment"># Common time trend for all firms</span>
+time_trend = time_ids * <span class="code-number">2.0</span>
+
+<span class="code-comment"># Treatment effect kicks in after treatment_period for treated firms</span>
+treatment = true_effect * treated * post
+
+<span class="code-comment"># Outcome</span>
+Y = <span class="code-number">20</span> + firm_fe + time_trend + treatment + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">2</span>, n_firms * n_periods)
+
+df = pd.<span class="code-function">DataFrame</span>({
+    <span class="code-string">'firm_id'</span>: firm_ids,
+    <span class="code-string">'period'</span>: time_ids,
+    <span class="code-string">'treated'</span>: treated,
+    <span class="code-string">'post'</span>: post,
+    <span class="code-string">'Y'</span>: Y
+})
+df[<span class="code-string">'did_term'</span>] = df[<span class="code-string">'treated'</span>] * df[<span class="code-string">'post'</span>]
+
+<span class="code-comment"># Regression DiD with firm and time fixed effects</span>
+model = smf.<span class="code-function">ols</span>(
+    <span class="code-string">'Y ~ did_term + C(firm_id) + C(period)'</span>,
+    data=df
+).<span class="code-function">fit</span>(cov_type=<span class="code-string">'HC3'</span>)
+
+<span class="code-keyword">print</span>(<span class="code-string">f"True treatment effect:      {true_effect}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">f"DiD estimated effect:       {model.params['did_term']:.3f}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">f"95% CI: [{model.conf_int().loc['did_term', 0]:.3f}, {model.conf_int().loc['did_term', 1]:.3f}]"</span>)
+</code></div>
+
+                <div class="key-concept">
+                    <h4>Key Concept: DiD Is Two-Way Fixed Effects</h4>
+                    <p>In a panel setting, DiD with multiple periods and units is numerically identical to a two-way fixed effects regression with a treatment indicator. The unit fixed effects absorb time-invariant differences; the time fixed effects absorb common trends; the treatment interaction identifies the causal effect. Everything you learned in Module 10 about two-way FE directly applies here.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 11.3 PARALLEL TRENDS ==================== -->
+            <section id="parallel-trends">
+                <h2>11.3 &mdash; Parallel Trends &amp; Validity Tests</h2>
+
+                <h3>The Parallel Trends Assumption</h3>
+
+                <p>DiD requires a crucial identifying assumption: in the absence of treatment, treated and control units would have followed the same trend.</p>
+
+                <p>\[\mathbb{E}[Y_{it}(0) - Y_{it-1}(0) \mid D_i = 1] = \mathbb{E}[Y_{it}(0) - Y_{it-1}(0) \mid D_i = 0]\]</p>
+
+                <p>This is the <strong>parallel trends assumption</strong>. It does not require that treated and control units have the same levels — only that their <em>trends</em> would have been the same absent treatment.</p>
+
+                <p>Parallel trends cannot be directly tested for the post-treatment period (the counterfactual trend is unobserved). However, it can be assessed in the pre-treatment period, where we observe outcomes for both groups before any treatment occurs.</p>
+
+                <h3>Pre-Trend Test</h3>
+
+                <p>If treated and control units followed different trends <em>before</em> the treatment, it suggests they would also have diverged after treatment even without the intervention. This would invalidate the DiD estimate.</p>
+
+                <p>To test pre-trends formally, estimate a regression with period-by-treatment interactions for each pre-treatment period:</p>
+
+                <p>\[Y_{it} = \alpha_i + \lambda_t + \sum_{k \neq -1} \beta_k \cdot \mathbf{1}[t = t_0 + k] \cdot D_i + \varepsilon_{it}\]</p>
+
+                <p>where \(t_0\) is the treatment date and period \(-1\) (one period before treatment) is omitted as the normalisation. The \(\beta_k\) for \(k < 0\) are pre-treatment coefficients that should be close to zero if parallel trends holds. The \(\beta_k\) for \(k \geq 0\) trace out the post-treatment dynamic effects.</p>
+
+<div class="code-block"><code><span class="code-comment"># Pre-trend test: interact treatment with each period dummy</span>
+<span class="code-comment"># Period 1 is omitted (reference), as it is one period before treatment</span>
+
+df[<span class="code-string">'period_str'</span>] = <span class="code-string">'p'</span> + df[<span class="code-string">'period'</span>].<span class="code-function">astype</span>(<span class="code-function">str</span>)
+
+<span class="code-comment"># Fully interacted model (treatment x time dummies)</span>
+model_pretrend = smf.<span class="code-function">ols</span>(
+    <span class="code-string">'Y ~ treated:C(period, Treatment(reference=1)) + C(firm_id) + C(period)'</span>,
+    data=df
+).<span class="code-function">fit</span>(cov_type=<span class="code-string">'HC3'</span>)
+
+<span class="code-comment"># Extract the treatment x period interaction coefficients</span>
+interaction_params = {k: v <span class="code-keyword">for</span> k, v <span class="code-keyword">in</span> model_pretrend.params.<span class="code-function">items</span>()
+                      <span class="code-keyword">if</span> <span class="code-string">'treated'</span> <span class="code-keyword">in</span> k <span class="code-keyword">and</span> <span class="code-string">'period'</span> <span class="code-keyword">in</span> k}
+
+<span class="code-keyword">print</span>(<span class="code-string">"Treatment x Period interactions:"</span>)
+<span class="code-keyword">for</span> k, v <span class="code-keyword">in</span> <span class="code-function">sorted</span>(interaction_params.<span class="code-function">items</span>()):
+    <span class="code-keyword">print</span>(<span class="code-string">f"  {k}: {v:.3f}"</span>)
+
+<span class="code-comment"># Periods 0 should be near zero (pre-treatment periods = no effect)</span>
+<span class="code-comment"># Periods 2 and 3 should be positive and significant (treatment effect)</span>
+</code></div>
+
+                <p>Pre-treatment coefficients near zero provide visual and statistical evidence that the parallel trends assumption is plausible. If pre-trends are non-zero and statistically significant, DiD is suspect.</p>
+
+                <h3>Other Validity Concerns</h3>
+
+                <p><strong>Spillovers:</strong> If the treatment affects control units (e.g., a regional policy causes firms to relocate), the control group is contaminated and DiD over- or under-states the effect.</p>
+
+                <p><strong>Anticipation effects:</strong> If treated units change behaviour before the official treatment date in anticipation of the policy, the estimated pre-trend may falsely show pre-existing divergence.</p>
+
+                <p><strong>Compositional changes:</strong> If the composition of treated or control groups changes after treatment (e.g., some firms exit the market), comparisons become unreliable. Address this with a balanced panel or survival analysis.</p>
+
+                <p><strong>Heterogeneous treatment timing (staggered DiD):</strong> If different units are treated at different times, the simple two-way FE DiD estimator can be misleading when treatment effects are heterogeneous. Recent literature (Callaway &amp; Sant'Anna 2021; de Chaisemartin &amp; D'Haultfœuille 2020) proposes robust alternatives. This is an active frontier in applied econometrics.</p>
+
+                <div class="key-concept">
+                    <h4>Key Concept: Parallel Trends Is Untestable Post-Treatment</h4>
+                    <p>Parallel trends is an identifying assumption — it cannot be proven, only made more or less plausible. Pre-trend tests in the pre-treatment period are the main tool for assessing its credibility. If treated and control units show different trends before treatment, DiD is not credible. If they show parallel pre-trends, it is suggestive but not conclusive. Strong research designs choose comparison groups with credibly parallel trends on theoretical grounds, not just empirically.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 11.4 EVENT STUDY ==================== -->
+            <section id="event-study">
+                <h2>11.4 &mdash; Event Study Design</h2>
+
+                <h3>What Is an Event Study?</h3>
+
+                <p>An <strong>event study</strong> is the dynamic version of DiD. Rather than estimating a single average post-treatment effect, it traces out how the effect evolves over time: how quickly does it materialise? Does it fade, grow, or remain constant? Are there pre-treatment anticipation effects?</p>
+
+                <p>Event studies are both a research design and a validity check. Plotting coefficients for pre-treatment and post-treatment periods on the same graph provides:</p>
+
+                <ul>
+                    <li>A visual pre-trend test (pre-treatment coefficients should be near zero).</li>
+                    <li>An estimate of the dynamic treatment path (post-treatment coefficients reveal the time profile of effects).</li>
+                </ul>
+
+                <h3>The Event Study Regression</h3>
+
+                <p>Let \(k\) be periods relative to the treatment date (negative = pre-treatment, zero = treatment period, positive = post-treatment). Omit \(k = -1\) as the reference period:</p>
+
+                <p>\[Y_{it} = \alpha_i + \lambda_t + \sum_{k=-K, k \neq -1}^{L} \beta_k \cdot \mathbf{1}[\text{Period}_{it} = k] \cdot D_i + \varepsilon_{it}\]</p>
+
+                <p>The \(\beta_k\) coefficients trace the treatment effect at each period relative to the event. Plotting these with confidence intervals is the <strong>event study plot</strong>.</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+
+<span class="code-comment"># Create relative time variable (time since treatment)</span>
+<span class="code-comment"># Treatment occurs at period 2; reference period = 1 (k = -1 relative to treatment)</span>
+df[<span class="code-string">'rel_time'</span>] = df[<span class="code-string">'period'</span>] - treatment_period  <span class="code-comment"># k = -2, -1, 0, +1</span>
+
+<span class="code-comment"># Interact treatment with each relative-time dummy, omitting k=-1</span>
+event_formula = <span class="code-string">'Y ~ '</span>
+interactions = []
+<span class="code-keyword">for</span> k <span class="code-keyword">in</span> <span class="code-function">sorted</span>(df[<span class="code-string">'rel_time'</span>].<span class="code-function">unique</span>()):
+    <span class="code-keyword">if</span> k == -<span class="code-number">1</span>:
+        <span class="code-keyword">continue</span>  <span class="code-comment"># reference period</span>
+    varname = <span class="code-string">f'rel_time_{k}'</span>.<span class="code-function">replace</span>(<span class="code-string">'-'</span>, <span class="code-string">'neg'</span>)
+    df[varname] = ((df[<span class="code-string">'rel_time'</span>] == k) & (df[<span class="code-string">'treated'</span>] == <span class="code-number">1</span>)).astype(<span class="code-function">int</span>)
+    interactions.<span class="code-function">append</span>(varname)
+
+event_formula = <span class="code-string">'Y ~ '</span> + <span class="code-string">' + '</span>.<span class="code-function">join</span>(interactions) + <span class="code-string">' + C(firm_id) + C(period)'</span>
+model_es = smf.<span class="code-function">ols</span>(event_formula, data=df).<span class="code-function">fit</span>(cov_type=<span class="code-string">'HC3'</span>)
+
+<span class="code-comment"># Extract coefficients and confidence intervals</span>
+coef_names = interactions
+coefs = [model_es.params[v] <span class="code-keyword">for</span> v <span class="code-keyword">in</span> coef_names]
+ci_low = [model_es.conf_int().loc[v, <span class="code-number">0</span>] <span class="code-keyword">for</span> v <span class="code-keyword">in</span> coef_names]
+ci_high = [model_es.conf_int().loc[v, <span class="code-number">1</span>] <span class="code-keyword">for</span> v <span class="code-keyword">in</span> coef_names]
+
+<span class="code-comment"># Reconstruct relative time axis (insert 0 for reference period)</span>
+rel_times_plot = [-<span class="code-number">2</span>, <span class="code-number">0</span>, <span class="code-number">1</span>]  <span class="code-comment"># k = -2, 0, +1 (k=-1 omitted, forced to 0)</span>
+coefs_plot = coefs[:<span class="code-number">1</span>] + [<span class="code-number">0</span>] + coefs[<span class="code-number">1</span>:]
+ci_low_plot = ci_low[:<span class="code-number">1</span>] + [<span class="code-number">0</span>] + ci_low[<span class="code-number">1</span>:]
+ci_high_plot = ci_high[:<span class="code-number">1</span>] + [<span class="code-number">0</span>] + ci_high[<span class="code-number">1</span>:]
+
+<span class="code-comment"># Plot event study</span>
+fig, ax = plt.<span class="code-function">subplots</span>(figsize=(<span class="code-number">8</span>, <span class="code-number">4</span>))
+ax.<span class="code-function">axhline</span>(<span class="code-number">0</span>, color=<span class="code-string">'grey'</span>, linestyle=<span class="code-string">'--'</span>, linewidth=<span class="code-number">1</span>)
+ax.<span class="code-function">axvline</span>(-<span class="code-number">0.5</span>, color=<span class="code-string">'black'</span>, linestyle=<span class="code-string">':'</span>, linewidth=<span class="code-number">1</span>, label=<span class="code-string">'Treatment onset'</span>)
+ax.<span class="code-function">errorbar</span>(
+    rel_times_plot, coefs_plot,
+    yerr=[np.<span class="code-function">array</span>(coefs_plot) - np.<span class="code-function">array</span>(ci_low_plot),
+          np.<span class="code-function">array</span>(ci_high_plot) - np.<span class="code-function">array</span>(coefs_plot)],
+    fmt=<span class="code-string">'o'</span>, capsize=<span class="code-number">4</span>, color=<span class="code-string">'steelblue'</span>, linewidth=<span class="code-number">2</span>
+)
+ax.<span class="code-function">set_xlabel</span>(<span class="code-string">'Period Relative to Treatment'</span>)
+ax.<span class="code-function">set_ylabel</span>(<span class="code-string">'Treatment Effect Estimate'</span>)
+ax.<span class="code-function">set_title</span>(<span class="code-string">'Event Study Plot'</span>)
+ax.<span class="code-function">legend</span>()
+plt.<span class="code-function">tight_layout</span>()
+plt.<span class="code-function">show</span>()
+<span class="code-keyword">print</span>(<span class="code-string">"Pre-treatment coefficients should be near zero (test of parallel trends)"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">"Post-treatment coefficients show the dynamic treatment effect"</span>)
+</code></div>
+
+                <p>A well-executed event study plot has: coefficients near zero and statistically indistinguishable from zero for pre-treatment periods; a visible jump at or after the treatment date; and stable or growing post-treatment coefficients depending on the policy.</p>
+
+                <div class="key-concept">
+                    <h4>Key Concept: Event Study Plots Are Now Expected</h4>
+                    <p>In modern applied economics, simply reporting a DiD coefficient is no longer sufficient. Reviewers and readers expect an event study plot that shows the full dynamic pattern and demonstrates pre-trend plausibility. If you submit a DiD paper without an event study plot, expect a referee request for one. Build it into your workflow from the start.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 11.5 REGRESSION DISCONTINUITY ==================== -->
+            <section id="rdd">
+                <h2>11.5 &mdash; Regression Discontinuity Design</h2>
+
+                <h3>The Core Idea</h3>
+
+                <p>Many real-world policies assign treatment based on a <strong>threshold rule</strong>: students above a test score threshold receive a scholarship; municipalities above a population cutoff receive extra funding; firms below a size threshold are exempt from a regulation.</p>
+
+                <p><strong>Regression Discontinuity Design (RDD)</strong> exploits these threshold rules. Units just below the threshold are almost identical to units just above it — they differ mainly by chance — yet one group receives treatment and the other does not. This local randomness provides causal identification.</p>
+
+                <h3>The Sharp RDD Setup</h3>
+
+                <p>Let \(X_i\) be the <strong>running variable</strong> (also called the forcing variable) — the variable that determines treatment. Let \(c\) be the threshold. Treatment is assigned as:</p>
+
+                <p>\[D_i = \mathbf{1}[X_i \geq c]\]</p>
+
+                <p>The key assumption: units just below and just above \(c\) are comparable in all relevant characteristics, so any discontinuity in the outcome at \(c\) is caused by the treatment.</p>
+
+                <p>The RDD estimator is:</p>
+
+                <p>\[\hat{\tau}^{RDD} = \lim_{x \downarrow c} \mathbb{E}[Y_i \mid X_i = x] - \lim_{x \uparrow c} \mathbb{E}[Y_i \mid X_i = x]\]</p>
+
+                <p>This is the discontinuous jump in the conditional expectation of outcomes at the cutoff — estimated by fitting regressions on each side of the threshold.</p>
+
+                <h3>Estimating RDD with Local Linear Regression</h3>
+
+                <p>The modern approach: fit a separate local linear regression on each side of the cutoff, using only observations within a bandwidth \(h\) around the cutoff. Observations closer to the cutoff receive higher weights via a kernel function.</p>
+
+<div class="code-block"><code><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> statsmodels.api <span class="code-keyword">as</span> sm
+<span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
+
+np.random.<span class="code-function">seed</span>(<span class="code-number">99</span>)
+
+<span class="code-comment"># Simulate RDD data</span>
+<span class="code-comment"># Running variable: test score centred at threshold (0)</span>
+<span class="code-comment"># True treatment effect: 8 points</span>
+n = <span class="code-number">500</span>
+X = np.random.<span class="code-function">uniform</span>(-<span class="code-number">1</span>, <span class="code-number">1</span>, n)
+D = (X >= <span class="code-number">0</span>).astype(<span class="code-function">int</span>)
+true_effect = <span class="code-number">8</span>
+
+<span class="code-comment"># Outcome: smooth function of X plus jump at threshold</span>
+Y = <span class="code-number">50</span> + <span class="code-number">5</span> * X + true_effect * D + np.random.<span class="code-function">normal</span>(<span class="code-number">0</span>, <span class="code-number">3</span>, n)
+
+df_rdd = pd.<span class="code-function">DataFrame</span>({<span class="code-string">'X'</span>: X, <span class="code-string">'D'</span>: D, <span class="code-string">'Y'</span>: Y})
+
+<span class="code-comment"># Estimate RDD: local linear regression within bandwidth</span>
+bandwidth = <span class="code-number">0.3</span>
+df_bw = df_rdd[np.<span class="code-function">abs</span>(df_rdd[<span class="code-string">'X'</span>]) <= bandwidth].<span class="code-function">copy</span>()
+
+<span class="code-comment"># Allow different slopes on each side (interact X with D)</span>
+df_bw[<span class="code-string">'X_center'</span>] = df_bw[<span class="code-string">'X'</span>]
+df_bw[<span class="code-string">'X_D'</span>] = df_bw[<span class="code-string">'X_center'</span>] * df_bw[<span class="code-string">'D'</span>]
+X_mat = sm.<span class="code-function">add_constant</span>(df_bw[[<span class="code-string">'D'</span>, <span class="code-string">'X_center'</span>, <span class="code-string">'X_D'</span>]])
+model_rdd = sm.OLS(df_bw[<span class="code-string">'Y'</span>], X_mat).<span class="code-function">fit</span>()
+
+<span class="code-keyword">print</span>(<span class="code-string">f"True treatment effect:   {true_effect}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">f"RDD estimated effect:    {model_rdd.params['D']:.3f}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">f"Standard error:          {model_rdd.bse['D']:.3f}"</span>)
+<span class="code-keyword">print</span>(<span class="code-string">f"95% CI: [{model_rdd.conf_int().loc['D', 0]:.3f}, {model_rdd.conf_int().loc['D', 1]:.3f}]"</span>)
+
+<span class="code-comment"># Visualise the discontinuity</span>
+fig, ax = plt.<span class="code-function">subplots</span>(figsize=(<span class="code-number">8</span>, <span class="code-number">4</span>))
+<span class="code-keyword">for</span> side, color, label <span class="code-keyword">in</span> [(<span class="code-number">0</span>, <span class="code-string">'steelblue'</span>, <span class="code-string">'Control (X < 0)'</span>), (<span class="code-number">1</span>, <span class="code-string">'tomato'</span>, <span class="code-string">'Treated (X ≥ 0)'</span>)]:
+    sub = df_rdd[df_rdd[<span class="code-string">'D'</span>] == side]
+    ax.<span class="code-function">scatter</span>(sub[<span class="code-string">'X'</span>], sub[<span class="code-string">'Y'</span>], alpha=<span class="code-number">0.3</span>, s=<span class="code-number">10</span>, color=color, label=label)
+ax.<span class="code-function">axvline</span>(<span class="code-number">0</span>, color=<span class="code-string">'black'</span>, linestyle=<span class="code-string">'--'</span>, linewidth=<span class="code-number">1</span>, label=<span class="code-string">'Cutoff'</span>)
+ax.<span class="code-function">set_xlabel</span>(<span class="code-string">'Running Variable (X)'</span>)
+ax.<span class="code-function">set_ylabel</span>(<span class="code-string">'Outcome (Y)'</span>)
+ax.<span class="code-function">set_title</span>(<span class="code-string">'Regression Discontinuity Design'</span>)
+ax.<span class="code-function">legend</span>()
+plt.<span class="code-function">tight_layout</span>()
+plt.<span class="code-function">show</span>()
+</code></div>
+
+                <h3>Identifying Assumptions and Validity Checks</h3>
+
+                <p><strong>No manipulation of the running variable:</strong> Units must not be able to sort themselves to just above (or below) the threshold. If firms can choose their reported size to qualify for an exemption, or students can appeal to shift their test score just above the cutoff, the local randomisation argument fails. The <strong>McCrary density test</strong> checks for a discontinuity in the density of the running variable at the threshold — a discontinuity suggests manipulation.</p>
+
+                <p><strong>No other discontinuities at the cutoff:</strong> If other policies or variables also change at the same threshold, the RDD estimate conflates multiple effects. Check whether covariates are smooth at the cutoff (run the same regression using pre-determined covariates as the outcome — their coefficients should be near zero).</p>
+
+                <p><strong>Bandwidth selection:</strong> The bandwidth \(h\) determines the sample used for estimation. A smaller bandwidth gives observations more similar to each other (less bias) but fewer observations (more variance). The <strong>optimal bandwidth</strong> is chosen to minimise mean squared error; the <code>rdrobust</code> package (available in R and Python) implements data-driven bandwidth selection.</p>
+
+                <h3>Local Average Treatment Effect</h3>
+
+                <p>RDD identifies the treatment effect only for units near the threshold — the <strong>Local Average Treatment Effect (LATE)</strong> at the cutoff. This may not generalise to units far from the threshold. Whether this is a limitation depends on the research question: if we care about whether a scholarship programme works for marginal applicants (those near the cutoff), LATE is exactly what we want.</p>
+
+                <div class="key-concept">
+                    <h4>Key Concept: RDD Has High Internal but Limited External Validity</h4>
+                    <p>RDD produces highly credible causal estimates for units near the threshold, because local randomisation is close to actual randomisation. This is strong internal validity. But the estimate applies only to units near the threshold, limiting external validity — you cannot readily extrapolate to the full population. This is the fundamental trade-off of all quasi-experimental designs: the more credible the identification, the more local the estimate.</p>
+                </div>
+
+            </section>
+
+            <!-- ==================== 11.6 CHOOSING A RESEARCH DESIGN ==================== -->
+            <section id="workflow">
+                <h2>11.6 &mdash; Choosing a Research Design</h2>
+
+                <h3>The Hierarchy of Evidence</h3>
+
+                <p>Not all research designs are equally credible. The closer a design comes to randomised assignment, the more credibly it identifies causal effects. In practice, the right design depends on what variation is available in the data.</p>
+
+<div class="ascii-diagram"><code>Most credible  ──────────────────────────────────  Least credible
+
+RCT          Quasi-experiments             OLS with controls
+  │          (DiD, RDD, IV)                       │
+  │                │                              │
+Random         Exploit natural               Hope covariates
+assignment     experiments,                  control for all
+               policy rules                  confounders</code></div>
+
+                <h3>Matching the Design to the Data</h3>
+
+                <p><strong>You have a policy that affected some units but not others, with data before and after:</strong> Use DiD. Assess parallel trends in the pre-period. Plot event study coefficients.</p>
+
+                <p><strong>You have a threshold rule that determines treatment (test score, income cutoff, firm size):</strong> Use RDD. Check for manipulation (McCrary test). Verify covariate continuity at the cutoff. Use local linear regression with optimal bandwidth.</p>
+
+                <p><strong>You have an exogenous variable that affects treatment but not outcomes directly:</strong> Use instrumental variables (Module 09). Verify relevance and argue for exclusion restriction.</p>
+
+                <p><strong>You have panel data with time-varying treatment and no natural experiment:</strong> Use two-way fixed effects (Module 10). Acknowledge that time-varying confounders remain a threat.</p>
+
+                <p><strong>You have a cross-section and a natural experiment is unavailable:</strong> Use observational regression with controls, but be honest about its limitations. Consider matching or propensity score methods to make treated and control groups more comparable.</p>
+
+                <h3>Reporting Standards</h3>
+
+                <p>A complete causal analysis should always include:</p>
+
+                <ol>
+                    <li><strong>A clear statement of the identifying assumption</strong> — what must be true for the estimate to be causal?</li>
+                    <li><strong>A visual check</strong> — event study plot for DiD, discontinuity plot for RDD, first stage for IV.</li>
+                    <li><strong>Robustness checks</strong> — alternative bandwidths (RDD), alternative control groups (DiD), alternative specifications.</li>
+                    <li><strong>Discussion of threats</strong> — what violations of the identifying assumption are most plausible, and how serious are they?</li>
+                </ol>
+
+<div class="code-block"><code><span class="code-comment"># Summary: Causal toolkit at a glance</span>
+toolkit = {
+    <span class="code-string">'Randomised Experiment'</span>: {
+        <span class="code-string">'identifying_variation'</span>: <span class="code-string">'Randomised assignment'</span>,
+        <span class="code-string">'key_assumption'</span>: <span class="code-string">'Randomisation was valid'</span>,
+        <span class="code-string">'estimate'</span>: <span class="code-string">'ATE'</span>,
+        <span class="code-string">'module'</span>: <span class="code-string">'—'</span>
+    },
+    <span class="code-string">'DiD'</span>: {
+        <span class="code-string">'identifying_variation'</span>: <span class="code-string">'Policy affects some units, not others'</span>,
+        <span class="code-string">'key_assumption'</span>: <span class="code-string">'Parallel trends'</span>,
+        <span class="code-string">'estimate'</span>: <span class="code-string">'ATT'</span>,
+        <span class="code-string">'module'</span>: <span class="code-string">'11.2'</span>
+    },
+    <span class="code-string">'RDD'</span>: {
+        <span class="code-string">'identifying_variation'</span>: <span class="code-string">'Threshold rule for treatment'</span>,
+        <span class="code-string">'key_assumption'</span>: <span class="code-string">'No manipulation of running variable'</span>,
+        <span class="code-string">'estimate'</span>: <span class="code-string">'LATE at cutoff'</span>,
+        <span class="code-string">'module'</span>: <span class="code-string">'11.5'</span>
+    },
+    <span class="code-string">'IV'</span>: {
+        <span class="code-string">'identifying_variation'</span>: <span class="code-string">'Exogenous instrument'</span>,
+        <span class="code-string">'key_assumption'</span>: <span class="code-string">'Exclusion restriction + relevance'</span>,
+        <span class="code-string">'estimate'</span>: <span class="code-string">'LATE (compliers)'</span>,
+        <span class="code-string">'module'</span>: <span class="code-string">'09'</span>
+    },
+    <span class="code-string">'Panel FE'</span>: {
+        <span class="code-string">'identifying_variation'</span>: <span class="code-string">'Within-unit over-time variation'</span>,
+        <span class="code-string">'key_assumption'</span>: <span class="code-string">'No time-varying confounders'</span>,
+        <span class="code-string">'estimate'</span>: <span class="code-string">'Average FE estimate'</span>,
+        <span class="code-string">'module'</span>: <span class="code-string">'10'</span>
+    }
+}
+
+<span class="code-keyword">for</span> method, info <span class="code-keyword">in</span> toolkit.<span class="code-function">items</span>():
+    <span class="code-keyword">print</span>(<span class="code-string">f"  {method}: {info['key_assumption']} → {info['estimate']}"</span>)
+</code></div>
+
+            </section>
+
+            <!-- ==================== EXERCISES ==================== -->
+            <section id="exercises">
+                <h2>Exercises</h2>
+
+                <div class="exercise">
+                    <h4>Exercise 11.1: The Fundamental Problem</h4>
+                    <p>A researcher wants to estimate the effect of a job training programme on wages. Define the potential outcomes \(Y_i(1)\) and \(Y_i(0)\) in this context. Explain why simple comparison of wages between participants and non-participants is likely to be biased. What kind of selection bias would you expect, and in which direction?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 11.2: Difference-in-Differences</h4>
+                    <p>A minimum wage increase is enacted in Region A but not Region B in 2023. You observe employment rates in both regions in 2022 and 2024. The following data are available:</p>
+                    <ul>
+                        <li>Region A, 2022: employment rate = 0.72</li>
+                        <li>Region A, 2024: employment rate = 0.68</li>
+                        <li>Region B, 2022: employment rate = 0.71</li>
+                        <li>Region B, 2024: employment rate = 0.70</li>
+                    </ul>
+                    <ol>
+                        <li>Calculate the DiD estimate of the effect of the minimum wage increase on employment.</li>
+                        <li>What does the parallel trends assumption require in this context? Is it plausible?</li>
+                        <li>Suppose you later learn that Region A also experienced a factory closure in 2023 unrelated to the minimum wage. How does this affect the DiD estimate?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 11.3: Pre-Trend Test</h4>
+                    <p>Using the simulated DiD dataset from Section 11.2 (or your own data), extend the dataset to include two additional pre-treatment periods. Estimate an event study regression and plot the event study coefficients. Then artificially introduce a pre-trend by adding a differential time trend for treated firms in the pre-period. Re-estimate the event study and discuss how the plot changes. What would a referee infer from each plot?</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 11.4: Regression Discontinuity</h4>
+                    <p>A government programme offers business grants to firms with fewer than 50 employees. Using the simulated RDD data from Section 11.5 (or a dataset of your choice):</p>
+                    <ol>
+                        <li>Plot the outcome against the running variable on both sides of the cutoff. Is there a visible discontinuity?</li>
+                        <li>Estimate the RDD effect using local linear regression with a bandwidth of your choice. How does the estimate change as you vary the bandwidth?</li>
+                        <li>Run the same RDD specification using a pre-determined covariate (rather than the outcome) as the dependent variable. What should you find, and why?</li>
+                    </ol>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercise 11.5: Design Choice</h4>
+                    <p>For each of the following research questions, identify the most appropriate causal design from the toolkit (DiD, RDD, IV, Panel FE), justify your choice, and name the key identifying assumption you would need to defend:</p>
+                    <ol>
+                        <li>Does school quality affect adult wages? (You have data on individuals, the school they attended, and the government's school quality ranking based on test score thresholds.)</li>
+                        <li>Does immigration increase unemployment among native workers? (You have country-level panel data on immigration flows and native unemployment over 20 years.)</li>
+                        <li>Does a city-wide cycling infrastructure investment reduce car use? (The investment was rolled out in treated cities in 2021; you have monthly transport data for treated and untreated cities from 2018 to 2024.)</li>
+                    </ol>
+                </div>
+
+            </section>
+
+            <!-- ==================== KEY TAKEAWAYS ==================== -->
+            <section>
+                <h2>Key Takeaways</h2>
+                <ul>
+                    <li><strong>The potential outcomes framework defines causal effects rigorously.</strong> The individual treatment effect \(\tau_i = Y_i(1) - Y_i(0)\) is unobservable; we target population averages (ATE, ATT) using research designs that credibly eliminate selection bias.</li>
+                    <li><strong>DiD exploits before-after variation in treated and control groups.</strong> It differences out both time-invariant unit differences and common time trends, identifying the causal effect under the parallel trends assumption.</li>
+                    <li><strong>Parallel trends is the key DiD assumption.</strong> It cannot be directly tested post-treatment, but pre-trend tests provide evidence of its plausibility. Always plot event study coefficients showing the full dynamic treatment path.</li>
+                    <li><strong>Event studies are the modern standard for DiD analysis.</strong> They visualise pre-trends (validity check) and post-treatment dynamics simultaneously. A good event study plot is expected in any serious DiD paper.</li>
+                    <li><strong>RDD exploits threshold rules for treatment assignment.</strong> Units near the cutoff are locally comparable; the jump in outcomes at the threshold identifies the causal effect. Key validity checks are the McCrary density test (no manipulation) and covariate continuity.</li>
+                    <li><strong>RDD estimates are local.</strong> The estimate applies only to units near the threshold (LATE at cutoff). This is high internal validity but limited external validity.</li>
+                    <li><strong>Design choice depends on what variation is available.</strong> Match the research design to the natural experiment at hand — DiD for policy roll-outs, RDD for threshold rules, IV for exogenous instruments, Panel FE for time-varying within-unit variation.</li>
+                    <li><strong>Always state, test, and discuss your identifying assumption.</strong> The credibility of a causal estimate rests entirely on the credibility of its identifying assumption. A careful researcher makes this explicit, tests it where possible, and honestly discusses threats.</li>
+                </ul>
+            </section>
+
+            <!-- ==================== BOTTOM NAVIGATION ==================== -->
+            <div class="chapter-nav">
+                <a href="ch10-panel-data.html">&larr; Module 10: Panel Data Methods</a>
+                <a href="../index.html">Course Index &rarr;</a>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Andrea Sarcina &middot; University of Padua &middot; Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" style="color:inherit;text-decoration:underline;">CC BY 4.0</a></p>
+    </footer>
+</body>
+</html>
