@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 18: Externalities and Public Goods | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph { background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); }
+        .interactive-graph canvas { display: block; margin: 0 auto; cursor: crosshair; max-width: 100%; }
+        .graph-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-border-light); align-items: center; }
+        .graph-controls label { font-size: var(--font-size-sm); color: var(--color-text-light); display: flex; align-items: center; gap: 0.5rem; }
+        .graph-controls input[type="range"] { width: 140px; accent-color: var(--color-primary); }
+        .graph-controls .value-display { font-weight: var(--font-weight-semibold); color: var(--color-primary-dark); min-width: 3em; }
+        .graph-controls button { background: var(--color-primary); color: white; border: none; padding: 0.4rem 1rem; border-radius: var(--radius-sm); cursor: pointer; font-size: var(--font-size-sm); transition: background var(--transition-fast); }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle { background: var(--color-primary-dark); box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        .graph-info { margin-top: 0.75rem; padding: 0.75rem; background: var(--color-primary-pale); border-radius: var(--radius-sm); font-size: var(--font-size-sm); color: var(--color-text); }
+        .graph-caption { text-align: center; font-size: var(--font-size-sm); color: var(--color-text-light); margin-top: 0.5rem; font-style: italic; }
+        .chapter-nav { display: flex; justify-content: space-between; margin: 2rem 0; padding: 1rem 0; border-top: 1px solid var(--color-border); }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc { background: var(--color-background-alt); border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0; }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 18: Externalities and Public Goods</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 18</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#externalities">18.1 Externalities</a></li>
+                <li><a href="#taxes-subsidies">18.2 Taxes and Subsidies</a></li>
+                <li><a href="#coase">18.3 The Coase Theorem</a></li>
+                <li><a href="#public-goods">18.4 Public Goods</a></li>
+                <li><a href="#formal-derivations">18.5 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: Who Pays for London&rsquo;s Pollution?</h2>
+                <p>In 2019, London introduced the Ultra Low Emission Zone (ULEZ), charging the most polluting vehicles &pound;12.50 per day to enter a zone covering most of inner London. By 2023 the zone had expanded to cover all 32 London boroughs. The aim was simple: make drivers bear the full cost of the pollution their vehicles create &mdash; not just the cost of petrol and wear and tear, but the damage inflicted on the lungs of the 9 million people who live, work, and breathe in the capital.</p>
+
+                <p>Why is a charge necessary at all? If driving creates costs for others, why don&rsquo;t markets fix this automatically? The answer is that pollution is an <strong>externality</strong>: a cost (or benefit) that falls on parties outside the market transaction. The driver pays for fuel; the NHS pays to treat asthma patients. The market price of a journey captures only the private cost, not the social cost. This wedge between private and social incentives is the fundamental source of market failure in the presence of externalities.</p>
+
+                <p>A related failure arises with <strong>public goods</strong>: goods that are non-rival (one person&rsquo;s consumption does not reduce availability to others) and non-excludable (it is impossible or prohibitively costly to prevent non-payers from benefiting). Clean air in London is both &mdash; reducing one person&rsquo;s exposure to particulates does not reduce another&rsquo;s, and the air cannot be fenced off to paying subscribers. Markets systematically underprovide such goods, because private providers cannot recover their costs from free-riders.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>Markets are efficient only when the prices faced by buyers and sellers reflect all costs and benefits. <strong>Negative externalities</strong> (like pollution) cause overproduction because producers ignore external costs; <strong>positive externalities</strong> (like vaccinations) cause underproduction because producers ignore external benefits. Corrective policy &mdash; Pigovian taxes and subsidies, regulation, or Coasian bargaining &mdash; can restore efficiency by aligning private and social incentives.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to identify negative and positive externalities and show their welfare effects using supply and demand diagrams, derive the optimal Pigovian tax or subsidy, explain the Coase theorem and its limitations, define public goods and explain the free-rider problem, use vertical summation to find the socially optimal provision of a public good, and state the Samuelson condition for public goods.</p>
+            </section>
+
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#externalities">Externalities</a> &mdash; private vs social cost, deadweight loss</li>
+                    <li><a href="#taxes-subsidies">Taxes and Subsidies</a> &mdash; Pigovian correction</li>
+                    <li><a href="#coase">The Coase Theorem</a> &mdash; bargaining, property rights, transaction costs</li>
+                    <li><a href="#public-goods">Public Goods</a> &mdash; free-rider problem, vertical summation</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; Samuelson condition, Lindahl pricing, optimal Pigovian tax</li>
+                </ol>
+            </div>
+
+
+            <!-- ============================================ -->
+            <!-- 18.1 EXTERNALITIES                            -->
+            <!-- ============================================ -->
+            <section id="externalities" class="lesson-section section-geometric">
+                <h2>18.1 Externalities</h2>
+
+                <h3>Intuition: Private vs Social Cost</h3>
+                <p>A steel mill that dumps waste into a river imposes costs on downstream fishermen, swimmers, and water companies that it does not pay for. These are <strong>external costs</strong>: costs borne by third parties who are not party to the market transaction. The firm&rsquo;s private marginal cost (PMC) &mdash; the cost of producing one more tonne of steel &mdash; does not include this damage. The <strong>social marginal cost</strong> (SMC) is the sum of private cost and the <strong>marginal external cost</strong> (MEC):</p>
+
+                \[\text{SMC} = \text{PMC} + \text{MEC}\]
+
+                <p>Competitive markets equate price to PMC, not SMC. The market-clearing quantity \(Q_M\) satisfies \(P = \text{PMC}\), which exceeds the socially optimal quantity \(Q^*\) where \(P = \text{SMC}\). The extra units \(Q_M - Q^*\) cost society more (in SMC) than consumers value them (in demand price), generating a <strong>deadweight loss</strong>.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definitions: Externality Types</h4>
+                    <p>A <strong>negative externality</strong> imposes costs on third parties (e.g., pollution, noise, congestion): SMC &gt; PMC, markets overproduce. A <strong>positive externality</strong> confers benefits on third parties (e.g., vaccinations, education, R&amp;D spillovers): social marginal benefit (SMB) &gt; private marginal benefit (PMB), markets underproduce.</p>
+                </div>
+
+                <h3>Geometric Solution: Overproduction and DWL</h3>
+                <p>The graph below shows a competitive market with a negative externality. The demand curve represents private marginal benefit; the supply curve (PMC) is below the true social cost (SMC = PMC + MEC). The market equilibrium is at \((Q_M, P_M)\); the social optimum is at \((Q^*, P^*)\). The red shaded triangle is the deadweight loss &mdash; the welfare cost of producing \(Q_M - Q^*\) units whose social cost exceeds their value. Adjust the marginal external cost slider to see how the DWL grows with the severity of the externality.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-ext" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Marginal external cost (£): <input type="range" id="slider-mec" min="0" max="25" step="1" value="15"> <span class="value-display" id="val-mec">£15</span></label>
+                    </div>
+                    <div class="graph-info" id="info-ext"></div>
+                    <p class="graph-caption">Figure 18.1 &mdash; Negative externality: SMC lies above PMC. The market produces Q_M &gt; Q*, generating deadweight loss (red triangle). Higher MEC shifts SMC further up, increasing DWL.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: Carbon Emissions and the ETS</h4>
+                    <p>The UK Emissions Trading Scheme (ETS) puts a price on carbon dioxide emissions from large industrial installations and power stations. When firms emit CO&sub;2;, the social cost includes not only production costs but the present value of future climate damage &mdash; estimated by the UK government at around &pound;248 per tonne of CO&sub;2; in 2023 (the &ldquo;social cost of carbon&rdquo;). Without a carbon price, firms treat this external cost as zero, leading to overemission. The ETS forces them to hold allowances, converting the external cost into a private cost.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 18.2 TAXES AND SUBSIDIES                      -->
+            <!-- ============================================ -->
+            <section id="taxes-subsidies" class="lesson-section section-geometric">
+                <h2>18.2 Solutions: Pigovian Taxes and Subsidies</h2>
+
+                <h3>Intuition: Internalising the Externality</h3>
+                <p>The economist Arthur Pigou argued in 1920 that the correct policy response to a negative externality is a per-unit tax equal to the marginal external cost at the social optimum. A <strong>Pigovian tax</strong> of \(t^* = \text{MEC}(Q^*)\) raises the firm&rsquo;s effective marginal cost from PMC to PMC + \(t\), shifting the supply curve up. When set correctly, the new market equilibrium coincides with the social optimum: \(Q_M(t^*) = Q^*\).</p>
+
+                <p>For positive externalities, the mirror image applies: a <strong>Pigovian subsidy</strong> equal to the marginal external benefit at the optimum lowers the private cost, stimulating production to the socially efficient level. The UK government&rsquo;s subsidy for electric vehicle purchases and home insulation are examples of Pigovian-style subsidies targeting positive externalities (reduced emissions, energy efficiency spillovers).</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Pigovian Tax</h4>
+                    <p>The <strong>Pigovian tax</strong> is a per-unit tax on production set equal to the marginal external cost at the socially optimal output: \(t^* = \text{MEC}(Q^*)\). It converts a negative externality into a private cost, aligning the firm&rsquo;s supply curve with the social marginal cost curve.</p>
+                </div>
+
+                <h3>Geometric Solution: Correcting the Externality</h3>
+                <p>The graph uses the same market as Figure 18.1, with MEC fixed at &pound;15. Adjust the tax slider to see how a per-unit tax shifts the supply curve upward. At the optimal tax (\(t = \text{MEC} = 15\)), the market equilibrium moves to the social optimum and the DWL disappears. Tax revenue is shown as the blue rectangle. Over-taxing creates a new DWL on the other side; under-taxing leaves residual DWL.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-pig" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Tax rate (£): <input type="range" id="slider-tax" min="0" max="30" step="1" value="0"> <span class="value-display" id="val-tax">£0</span></label>
+                    </div>
+                    <div class="graph-info" id="info-pig"></div>
+                    <p class="graph-caption">Figure 18.2 &mdash; Pigovian tax shifts PMC upward. At t = MEC = £15 the market equilibrium reaches the social optimum. Tax revenue (blue rectangle) can be used to compensate affected parties or reduce other distortionary taxes.</p>
+                </div>
+
+                <div class="callout callout-warning">
+                    <h4>The Information Problem</h4>
+                    <p>Setting a Pigovian tax correctly requires knowing MEC at the social optimum &mdash; precisely the information that is hardest to obtain. Overestimating MEC causes under-production; underestimating causes over-production. In practice, regulators use a range of instruments &mdash; quantity-based standards, cap-and-trade schemes, and liability rules &mdash; alongside taxes, partly because information about external costs is uncertain and contested.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 18.3 THE COASE THEOREM                        -->
+            <!-- ============================================ -->
+            <section id="coase" class="lesson-section section-geometric">
+                <h2>18.3 The Coase Theorem</h2>
+
+                <h3>Intuition: Bargaining Without Government</h3>
+                <p>In 1960, Ronald Coase proposed a radical alternative to Pigovian intervention. Suppose a factory and a neighbouring farmer can negotiate directly. If the factory has the right to pollute, the farmer will pay it to reduce emissions &mdash; up to the point where the marginal damage equals the marginal benefit to the factory of polluting. If the farmer has the right to clean air, the factory will pay the farmer to allow some pollution &mdash; up to the same point. In either case, the parties bargain to the same <strong>efficient level of the externality</strong>.</p>
+
+                <p>The <strong>Coase theorem</strong> states that if property rights are well-defined and transaction costs are zero, parties will bargain to the efficient outcome regardless of how property rights are initially assigned. The assignment of rights affects the distribution of income (who pays whom) but not the efficient quantity.</p>
+
+                <div class="callout callout-definition">
+                    <h4>The Coase Theorem</h4>
+                    <p>When <strong>property rights are well defined</strong> and <strong>transaction costs are negligible</strong>, private bargaining between affected parties will produce the socially efficient outcome regardless of the initial assignment of property rights. Rights assignment affects distribution, not efficiency.</p>
+                </div>
+
+                <h3>Geometric Solution: Two Roads to the Same Outcome</h3>
+                <p>The graph plots the marginal benefit of pollution to the polluter (MB, declining) and the marginal damage to the victim (MD, increasing). The efficient pollution level Q* is where MB = MD. Toggle between the two rights assignments to see how bargaining reaches Q* from different starting points. The shaded region shows the mutual gains from trade that make the bargain possible.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-coase" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <button id="btn-polluter" class="active-toggle">Polluter has rights (starts at Q=80)</button>
+                        <button id="btn-victim">Victim has rights (starts at Q=0)</button>
+                    </div>
+                    <div class="graph-info" id="info-coase"></div>
+                    <p class="graph-caption">Figure 18.3 &mdash; Regardless of initial rights, bargaining reaches Q* where MB = MD. Rights assignment determines who pays whom, not the efficient pollution level.</p>
+                </div>
+
+                <div class="callout callout-key-insight">
+                    <h4>Why the Coase Theorem Often Fails in Practice</h4>
+                    <p>The theorem&rsquo;s conclusion requires zero transaction costs &mdash; a heroic assumption. Identifying all affected parties (millions of drivers and asthma sufferers in London) and organising them to bargain is prohibitively costly. Asymmetric information about damage and benefit complicates negotiation. Strategic hold-out and free-riding within the victim group may prevent an efficient agreement even if one exists. Where transaction costs are high &mdash; the typical case for environmental externalities &mdash; Pigovian taxes, regulation, or tradeable permits remain the practical tools.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 18.4 PUBLIC GOODS                             -->
+            <!-- ============================================ -->
+            <section id="public-goods" class="lesson-section section-geometric">
+                <h2>18.4 Public Goods</h2>
+
+                <h3>Intuition: Non-Rivalry and Non-Excludability</h3>
+                <p>A good is <strong>non-rival</strong> if one person&rsquo;s consumption does not reduce the amount available to others: a lighthouse beam guides all ships simultaneously without diminishing. A good is <strong>non-excludable</strong> if it is impossible or prohibitively costly to prevent non-payers from consuming it: once a firework display is lit, everyone in the vicinity can watch for free. A good that is both non-rival and non-excludable is a <strong>pure public good</strong>.</p>
+
+                <p>Non-excludability creates the <strong>free-rider problem</strong>: individuals have an incentive to withhold payment, hoping others will fund the good and they can consume it for free. If everyone free-rides, no one contributes, and the good is not provided &mdash; even though its total social value greatly exceeds its cost. This is why public goods are generally underprovided or not provided at all by private markets, requiring government provision or some alternative mechanism.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Pure Public Good</h4>
+                    <p>A <strong>pure public good</strong> is both <em>non-rival</em> (consumption by one does not reduce availability to others) and <em>non-excludable</em> (cannot be withheld from non-payers). Examples: national defence, basic research, broadcast radio, street lighting, clean air. Most real goods are impure: either partially rival (congestion) or excludable at a cost (toll roads).</p>
+                </div>
+
+                <h3>Geometric Solution: Vertical Summation</h3>
+                <p>For a private good, the market demand curve is found by <em>horizontal</em> summation of individual demands: at each price, add up quantities demanded across consumers. For a public good, the social marginal benefit is found by <em>vertical</em> summation: at each quantity, add up the marginal valuations of all consumers (because everyone benefits simultaneously from each unit). The Samuelson condition for social optimum is that the sum of marginal valuations equals marginal cost.</p>
+
+                <p>The graph shows two consumers&rsquo; demand curves for a public good, their vertical sum, and the marginal cost. The socially optimal quantity is where the vertical sum equals MC. The market provision (highest individual demand = MC) falls far short of the optimum because neither agent accounts for the other&rsquo;s benefit. Toggle to compare private provision with the social optimum.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-pg" width="600" height="450" style="width:600px;height:450px;"></canvas>
+                    <div class="graph-controls">
+                        <button id="btn-market" class="active-toggle">Show market provision</button>
+                        <button id="btn-social">Show social optimum</button>
+                    </div>
+                    <div class="graph-info" id="info-pg"></div>
+                    <p class="graph-caption">Figure 18.4 &mdash; Vertical summation of individual demands gives social marginal benefit. The Samuelson optimum (SMB = MC) far exceeds the level a single private agent would provide.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: UK Research Councils</h4>
+                    <p>Basic scientific research is a public good: its findings are non-rival (reading a paper does not prevent others reading it) and largely non-excludable (results are published and freely accessible). The private return to basic research is much lower than the social return because firms cannot appropriate the spillover benefits to other researchers, industries, and future generations. The UK Research and Innovation (UKRI) budget of around &pound;8.5 billion per year (2023&ndash;24) exists precisely to close this gap &mdash; funding research that markets would underprovide.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 18.5 FORMAL DERIVATIONS                       -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>18.5 Formal Derivations</h2>
+
+                <h3>The Optimal Pigovian Tax</h3>
+                <p>Consider a competitive market with inverse demand \(P = D(Q)\) and private marginal cost \(\text{PMC}(Q)\). There is a constant marginal external cost MEC (the analysis extends straightforwardly to variable MEC). The social planner maximises total surplus net of external costs:</p>
+
+                \[\max_Q \int_0^Q D(q)\,dq - \int_0^Q \text{PMC}(q)\,dq - \text{MEC} \cdot Q\]
+
+                <p>The first-order condition is \(D(Q) = \text{PMC}(Q) + \text{MEC}\), i.e., \(P = \text{SMC}\). A per-unit tax \(t\) shifts the effective PMC to PMC + \(t\). Setting \(t^* = \text{MEC}\) achieves the social optimum. The Pigovian tax is therefore equal to MEC evaluated at the social optimum \(Q^*\). With non-constant MEC, the tax must be set equal to MEC(\(Q^*\)), not MEC(\(Q_M\)).</p>
+
+                <h3>Deadweight Loss Formula</h3>
+                <p>For linear demand \(D(Q) = a - bQ\) and linear PMC \(\text{PMC}(Q) = c + dQ\), the market equilibrium satisfies \(Q_M = (a-c)/(b+d)\). The social optimum satisfies \(Q^* = (a - c - \text{MEC})/(b+d)\). The deadweight loss is the area of the triangle between SMC and demand from \(Q^*\) to \(Q_M\):</p>
+
+                \[\text{DWL} = \frac{1}{2} \cdot \text{MEC} \cdot (Q_M - Q^*) = \frac{\text{MEC}^2}{2(b+d)}\]
+
+                <p>DWL is proportional to the <em>square</em> of the external cost, which is why large externalities are disproportionately damaging &mdash; and why corrective taxes for carbon emissions are so urgently advocated by economists.</p>
+
+                <h3>The Samuelson Condition for Public Goods</h3>
+                <p>Consider a two-consumer economy with a private good \(x\) and a public good \(G\). Consumer \(i\) has utility \(U_i(x_i, G)\) where \(G\) is the common quantity of the public good (non-rivalry). The economy&rsquo;s resource constraint is \(x_1 + x_2 + c(G) = Y\), where \(c(G)\) is the cost of producing \(G\). The social planner maximises \(U_1\) subject to \(U_2 \geq \bar{U}_2\) and the resource constraint. The Lagrangian gives the first-order conditions:</p>
+
+                \[\frac{\partial U_1/\partial G}{\partial U_1/\partial x_1} + \frac{\partial U_2/\partial G}{\partial U_2/\partial x_2} = c'(G)\]
+
+                <p>The left-hand side is the sum of the individual marginal rates of substitution between the public good and the private good (individual marginal valuations). The right-hand side is the marginal cost of the public good. The <strong>Samuelson condition</strong> states:</p>
+
+                \[\sum_{i=1}^{n} MRS_i^{G,x} = MC_G \quad \Leftrightarrow \quad \sum_{i=1}^{n} MV_i = MC_G\]
+
+                <p>This is the vertical summation condition: the social optimum equates the sum of individual marginal valuations to marginal cost. It differs fundamentally from the private good optimum, where each individual&rsquo;s marginal valuation equals MC (horizontal summation).</p>
+
+                <h3>Lindahl Equilibrium</h3>
+                <p>Erik Lindahl proposed a decentralised mechanism for public good provision. Each consumer \(i\) faces a personalised &ldquo;Lindahl price&rdquo; \(p_i^G\), representing their share of the public good&rsquo;s cost. Consumer \(i\) demands the quantity \(G_i^*\) satisfying \(MV_i(G) = p_i^G\). The Lindahl equilibrium requires (i) markets clear: all consumers demand the same \(G^*\), and (ii) prices sum to marginal cost: \(\sum_i p_i^G = MC_G\).</p>
+
+                <p>A Lindahl equilibrium is Pareto optimal (it satisfies the Samuelson condition), but it is not implementable in practice because each consumer has an incentive to understate their marginal valuation in order to pay a lower Lindahl price &mdash; a revelation problem. This is the deep reason why public goods require non-market mechanisms for provision.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>Externalities arise whenever a market transaction imposes costs or confers benefits on parties outside the transaction. Negative externalities cause markets to overproduce relative to the social optimum because producers ignore the external cost their output imposes on others. The resulting deadweight loss is the welfare cost of this misalignment, and it grows with the square of the marginal external cost. A Pigovian tax equal to the MEC at the social optimum eliminates this loss by making producers face the full social cost of their decisions.</p>
+
+                <p>The Coase theorem offers a complementary perspective: in a world of zero transaction costs and well-defined property rights, private bargaining achieves the efficient outcome without government intervention. The assignment of rights affects distribution, not efficiency. In practice, transaction costs are rarely negligible &mdash; the sheer number of affected parties, asymmetric information, and free-riding within victim groups make the conditions for Coasian bargaining hard to meet, particularly for diffuse environmental externalities like air quality or climate change.</p>
+
+                <p>Public goods present a different market failure. Non-rivalry means that providing a public good to one person costs no more than providing it to none, so the marginal cost of an additional user is zero. Non-excludability means that private providers cannot prevent free-riding and therefore cannot recover their costs through voluntary payments. The result is chronic underprovision. The Samuelson condition &mdash; the sum of marginal valuations equals marginal cost &mdash; identifies the socially optimal level, achieved through vertical summation of individual demand curves rather than the horizontal summation used for private goods.</p>
+
+                <p>In the next chapter, we turn to <strong>asymmetric information</strong> &mdash; markets where buyers and sellers hold different information, creating further sources of inefficiency through adverse selection and moral hazard.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch17-uncertainty.html">&larr; Chapter 17: Uncertainty</a>
+                <a href="ch19-asymmetric-information.html">Chapter 19: Asymmetric Information &rarr;</a>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            demand: '#3b82f6', demandFill: 'rgba(59,130,246,0.07)',
+            pmc: '#ef4444', pmcFill: 'rgba(239,68,68,0.07)',
+            smc: '#dc2626',
+            mec: '#f59e0b', mecFill: 'rgba(245,158,11,0.15)',
+            dwl: '#ef4444', dwlFill: 'rgba(239,68,68,0.25)',
+            tax: '#3b82f6', taxFill: 'rgba(59,130,246,0.18)',
+            eqMarket: '#ef4444', eqMarketGlow: 'rgba(239,68,68,0.25)',
+            eqSocial: '#10b981', eqSocialGlow: 'rgba(16,185,129,0.25)',
+            mb: '#10b981', mbFill: 'rgba(16,185,129,0.07)',
+            md: '#ef4444', mdFill: 'rgba(239,68,68,0.07)',
+            gainsFill: 'rgba(245,158,11,0.20)',
+            efficient: '#0a9396', efficientGlow: 'rgba(10,147,150,0.3)',
+            mb1: '#3b82f6', mb2: '#8b5cf6', smb: '#10b981',
+            mc: '#ef4444', mcLine: '#ef4444',
+            mktProv: '#f59e0b', mktGlow: 'rgba(245,158,11,0.3)',
+            socOpt: '#10b981', socGlow: 'rgba(16,185,129,0.3)',
+            underprov: 'rgba(239,68,68,0.18)'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            demand: '#60a5fa', demandFill: 'rgba(96,165,250,0.08)',
+            pmc: '#f87171', pmcFill: 'rgba(248,113,113,0.08)',
+            smc: '#fca5a5',
+            mec: '#fbbf24', mecFill: 'rgba(251,191,36,0.15)',
+            dwl: '#f87171', dwlFill: 'rgba(248,113,113,0.30)',
+            tax: '#60a5fa', taxFill: 'rgba(96,165,250,0.20)',
+            eqMarket: '#f87171', eqMarketGlow: 'rgba(248,113,113,0.25)',
+            eqSocial: '#34d399', eqSocialGlow: 'rgba(52,211,153,0.25)',
+            mb: '#34d399', mbFill: 'rgba(52,211,153,0.08)',
+            md: '#f87171', mdFill: 'rgba(248,113,113,0.08)',
+            gainsFill: 'rgba(251,191,36,0.22)',
+            efficient: '#2ec4c8', efficientGlow: 'rgba(46,196,200,0.3)',
+            mb1: '#60a5fa', mb2: '#a78bfa', smb: '#34d399',
+            mc: '#f87171', mcLine: '#f87171',
+            mktProv: '#fbbf24', mktGlow: 'rgba(251,191,36,0.3)',
+            socOpt: '#34d399', socGlow: 'rgba(52,211,153,0.3)',
+            underprov: 'rgba(248,113,113,0.20)'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(pt.x, oy + gh); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep) {
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            var v, pt;
+            for (v = xStep; v <= xMax; v += xStep) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            for (v = yStep; v <= yMax; v += yStep) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(xLabel, ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 42, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel, 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (v = xStep; v <= xMax; v += xStep) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (v = yStep; v <= yMax; v += yStep) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(v, ox - 6, pt.y);
+            }
+        }
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 1: Negative Externality / DWL                 */
+        /* D: P = 90 - Q, PMC: P = 10 + 0.5Q                 */
+        /* xMax=80, yMax=100                                   */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var slMEC = document.getElementById('slider-mec');
+            var vMEC  = document.getElementById('val-mec');
+            var info  = document.getElementById('info-ext');
+            var xMax = 80, yMax = 100;
+            /* D: P = 90 - Q  (at Q=80, P=10) */
+            /* PMC: P = 10 + 0.5Q */
+            /* Market eq: 90-Q = 10+0.5Q → Q_m = 53.3, P_m = 36.7 */
+            /* SMC: P = 10 + 0.5Q + MEC */
+            /* Social opt: 90-Q = 10+0.5Q+MEC → Q_s = (80-MEC)/1.5 */
+
+            function dFn(q) { return 90 - q; }
+            function pmcFn(q) { return 10 + 0.5 * q; }
+
+            function draw() {
+                var res = getCtx('canvas-ext');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var MEC = parseFloat(slMEC.value);
+                vMEC.textContent = '£' + MEC;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Output Q', 'Price / Cost (£)', 10, 10);
+
+                function smcFn(q) { return pmcFn(q) + MEC; }
+
+                var Qm = 80 / 1.5;           /* 53.3 */
+                var Pm = dFn(Qm);            /* 36.7 */
+                var Qs = (80 - MEC) / 1.5;
+                var Ps = dFn(Qs);
+
+                /* Demand curve fill */
+                ctx.beginPath();
+                ctx.moveTo(tp(0, dFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, dFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                var ptD80 = tp(80, dFn(80), ox, oy, gw, gh, xMax, yMax);
+                ctx.lineTo(ptD80.x, ptD80.y); ctx.lineTo(ptD80.x, oy + gh);
+                ctx.lineTo(tp(0, dFn(0), ox, oy, gw, gh, xMax, yMax).x, oy + gh);
+                ctx.closePath(); ctx.fillStyle = C.demandFill; ctx.fill();
+
+                /* Demand curve */
+                ctx.strokeStyle = C.demand; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, dFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, dFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(ptD80.x, ptD80.y); ctx.stroke();
+                ctx.fillStyle = C.demand; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('Demand (PMB)', tp(0, dFn(0), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(0, dFn(0), ox, oy, gw, gh, xMax, yMax).y - 8);
+
+                /* PMC */
+                ctx.strokeStyle = C.pmc; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, pmcFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, pmcFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(80, pmcFn(80), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(80, pmcFn(80), ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.fillStyle = C.pmc; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                ctx.fillText('PMC (Supply)', tp(70, pmcFn(70), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(70, pmcFn(70), ox, oy, gw, gh, xMax, yMax).y);
+
+                /* SMC */
+                if (MEC > 0) {
+                    ctx.strokeStyle = C.smc; ctx.lineWidth = 2; ctx.setLineDash([]);
+                    ctx.beginPath();
+                    ctx.moveTo(tp(0, smcFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, smcFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.lineTo(tp(80, smcFn(80), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(80, smcFn(80), ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                    ctx.fillStyle = C.smc; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                    ctx.fillText('SMC = PMC + MEC', tp(55, smcFn(55), ox, oy, gw, gh, xMax, yMax).x + 2,
+                                 tp(55, smcFn(55), ox, oy, gw, gh, xMax, yMax).y - 6);
+
+                    /* MEC bracket between PMC and SMC at Q=70 */
+                    var bQ = 65;
+                    var ptPMCb = tp(bQ, pmcFn(bQ), ox, oy, gw, gh, xMax, yMax);
+                    var ptSMCb = tp(bQ, smcFn(bQ), ox, oy, gw, gh, xMax, yMax);
+                    ctx.strokeStyle = C.mec; ctx.lineWidth = 1.5; ctx.setLineDash([]);
+                    ctx.beginPath(); ctx.moveTo(ptPMCb.x, ptPMCb.y); ctx.lineTo(ptSMCb.x, ptSMCb.y); ctx.stroke();
+                    ctx.fillStyle = C.mec; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                    ctx.fillText('MEC=' + MEC, ptSMCb.x + 4, (ptPMCb.y + ptSMCb.y) / 2);
+                }
+
+                /* DWL triangle (if MEC > 0 and Qs < Qm) */
+                if (MEC > 0 && Qs < Qm && Qs > 0) {
+                    var ptDWL_Qs = tp(Qs, Ps, ox, oy, gw, gh, xMax, yMax);       /* social opt on D */
+                    var ptDWL_Qm = tp(Qm, Pm, ox, oy, gw, gh, xMax, yMax);       /* market eq */
+                    var ptDWL_QmSMC = tp(Qm, smcFn(Qm), ox, oy, gw, gh, xMax, yMax); /* SMC at Qm */
+                    ctx.beginPath();
+                    ctx.moveTo(ptDWL_Qs.x, ptDWL_Qs.y);
+                    ctx.lineTo(ptDWL_Qm.x, ptDWL_Qm.y);
+                    ctx.lineTo(ptDWL_QmSMC.x, ptDWL_QmSMC.y);
+                    ctx.closePath();
+                    ctx.fillStyle = C.dwlFill; ctx.fill();
+                    ctx.strokeStyle = C.dwl; ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.moveTo(ptDWL_Qs.x, ptDWL_Qs.y);
+                    ctx.lineTo(ptDWL_Qm.x, ptDWL_Qm.y);
+                    ctx.lineTo(ptDWL_QmSMC.x, ptDWL_QmSMC.y);
+                    ctx.closePath(); ctx.stroke();
+                    ctx.fillStyle = C.dwl; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                    var DWL = 0.5 * MEC * (Qm - Qs);
+                    ctx.fillText('DWL', (ptDWL_Qs.x + ptDWL_Qm.x + ptDWL_QmSMC.x) / 3 + 2,
+                                 (ptDWL_Qs.y + ptDWL_Qm.y + ptDWL_QmSMC.y) / 3);
+                }
+
+                /* Social optimum dot */
+                if (MEC > 0 && Qs > 0) {
+                    dashedTo(ctx, Qs, Ps, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    ctx.beginPath(); ctx.arc(tp(Qs, Ps, ox, oy, gw, gh, xMax, yMax).x,
+                                            tp(Qs, Ps, ox, oy, gw, gh, xMax, yMax).y, 8, 0, 2*Math.PI);
+                    ctx.fillStyle = C.eqSocialGlow; ctx.fill();
+                    dot(ctx, Qs, Ps, ox, oy, gw, gh, xMax, yMax, C.eqSocial, 5);
+                    ctx.fillStyle = C.eqSocial; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('Q* (social opt)', tp(Qs, Ps, ox, oy, gw, gh, xMax, yMax).x + 6,
+                                 tp(Qs, Ps, ox, oy, gw, gh, xMax, yMax).y - 3);
+                }
+
+                /* Market equilibrium dot */
+                dashedTo(ctx, Qm, Pm, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                ctx.beginPath(); ctx.arc(tp(Qm, Pm, ox, oy, gw, gh, xMax, yMax).x,
+                                        tp(Qm, Pm, ox, oy, gw, gh, xMax, yMax).y, 8, 0, 2*Math.PI);
+                ctx.fillStyle = C.eqMarketGlow; ctx.fill();
+                dot(ctx, Qm, Pm, ox, oy, gw, gh, xMax, yMax, C.eqMarket, 5);
+                ctx.fillStyle = C.eqMarket; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Q_M (market)', tp(Qm, Pm, ox, oy, gw, gh, xMax, yMax).x - 6,
+                             tp(Qm, Pm, ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                var DWL = MEC > 0 && Qs > 0 ? (0.5 * MEC * (Qm - Qs)).toFixed(1) : '0';
+                info.innerHTML =
+                    '<strong>MEC = £' + MEC + '</strong>' +
+                    ' &nbsp;|&nbsp; Market: Q_M = ' + Qm.toFixed(1) + ', P_M = £' + Pm.toFixed(1) +
+                    (MEC > 0 && Qs > 0 ?
+                        ' &nbsp;|&nbsp; Social optimum: Q* = ' + Qs.toFixed(1) + ', P* = £' + Ps.toFixed(1) +
+                        ' &nbsp;|&nbsp; Overproduction = ' + (Qm - Qs).toFixed(1) +
+                        ' &nbsp;|&nbsp; <strong>DWL = £' + DWL + '</strong>' : ' &nbsp;|&nbsp; No externality: market is efficient');
+            }
+
+            slMEC.addEventListener('input', draw);
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 2: Pigovian Tax                               */
+        /* Same market, MEC fixed = 15, tax slider 0-30       */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var slTax = document.getElementById('slider-tax');
+            var vTax  = document.getElementById('val-tax');
+            var info  = document.getElementById('info-pig');
+            var xMax = 80, yMax = 100;
+            var MEC = 15;
+            /* D: P = 90 - Q, PMC: P = 10 + 0.5Q */
+            /* SMC: P = 10 + 0.5Q + 15 = 25 + 0.5Q */
+            /* Q* = (80-15)/1.5 = 43.3, P* = 46.7 */
+            /* With tax t: effective PMC = 10+0.5Q+t, eq: 90-Q=10+0.5Q+t → Q_t=(80-t)/1.5 */
+
+            function dFn(q) { return 90 - q; }
+            function pmcFn(q) { return 10 + 0.5 * q; }
+            function smcFn(q) { return pmcFn(q) + MEC; }
+
+            var Qm = 80 / 1.5, Pm = dFn(Qm);
+            var Qs = (80 - MEC) / 1.5, Ps = dFn(Qs);
+
+            function draw() {
+                var res = getCtx('canvas-pig');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var t = parseFloat(slTax.value);
+                vTax.textContent = '£' + t;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Output Q', 'Price / Cost (£)', 10, 10);
+
+                /* SMC (fixed) */
+                ctx.strokeStyle = C.smc; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, smcFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, smcFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(75, smcFn(75), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(75, smcFn(75), ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.smc; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('SMC (MEC=15)', tp(55, smcFn(55), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(55, smcFn(55), ox, oy, gw, gh, xMax, yMax).y - 2);
+
+                /* Demand */
+                ctx.strokeStyle = C.demand; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, dFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, dFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(80, dFn(80), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(80, dFn(80), ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.fillStyle = C.demand; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('Demand', tp(5, dFn(5), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(5, dFn(5), ox, oy, gw, gh, xMax, yMax).y - 8);
+
+                /* PMC (no tax) */
+                ctx.strokeStyle = C.pmc; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, pmcFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, pmcFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(75, pmcFn(75), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(75, pmcFn(75), ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.pmc; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                ctx.fillText('PMC', tp(70, pmcFn(70), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(70, pmcFn(70), ox, oy, gw, gh, xMax, yMax).y);
+
+                /* PMC + tax (taxed supply) */
+                var Qt = (80 - t) / 1.5;
+                var Pt = dFn(Qt);
+                function taxedPMC(q) { return pmcFn(q) + t; }
+
+                if (t > 0) {
+                    ctx.strokeStyle = C.tax; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                    ctx.beginPath();
+                    ctx.moveTo(tp(0, taxedPMC(0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, taxedPMC(0), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.lineTo(tp(75, taxedPMC(75), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(75, taxedPMC(75), ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                    ctx.fillStyle = C.tax; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('PMC + tax (t=' + t + ')', tp(30, taxedPMC(30), ox, oy, gw, gh, xMax, yMax).x + 2,
+                                 tp(30, taxedPMC(30), ox, oy, gw, gh, xMax, yMax).y - 2);
+
+                    /* Tax revenue rectangle */
+                    if (Qt > 0 && Qt < xMax && Pt > t) {
+                        var ptTR_bl = tp(0,  Pt - t, ox, oy, gw, gh, xMax, yMax);
+                        var ptTR_tl = tp(0,  Pt,     ox, oy, gw, gh, xMax, yMax);
+                        var ptTR_tr = tp(Qt, Pt,     ox, oy, gw, gh, xMax, yMax);
+                        var ptTR_br = tp(Qt, Pt - t, ox, oy, gw, gh, xMax, yMax);
+                        ctx.beginPath();
+                        ctx.moveTo(ptTR_bl.x, ptTR_bl.y); ctx.lineTo(ptTR_tl.x, ptTR_tl.y);
+                        ctx.lineTo(ptTR_tr.x, ptTR_tr.y); ctx.lineTo(ptTR_br.x, ptTR_br.y);
+                        ctx.closePath();
+                        ctx.fillStyle = C.taxFill; ctx.fill();
+                        ctx.strokeStyle = C.tax; ctx.lineWidth = 1; ctx.setLineDash([]);
+                        ctx.stroke();
+                        ctx.fillStyle = C.tax; ctx.font = 'bold 10px -apple-system, sans-serif';
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        if (Qt > 8) ctx.fillText('Tax revenue', (ptTR_tl.x + ptTR_tr.x) / 2,
+                                                  (ptTR_tl.y + ptTR_bl.y) / 2);
+                    }
+
+                    /* DWL if mis-calibrated */
+                    if (Math.abs(t - MEC) > 0.5 && Qt > 0 && Qt < xMax) {
+                        /* Under-tax: DWL between Qt and Qm (red triangle) */
+                        /* Over-tax: DWL between Qt and Qs (blue triangle) */
+                        if (t < MEC) {
+                            /* Residual DWL */
+                            var ptA = tp(Qt, Pt, ox, oy, gw, gh, xMax, yMax);
+                            var ptB = tp(Qm, Pm, ox, oy, gw, gh, xMax, yMax);
+                            var ptBsmc = tp(Qm, smcFn(Qm), ox, oy, gw, gh, xMax, yMax);
+                            ctx.beginPath(); ctx.moveTo(ptA.x, ptA.y);
+                            ctx.lineTo(ptB.x, ptB.y); ctx.lineTo(ptBsmc.x, ptBsmc.y);
+                            ctx.closePath(); ctx.fillStyle = C.dwlFill; ctx.fill();
+                        }
+                    }
+                }
+
+                /* Social optimum marker */
+                dashedTo(ctx, Qs, Ps, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                ctx.beginPath(); ctx.arc(tp(Qs, Ps, ox, oy, gw, gh, xMax, yMax).x,
+                                        tp(Qs, Ps, ox, oy, gw, gh, xMax, yMax).y, 8, 0, 2*Math.PI);
+                ctx.fillStyle = C.eqSocialGlow; ctx.fill();
+                dot(ctx, Qs, Ps, ox, oy, gw, gh, xMax, yMax, C.eqSocial, 5);
+                ctx.fillStyle = C.eqSocial; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Q* = ' + Qs.toFixed(1), tp(Qs, Ps, ox, oy, gw, gh, xMax, yMax).x + 6,
+                             tp(Qs, Ps, ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                /* Taxed equilibrium dot */
+                if (t > 0 && Qt > 0 && Qt < xMax) {
+                    dashedTo(ctx, Qt, Pt, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    dot(ctx, Qt, Pt, ox, oy, gw, gh, xMax, yMax, C.tax, 5);
+                }
+
+                var taxRev = t > 0 && Qt > 0 ? (t * Qt).toFixed(0) : '0';
+                var status = Math.abs(t - MEC) < 0.6 ? 'Optimal! Market = social optimum' :
+                             t < MEC ? 'Under-correction: residual DWL remains' :
+                             'Over-correction: new DWL on under-provision side';
+                info.innerHTML =
+                    '<strong>Tax t = £' + t + '</strong>' +
+                    (t > 0 ? ', Q_t = ' + Qt.toFixed(1) + ', P_t = £' + Pt.toFixed(1) : '') +
+                    ' &nbsp;|&nbsp; Social optimum: Q* = ' + Qs.toFixed(1) + ', P* = £' + Ps.toFixed(1) +
+                    (t > 0 ? ' &nbsp;|&nbsp; Tax revenue = £' + taxRev : '') +
+                    '<br><strong>' + status + '</strong>' +
+                    ' (Optimal tax = MEC = £' + MEC + ')';
+            }
+
+            slTax.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 3: Coase Theorem                              */
+        /* MB = 80 - Q (polluter), MD = 5 + 0.5Q (victim)    */
+        /* Q* = 50, xMax=80, yMax=90                          */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var btnPolluter = document.getElementById('btn-polluter');
+            var btnVictim   = document.getElementById('btn-victim');
+            var info        = document.getElementById('info-coase');
+            var xMax = 80, yMax = 90;
+            var rights = 'polluter';  /* 'polluter' | 'victim' */
+
+            /* MB: 80-Q (zero at Q=80), MD: 5+0.5Q */
+            /* Efficient: 80-Q = 5+0.5Q → 75=1.5Q → Q*=50 */
+            function mbFn(q) { return 80 - q; }
+            function mdFn(q) { return 5 + 0.5 * q; }
+            var Qstar = 50;
+
+            btnPolluter.addEventListener('click', function() {
+                rights = 'polluter';
+                btnPolluter.classList.add('active-toggle');
+                btnVictim.classList.remove('active-toggle');
+                draw();
+            });
+            btnVictim.addEventListener('click', function() {
+                rights = 'victim';
+                btnVictim.classList.add('active-toggle');
+                btnPolluter.classList.remove('active-toggle');
+                draw();
+            });
+
+            function draw() {
+                var res = getCtx('canvas-coase');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Quantity of Pollution Q', 'Value (£)', 10, 10);
+
+                /* Gains from trade shading */
+                var Q0 = rights === 'polluter' ? 80 : 0;
+                if (rights === 'polluter') {
+                    /* Victim pays polluter to reduce from 80→Q*. Gains = ∫_{Q*}^{80}(MD-MB)dQ */
+                    /* MB(80)=0, MD(80)=45; MB(Q*)=30, MD(Q*)=30 */
+                    ctx.beginPath();
+                    /* From Q=Q* to Q=80 shade between MD and MB */
+                    ctx.moveTo(tp(Qstar, mdFn(Qstar), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(Qstar, mdFn(Qstar), ox, oy, gw, gh, xMax, yMax).y);
+                    for (var q = Qstar; q <= 80; q += 1) {
+                        ctx.lineTo(tp(q, mdFn(q), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(q, mdFn(q), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    for (var q2 = 80; q2 >= Qstar; q2 -= 1) {
+                        ctx.lineTo(tp(q2, mbFn(q2), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(q2, mbFn(q2), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    ctx.closePath();
+                    ctx.fillStyle = C.gainsFill; ctx.fill();
+                } else {
+                    /* Polluter pays victim to allow Q: 0→Q*. Gains = ∫_{0}^{Q*}(MB-MD)dQ */
+                    ctx.beginPath();
+                    ctx.moveTo(tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                    for (var q3 = 0; q3 <= Qstar; q3 += 1) {
+                        ctx.lineTo(tp(q3, mbFn(q3), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(q3, mbFn(q3), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    for (var q4 = Qstar; q4 >= 0; q4 -= 1) {
+                        ctx.lineTo(tp(q4, mdFn(q4), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(q4, mdFn(q4), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    ctx.closePath();
+                    ctx.fillStyle = C.gainsFill; ctx.fill();
+                }
+
+                /* MB curve */
+                ctx.strokeStyle = C.mb; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(80, mbFn(80), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(80, mbFn(80), ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.fillStyle = C.mb; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('MB to polluter', tp(10, mbFn(10), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(10, mbFn(10), ox, oy, gw, gh, xMax, yMax).y - 8);
+
+                /* MD curve */
+                ctx.strokeStyle = C.md; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, mdFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, mdFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(80, mdFn(80), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(80, mdFn(80), ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.fillStyle = C.md; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                ctx.fillText('MD to victim', tp(60, mdFn(60), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(60, mdFn(60), ox, oy, gw, gh, xMax, yMax).y);
+
+                /* Initial allocation arrow */
+                var ptQ0 = tp(Q0, 0, ox, oy, gw, gh, xMax, yMax);
+                var ptQ0top = tp(Q0, rights === 'polluter' ? mdFn(Q0) : mbFn(Q0), ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1.5; ctx.setLineDash([3, 3]);
+                ctx.beginPath(); ctx.moveTo(ptQ0.x, oy + gh); ctx.lineTo(ptQ0top.x, ptQ0top.y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.textMuted; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = rights === 'polluter' ? 'right' : 'left';
+                ctx.textBaseline = 'top';
+                ctx.fillText(rights === 'polluter' ? 'Initial Q=80' : 'Initial Q=0',
+                             ptQ0.x + (rights === 'polluter' ? -4 : 4), oy + gh + 4);
+
+                /* Arrow toward Q* */
+                var midQ = (Q0 + Qstar) / 2;
+                var midY = oy + gh - 20;
+                var ptMid = tp(midQ, 0, ox, oy, gw, gh, xMax, yMax);
+                var ptQstar_x = tp(Qstar, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.efficient; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath(); ctx.moveTo(ptMid.x, midY);
+                /* Arrow to Q* */
+                var arrowDir = rights === 'polluter' ? -1 : 1;
+                ctx.lineTo(ptQstar_x.x - arrowDir * 4, midY); ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(ptQstar_x.x - arrowDir * 4, midY);
+                ctx.lineTo(ptQstar_x.x - arrowDir * 10, midY - 4);
+                ctx.lineTo(ptQstar_x.x - arrowDir * 10, midY + 4);
+                ctx.closePath(); ctx.fillStyle = C.efficient; ctx.fill();
+                ctx.fillStyle = C.efficient; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Bargaining direction', ptMid.x, midY - 2);
+
+                /* Q* */
+                dashedTo(ctx, Qstar, mdFn(Qstar), ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                ctx.beginPath(); ctx.arc(tp(Qstar, mdFn(Qstar), ox, oy, gw, gh, xMax, yMax).x,
+                                        tp(Qstar, mdFn(Qstar), ox, oy, gw, gh, xMax, yMax).y,
+                                        9, 0, 2*Math.PI);
+                ctx.fillStyle = C.efficientGlow; ctx.fill();
+                dot(ctx, Qstar, mdFn(Qstar), ox, oy, gw, gh, xMax, yMax, C.efficient, 5);
+                ctx.fillStyle = C.efficient; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Q* = ' + Qstar + ' (efficient)', tp(Qstar, mdFn(Qstar), ox, oy, gw, gh, xMax, yMax).x,
+                             tp(Qstar, mdFn(Qstar), ox, oy, gw, gh, xMax, yMax).y - 8);
+
+                /* Gains label */
+                var gainsMidQ = (Q0 + Qstar) / 2;
+                var gainsMidPt = tp(gainsMidQ, (mbFn(gainsMidQ) + mdFn(gainsMidQ)) / 2, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.mec; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('Mutual gains', gainsMidPt.x, gainsMidPt.y);
+
+                var rightsDesc = rights === 'polluter' ?
+                    'Polluter has rights — starts at Q=80. Victim pays to reduce toward Q*.' :
+                    'Victim has rights — starts at Q=0. Polluter pays to increase toward Q*.';
+                var mbQ0 = mbFn(Q0).toFixed(1), mdQ0 = mdFn(Q0).toFixed(1);
+                info.innerHTML =
+                    '<strong>' + rightsDesc + '</strong>' +
+                    '<br>At initial Q=' + Q0 + ': MB=' + mbQ0 + ', MD=' + mdQ0 +
+                    (rights === 'polluter' ? ' — MD > MB, both gain from reducing Q' : ' — MB > MD, both gain from increasing Q') +
+                    ' &nbsp;|&nbsp; <strong>Both converge to Q* = ' + Qstar + ' (MB = MD = ' + mdFn(Qstar).toFixed(0) + ')</strong>';
+            }
+
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 4: Public Goods — Vertical Summation          */
+        /* MB1=25-Q, MB2=20-Q, SMB=45-2Q, MC=10             */
+        /* xMax=25, yMax=50                                   */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var btnMkt = document.getElementById('btn-market');
+            var btnSoc = document.getElementById('btn-social');
+            var info   = document.getElementById('info-pg');
+            var xMax = 25, yMax = 55;
+            var MC = 10;
+            var mode = 'market';
+
+            /* MB1: 25-Q (zero at Q=25), MB2: 20-Q (zero at Q=20) */
+            /* SMB: 45-2Q (zero at Q=22.5) */
+            /* Social opt: 45-2Q=10 → Q*=17.5 */
+            /* Market: agent 1 provides where 25-Q=10 → Q=15. Agent 2 free-rides (20-15=5<10). */
+            /* Market Q_mkt = 15, Q* = 17.5 */
+            function mb1(q) { return Math.max(0, 25 - q); }
+            function mb2(q) { return Math.max(0, 20 - q); }
+            function smb(q) { return Math.max(0, 45 - 2 * q); }
+            var Qstar = 17.5;  /* SMB=MC: 45-2Q=10 → Q=17.5 */
+            var Qmkt  = 15;    /* mb1=MC: 25-Q=10 → Q=15 */
+
+            btnMkt.addEventListener('click', function() {
+                mode = 'market';
+                btnMkt.classList.add('active-toggle');
+                btnSoc.classList.remove('active-toggle');
+                draw();
+            });
+            btnSoc.addEventListener('click', function() {
+                mode = 'social';
+                btnSoc.classList.add('active-toggle');
+                btnMkt.classList.remove('active-toggle');
+                draw();
+            });
+
+            function draw() {
+                var res = getCtx('canvas-pg');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Quantity of Public Good G', 'Marginal Value / Cost (£)', 5, 10);
+
+                /* MC line */
+                ctx.strokeStyle = C.mcLine; ctx.lineWidth = 2; ctx.setLineDash([5, 4]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, MC, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, MC, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, MC, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, MC, ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.mc; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('MC = £' + MC, tp(xMax, MC, ox, oy, gw, gh, xMax, yMax).x - 2,
+                             tp(xMax, MC, ox, oy, gw, gh, xMax, yMax).y - 2);
+
+                /* Individual demands */
+                ctx.strokeStyle = C.mb1; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, mb1(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, mb1(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(25, mb1(25), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(25, mb1(25), ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.fillStyle = C.mb1; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('Consumer 1 (MB₁=25-G)', tp(4, mb1(4), ox, oy, gw, gh, xMax, yMax).x - 2,
+                             tp(4, mb1(4), ox, oy, gw, gh, xMax, yMax).y);
+
+                ctx.strokeStyle = C.mb2; ctx.lineWidth = 2; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, mb2(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, mb2(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(20, mb2(20), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(20, mb2(20), ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.fillStyle = C.mb2; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('Consumer 2 (MB₂=20-G)', tp(4, mb2(4), ox, oy, gw, gh, xMax, yMax).x - 2,
+                             tp(4, mb2(4), ox, oy, gw, gh, xMax, yMax).y);
+
+                /* Vertical sum (SMB) */
+                ctx.strokeStyle = C.smb; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, smb(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, smb(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(22.5, smb(22.5), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(22.5, smb(22.5), ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.fillStyle = C.smb; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('SMB = MB₁+MB₂ = 45-2G', tp(2, smb(2), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(2, smb(2), ox, oy, gw, gh, xMax, yMax).y - 4);
+
+                /* Vertical summation illustration: small bracket at Q=8 */
+                var qBrk = 8;
+                var ptV1 = tp(qBrk, mb1(qBrk), ox, oy, gw, gh, xMax, yMax);
+                var ptV2 = tp(qBrk, mb2(qBrk), ox, oy, gw, gh, xMax, yMax);
+                var ptVS = tp(qBrk, smb(qBrk), ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1; ctx.setLineDash([2, 2]);
+                ctx.beginPath(); ctx.moveTo(ptVS.x, ptVS.y); ctx.lineTo(ptV1.x, ptV1.y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.textMuted; ctx.font = 'italic 9px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                ctx.fillText('↕ vertical sum', ptVS.x + 3, (ptVS.y + ptV1.y) / 2);
+
+                if (mode === 'market') {
+                    /* Underprovision region */
+                    var ptMkt = tp(Qmkt, MC, ox, oy, gw, gh, xMax, yMax);
+                    var ptSoc = tp(Qstar, MC, ox, oy, gw, gh, xMax, yMax);
+                    var ptMCbar = tp(Qstar, MC, ox, oy, gw, gh, xMax, yMax);
+                    ctx.fillStyle = C.underprov;
+                    ctx.fillRect(ptMkt.x, oy, ptSoc.x - ptMkt.x, gh);
+                    ctx.fillStyle = C.dwl; ctx.font = 'bold 9px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    ctx.fillText('Under-provision', (ptMkt.x + ptSoc.x) / 2, oy + gh / 2);
+
+                    /* Market provision dot */
+                    dashedTo(ctx, Qmkt, MC, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    ctx.beginPath(); ctx.arc(tp(Qmkt, MC, ox, oy, gw, gh, xMax, yMax).x,
+                                            tp(Qmkt, MC, ox, oy, gw, gh, xMax, yMax).y, 9, 0, 2*Math.PI);
+                    ctx.fillStyle = C.mktGlow; ctx.fill();
+                    dot(ctx, Qmkt, MC, ox, oy, gw, gh, xMax, yMax, C.mktProv, 5);
+                    ctx.fillStyle = C.mktProv; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('Market: G=' + Qmkt, tp(Qmkt, MC, ox, oy, gw, gh, xMax, yMax).x + 6,
+                                 tp(Qmkt, MC, ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                    /* Social opt shown faintly */
+                    dot(ctx, Qstar, MC, ox, oy, gw, gh, xMax, yMax, C.textMuted, 3);
+
+                    info.innerHTML =
+                        '<strong>Market provision (free-rider problem)</strong>' +
+                        '<br>Consumer 1 provides G=15 (MB₁=MC). Consumer 2 free-rides: MB₂(15)=5 &lt; MC=10, so adds nothing.' +
+                        ' &nbsp;|&nbsp; Market G = ' + Qmkt + ', Social optimum G* = ' + Qstar +
+                        ' &nbsp;|&nbsp; <strong>Underprovision = ' + (Qstar - Qmkt).toFixed(1) + ' units</strong>';
+                } else {
+                    /* Social optimum */
+                    dashedTo(ctx, Qstar, MC, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    ctx.beginPath(); ctx.arc(tp(Qstar, MC, ox, oy, gw, gh, xMax, yMax).x,
+                                            tp(Qstar, MC, ox, oy, gw, gh, xMax, yMax).y, 9, 0, 2*Math.PI);
+                    ctx.fillStyle = C.socGlow; ctx.fill();
+                    dot(ctx, Qstar, MC, ox, oy, gw, gh, xMax, yMax, C.socOpt, 5);
+                    ctx.fillStyle = C.socOpt; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('Social opt: G*=' + Qstar, tp(Qstar, MC, ox, oy, gw, gh, xMax, yMax).x + 6,
+                                 tp(Qstar, MC, ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                    /* Individual MBs at Q* */
+                    var ptMB1 = tp(Qstar, mb1(Qstar), ox, oy, gw, gh, xMax, yMax);
+                    var ptMB2 = tp(Qstar, mb2(Qstar), ox, oy, gw, gh, xMax, yMax);
+                    var ptSMB = tp(Qstar, smb(Qstar), ox, oy, gw, gh, xMax, yMax);
+                    ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1.5; ctx.setLineDash([3, 3]);
+                    ctx.beginPath(); ctx.moveTo(ox, ptMB1.y); ctx.lineTo(ptMB1.x, ptMB1.y); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(ox, ptMB2.y); ctx.lineTo(ptMB2.x, ptMB2.y); ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.fillStyle = C.mb1; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                    ctx.fillText('MB₁(G*)=' + mb1(Qstar).toFixed(1), ox - 2, ptMB1.y);
+                    ctx.fillStyle = C.mb2;
+                    ctx.fillText('MB₂(G*)=' + mb2(Qstar).toFixed(1), ox - 2, ptMB2.y);
+
+                    /* Market provision faint */
+                    dot(ctx, Qmkt, MC, ox, oy, gw, gh, xMax, yMax, C.textMuted, 3);
+
+                    info.innerHTML =
+                        '<strong>Samuelson condition: SMB = MB₁ + MB₂ = MC</strong>' +
+                        '<br>At G* = ' + Qstar + ': MB₁ = ' + mb1(Qstar).toFixed(1) +
+                        ', MB₂ = ' + mb2(Qstar).toFixed(1) +
+                        ', SMB = ' + smb(Qstar).toFixed(1) + ' = MC = ' + MC +
+                        ' ✓' +
+                        ' &nbsp;|&nbsp; <strong>Social optimum G* = ' + Qstar + ' vs market G = ' + Qmkt + '</strong>';
+                }
+            }
+
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ── Global redraw ── */
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>

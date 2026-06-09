@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 20: Contracts and Moral Hazards | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph { background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); }
+        .interactive-graph canvas { display: block; margin: 0 auto; cursor: crosshair; max-width: 100%; }
+        .graph-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-border-light); align-items: center; }
+        .graph-controls label { font-size: var(--font-size-sm); color: var(--color-text-light); display: flex; align-items: center; gap: 0.5rem; }
+        .graph-controls input[type="range"] { width: 140px; accent-color: var(--color-primary); }
+        .graph-controls .value-display { font-weight: var(--font-weight-semibold); color: var(--color-primary-dark); min-width: 3em; }
+        .graph-info { margin-top: 0.75rem; padding: 0.75rem; background: var(--color-primary-pale); border-radius: var(--radius-sm); font-size: var(--font-size-sm); color: var(--color-text); }
+        .graph-caption { text-align: center; font-size: var(--font-size-sm); color: var(--color-text-light); margin-top: 0.5rem; font-style: italic; }
+        .chapter-nav { display: flex; justify-content: space-between; margin: 2rem 0; padding: 1rem 0; border-top: 1px solid var(--color-border); }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc { background: var(--color-background-alt); border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0; }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .course-complete { text-align: center; padding: 2rem; background: linear-gradient(135deg, var(--color-primary-pale), var(--color-background-alt)); border-radius: var(--radius-lg); border: 1px solid var(--color-border); margin: 2rem 0; }
+        .course-complete h3 { color: var(--color-primary-dark); margin-top: 0; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 20: Contracts and Moral Hazards</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 20</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#risk-incentives">20.1 Risk vs Incentives</a></li>
+                <li><a href="#efficiency-wages">20.2 Efficiency Wages</a></li>
+                <li><a href="#team-production">20.3 Team Production</a></li>
+                <li><a href="#tournaments">20.4 Tournaments</a></li>
+                <li><a href="#formal-derivations">20.5 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: How Do You Pay a Football Manager?</h2>
+                <p>In the summer of 2023, Manchester City and their manager Pep Guardiola agreed a contract extension widely reported to be worth around £20 million per year in base salary, supplemented by performance bonuses tied to Premier League titles, Champions League wins, and other benchmarks. Why structure it this way? A pure fixed salary would give Guardiola full insurance against the vagaries of refereeing decisions, player injuries, and bad luck &mdash; but it would also mean he bears no personal cost from underperforming. A pure performance-based contract would align his incentives perfectly with City&rsquo;s, but it would make his income highly volatile &mdash; a problem for anyone who is even mildly risk-averse.</p>
+
+                <p>This tension &mdash; between risk-sharing and incentive provision &mdash; is the central problem of contract design under moral hazard. It arises wherever one party (the agent) takes actions that affect outcomes for another party (the principal), and those actions cannot be directly observed or contracted upon. In such situations the principal cannot write a contract on effort directly; it must instead write a contract on the observable outcome (wins, revenue, profit) and accept that this imperfectly reflects the agent&rsquo;s underlying effort.</p>
+
+                <p>The problem is pervasive. Shareholders cannot directly observe executive effort and must use pay-for-performance contracts that expose CEOs to company stock risk. Insurers cannot observe whether the insured takes care and must use deductibles that expose policyholders to some loss. Landlords cannot observe how carefully tenants maintain a property and must use security deposits. In each case the optimal contract is a compromise: some incentive, some insurance, and inevitably some efficiency loss relative to the first-best world where effort is observable.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>The <strong>fundamental trade-off in contract design</strong> is between incentives and risk. Providing stronger incentives requires exposing the agent to more income risk, which demands a higher risk premium &mdash; a cost that ultimately comes out of the surplus the principal-agent relationship can generate. The socially optimal contract balances the marginal gain from higher effort against the marginal cost of imposing risk. This is the essence of the <strong>incentive intensity theorem</strong>.</p>
+                </div>
+
+                <p>By the end of this chapter you will be able to derive the optimal incentive intensity in a linear contract under moral hazard, explain the Shapiro-Stiglitz efficiency wage model and why it generates involuntary unemployment, identify the free-rider problem in team production and explain why team sizes are limited, and analyse rank-order tournaments as an alternative incentive mechanism that avoids the need to measure absolute output.</p>
+            </section>
+
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#risk-incentives">Risk vs Incentives</a> &mdash; LEN model, optimal incentive intensity, β*</li>
+                    <li><a href="#efficiency-wages">Efficiency Wages</a> &mdash; Shapiro-Stiglitz, involuntary unemployment</li>
+                    <li><a href="#team-production">Team Production</a> &mdash; free-riding, Alchian-Demsetz, 1/N problem</li>
+                    <li><a href="#tournaments">Rank-Order Tournaments</a> &mdash; Lazear-Rosen, prize spread, relative performance</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; LEN model proof, NSC derivation, tournament FOC, Holmström</li>
+                </ol>
+            </div>
+
+
+            <!-- ============================================ -->
+            <!-- 20.1 RISK vs INCENTIVES                       -->
+            <!-- ============================================ -->
+            <section id="risk-incentives" class="lesson-section section-geometric">
+                <h2>20.1 The Risk-Incentive Trade-off</h2>
+
+                <h3>Intuition: Why Is the Optimal Contract Never Pure Performance Pay?</h3>
+                <p>Suppose output is \(q = e + \varepsilon\), where \(e\) is the agent&rsquo;s effort and \(\varepsilon\) is random noise (luck, market conditions, measurement error) with variance \(\sigma^2\). A linear contract specifies pay \(w = \alpha + \beta q\), where \(\alpha\) is a base wage and \(\beta \in [0,1]\) is the <strong>performance share</strong> (also called incentive intensity). Setting \(\beta = 1\) makes the agent a full residual claimant &mdash; she keeps every extra unit of output she produces, which perfectly aligns incentives. But she also absorbs all the noise \(\varepsilon\), which is costly if she is risk-averse.</p>
+
+                <p>A risk-averse agent demands a <strong>risk premium</strong> to accept volatile income. In the LEN model (Linear contract, Exponential utility, Normal noise), this premium equals \(\frac{1}{2} r \beta^2 \sigma^2\), where \(r\) is the agent&rsquo;s coefficient of absolute risk aversion. The principal bears this premium as a cost: to keep the agent willing to participate, the base wage \(\alpha\) must rise to compensate for the risk imposed by \(\beta\). The principal therefore faces a trade-off: raising \(\beta\) increases the agent&rsquo;s effort (better incentives) but also increases the required compensation for risk (higher cost). The optimal \(\beta^*\) balances these effects.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Incentive Intensity Theorem (Holmström and Milgrom, 1987)</h4>
+                    <p>In the LEN model, the optimal performance share is \(\beta^* = \frac{1}{1 + r c \sigma^2}\), where \(r\) is the agent&rsquo;s risk aversion, \(c\) governs the cost of effort, and \(\sigma^2\) is the variance of output noise. Optimal incentive intensity is <em>decreasing</em> in all three parameters: risk-averse agents, high-cost effort, and noisy environments all call for weaker performance pay.</p>
+                </div>
+
+                <h3>Geometric Solution: Principal&rsquo;s Profit as a Function of Incentive Intensity</h3>
+                <p>The graph plots the principal&rsquo;s expected profit as a function of \(\beta\), after optimally adjusting the base wage \(\alpha\) to hold the agent to her reservation utility. Adjust the noise slider to see how the optimal \(\beta^*\) (the peak of the profit curve) shifts left as the environment becomes noisier.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-incentive" width="600" height="400" style="width:600px;height:400px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Output noise σ²: <input type="range" id="slider-sigma2" min="0" max="4" step="0.2" value="1"> <span class="value-display" id="val-sigma2">1.0</span></label>
+                    </div>
+                    <div class="graph-info" id="info-incentive"></div>
+                    <p class="graph-caption">Figure 20.1 &mdash; Principal&rsquo;s profit as a function of incentive intensity β. The peak gives β* = 1/(1 + rcσ²). As noise σ² rises, the optimal contract moves toward a fixed wage (β* → 0).</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: Executive Pay and Firm Risk</h4>
+                    <p>The incentive intensity theorem has a sharp prediction: CEOs of firms operating in noisier, more volatile industries should have a lower share of pay tied to stock performance. Empirically, this is broadly confirmed: firms in cyclically volatile industries (oil, mining, semiconductors) tend to rely less on pure equity-based pay than firms in stable sectors (utilities, consumer staples) where performance is a clearer signal of managerial effort. The 2023 Post Office scandal &mdash; where branch managers were wrongly prosecuted because the Horizon IT system falsely reported shortfalls &mdash; is a cautionary tale of what happens when contracts punish agents for measurement noise that has nothing to do with their effort.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 20.2 EFFICIENCY WAGES                         -->
+            <!-- ============================================ -->
+            <section id="efficiency-wages" class="lesson-section section-geometric">
+                <h2>20.2 Efficiency Wages</h2>
+
+                <h3>Intuition: Unemployment as a Discipline Device</h3>
+                <p>A puzzle in labour economics is why wages do not fall to clear the labour market even in recessions: there are workers willing to work at wages below the prevailing level who cannot find jobs. Standard competitive theory predicts that wages will adjust to equate supply and demand. Shapiro and Stiglitz (1984) offered a resolution based on moral hazard: firms <em>deliberately</em> pay above the market-clearing wage to deter workers from shirking.</p>
+
+                <p>The logic is as follows. A worker who shirks (exerts low effort) risks being caught and fired. The punishment is unemployment &mdash; but only if unemployment is unpleasant. If the labour market clears at full employment, a fired worker finds another job immediately at the same wage; the threat of dismissal is toothless. Firms must therefore maintain a wage high enough that a worker caught shirking suffers a real loss. This requires that some workers remain involuntarily unemployed as a standing disciplinary device &mdash; unemployment is the <em>stick</em> that makes the threat of dismissal credible.</p>
+
+                <div class="callout callout-definition">
+                    <h4>No-Shirking Condition (NSC)</h4>
+                    <p>A worker does not shirk if the expected cost of being caught (wage loss discounted by re-employment probability) exceeds the benefit of shirking (saved effort cost). This yields the <strong>No-Shirking Condition</strong>: \(w \geq \bar{w} + \frac{e}{q} \cdot \frac{L}{N-L}\), where \(\bar{w}\) is the unemployment benefit, \(e\) is the effort cost, \(q\) is the monitoring probability, \(L\) is employment, and \(N-L\) is unemployment. The NSC is <em>upward-sloping</em> in \(L\): as employment rises (unemployment shrinks), the required wage rises to maintain the discipline effect.</p>
+                </div>
+
+                <h3>Geometric Solution: NSC and Labour Demand</h3>
+                <p>The graph shows the labour market with the downward-sloping labour demand curve (firms&rsquo; marginal revenue product of labour) and the upward-sloping no-shirking condition. Their intersection determines equilibrium employment and the efficiency wage. The gap between equilibrium employment and full employment (\(N = 100\)) is involuntary unemployment. Adjust the shirking incentive slider to see how greater temptation to shirk reduces equilibrium employment.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-effwage" width="600" height="420" style="width:600px;height:420px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Shirking incentive k: <input type="range" id="slider-k-eff" min="0.5" max="10" step="0.5" value="5"> <span class="value-display" id="val-k-eff">5.0</span></label>
+                    </div>
+                    <div class="graph-info" id="info-effwage"></div>
+                    <p class="graph-caption">Figure 20.2 &mdash; Efficiency wage equilibrium. The NSC (red) slopes upward because a tighter labour market weakens the threat of dismissal. The equilibrium wage (above the market-clearing level) generates involuntary unemployment.</p>
+                </div>
+
+                <div class="callout callout-warning">
+                    <h4>Policy Implication: Minimum Wages Can Be Efficiency-Enhancing</h4>
+                    <p>In a competitive model a minimum wage above the market rate reduces employment and creates deadweight loss. But in an efficiency wage model, the minimum wage may actually raise welfare: if firms are already paying efficiency wages above market-clearing, a moderate minimum wage compresses the wage distribution without reducing efficiency. Some of the empirical evidence that modest minimum wage increases do not reduce employment significantly may reflect efficiency wage mechanisms at work.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 20.3 TEAM PRODUCTION                          -->
+            <!-- ============================================ -->
+            <section id="team-production" class="lesson-section section-geometric">
+                <h2>20.3 Team Production and the Free-Rider Problem</h2>
+
+                <h3>Intuition: The 1/N Problem</h3>
+                <p>Alchian and Demsetz (1972) identified a second source of moral hazard in production: team production, where total output depends on the combined effort of multiple workers but individual contributions are difficult or impossible to separate. Consider a group of \(N\) workers whose joint output is \(Q = \sum_{i=1}^{N} e_i\) and who divide revenue equally. Each worker receives \(Q/N\) but bears the full personal cost \(c(e_i)\) of their own effort. The worker&rsquo;s private marginal return to effort is therefore only \(1/N\) of the social marginal return &mdash; the remaining \((N-1)/N\) is shared with colleagues as a positive externality the worker is not compensated for. This is the <strong>1/N problem</strong>: with equal sharing, individual effort is depressed by a factor of \(N\) relative to the social optimum.</p>
+
+                <p>With convex effort cost \(c(e) = e^2/2\), the Nash equilibrium has each worker choosing effort \(e^* = 1/N\), giving team output \(Q^* = 1\) regardless of team size. The social optimum has each worker choosing effort \(e_{opt} = 1\), giving output \(Q_{opt} = N\). The free-riding loss &mdash; the gap between actual and optimal output &mdash; grows without bound as \(N\) increases, even as each individual contribution shrinks.</p>
+
+                <div class="callout callout-definition">
+                    <h4>The 1/N Problem in Team Production</h4>
+                    <p>With equal revenue sharing among \(N\) workers, each agent equates their private marginal return \(1/N\) to their marginal cost. Since the social marginal return is 1, each worker chooses effort \(1/N\) times the socially optimal level. Team output is constant at \(Q = 1\) regardless of \(N\), whilst the social optimum is \(Q = N\). The free-riding loss per worker is \(\frac{1}{2}(1 - 1/N)\), rising from 0 at \(N=1\) to 1/2 as \(N \to \infty\).</p>
+                </div>
+
+                <h3>Geometric Solution: Nash vs Social Effort as Team Size Grows</h3>
+                <p>The graph shows individual effort under the Nash equilibrium (1/N, decreasing) and the social optimum (1, flat) as team size varies. The free-riding gap is the shaded region between the two curves. Use the slider to select team size and read off the exact values.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-team" width="600" height="400" style="width:600px;height:400px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Team size N: <input type="range" id="slider-N" min="1" max="10" step="1" value="4"> <span class="value-display" id="val-N">4</span></label>
+                    </div>
+                    <div class="graph-info" id="info-team"></div>
+                    <p class="graph-caption">Figure 20.3 &mdash; Free-riding in teams. Nash effort per worker (blue) falls as 1/N while the social optimum (green) stays at 1. Team output remains constant at Q=1 regardless of size, far below the optimum of Q=N.</p>
+                </div>
+
+                <div class="callout callout-key-insight">
+                    <h4>Solutions to the Team Free-Rider Problem</h4>
+                    <p>Several mechanisms mitigate team free-riding. <strong>Monitoring</strong> (Alchian and Demsetz&rsquo;s proposal): appoint a central monitor who observes individual effort and claims residual profit, giving the monitor the right incentives and the workers a discipline device. <strong>Mutual monitoring</strong>: small teams in which colleagues can observe each other&rsquo;s effort (Holmström, 1982). <strong>Tournaments</strong>: replace output sharing with prize competition, breaking the link between team size and individual reward (Lazear and Rosen, 1981). <strong>Partnership dissolution}: one member buys out the other, becoming full residual claimant at the efficient effort level.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 20.4 RANK-ORDER TOURNAMENTS                   -->
+            <!-- ============================================ -->
+            <section id="tournaments" class="lesson-section section-geometric">
+                <h2>20.4 Rank-Order Tournaments</h2>
+
+                <h3>Intuition: Competition Without Measuring Absolute Performance</h3>
+                <p>A rank-order tournament rewards workers based on their relative performance: the top performer wins a prize \(W_H\) (a bonus, a promotion), the rest receive \(W_L\). This arrangement has two appealing properties. First, it does not require the principal to know the agent&rsquo;s marginal product or measure absolute output accurately &mdash; only relative rank matters, and this is often easier to observe. Second, if workers face common shocks (a difficult market, bad weather), these wash out in the comparison: both workers are equally affected, so the winner is determined by effort rather than luck.</p>
+
+                <p>In the Lazear-Rosen (1981) model, two workers simultaneously choose effort. Output is \(y_i = e_i + \varepsilon_i\) where \(\varepsilon_i\) is worker-specific noise. In the symmetric Nash equilibrium both workers exert the same effort, and the first-order condition equates the marginal benefit of effort &mdash; the marginal increase in probability of winning times the prize spread &mdash; to the marginal cost of effort. The <strong>prize spread</strong> \(S = W_H - W_L\) is the key design variable.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Tournament Equilibrium (Lazear-Rosen)</h4>
+                    <p>With noise \(\varepsilon_i \sim U[-a, a]\), the symmetric Nash equilibrium effort is \(e^* = \frac{S}{4a}\), where \(S = W_H - W_L\) is the prize spread and \(a\) controls noise. The principal sets \(S\) to balance the incentive benefit (higher effort) against the cost (total prize budget). Under competition, the optimal spread is \(S^* = 4a c'(e^*)\) where \(e^*\) solves the first-best effort condition.</p>
+                </div>
+
+                <h3>Geometric Solution: Effort and Profit as Functions of Prize Spread</h3>
+                <p>The graph shows equilibrium worker effort (blue, rising linearly with spread) and the principal&rsquo;s per-worker expected profit (green, hill-shaped). The optimal spread \(S^* = 0.4\) maximises profit. Larger spreads elicit more effort but cost more in total prize money; smaller spreads are cheap but produce too little effort.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-tourn" width="600" height="420" style="width:600px;height:420px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Prize spread S = W_H &minus; W_L: <input type="range" id="slider-spread" min="0" max="1" step="0.02" value="0.4"> <span class="value-display" id="val-spread">0.40</span></label>
+                    </div>
+                    <div class="graph-info" id="info-tourn"></div>
+                    <p class="graph-caption">Figure 20.4 &mdash; Tournament design. Equilibrium effort e* = S/(4a) rises linearly with prize spread. Principal&rsquo;s profit (green) is maximised at S* = 0.4. Spreads above S* waste money on prizes; spreads below S* leave effort on the table.</p>
+                </div>
+
+                <div class="callout callout-warning">
+                    <h4>Tournaments and Sabotage</h4>
+                    <p>Rank-order tournaments have a darker side: they create incentives not only to raise one&rsquo;s own output but also to <em>reduce</em> a rival&rsquo;s output. Sabotage is rational in a tournament if it is cheaper than additional personal effort. Lazear (1989) showed that firms can reduce sabotage by compressing wage hierarchies and using absolute performance hurdles alongside relative comparisons. The prevalence of non-compete clauses, team bonuses, and multi-dimensional performance metrics in high-stakes employment contracts partly reflects attempts to mitigate destructive competition.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 20.5 FORMAL DERIVATIONS                       -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>20.5 Formal Derivations</h2>
+
+                <h3>The LEN Model: Deriving β*</h3>
+                <p>Output \(q = e + \varepsilon\) with \(\varepsilon \sim \mathcal{N}(0, \sigma^2)\). Linear contract \(w = \alpha + \beta q\). Agent has CARA utility \(u(w) = -e^{-r w}\) and effort cost \(c(e) = ce^2/2\). The agent&rsquo;s certainty-equivalent wage is \(\text{CE} = \alpha + \beta e - \frac{r}{2}\beta^2\sigma^2 - \frac{c}{2}e^2\). The agent maximises over effort:</p>
+
+                \[\frac{\partial \text{CE}}{\partial e} = \beta - ce = 0 \implies e^*(\beta) = \frac{\beta}{c}\]
+
+                <p>The participation constraint (PC) binds at the optimum: \(\text{CE} = \bar{u}\), giving \(\alpha = \bar{u} - \beta e^* + \frac{r}{2}\beta^2\sigma^2 + \frac{c}{2}(e^*)^2\). Substituting into the principal&rsquo;s expected profit \(\Pi = e^* - \alpha - \beta e^*\):</p>
+
+                \[\Pi(\beta) = \frac{\beta}{c} - \frac{\beta^2}{2c} - \frac{r}{2}\beta^2\sigma^2 - \bar{u} = \frac{\beta}{c} - \frac{\beta^2}{2}\left(\frac{1}{c} + r\sigma^2\right) - \bar{u}\]
+
+                <p>The first-order condition \(\frac{d\Pi}{d\beta} = 0\) gives:</p>
+
+                \[\frac{1}{c} = \beta\left(\frac{1}{c} + r\sigma^2\right) \implies \boxed{\beta^* = \frac{1}{1 + rc\sigma^2}}\]
+
+                <p>The optimal incentive intensity is decreasing in \(r\) (risk aversion), \(c\) (effort cost), and \(\sigma^2\) (noise). At \(\sigma^2 = 0\) (no noise), \(\beta^* = 1\): the agent should be the full residual claimant. As noise grows without bound, \(\beta^* \to 0\): a fixed wage is optimal.</p>
+
+                <h3>Holmström&rsquo;s Informativeness Principle (1979)</h3>
+                <p>The LEN result generalises. Holmström&rsquo;s informativeness principle states that any signal \(s\) that is informative about the agent&rsquo;s effort &mdash; in the sense that the likelihood ratio \(\partial \ln f(q, s | e) / \partial e\) depends on \(s\) &mdash; should be included in the optimal contract, even if it does not directly affect output. Intuitively, more information about effort reduces the noise in the performance signal, allowing the principal to impose less income risk whilst providing the same incentive. Industry-wide performance indices, competitor benchmarks, and weather or commodity price adjustments are all informativeness-principle applications: they filter out common noise, making the wage a sharper signal of individual effort.</p>
+
+                <h3>Shapiro-Stiglitz No-Shirking Condition</h3>
+                <p>Worker \(i\) exerts effort \(e\) (cost \(e\) per period) or shirks (zero cost). If shirking, detected and fired with probability \(q\) per period. Discount rate \(r\), exogenous separation rate \(\delta\). Let \(V_E\) be the value of employment (working), \(V_U\) the value of unemployment (benefit \(b\)). In steady state:</p>
+
+                \[rV_E = w - e - \delta(V_E - V_U)\]
+                \[rV_U = b + a(V_E - V_U)\]
+
+                <p>where \(a\) is the job-finding rate. A shirking worker&rsquo;s value satisfies \(rV_S = w - (q+\delta)(V_E - V_U)\). The NSC requires \(V_E \geq V_S\):</p>
+
+                \[w - e - \delta(V_E - V_U) \geq w - (q+\delta)(V_E - V_U)\]
+                \[q(V_E - V_U) \geq e \implies V_E - V_U \geq \frac{e}{q}\]
+
+                <p>From the value equations: \(r(V_E - V_U) = w - e - b - (r + a + \delta)(V_E - V_U)\), giving \(V_E - V_U = (w-e-b)/(r + a + \delta)\). The NSC becomes:</p>
+
+                \[w \geq b + e + \frac{e(r+a+\delta)}{q} = \bar{w}_{\text{NSC}}\]
+
+                <p>As employment \(L\) rises, the job-finding rate \(a\) rises (proportional to \(L/(N-L)\) in the simplest formulation), so \(\bar{w}_{\text{NSC}}\) rises. The NSC is upward-sloping in \(L\), cutting the labour demand curve at the efficiency-wage equilibrium \((L^*, w^*)\) with \(L^* < N\).</p>
+
+                <h3>Lazear-Rosen Tournament: Optimal Prize Spread</h3>
+                <p>Two workers, \(y_i = e_i + \varepsilon_i\) with \(\varepsilon_i \sim U[-a, a]\), i.i.d. In symmetric equilibrium, worker \(i\) wins if \(y_i > y_j\): probability \(P(\text{win}) = P(\varepsilon_i - \varepsilon_j > e_j - e_i)\). The density of \(\eta = \varepsilon_i - \varepsilon_j\) at zero is \(1/(4a)\). Worker \(i\) maximises \(\frac{1}{2}W_H + \frac{1}{2}W_L + \frac{e_i - e_j}{4a}(W_H - W_L) - c(e_i)\), with FOC in symmetric equilibrium:</p>
+
+                \[\frac{S}{4a} = c'(e^*) \implies e^* = \frac{S}{4a c'(e^*)^{-1}}\]
+
+                <p>For \(c(e) = e^2/2\): \(e^* = S/(4a)\). The participation constraint (binding at optimum): \(\frac{1}{2}(W_H + W_L) = c(e^*) = (e^*)^2/2\). The principal&rsquo;s expected profit per worker is \(e^* - \frac{1}{2}(W_H + W_L) = e^* - (e^*)^2/2\), which equals the social surplus at effort \(e^*\). The principal maximises \(e^* - (e^*)^2/2\) over \(S\) subject to \(e^* = S/(4a)\), yielding \(e^* = 1\) and \(S^* = 4a\). With \(a = 0.1\): \(S^* = 0.4\).</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>This chapter completes our exploration of moral hazard by developing four models of contract design under hidden action. The LEN model provides the foundational trade-off: incentive intensity is optimally decreasing in risk aversion, effort cost, and output noise. The formula \(\beta^* = 1/(1 + rc\sigma^2)\) is the bedrock of applied contract theory and explains why CEO pay is tied to company stock (incentives are valuable) but why the share is far less than 100% (executives are risk-averse and firm performance contains enormous noise).</p>
+
+                <p>Efficiency wages resolve the puzzle of persistent involuntary unemployment by showing that rational profit-maximising firms deliberately pay above the market-clearing wage to create a job rent that deters shirking. The unemployment itself, far from being a policy failure, is a structural feature of the equilibrium &mdash; the standing pool of jobless workers is the discipline device that makes the threat of dismissal credible.</p>
+
+                <p>Team production introduces the 1/N free-rider problem: equal revenue sharing dilutes each worker&rsquo;s private return to effort by a factor of \(N\), collapsing team output to a constant regardless of size. Rank-order tournaments offer a partial solution: by rewarding relative rather than absolute performance, they create sharp incentives that are robust to common shocks and do not require the principal to know the agent&rsquo;s marginal product &mdash; at the cost of creating incentives for sabotage that must be managed separately.</p>
+
+                <p>Together, Chapters 18, 19, and 20 form a coherent treatment of the ways that markets fail when information is imperfect or asymmetric: externalities and public goods (Chapter 18), hidden information before a transaction (Chapter 19), and hidden action after a contract is signed (Chapter 20). The common thread is that prices alone are insufficient to coordinate economic activity efficiently when some information is private; contracts, institutions, and regulatory interventions are needed to fill the gap.</p>
+
+                <div class="course-complete">
+                    <h3>Course Complete</h3>
+                    <p>You have worked through the full sequence of Microeconomics Lessons, from supply and demand through to contract theory and mechanism design. The tools you have acquired &mdash; constrained optimisation, game theory, welfare analysis, and the economics of information &mdash; provide the analytical foundation for understanding how markets work, where they fail, and how policy can help.</p>
+                    <a href="../index.html" style="color:var(--color-primary);font-weight:600;">Return to the Chapter Index &rarr;</a>
+                </div>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch19-asymmetric-information.html">&larr; Chapter 19: Asymmetric Information</a>
+                <a href="../index.html">Return to Index &rarr;</a>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            profitFill: 'rgba(16,185,129,0.12)', profit: '#10b981',
+            incentive: '#3b82f6', incentiveFill: 'rgba(59,130,246,0.12)',
+            bstar: '#f59e0b', bstarFill: 'rgba(245,158,11,0.15)',
+            nsc: '#ef4444', nscFill: 'rgba(239,68,68,0.08)',
+            demand: '#3b82f6', demandFill: 'rgba(59,130,246,0.08)',
+            eqDot: '#10b981', eqGlow: 'rgba(16,185,129,0.3)',
+            fullEmp: '#aaaaaa',
+            nashLine: '#ef4444', nashFill: 'rgba(239,68,68,0.10)',
+            socialLine: '#10b981',
+            freeriding: 'rgba(239,68,68,0.13)',
+            currentN: '#f59e0b', currentNGlow: 'rgba(245,158,11,0.25)',
+            effort: '#3b82f6', effortFill: 'rgba(59,130,246,0.12)',
+            tournProfit: '#10b981', tournProfitFill: 'rgba(16,185,129,0.12)',
+            optimal: '#f59e0b', optimalFill: 'rgba(245,158,11,0.15)',
+            curDot: '#8b5cf6', curGlow: 'rgba(139,92,246,0.3)'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            profitFill: 'rgba(52,211,153,0.14)', profit: '#34d399',
+            incentive: '#60a5fa', incentiveFill: 'rgba(96,165,250,0.14)',
+            bstar: '#fbbf24', bstarFill: 'rgba(251,191,36,0.18)',
+            nsc: '#f87171', nscFill: 'rgba(248,113,113,0.10)',
+            demand: '#60a5fa', demandFill: 'rgba(96,165,250,0.10)',
+            eqDot: '#34d399', eqGlow: 'rgba(52,211,153,0.3)',
+            fullEmp: '#707070',
+            nashLine: '#f87171', nashFill: 'rgba(248,113,113,0.12)',
+            socialLine: '#34d399',
+            freeriding: 'rgba(248,113,113,0.15)',
+            currentN: '#fbbf24', currentNGlow: 'rgba(251,191,36,0.25)',
+            effort: '#60a5fa', effortFill: 'rgba(96,165,250,0.14)',
+            tournProfit: '#34d399', tournProfitFill: 'rgba(52,211,153,0.14)',
+            optimal: '#fbbf24', optimalFill: 'rgba(251,191,36,0.18)',
+            curDot: '#a78bfa', curGlow: 'rgba(167,139,250,0.3)'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(pt.x, oy + gh); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep, fmtX, fmtY) {
+            var v, pt;
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            for (v = xStep; v <= xMax + 0.001; v += xStep) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            for (v = yStep; v <= yMax + 0.001; v += yStep) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center'; ctx.fillText(xLabel, ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 44, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel, 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (v = xStep; v <= xMax + 0.001; v += xStep) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(fmtX ? fmtX(v) : v, pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (v = yStep; v <= yMax + 0.001; v += yStep) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(fmtY ? fmtY(v) : v, ox - 6, pt.y);
+            }
+        }
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 1: Incentive Intensity — LEN Model           */
+        /* β* = 1/(1 + r·c·σ²), with r=1, c=1               */
+        /* π(β) = β - β²(1+σ²)/2                             */
+        /* x: β (0-1), y: profit (0-0.55)                    */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-sigma2');
+            var vv = document.getElementById('val-sigma2');
+            var info = document.getElementById('info-incentive');
+            var xMax = 1, yMax = 0.55;
+            var r_param = 1, c_param = 1;
+
+            function profFn(beta, s2) {
+                return beta / c_param - beta * beta * (1 / c_param + r_param * s2) / 2;
+            }
+
+            function draw() {
+                var res = getCtx('canvas-incentive');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var s2 = parseFloat(sl.value);
+                vv.textContent = s2.toFixed(1);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Incentive intensity β', 'Expected profit (£)',
+                    0.1, 0.05,
+                    function(v) { return v.toFixed(1); },
+                    function(v) { return v.toFixed(2); });
+
+                var betaStar = 1 / (1 + r_param * c_param * s2);
+                var piStar = profFn(betaStar, s2);
+
+                /* Shade under profit curve */
+                ctx.beginPath();
+                ctx.moveTo(tp(0, 0, ox, oy, gw, gh, xMax, yMax).x, tp(0, 0, ox, oy, gw, gh, xMax, yMax).y);
+                for (var bi = 0; bi <= xMax; bi += 0.005) {
+                    var pi = profFn(bi, s2);
+                    if (pi < 0) { ctx.lineTo(tp(bi, 0, ox, oy, gw, gh, xMax, yMax).x, tp(bi, 0, ox, oy, gw, gh, xMax, yMax).y); continue; }
+                    ctx.lineTo(tp(bi, pi, ox, oy, gw, gh, xMax, yMax).x, tp(bi, pi, ox, oy, gw, gh, xMax, yMax).y);
+                }
+                ctx.lineTo(tp(xMax, 0, ox, oy, gw, gh, xMax, yMax).x, tp(xMax, 0, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.closePath(); ctx.fillStyle = C.profitFill; ctx.fill();
+
+                /* Profit curve */
+                ctx.strokeStyle = C.profit; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                for (var bi2 = 0; bi2 <= xMax; bi2 += 0.005) {
+                    var pi2 = profFn(bi2, s2);
+                    var pt = tp(bi2, Math.max(pi2, 0), ox, oy, gw, gh, xMax, yMax);
+                    if (bi2 === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+                ctx.fillStyle = C.profit; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Principal profit π(β)', tp(0.05, profFn(0.05, s2), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(0.05, profFn(0.05, s2), ox, oy, gw, gh, xMax, yMax).y - 2);
+
+                /* β* vertical line */
+                var ptBS = tp(betaStar, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.bstar; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                ctx.beginPath(); ctx.moveTo(ptBS.x, oy); ctx.lineTo(ptBS.x, oy + gh); ctx.stroke();
+                ctx.setLineDash([]);
+
+                /* β* dot at peak */
+                var ptPeak = tp(betaStar, piStar, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptPeak.x, ptPeak.y, 9, 0, 2 * Math.PI);
+                ctx.fillStyle = C.bstarFill; ctx.fill();
+                dot(ctx, betaStar, piStar, ox, oy, gw, gh, xMax, yMax, C.bstar, 5);
+                ctx.fillStyle = C.bstar; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('β* = ' + betaStar.toFixed(2), ptPeak.x, ptPeak.y - 8);
+
+                /* Arrow showing β* shifts left as σ² increases */
+                if (s2 > 0.5) {
+                    ctx.fillStyle = C.textMuted; ctx.font = '10px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                    ctx.fillText('β* moves left as σ² increases →', tp(0.6, yMax * 0.85, ox, oy, gw, gh, xMax, yMax).x,
+                                 tp(0.6, yMax * 0.85, ox, oy, gw, gh, xMax, yMax).y);
+                }
+
+                info.innerHTML =
+                    '<strong>σ² = ' + s2.toFixed(1) + '</strong>' +
+                    ' (r = c = 1)' +
+                    ' &nbsp;|&nbsp; β* = 1/(1 + ' + s2.toFixed(1) + ') = <strong>' + betaStar.toFixed(3) + '</strong>' +
+                    ' &nbsp;|&nbsp; Max profit = ' + piStar.toFixed(3) +
+                    '<br>' + (s2 < 0.1 ? 'Near-zero noise: β* ≈ 1 (full performance pay, agent is de-facto owner)' :
+                              s2 < 1 ? 'Moderate noise: mixed contract, performance pay with insurance' :
+                              s2 < 3 ? 'High noise: mostly fixed wage (β* = ' + betaStar.toFixed(2) + ')' :
+                              'Very high noise: near-fixed wage — effort barely measurable');
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 2: Efficiency Wages — Shapiro-Stiglitz        */
+        /* NSC: w = 10 + k * L/(100-L); Demand: w = 28-0.2L  */
+        /* x: L (0-92), y: w (0-35)                          */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-k-eff');
+            var vv = document.getElementById('val-k-eff');
+            var info = document.getElementById('info-effwage');
+            var xMax = 92, yMax = 35;
+            var N = 100;
+
+            function nscFn(L, k) { return L >= N ? 999 : 10 + k * L / (N - L); }
+            function demandFn(L) { return 28 - 0.2 * L; }
+
+            function findEq(k) {
+                /* solve 28-0.2L = 10 + k*L/(100-L) */
+                var lo = 0.1, hi = 99, L, lhs, rhs;
+                for (var i = 0; i < 60; i++) {
+                    L = (lo + hi) / 2;
+                    lhs = demandFn(L);
+                    rhs = nscFn(L, k);
+                    if (lhs > rhs) lo = L; else hi = L;
+                }
+                return (lo + hi) / 2;
+            }
+
+            function draw() {
+                var res = getCtx('canvas-effwage');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var k = parseFloat(sl.value);
+                vv.textContent = k.toFixed(1);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Employment L (workers)', 'Wage w (£)', 10, 5);
+
+                var Leq = findEq(k);
+                var weq = demandFn(Leq);
+
+                /* NSC fill */
+                ctx.beginPath();
+                ctx.moveTo(tp(0, nscFn(0, k), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, nscFn(0, k), ox, oy, gw, gh, xMax, yMax).y);
+                for (var Li = 0; Li <= xMax; Li += 0.5) {
+                    var wNSC = nscFn(Li, k);
+                    if (wNSC > yMax) { ctx.lineTo(tp(Li, yMax, ox, oy, gw, gh, xMax, yMax).x, oy); break; }
+                    ctx.lineTo(tp(Li, wNSC, ox, oy, gw, gh, xMax, yMax).x,
+                               tp(Li, wNSC, ox, oy, gw, gh, xMax, yMax).y);
+                }
+                ctx.lineTo(tp(xMax, yMax, ox, oy, gw, gh, xMax, yMax).x, oy);
+                ctx.lineTo(tp(0, yMax, ox, oy, gw, gh, xMax, yMax).x, oy);
+                ctx.closePath(); ctx.fillStyle = C.nscFill; ctx.fill();
+
+                /* NSC curve */
+                ctx.strokeStyle = C.nsc; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                var first = true;
+                for (var Li2 = 0; Li2 <= xMax; Li2 += 0.3) {
+                    var wN = nscFn(Li2, k);
+                    if (wN > yMax || wN < 0) { first = true; continue; }
+                    var pt = tp(Li2, wN, ox, oy, gw, gh, xMax, yMax);
+                    if (first) { ctx.moveTo(pt.x, pt.y); first = false; } else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+                ctx.fillStyle = C.nsc; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                ctx.fillText('NSC (No-Shirking Condition)', tp(5, nscFn(5, k) + 2, ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(5, nscFn(5, k) + 2, ox, oy, gw, gh, xMax, yMax).y);
+
+                /* Labour demand */
+                ctx.strokeStyle = C.demand; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, demandFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, demandFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, demandFn(xMax), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, demandFn(xMax), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = C.demand; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Labour demand', tp(80, demandFn(80), ox, oy, gw, gh, xMax, yMax).x - 2,
+                             tp(80, demandFn(80), ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                /* Full employment vertical line at L=90 (demand=w_floor=10) */
+                var Lfull = (28 - 10) / 0.2;  /* = 90 */
+                var ptFull = tp(Lfull, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.fullEmp; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                ctx.beginPath(); ctx.moveTo(ptFull.x, oy); ctx.lineTo(ptFull.x, oy + gh); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.fullEmp; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Full employment', ptFull.x, oy + gh - 2);
+
+                /* Equilibrium */
+                if (weq > 0 && weq < yMax && Leq > 0 && Leq < xMax) {
+                    dashedTo(ctx, Leq, weq, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    var ptEq = tp(Leq, weq, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ptEq.x, ptEq.y, 9, 0, 2 * Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, Leq, weq, ox, oy, gw, gh, xMax, yMax, C.eqDot, 5);
+                    ctx.fillStyle = C.eqDot; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('Eq: L*=' + Leq.toFixed(0) + ', w*=£' + weq.toFixed(1),
+                                 ptEq.x + 6, ptEq.y - 3);
+
+                    /* Involuntary unemployment bracket on x-axis */
+                    var ptEqX = tp(Leq, 0, ox, oy, gw, gh, xMax, yMax);
+                    ctx.strokeStyle = C.nsc; ctx.lineWidth = 1.5;
+                    ctx.beginPath(); ctx.moveTo(ptEqX.x, oy + gh + 12); ctx.lineTo(ptFull.x, oy + gh + 12); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(ptEqX.x, oy + gh + 8); ctx.lineTo(ptEqX.x, oy + gh + 16); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(ptFull.x, oy + gh + 8); ctx.lineTo(ptFull.x, oy + gh + 16); ctx.stroke();
+                    ctx.fillStyle = C.nsc; ctx.font = 'bold 9px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                    ctx.fillText('Involuntary unemployment = ' + (Lfull - Leq).toFixed(0),
+                                 (ptEqX.x + ptFull.x) / 2, oy + gh + 17);
+                }
+
+                info.innerHTML =
+                    '<strong>k = ' + k.toFixed(1) + '</strong> (shirking incentive)' +
+                    ' &nbsp;|&nbsp; Equilibrium: L* = ' + Leq.toFixed(0) +
+                    ', w* = £' + weq.toFixed(1) +
+                    ' &nbsp;|&nbsp; Involuntary unemployment = ' + (Math.max(0, Lfull - Leq)).toFixed(0) + ' workers' +
+                    '<br>Higher k (more tempting to shirk) → NSC shifts up → lower L*, higher w*, more unemployment';
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 3: Team Production — Free-Riding             */
+        /* Nash: 1/N, Optimal: 1. x: N (1-10), y: effort     */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-N');
+            var vv = document.getElementById('val-N');
+            var info = document.getElementById('info-team');
+            var xMax = 10, yMax = 1.2;
+
+            function draw() {
+                var res = getCtx('canvas-team');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var N = parseInt(sl.value);
+                vv.textContent = N;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Team size N', 'Individual effort per worker',
+                    1, 0.2,
+                    function(v) { return v.toFixed(0); },
+                    function(v) { return v.toFixed(1); });
+
+                /* Free-riding shading between optimal (1) and Nash (1/N) */
+                ctx.beginPath();
+                ctx.moveTo(tp(1, 1, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(1, 1, ox, oy, gw, gh, xMax, yMax).y);
+                for (var ni = 1; ni <= xMax; ni += 0.05) {
+                    ctx.lineTo(tp(ni, 1, ox, oy, gw, gh, xMax, yMax).x,
+                               tp(ni, 1, ox, oy, gw, gh, xMax, yMax).y);
+                }
+                for (var ni2 = xMax; ni2 >= 1; ni2 -= 0.05) {
+                    ctx.lineTo(tp(ni2, 1 / ni2, ox, oy, gw, gh, xMax, yMax).x,
+                               tp(ni2, 1 / ni2, ox, oy, gw, gh, xMax, yMax).y);
+                }
+                ctx.closePath(); ctx.fillStyle = C.freeriding; ctx.fill();
+
+                /* Nash effort curve: e* = 1/N */
+                ctx.strokeStyle = C.nashLine; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(1, 1, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(1, 1, ox, oy, gw, gh, xMax, yMax).y);
+                for (var ni3 = 1.05; ni3 <= xMax + 0.01; ni3 += 0.05) {
+                    ctx.lineTo(tp(ni3, 1 / ni3, ox, oy, gw, gh, xMax, yMax).x,
+                               tp(ni3, 1 / ni3, ox, oy, gw, gh, xMax, yMax).y);
+                }
+                ctx.stroke();
+                ctx.fillStyle = C.nashLine; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Nash effort = 1/N', tp(4, 1/4 + 0.04, ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(4, 1/4 + 0.04, ox, oy, gw, gh, xMax, yMax).y);
+
+                /* Dots at each integer N on Nash curve */
+                for (var nd = 1; nd <= xMax; nd++) {
+                    dot(ctx, nd, 1/nd, ox, oy, gw, gh, xMax, yMax, C.nashLine, 3);
+                }
+
+                /* Social optimum line at 1 */
+                ctx.strokeStyle = C.socialLine; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(1, 1, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(1, 1, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, 1, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, 1, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = C.socialLine; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Social optimum = 1', tp(9.5, 1, ox, oy, gw, gh, xMax, yMax).x - 2,
+                             tp(9.5, 1, ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                /* Free-riding gap label */
+                ctx.fillStyle = C.nashLine; ctx.font = 'bold 9px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('Free-riding gap', tp(6, 1 - (1 - 1/6)/2, ox, oy, gw, gh, xMax, yMax).x,
+                             tp(6, 1 - (1 - 1/6)/2, ox, oy, gw, gh, xMax, yMax).y);
+
+                /* Current N highlight */
+                var ptN_cur = tp(N, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.currentN; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                ctx.beginPath(); ctx.moveTo(ptN_cur.x, oy); ctx.lineTo(ptN_cur.x, oy + gh); ctx.stroke();
+                ctx.setLineDash([]);
+
+                /* Dots at current N for Nash and Social */
+                var ptNash = tp(N, 1/N, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptNash.x, ptNash.y, 9, 0, 2*Math.PI);
+                ctx.fillStyle = C.currentNGlow; ctx.fill();
+                dot(ctx, N, 1/N, ox, oy, gw, gh, xMax, yMax, C.currentN, 5);
+
+                var ptSoc = tp(N, 1, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptSoc.x, ptSoc.y, 9, 0, 2*Math.PI);
+                ctx.fillStyle = C.eqGlow; ctx.fill();
+                dot(ctx, N, 1, ox, oy, gw, gh, xMax, yMax, C.eqDot, 5);
+
+                var nashOut = 1;     /* team output always 1 under Nash */
+                var socOut = N;     /* team output = N under social opt */
+                var lossPerWorker = 0.5 - (1/N - 1/(2*N*N));
+                info.innerHTML =
+                    '<strong>N = ' + N + ' workers</strong>' +
+                    ' &nbsp;|&nbsp; Nash effort = 1/' + N + ' = ' + (1/N).toFixed(3) +
+                    ' | Social optimum effort = 1.000' +
+                    ' &nbsp;|&nbsp; Free-riding loss per worker = ' + lossPerWorker.toFixed(3) +
+                    '<br>Team output: Nash = ' + nashOut.toFixed(0) +
+                    ' (always 1!) vs Social = ' + socOut +
+                    ' &nbsp;|&nbsp; Efficiency = ' + (100/N).toFixed(0) + '% of social optimum';
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 4: Tournament — Prize Spread                  */
+        /* e*(S) = 2.5S (a=0.1), π(S) = 2.5S - 3.125S²      */
+        /* S* = 0.4, x: S (0-1), y: effort/profit (0-1.2)    */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-spread');
+            var vv = document.getElementById('val-spread');
+            var info = document.getElementById('info-tourn');
+            var xMax = 1, yMax = 1.3;
+            var a = 0.1;
+            var SSTAR = 0.4;
+
+            function effortFn(S) { return S / (4 * a); }      /* = 2.5S */
+            function profitFn(S) {
+                var e = effortFn(S);
+                return e - e * e / 2;                         /* = 2.5S - 3.125S² */
+            }
+
+            function draw() {
+                var res = getCtx('canvas-tourn');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var S = parseFloat(sl.value);
+                vv.textContent = S.toFixed(2);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Prize spread S = W_H − W_L (£)', 'Effort / Profit',
+                    0.1, 0.1,
+                    function(v) { return v.toFixed(1); },
+                    function(v) { return v.toFixed(1); });
+
+                /* Optimal S* vertical */
+                var ptSstar = tp(SSTAR, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.optimalFill;
+                ctx.fillRect(ptSstar.x - 2, oy, 4, gh);
+                ctx.strokeStyle = C.optimal; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                ctx.beginPath(); ctx.moveTo(ptSstar.x, oy); ctx.lineTo(ptSstar.x, oy + gh); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.optimal; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('S* = 0.4', ptSstar.x, oy + gh - 2);
+
+                /* Profit fill */
+                ctx.beginPath();
+                ctx.moveTo(tp(0, 0, ox, oy, gw, gh, xMax, yMax).x, tp(0, 0, ox, oy, gw, gh, xMax, yMax).y);
+                for (var si = 0; si <= xMax; si += 0.005) {
+                    var pi = profitFn(si);
+                    if (pi < 0) { ctx.lineTo(tp(si, 0, ox, oy, gw, gh, xMax, yMax).x,
+                                             tp(si, 0, ox, oy, gw, gh, xMax, yMax).y); continue; }
+                    ctx.lineTo(tp(si, pi, ox, oy, gw, gh, xMax, yMax).x,
+                               tp(si, pi, ox, oy, gw, gh, xMax, yMax).y);
+                }
+                ctx.lineTo(tp(xMax, 0, ox, oy, gw, gh, xMax, yMax).x, tp(xMax, 0, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.closePath(); ctx.fillStyle = C.tournProfitFill; ctx.fill();
+
+                /* Profit curve */
+                ctx.strokeStyle = C.tournProfit; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                for (var si2 = 0; si2 <= xMax; si2 += 0.005) {
+                    var pi2 = profitFn(si2);
+                    var pt = tp(si2, Math.max(pi2, 0), ox, oy, gw, gh, xMax, yMax);
+                    if (si2 === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+                ctx.fillStyle = C.tournProfit; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText('Principal profit', tp(0.5, profitFn(0.5), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(0.5, profitFn(0.5), ox, oy, gw, gh, xMax, yMax).y + 2);
+
+                /* Effort fill */
+                ctx.beginPath();
+                ctx.moveTo(tp(0, 0, ox, oy, gw, gh, xMax, yMax).x, tp(0, 0, ox, oy, gw, gh, xMax, yMax).y);
+                for (var si3 = 0; si3 <= xMax; si3 += 0.005) {
+                    var ef = effortFn(si3);
+                    if (ef > yMax) break;
+                    ctx.lineTo(tp(si3, ef, ox, oy, gw, gh, xMax, yMax).x,
+                               tp(si3, ef, ox, oy, gw, gh, xMax, yMax).y);
+                }
+                ctx.lineTo(tp(xMax, 0, ox, oy, gw, gh, xMax, yMax).x, tp(xMax, 0, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.closePath(); ctx.fillStyle = C.effortFill; ctx.fill();
+
+                /* Effort curve */
+                ctx.strokeStyle = C.effort; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, 0, ox, oy, gw, gh, xMax, yMax).x, tp(0, 0, ox, oy, gw, gh, xMax, yMax).y);
+                var eMax = yMax / 2.5; /* where e* = yMax */
+                ctx.lineTo(tp(Math.min(eMax, xMax), Math.min(effortFn(eMax), yMax),
+                             ox, oy, gw, gh, xMax, yMax).x,
+                           tp(Math.min(eMax, xMax), Math.min(effortFn(eMax), yMax),
+                             ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = C.effort; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Equilibrium effort e* = S/(4a)', tp(0.2, effortFn(0.2) + 0.04, ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(0.2, effortFn(0.2) + 0.04, ox, oy, gw, gh, xMax, yMax).y);
+
+                /* Current S dots */
+                var eCur = effortFn(S);
+                var piCur = profitFn(S);
+
+                if (eCur <= yMax) {
+                    var ptEff = tp(S, eCur, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ptEff.x, ptEff.y, 8, 0, 2*Math.PI);
+                    ctx.fillStyle = C.curGlow; ctx.fill();
+                    dot(ctx, S, eCur, ox, oy, gw, gh, xMax, yMax, C.curDot, 5);
+                }
+                if (piCur >= 0 && piCur <= yMax) {
+                    var ptPi = tp(S, piCur, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ptPi.x, ptPi.y, 8, 0, 2*Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, S, piCur, ox, oy, gw, gh, xMax, yMax, C.eqDot, 5);
+                }
+
+                var piStar = profitFn(SSTAR);
+                var status = Math.abs(S - SSTAR) < 0.02 ? 'Optimal prize spread!' :
+                             S < SSTAR ? 'Too small: effort below optimum, principal leaves surplus on table' :
+                             'Too large: effort high but prize cost exceeds marginal value';
+
+                info.innerHTML =
+                    '<strong>S = ' + S.toFixed(2) + '</strong>' +
+                    ' &nbsp;|&nbsp; e* = S/(4×0.1) = <strong>' + eCur.toFixed(2) + '</strong>' +
+                    ' &nbsp;|&nbsp; Principal profit = ' + piCur.toFixed(3) +
+                    ' (max at S* = ' + SSTAR + ': π* = ' + piStar.toFixed(3) + ')' +
+                    '<br><strong>' + status + '</strong>';
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ── Global redraw ── */
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>

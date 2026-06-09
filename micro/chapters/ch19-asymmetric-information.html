@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 19: Asymmetric Information | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph { background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); }
+        .interactive-graph canvas { display: block; margin: 0 auto; cursor: crosshair; max-width: 100%; }
+        .graph-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-border-light); align-items: center; }
+        .graph-controls label { font-size: var(--font-size-sm); color: var(--color-text-light); display: flex; align-items: center; gap: 0.5rem; }
+        .graph-controls input[type="range"] { width: 140px; accent-color: var(--color-primary); }
+        .graph-controls .value-display { font-weight: var(--font-weight-semibold); color: var(--color-primary-dark); min-width: 3em; }
+        .graph-controls button { background: var(--color-primary); color: white; border: none; padding: 0.4rem 1rem; border-radius: var(--radius-sm); cursor: pointer; font-size: var(--font-size-sm); transition: background var(--transition-fast); }
+        .graph-controls button:hover { background: var(--color-primary-dark); }
+        .graph-controls button.active-toggle { background: var(--color-primary-dark); box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+        .graph-info { margin-top: 0.75rem; padding: 0.75rem; background: var(--color-primary-pale); border-radius: var(--radius-sm); font-size: var(--font-size-sm); color: var(--color-text); }
+        .graph-caption { text-align: center; font-size: var(--font-size-sm); color: var(--color-text-light); margin-top: 0.5rem; font-style: italic; }
+        .chapter-nav { display: flex; justify-content: space-between; margin: 2rem 0; padding: 1rem 0; border-top: 1px solid var(--color-border); }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc { background: var(--color-background-alt); border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0; }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 19: Asymmetric Information</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 19</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#adverse-selection">19.1 Adverse Selection</a></li>
+                <li><a href="#signalling">19.2 Signalling</a></li>
+                <li><a href="#screening">19.3 Screening</a></li>
+                <li><a href="#moral-hazard">19.4 Moral Hazard</a></li>
+                <li><a href="#formal-derivations">19.5 Formal Derivations</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: The Market for Lemons</h2>
+                <p>In 1970, George Akerlof published one of the most influential papers in the history of economics: &ldquo;The Market for Lemons: Quality Uncertainty and the Market Mechanism.&rdquo; His insight was disarmingly simple. Suppose you are buying a second-hand car. You can inspect it, take it for a test drive, and read the service history &mdash; but the seller knows far more about the car&rsquo;s true quality than you do. Sellers of good cars ask a high price; sellers of &ldquo;lemons&rdquo; (defective cars) also ask a high price, because they know the buyer cannot immediately tell the difference.</p>
+
+                <p>You, the buyer, know this. You therefore set your willingness to pay at the <em>average</em> quality in the market &mdash; a price that is too low for sellers of genuinely good cars, who withdraw their vehicles. The average quality in the market falls. Your willingness to pay falls further. More good-car sellers exit. In the extreme, the market unravels to nothing, or to a market populated entirely by lemons &mdash; even though mutually beneficial trades between good-car buyers and sellers exist and are never consummated. Akerlof&rsquo;s paper won him a share of the 2001 Nobel Prize in Economics.</p>
+
+                <p>The lemons problem is a specific instance of <strong>adverse selection</strong>: a market failure caused by hidden information that exists <em>before</em> a transaction takes place. The party who knows less (the buyer) faces a pool of transacting counterparties that is adversely selected &mdash; skewed towards worse quality &mdash; precisely because prices cannot distinguish types. Adverse selection is pervasive: health insurance attracts the sick; annuities attract those who expect to live long; loans attract the more reckless borrowers. In each case the less-informed party offers terms based on average risk, which drives out the low-risk and good-quality.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>When one side of a market has <strong>private information</strong> the other side lacks, prices alone cannot achieve efficient trade. The uninformed party must either find ways to infer quality (screening), or allow the informed party to credibly reveal quality (signalling). When neither is possible, markets can collapse entirely. The 2001 Nobel Prize recognised Akerlof (adverse selection), Spence (signalling), and Stiglitz (screening) for this body of work.</p>
+                </div>
+
+                <p>By the end of this chapter, you will be able to define adverse selection and explain why it leads to market unravelling, describe Spence&rsquo;s education signalling model and the conditions for a separating equilibrium, explain the Rothschild-Stiglitz screening model for insurance markets, define moral hazard and the principal-agent problem, and derive the conditions for optimal contracting under hidden action.</p>
+            </section>
+
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#adverse-selection">Adverse Selection</a> &mdash; lemons problem, market unravelling</li>
+                    <li><a href="#signalling">Signalling</a> &mdash; Spence education model, separating equilibrium</li>
+                    <li><a href="#screening">Screening</a> &mdash; Rothschild-Stiglitz insurance, incentive compatibility</li>
+                    <li><a href="#moral-hazard">Moral Hazard</a> &mdash; principal-agent, effort incentives</li>
+                    <li><a href="#formal-derivations">Formal Derivations</a> &mdash; Akerlof model, signalling game, R-S model, optimal contract</li>
+                </ol>
+            </div>
+
+
+            <!-- ============================================ -->
+            <!-- 19.1 ADVERSE SELECTION                        -->
+            <!-- ============================================ -->
+            <section id="adverse-selection" class="lesson-section section-geometric">
+                <h2>19.1 Adverse Selection</h2>
+
+                <h3>Intuition: Why Bad Drives Out Good</h3>
+                <p>To see the adverse selection logic starkly, consider a used-car market with two types: <em>good cars</em>, worth £90 to buyers and £60 to sellers, and <em>lemons</em>, worth £15 to buyers and £10 to sellers. Buyers cannot observe quality before purchase; sellers know their car&rsquo;s type. Trade is always mutually beneficial within a type (buyers value cars more than sellers do), so efficiency requires both types to trade. The question is whether the market can sustain both.</p>
+
+                <p>If buyers believe that a fraction \(p\) of cars offered are good, they are willing to pay at most the expected value \(\mathbb{E}[V] = 90p + 15(1-p) = 75p + 15\). Sellers of good cars will only sell if the price covers their value of £60, which requires \(75p + 15 \geq 60\), or \(p \geq 0.6\). Below this threshold buyers&rsquo; expected value falls short of good-car sellers&rsquo; reservation price. Good-car sellers exit, the market collapses to lemons, and even those trades that survive generate no gains for buyers who know they are only ever sold lemons at the lemons price.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Definition: Adverse Selection</h4>
+                    <p><strong>Adverse selection</strong> occurs when a market participant&rsquo;s private information causes trade to be systematically skewed toward counterparties of worse quality. It arises when the uninformed party cannot distinguish types but prices are set as if all types were average. Classic examples: insurance (sick people buy more health insurance), credit markets (riskier borrowers more eager for loans), labour markets (less productive workers more willing to accept low-screening jobs).</p>
+                </div>
+
+                <h3>Geometric Solution: The Threshold Fraction</h3>
+                <p>The graph plots the buyer&rsquo;s expected value (\(75p+15\), blue line) and the good-seller&rsquo;s reservation price (£60, red dashed line) against the fraction of good cars \(p\). The market supports both types when the blue line is at or above the red &mdash; to the right of the threshold \(p^* = 0.6\). Below \(p^*\), only lemons trade. Drag the slider to see the equilibrium switch.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-lemon" width="600" height="380" style="width:600px;height:380px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Fraction of good cars (p): <input type="range" id="slider-p-lemon" min="0" max="1" step="0.02" value="0.5"> <span class="value-display" id="val-p-lemon">0.50</span></label>
+                    </div>
+                    <div class="graph-info" id="info-lemon"></div>
+                    <p class="graph-caption">Figure 19.1 &mdash; Market unravelling in the lemons model. When p &lt; p* = 0.6, good-car sellers exit because the buyer&rsquo;s expected value (blue) is below the good-car reservation price (red). Only lemons survive.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: Adverse Selection in UK Health Insurance</h4>
+                    <p>The National Health Service is funded through general taxation rather than insurance premiums, which elegantly sidesteps adverse selection in basic healthcare. Private health insurance markets, however, face the classic problem: people who know they are in poor health are more likely to buy supplemental cover, pushing up the average claims cost and the premium. Older, higher-risk individuals are charged higher premiums precisely because insurers try to sort by risk class &mdash; an attempt to price discriminate across types to prevent the unravelling that would arise under a single pooled premium.</p>
+                </div>
+
+                <p>Three broad remedies exist. First, <strong>mandatory participation</strong> (as with the NHS or compulsory motor insurance) forces good and bad risks into the same pool, preventing unravelling. Second, <strong>signalling</strong> allows informed sellers to credibly communicate quality. Third, <strong>screening</strong> allows the uninformed buyer to offer menus of contracts that induce self-selection. We examine the latter two in the next sections.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 19.2 SIGNALLING                               -->
+            <!-- ============================================ -->
+            <section id="signalling" class="lesson-section section-geometric">
+                <h2>19.2 Signalling</h2>
+
+                <h3>Intuition: Credible Communication Through Costly Actions</h3>
+                <p>How can a high-quality seller credibly communicate quality to an uninformed buyer? Simply claiming &ldquo;my car is excellent&rdquo; is worthless &mdash; a lemon seller can claim the same. Credibility requires a signal that is <em>costly</em> to produce but differentially cheaper for high-quality types. If the signal is cheap enough for high types to send and expensive enough to deter low types from mimicking, the signal is informative: buyers can rationally infer quality from the signal alone.</p>
+
+                <p>Michael Spence (2001 Nobel laureate) modelled this mechanism using education in labour markets. Suppose workers are either high-ability (H) or low-ability (L). A competitive firm pays a wage reflecting the worker&rsquo;s expected productivity: £80 if it believes the worker is type H, £40 if it believes type L. Crucially, education does not raise productivity &mdash; it is a pure signal. But the cost of acquiring education level \(e\) differs: \(c_H(e) = e/2\) for type H and \(c_L(e) = e\) for type L (lower ability means studying is more costly). The firm offers a threshold contract: pay £80 to anyone with \(e \geq e^*\), £40 otherwise.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Separating Equilibrium</h4>
+                    <p>A <strong>separating equilibrium</strong> is a signalling equilibrium in which different types choose different signals, allowing the uninformed party to infer the sender&rsquo;s type perfectly. It requires: (i) each type prefers its own signal-wage pair to the other&rsquo;s (incentive compatibility), and (ii) firms&rsquo; beliefs are confirmed in equilibrium. In the Spence model this requires \(40 < e^* \leq 80\), a range wide enough to deter L but not H.</p>
+                </div>
+
+                <h3>Geometric Solution: Net Payoff Lines</h3>
+                <p>The graph shows each type&rsquo;s net wage as a function of education level, given the threshold \(e^*\). Type H earns £(80 &minus; e/2) for \(e \geq e^*\) and £40 otherwise; type L earns £(80 &minus; e) for \(e \geq e^*\) and £40 otherwise. Adjust \(e^*\) to see when the equilibrium is separating. The green region marks the valid range \(40 < e^* \leq 80\).</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-signal" width="600" height="420" style="width:600px;height:420px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Education threshold e*: <input type="range" id="slider-estar" min="5" max="95" step="5" value="55"> <span class="value-display" id="val-estar">55</span></label>
+                    </div>
+                    <div class="graph-info" id="info-signal"></div>
+                    <p class="graph-caption">Figure 19.2 &mdash; Spence signalling. For a separating equilibrium H acquires education e* and L does not. The equilibrium range is 40 &lt; e* ≤ 80 (green band). Outside this range the equilibrium breaks down.</p>
+                </div>
+
+                <div class="callout callout-warning">
+                    <h4>The Efficiency Puzzle</h4>
+                    <p>Signalling equilibria are often <em>not</em> efficient. Education is pure waste in the Spence model &mdash; it consumes real resources (time, tuition, effort) without raising output. A social planner who could observe types directly would pay each worker their true marginal product with no education. The signalling equilibrium achieves efficient <em>sorting</em> but at enormous private and social cost. This is one reason economists are skeptical of credentials as pure signals: if education raises productivity (human capital view) the social cost is at least partially offset; if it is pure signalling, the entire educational expenditure is deadweight loss.</p>
+                </div>
+
+                <p>Not every signalling equilibrium is separating. In a <strong>pooling equilibrium</strong> all types choose the same signal, and the uninformed party cannot distinguish them. Pooling equilibria exist but are generally supported by off-equilibrium beliefs that are not fully plausible, which is why game theorists apply refinements (such as the intuitive criterion) to rule them out in favour of separating equilibria.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 19.3 SCREENING                                -->
+            <!-- ============================================ -->
+            <section id="screening" class="lesson-section section-geometric">
+                <h2>19.3 Screening</h2>
+
+                <h3>Intuition: Menus of Contracts that Induce Self-Selection</h3>
+                <p>Signalling is initiated by the informed party. <strong>Screening</strong> is initiated by the uninformed party, who designs a menu of contracts intended to make each type self-select the contract designed for it. The classic application, due to Rothschild and Stiglitz (1976), is insurance. An insurer cannot observe whether an individual is high-risk (likely to make a claim) or low-risk; each individual knows their own risk. If the insurer offers a single full-coverage contract at the average-risk premium, only high-risk individuals buy it (adverse selection). Can the insurer do better by offering a <em>menu</em>?</p>
+
+                <p>The answer is yes, under conditions. The insurer offers two contracts: one with full coverage at a high premium (designed to appeal to high-risk types), and one with partial coverage at a lower premium (designed for low-risk types). The partial-coverage contract must be calibrated carefully: generous enough that low-risk types prefer it to the full-coverage contract, yet not so generous that high-risk types prefer it too. The binding constraint is the incentive compatibility of the high-risk type &mdash; making sure they do not defect to the low-risk contract.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Rothschild-Stiglitz Screening</h4>
+                    <p>In the R-S model each consumer has wealth \(W=100\) and faces potential loss \(L=60\), so their endowment is \((C_{bad}, C_{good}) = (40, 100)\). High-risk types have \(p_H = 0.4\); low-risk types have \(p_L = 0.2\). The insurer offers a separating menu: high-risk get full coverage at the high-risk premium (contract \(H\) at \((76, 76)\)); low-risk get partial coverage at the low-risk premium (contract \(L\) chosen so that type H prefers \(H\) over \(L\)).</p>
+                </div>
+
+                <h3>Geometric Solution: State-Contingent Insurance Space</h3>
+                <p>The graph shows the state-contingent consumption space. The endowment (red dot) lies at \((40, 100)\). The 45° line is the certainty line; both types prefer bundles on it. The two coloured budget lines are the actuarially fair insurance lines for each risk type. Adjust the coverage level \(k_L\) offered to the low-risk type to see how incentive compatibility (the high-risk type&rsquo;s constraint) limits the generosity of the low-risk contract. The valid separating equilibrium requires H to prefer contract H over contract L.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-screen" width="600" height="480" style="width:600px;height:480px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Low-risk coverage k_L (£): <input type="range" id="slider-kl" min="0" max="58" step="2" value="10"> <span class="value-display" id="val-kl">£10</span></label>
+                    </div>
+                    <div class="graph-info" id="info-screen"></div>
+                    <p class="graph-caption">Figure 19.3 &mdash; Rothschild-Stiglitz screening. High-risk type gets full coverage at (76, 76); low-risk type gets partial coverage. As k_L increases beyond the incentive-compatibility limit (≈ £11), type H defects to the low-risk contract.</p>
+                </div>
+
+                <div class="callout callout-key-insight">
+                    <h4>The Cost of Screening</h4>
+                    <p>In a separating equilibrium, low-risk types are <em>distorted away</em> from their first-best: they would prefer full coverage at the fair premium, but the insurer cannot offer this without attracting high-risk types. The optimal low-risk contract is deliberately under-insured relative to the first-best precisely to make it unattractive to high-risk types. This under-insurance is the real welfare cost of asymmetric information &mdash; the cost is borne by the low-risk type, who cannot credibly prove they are low-risk without accepting a worse contract.</p>
+                </div>
+
+                <p>Rothschild and Stiglitz also showed that a pooling equilibrium is always broken by competition: if a single contract pools types, an insurer can offer a rival contract that selectively attracts only low-risk types (cream-skimming), leaving the pooling contract with an adverse-selected high-risk pool that turns a loss. This instability of pooling under competition is a key result &mdash; though it does not rule out pooling in regulated markets or those with barriers to entry.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 19.4 MORAL HAZARD                             -->
+            <!-- ============================================ -->
+            <section id="moral-hazard" class="lesson-section section-geometric">
+                <h2>19.4 Moral Hazard and the Principal-Agent Problem</h2>
+
+                <h3>Intuition: Hidden Action After the Transaction</h3>
+                <p>Adverse selection, signalling, and screening all concern <em>hidden information</em> about types that is fixed before a transaction. <strong>Moral hazard</strong> is different: it concerns <em>hidden action</em> taken by one party <em>after</em> the contract is signed. Once you have home insurance, you might be slightly less careful about leaving windows open. Once a worker is hired on a fixed salary, they might work less hard. The insurer and the employer cannot observe these actions directly; they can only observe outcomes (was there a burglary? was a project completed on time?). The contract must therefore be designed to create incentives for the right behaviour, even though behaviour itself is unobservable.</p>
+
+                <p>The general framework is the <strong>principal-agent model</strong>. The principal (employer, insurer, bank) contracts with an agent (worker, insured, borrower) whose effort \(e\) is private. Higher effort raises the probability of a good outcome but is costly to the agent. The principal cannot observe \(e\), only outcome \(y \in \{y_L, y_H\}\). The principal must offer a wage schedule \((w_L, w_H)\) &mdash; pay contingent on the observed outcome &mdash; that induces the desired effort level.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Principal-Agent Problem</h4>
+                    <p>The <strong>principal-agent problem</strong> arises when a principal cannot observe an agent&rsquo;s effort, which determines the probability of a desirable outcome. The principal wants to maximise expected profit; the agent wants to maximise utility (wage minus effort cost). The optimal contract balances two objectives: providing incentives for high effort (incentive compatibility) and ensuring the agent earns at least their outside option (participation constraint). Under hidden effort the first-best is generally unachievable.</p>
+                </div>
+
+                <h3>Geometric Solution: Performance Pay and Effort Incentives</h3>
+                <p>The agent has utility \(u(w) = \sqrt{w}\) and a reservation utility of 3 (equivalent to a safe wage of £9). High effort costs 4 utils; low effort costs nothing. With high effort the probability of success (output = 100, vs 0 on failure) is 0.8; with low effort it is 0.3. The principal offers a base wage \(w_0 = 9\) (guaranteed) plus a bonus \(b\) paid only on success. Adjust \(b\) to see when the agent switches from low to high effort and how the principal&rsquo;s profit changes.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-moral" width="600" height="420" style="width:600px;height:420px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Success bonus (b): <input type="range" id="slider-bonus" min="0" max="80" step="2" value="0"> <span class="value-display" id="val-bonus">£0</span></label>
+                    </div>
+                    <div class="graph-info" id="info-moral"></div>
+                    <p class="graph-caption">Figure 19.4 &mdash; Principal-agent contract design. Agent&rsquo;s expected utility under high effort (blue) and low effort (red) as functions of the bonus b. Agent works hard when b ≥ b* ≈ £40. Principal&rsquo;s profit (green) is maximised by setting b = b*.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: City Banker Bonuses</h4>
+                    <p>The financial crisis of 2008 is partly attributed to poorly designed incentive schemes in investment banking. Traders received large bonuses tied to short-run profits but faced no symmetric penalty for losses &mdash; a structure that rewards high-variance strategies even when they have negative expected value. Post-crisis regulation in the UK (the Senior Managers and Certification Regime, and bonus clawback rules) attempted to correct this by deferring bonuses, requiring malus and clawback provisions, and increasing personal liability. These are direct responses to moral hazard: when agents do not bear downside risk, they take too much of it.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 19.5 FORMAL DERIVATIONS                       -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>19.5 Formal Derivations</h2>
+
+                <h3>The Akerlof Model</h3>
+                <p>Let car quality \(q\) be distributed uniformly on \([0, 1]\). Sellers value quality \(q\) at \(q\) and buyers at \(\frac{3}{2}q\), so trade is always efficient (buyers&rsquo; value exceeds sellers&rsquo; for every quality). At market price \(P\), the marginal seller is of quality \(P\) (sellers with \(q \leq P\) are willing to sell). The average quality on the market is \(\bar{q} = P/2\). Buyers&rsquo; willingness to pay is \(\frac{3}{2}\bar{q} = \frac{3}{4}P < P\). No buyer will pay \(P\) for a car worth only \(\frac{3}{4}P\). The only equilibrium is \(P = 0\) &mdash; complete market collapse.</p>
+
+                <p>Formally, equilibrium requires buyers&rsquo; WTP = price: \(\frac{3}{2} \cdot \frac{P}{2} = P\), which gives \(\frac{3}{4}P = P\), satisfied only at \(P = 0\). No trade occurs despite the existence of mutually beneficial trades (\(\frac{3}{2}q > q\) for all \(q > 0\)). The market fails entirely due to adverse selection.</p>
+
+                <h3>Spence Signalling: Separating Equilibrium Conditions</h3>
+                <p>There are two types, \(\theta \in \{L, H\}\), in proportions \(\lambda\) and \(1-\lambda\). Competitive firms pay wage equal to expected productivity; in a separating equilibrium they pay \(w_H\) to workers with \(e \geq e^*\) and \(w_L\) to workers with \(e < e^*\). The cost of education level \(e\) is \(c_H(e) = e/2\) for type H and \(c_L(e) = e\) for type L (single-crossing property: \(\partial c_L / \partial e > \partial c_H / \partial e\)).</p>
+
+                <p>A separating equilibrium requires two incentive compatibility (IC) conditions:</p>
+
+                \[\text{H-IC:} \quad w_H - \frac{e^*}{2} \geq w_L \quad \Rightarrow \quad e^* \leq 2(w_H - w_L) = 80\]
+                \[\text{L-IC:} \quad w_L \geq w_H - e^* \quad \Rightarrow \quad e^* \geq w_H - w_L = 40\]
+
+                <p>The separating equilibrium exists for \(40 < e^* \leq 80\). The education level \(e^*\) is not uniquely pinned down by equilibrium &mdash; any value in this range supports a separating equilibrium. Refinements (e.g., Riley outcome, Cho-Kreps intuitive criterion) typically select the minimum \(e^* = 40 + \varepsilon\) that still satisfies both constraints, minimising the wasteful cost of signalling.</p>
+
+                <h3>Rothschild-Stiglitz: Incentive-Compatible Screening</h3>
+                <p>Each consumer has utility \(U(C) = \sqrt{C}\), wealth \(W=100\), potential loss \(L=60\). Type \(i\) has probability \(p_i\) of the bad state; \(p_H = 0.4 > p_L = 0.2\). A contract \(\alpha_i = (C_i^{bad}, C_i^{good})\) gives expected utility \(EU_i(\alpha_i) = p_i \sqrt{C_i^{bad}} + (1-p_i)\sqrt{C_i^{good}}\).</p>
+
+                <p>A competitive insurer earns zero expected profit on each type: \(p_i C_i^{bad} + (1-p_i) C_i^{good} = W - p_i L\). In the separating equilibrium, the high-risk contract lies on the H-fair line at full coverage: \(C_H^{bad} = C_H^{good} = W - p_H L = 76\). The low-risk contract lies on the L-fair line and satisfies H&rsquo;s incentive compatibility constraint (H weakly prefers H&rsquo;s contract to L&rsquo;s):</p>
+
+                \[EU_H(\alpha_H) \geq EU_H(\alpha_L)\]
+                \[\sqrt{76} \geq p_H\sqrt{C_L^{bad}} + (1-p_H)\sqrt{C_L^{good}}\]
+
+                <p>The optimal separating contract for type L is found by maximising \(EU_L(\alpha_L)\) subject to zero profit and H-IC. The H-IC binds at the optimum. Numerically, the maximum low-risk coverage is approximately \(k_L \approx 10\text{--}11\), leaving L substantially under-insured relative to the first-best full coverage at \((88, 88)\). The welfare cost falls entirely on low-risk individuals who bear the consequences of not being able to credibly distinguish themselves from high-risk types.</p>
+
+                <h3>Optimal Contract Under Moral Hazard</h3>
+                <p>The agent chooses effort \(e \in \{e_L, e_H\}\) with corresponding success probabilities \(p_L = 0.3\) and \(p_H = 0.8\). The agent has utility \(u(w) - c(e)\) where \(u(w) = \sqrt{w}\), \(c(e_H) = 4\), \(c(e_L) = 0\), and reservation utility \(\bar{u} = 3\). The principal observes outcome \(y \in \{0, 100\}\) and offers contract \((w_f, w_s)\) (failure/success wages).</p>
+
+                <p>To induce high effort, two constraints must hold. The <strong>participation constraint (PC)</strong> ensures the agent accepts the contract:</p>
+
+                \[p_H \sqrt{w_s} + (1-p_H)\sqrt{w_f} - c_H \geq \bar{u} = 3\]
+
+                <p>The <strong>incentive compatibility constraint (IC)</strong> ensures the agent prefers high effort to low effort:</p>
+
+                \[p_H \sqrt{w_s} + (1-p_H)\sqrt{w_f} - c_H \geq p_L \sqrt{w_s} + (1-p_L)\sqrt{w_f} - c_L\]
+                \[(p_H - p_L)(\sqrt{w_s} - \sqrt{w_f}) \geq c_H \quad \Rightarrow \quad 0.5(\sqrt{w_s} - \sqrt{w_f}) \geq 4\]
+
+                <p>Setting base wage \(w_f = 9\) (so \(\sqrt{w_f} = 3\)), the IC becomes \(\sqrt{w_s} \geq 11\), i.e., \(w_s \geq 121\). But since \(y_H = 100\), the principal cannot pay \(w_s = 121 > 100\) from the project output alone with base wage \(w_f = 9\) and bonus \(b = w_s - w_f\): \(w_s = 9 + b\), so IC requires \(b \geq 40\). At \(b = 40\): \(w_s = 49\), \(\sqrt{w_s} = 7\), IC: \(0.5(7-3) = 2 < 4\). Checking: \(0.5 \times (7-3) = 2 \neq 4\). The IC requires \(\sqrt{w_s} - 3 \geq 8\), so \(\sqrt{w_s} \geq 11\), \(b \geq 112\). But output is only 100, so with \(w_f = 9\), \(w_s = 9+b \leq 100\), \(\sqrt{100} = 10 < 11\). The agent is risk-averse and the first-best effort level may not be achievable with these exact numbers; the principal trades off higher \(b\) against the agent&rsquo;s risk premium. The interactive graph illustrates the trade-off &mdash; the critical bonus level where the IC switches depends on parameters. In the full solution the principal minimises the risk premium paid to the agent whilst satisfying both PC and IC constraints.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>Asymmetric information between buyers and sellers generates market failures that are qualitatively different from the externalities and public goods failures we studied in Chapter 18. When sellers know more about quality than buyers, adverse selection causes markets to unravel: a pooled price attracts disproportionately low-quality sellers, depressing the equilibrium price and driving out high-quality sellers, potentially eliminating all trade. Akerlof&rsquo;s lemons model captures this dynamic in its starkest form.</p>
+
+                <p>Two mechanisms can mitigate adverse selection without government intervention. Signalling allows informed sellers to choose costly actions (education, warranties, advertising spend) that are differentially cheap for high-quality types. In a separating equilibrium, each type self-selects its signal and buyers can infer quality from it &mdash; but only at the cost of real resources spent on signals that are socially wasteful if they convey no productive value. Screening allows the uninformed buyer to design menus of contracts that induce the informed seller to reveal their type. In the Rothschild-Stiglitz insurance model, low-risk types accept under-insurance as the price of being separated from high-risk types &mdash; a direct welfare cost borne by those who least deserve it.</p>
+
+                <p>Moral hazard is a distinct problem: hidden action rather than hidden type. Once insured, hired, or financed, agents may reduce their effort in ways the principal cannot observe. Optimal contracts address this by tying pay to observable outcomes, creating incentives for high effort. The key trade-off is between incentive provision (which requires the agent to bear risk, demanding a risk premium) and insurance (which requires the principal to absorb risk, but blunts effort incentives). Risk-averse agents impose a cost when given high-powered incentives, so the second-best contract under moral hazard always provides weaker incentives than the first-best.</p>
+
+                <p>In the final chapter, we explore <strong>contracts and moral hazard</strong> in greater depth, examining the design of compensation schemes in teams, efficiency wages, and rank-order tournaments.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="ch18-externalities-and-public-goods.html">&larr; Chapter 18: Externalities and Public Goods</a>
+                <a href="ch20-contracts-and-moral-hazards.html">Chapter 20: Contracts and Moral Hazards &rarr;</a>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            goodCar: '#10b981', goodFill: 'rgba(16,185,129,0.12)',
+            lemon: '#ef4444', lemonFill: 'rgba(239,68,68,0.12)',
+            buyer: '#3b82f6', buyerFill: 'rgba(59,130,246,0.10)',
+            threshold: '#f59e0b', thresholdFill: 'rgba(245,158,11,0.15)',
+            typeH: '#3b82f6', typeHFill: 'rgba(59,130,246,0.10)',
+            typeL: '#8b5cf6', typeLFill: 'rgba(139,92,246,0.10)',
+            separating: 'rgba(16,185,129,0.15)',
+            wageH: '#10b981', wageL: '#f59e0b',
+            endow: '#ef4444', endowGlow: 'rgba(239,68,68,0.25)',
+            certLine: '#aaaaaa',
+            fairH: '#ef4444', fairL: '#8b5cf6',
+            contractH: '#ef4444', contractHGlow: 'rgba(239,68,68,0.3)',
+            contractL: '#8b5cf6', contractLGlow: 'rgba(139,92,246,0.3)',
+            icH: '#ef4444', icL: '#8b5cf6',
+            effortH: '#3b82f6', effortHFill: 'rgba(59,130,246,0.12)',
+            effortL: '#ef4444', effortLFill: 'rgba(239,68,68,0.12)',
+            profit: '#10b981', profitFill: 'rgba(16,185,129,0.12)',
+            bstar: '#f59e0b', bstarFill: 'rgba(245,158,11,0.15)'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            goodCar: '#34d399', goodFill: 'rgba(52,211,153,0.14)',
+            lemon: '#f87171', lemonFill: 'rgba(248,113,113,0.14)',
+            buyer: '#60a5fa', buyerFill: 'rgba(96,165,250,0.12)',
+            threshold: '#fbbf24', thresholdFill: 'rgba(251,191,36,0.18)',
+            typeH: '#60a5fa', typeHFill: 'rgba(96,165,250,0.12)',
+            typeL: '#a78bfa', typeLFill: 'rgba(167,139,250,0.12)',
+            separating: 'rgba(52,211,153,0.18)',
+            wageH: '#34d399', wageL: '#fbbf24',
+            endow: '#f87171', endowGlow: 'rgba(248,113,113,0.25)',
+            certLine: '#707070',
+            fairH: '#f87171', fairL: '#a78bfa',
+            contractH: '#f87171', contractHGlow: 'rgba(248,113,113,0.3)',
+            contractL: '#a78bfa', contractLGlow: 'rgba(167,139,250,0.3)',
+            icH: '#f87171', icL: '#a78bfa',
+            effortH: '#60a5fa', effortHFill: 'rgba(96,165,250,0.14)',
+            effortL: '#f87171', effortLFill: 'rgba(248,113,113,0.14)',
+            profit: '#34d399', profitFill: 'rgba(52,211,153,0.14)',
+            bstar: '#fbbf24', bstarFill: 'rgba(251,191,36,0.18)'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(pt.x, oy + gh); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep, fmtX, fmtY) {
+            var v, pt;
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            for (v = xStep; v <= xMax; v += xStep) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            for (v = yStep; v <= yMax; v += yStep) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center'; ctx.fillText(xLabel, ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 44, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel, 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (v = xStep; v <= xMax; v += xStep) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(fmtX ? fmtX(v) : v, pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (v = yStep; v <= yMax; v += yStep) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(fmtY ? fmtY(v) : v, ox - 6, pt.y);
+            }
+        }
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 1: Lemons / Adverse Selection                 */
+        /* x-axis: fraction p (0-1), y-axis: Value £ (0-100)  */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-p-lemon');
+            var vv = document.getElementById('val-p-lemon');
+            var info = document.getElementById('info-lemon');
+            var xMax = 1, yMax = 100;
+            /* Good: V_buyer=90, V_seller=60; Lemon: V_buyer=15, V_seller=10 */
+            /* E[V_buyer](p) = 75p + 15; threshold p* = (60-15)/75 = 0.6 */
+            var PSTAR = 0.6;
+
+            function draw() {
+                var res = getCtx('canvas-lemon');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+                var p = parseFloat(sl.value);
+                vv.textContent = p.toFixed(2);
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax,
+                    'Fraction of good cars (p)', 'Value (£)',
+                    0.1, 10,
+                    function(v) { return v.toFixed(1); },
+                    null);
+
+                /* Shade: p < PSTAR → lemon region */
+                var ptLR0 = tp(0, 0, ox, oy, gw, gh, xMax, yMax);
+                var ptLRp = tp(Math.min(PSTAR, xMax), 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.lemonFill;
+                ctx.fillRect(ox, oy, ptLRp.x - ox, gh);
+                ctx.fillStyle = C.lemon; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                ctx.fillText('Lemons only', (ox + ptLRp.x) / 2, oy + 6);
+
+                /* Shade: p ≥ PSTAR → pooling region */
+                var ptGR_p = tp(PSTAR, 0, ox, oy, gw, gh, xMax, yMax);
+                var ptGR_1 = tp(xMax, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.goodFill;
+                ctx.fillRect(ptGR_p.x, oy, ptGR_1.x - ptGR_p.x, gh);
+                ctx.fillStyle = C.goodCar; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                ctx.fillText('Pooling (both types trade)', (ptGR_p.x + ptGR_1.x) / 2, oy + 6);
+
+                /* Threshold line p* */
+                var ptPS = tp(PSTAR, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.threshold; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                ctx.beginPath(); ctx.moveTo(ptPS.x, oy); ctx.lineTo(ptPS.x, oy + gh); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.threshold; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('p* = 0.6', ptPS.x, oy + gh - 2);
+
+                /* Good-seller reservation price: horizontal at 60 */
+                ctx.strokeStyle = C.goodCar; ctx.lineWidth = 2; ctx.setLineDash([6, 4]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, 60, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, 60, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, 60, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, 60, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke(); ctx.setLineDash([]);
+                ctx.fillStyle = C.goodCar; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Min price for good car = £60', tp(0.95, 60, ox, oy, gw, gh, xMax, yMax).x,
+                             tp(0, 60, ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                /* Lemon-seller reservation price: horizontal at 10 */
+                ctx.strokeStyle = C.lemon; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, 10, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, 10, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, 10, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, 10, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke(); ctx.setLineDash([]);
+                ctx.fillStyle = C.lemon; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+                ctx.fillText('Lemon seller min = £10', tp(0.9, 10, ox, oy, gw, gh, xMax, yMax).x,
+                             tp(0, 10, ox, oy, gw, gh, xMax, yMax).y + 2);
+
+                /* E[V_buyer] = 75p + 15 */
+                ctx.strokeStyle = C.buyer; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, 15, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, 15, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(1, 90, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(1, 90, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = C.buyer; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Buyer expected value (75p + 15)',
+                             tp(0.55, 75*0.55+16, ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(0.55, 75*0.55+15, ox, oy, gw, gh, xMax, yMax).y - 4);
+
+                /* Current p: dot + dashed */
+                var ev = 75 * p + 15;
+                dashedTo(ctx, p, ev, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                var ptCur = tp(p, ev, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptCur.x, ptCur.y, 9, 0, 2 * Math.PI);
+                ctx.fillStyle = C.buyerFill; ctx.fill();
+                dot(ctx, p, ev, ox, oy, gw, gh, xMax, yMax, C.buyer, 5);
+
+                var pooling = p >= PSTAR;
+                info.innerHTML =
+                    '<strong>p = ' + p.toFixed(2) + '</strong>' +
+                    ' &nbsp;|&nbsp; Buyer expected value = £' + ev.toFixed(0) +
+                    ' &nbsp;|&nbsp; Good-seller threshold = £60' +
+                    '<br><strong>' + (pooling ?
+                        'p ≥ p* = 0.6: Pooling equilibrium — both types trade.' :
+                        'p &lt; p* = 0.6: Adverse selection — buyer\'s expected value (£' + ev.toFixed(0) + ') < £60. Good-car sellers exit. Only lemons trade.') +
+                    '</strong>';
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 2: Spence Signalling                          */
+        /* x-axis: education e (0-100), y-axis: net wage £    */
+        /* wH=80, wL=40, cH=e/2, cL=e                        */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-estar');
+            var vv = document.getElementById('val-estar');
+            var info = document.getElementById('info-signal');
+            var xMax = 100, yMax = 90;
+            var wH = 80, wL = 40;
+
+            function draw() {
+                var res = getCtx('canvas-signal');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var eStar = parseFloat(sl.value);
+                vv.textContent = eStar;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Education level e', 'Net payoff (£)', 10, 10);
+
+                var isSeparating = eStar > 40 && eStar <= 80;
+
+                /* Shade separating region (40, 80) */
+                var ptS40 = tp(40, 0, ox, oy, gw, gh, xMax, yMax);
+                var ptS80 = tp(80, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.separating;
+                ctx.fillRect(ptS40.x, oy, ptS80.x - ptS40.x, gh);
+                ctx.fillStyle = C.goodCar; ctx.font = 'bold 9px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                ctx.fillText('Valid separating range', (ptS40.x + ptS80.x) / 2, oy + 4);
+
+                /* wL and wH reference lines */
+                ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, wH, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, wH, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, wH, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, wH, ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(tp(0, wL, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, wL, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, wL, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, wL, ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.textMuted; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                ctx.fillText('w_H = £80', tp(xMax - 5, wH, ox, oy, gw, gh, xMax, yMax).x - 2,
+                             tp(0, wH, ox, oy, gw, gh, xMax, yMax).y + 6);
+                ctx.fillText('w_L = £40', tp(xMax - 5, wL, ox, oy, gw, gh, xMax, yMax).x - 2,
+                             tp(0, wL, ox, oy, gw, gh, xMax, yMax).y + 6);
+
+                /* Threshold e* line */
+                var ptStar = tp(eStar, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.strokeStyle = C.threshold; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                ctx.beginPath(); ctx.moveTo(ptStar.x, oy); ctx.lineTo(ptStar.x, oy + gh); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.threshold; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('e* = ' + eStar, ptStar.x, oy + gh - 2);
+
+                /* Type H net payoff: 40 for e < e*, then 80-e/2 for e ≥ e* */
+                /* Draw the flat part and the declining part */
+                ctx.strokeStyle = C.typeH; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                /* Flat at wL to the left of e* */
+                ctx.beginPath();
+                ctx.moveTo(tp(0, wL, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, wL, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(eStar, wL, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(eStar, wL, ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                /* Declining (80-e/2) for e in [e*, 100], clipped to yMax */
+                var eH_lo = eStar, eH_hi = Math.min(100, 160);
+                ctx.beginPath();
+                ctx.moveTo(tp(eH_lo, wH - eH_lo/2, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(eH_lo, wH - eH_lo/2, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(100, wH - 50, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(100, wH - 50, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = C.typeH; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('Type H (c_H = e/2)', tp(20, wL + 4, ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(0, wL + 4, ox, oy, gw, gh, xMax, yMax).y);
+
+                /* Type L net payoff: 40 for e < e*, then 80-e for e ≥ e* */
+                ctx.strokeStyle = C.typeL; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                /* Flat at wL to the left of e* */
+                ctx.beginPath();
+                ctx.moveTo(tp(0, wL - 5, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, wL - 5, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(eStar, wL - 5, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(eStar, wL - 5, ox, oy, gw, gh, xMax, yMax).y); ctx.stroke();
+                /* Declining (80-e) for e ≥ e*, down to zero at e=80 */
+                var eL_end = Math.min(100, 80);
+                ctx.beginPath();
+                ctx.moveTo(tp(eStar, wH - eStar, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(eStar, wH - eStar, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(eL_end, wH - eL_end, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(eL_end, wH - eL_end, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = C.typeL; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('Type L (c_L = e)', tp(20, wL - 12, ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(0, wL - 9, ox, oy, gw, gh, xMax, yMax).y);
+
+                /* H optimal choice: max of wL and wH - eStar/2 */
+                var netH_signal = wH - eStar / 2;
+                var netH_no = wL;
+                var H_signals = netH_signal >= netH_no;
+                var H_optE = H_signals ? eStar : 0;
+                var H_optNet = H_signals ? netH_signal : netH_no;
+
+                /* L optimal choice: max of wL-5 and wH - eStar (L's flat at wL-5) */
+                var netL_signal = wH - eStar;
+                var netL_no = wL - 5;   /* visual offset so lines don't overlap */
+                var L_signals = netL_signal > netL_no;
+                var L_optE = L_signals ? eStar : 0;
+                var L_optNet = L_signals ? netL_signal : netL_no;
+
+                /* Draw H optimal dot */
+                var ptH = tp(H_optE, H_optNet, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptH.x, ptH.y, 9, 0, 2*Math.PI);
+                ctx.fillStyle = C.typeHFill; ctx.fill();
+                dot(ctx, H_optE, H_optNet, ox, oy, gw, gh, xMax, yMax, C.typeH, 5);
+                ctx.fillStyle = C.typeH; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = H_signals ? 'left' : 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('H opts: e=' + H_optE + ', payoff=£' + H_optNet.toFixed(0),
+                             ptH.x + (H_signals ? 6 : -6), ptH.y - 3);
+
+                /* Draw L optimal dot */
+                var ptL = tp(L_optE, L_optNet, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptL.x, ptL.y, 9, 0, 2*Math.PI);
+                ctx.fillStyle = C.typeLFill; ctx.fill();
+                dot(ctx, L_optE, L_optNet, ox, oy, gw, gh, xMax, yMax, C.typeL, 5);
+                ctx.fillStyle = C.typeL; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = L_signals ? 'left' : 'right'; ctx.textBaseline = 'top';
+                ctx.fillText('L opts: e=' + L_optE + ', payoff=£' + L_optNet.toFixed(0),
+                             ptL.x + (L_signals ? 6 : -6), ptL.y + 3);
+
+                var eqType = isSeparating && H_signals && !L_signals ? 'Separating equilibrium' :
+                             !H_signals && !L_signals ? 'Both pool at e=0 (no signalling)' :
+                             H_signals && L_signals ? 'Both signal — pooling, not separating' :
+                             'Not an equilibrium';
+                info.innerHTML =
+                    '<strong>e* = ' + eStar + '</strong>' +
+                    ' &nbsp;|&nbsp; H: signals? ' + (H_signals ? 'Yes (net £' + netH_signal.toFixed(0) + ' > £' + wL + ')' : 'No (net £' + wL + ' > £' + netH_signal.toFixed(0) + ')') +
+                    ' &nbsp;|&nbsp; L: mimics? ' + (L_signals ? 'Yes (would earn £' + netL_signal.toFixed(0) + ')' : 'No (signal not worth it)') +
+                    '<br><strong>' + eqType + '</strong>' +
+                    (isSeparating ? ' &nbsp;|&nbsp; Valid range: 40 &lt; e* ≤ 80' : '');
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 3: Rothschild-Stiglitz Screening             */
+        /* State-contingent space (C_bad, C_good)             */
+        /* W=100, L=60 → endow (40,100); pH=0.4, pL=0.2      */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-kl');
+            var vv = document.getElementById('val-kl');
+            var info = document.getElementById('info-screen');
+            var xMax = 105, yMax = 110;
+            var pH = 0.4, pL = 0.2;
+            var W = 100, L = 60;
+            var Cbad_e = W - L, Cgood_e = W;   /* endowment: (40, 100) */
+            /* Fair contract for type i: pay premium π_i = p_i × k, receive k in bad state */
+            /* C_bad = 40 + k(1-p_i) ... wait: C_bad = W-L+k-π = 40+k-p_i*k = 40+k(1-p_i) */
+            /* C_good = W - π = 100 - p_i*k */
+            /* Full coverage (k=L=60): C_bad=C_good=100-p_i*60 */
+            /* C_H_full = 100-24=76, C_L_full = 100-12=88 */
+
+            function contractFromK(p, k) {
+                return { cb: Cbad_e + k*(1-p), cg: Cgood_e - p*k };
+            }
+
+            function euFn(p, cb, cg) { return p * Math.sqrt(cb) + (1-p) * Math.sqrt(cg); }
+
+            function icCurve(ctx, p, eu_val, ox, oy, gw, gh, color) {
+                /* C_good = ((eu - p*sqrt(C_bad))/(1-p))^2 */
+                ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.setLineDash([]);
+                var first = true;
+                for (var cb = 0; cb <= xMax; cb += 0.5) {
+                    var inner = (eu_val - p * Math.sqrt(cb)) / (1 - p);
+                    if (inner < 0) continue;
+                    var cg = inner * inner;
+                    if (cg < 0 || cg > yMax) { first = true; continue; }
+                    var pt = tp(cb, cg, ox, oy, gw, gh, xMax, yMax);
+                    if (first) { ctx.beginPath(); ctx.moveTo(pt.x, pt.y); first = false; }
+                    else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+            }
+
+            function draw() {
+                var res = getCtx('canvas-screen');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var kL = parseFloat(sl.value);
+                vv.textContent = '£' + kL;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax,
+                    'Consumption in bad state (£)', 'Consumption in good state (£)',
+                    10, 10);
+
+                /* 45° certainty line */
+                ctx.strokeStyle = C.certLine; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, 0, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, 0, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(105, 105, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(105, 105, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke(); ctx.setLineDash([]);
+                ctx.fillStyle = C.certLine; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Certainty (45°)', tp(93, 95, ox, oy, gw, gh, xMax, yMax).x,
+                             tp(93, 95, ox, oy, gw, gh, xMax, yMax).y - 2);
+
+                /* Fair insurance lines through endowment */
+                /* H slope: -p_H/(1-p_H) = -2/3 */
+                /* L slope: -p_L/(1-p_L) = -1/4 */
+                /* Line through (40,100): Cg = 100 - p/(1-p) * (Cb-40) */
+                function fairLine(p, cb) {
+                    return Cgood_e - (p/(1-p)) * (cb - Cbad_e);
+                }
+
+                ctx.strokeStyle = C.fairH; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                ctx.beginPath();
+                for (var cb = 0; cb <= xMax; cb += 2) {
+                    var cg = fairLine(pH, cb);
+                    if (cg < 0 || cg > yMax) continue;
+                    var pt = tp(cb, cg, ox, oy, gw, gh, xMax, yMax);
+                    if (cb === 0 || fairLine(pH, cb-2) < 0 || fairLine(pH, cb-2) > yMax)
+                        ctx.moveTo(pt.x, pt.y);
+                    else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+
+                ctx.strokeStyle = C.fairL; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                ctx.beginPath();
+                for (var cb2 = 0; cb2 <= xMax; cb2 += 2) {
+                    var cg2 = fairLine(pL, cb2);
+                    if (cg2 < 0 || cg2 > yMax) continue;
+                    var pt2 = tp(cb2, cg2, ox, oy, gw, gh, xMax, yMax);
+                    if (cb2 === 0 || fairLine(pL, cb2-2) < 0 || fairLine(pL, cb2-2) > yMax)
+                        ctx.moveTo(pt2.x, pt2.y);
+                    else ctx.lineTo(pt2.x, pt2.y);
+                }
+                ctx.stroke(); ctx.setLineDash([]);
+
+                /* Labels for fair lines */
+                ctx.fillStyle = C.fairH; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('H fair (slope -2/3)', tp(40, 100, ox, oy, gw, gh, xMax, yMax).x - 4,
+                             tp(40, 100, ox, oy, gw, gh, xMax, yMax).y + 10);
+                ctx.fillStyle = C.fairL; ctx.textAlign = 'left';
+                ctx.fillText('L fair (slope -1/4)', tp(60, fairLine(pL,60), ox, oy, gw, gh, xMax, yMax).x + 4,
+                             tp(60, fairLine(pL,60), ox, oy, gw, gh, xMax, yMax).y);
+
+                /* H contract: full coverage at (76,76) */
+                var cH = contractFromK(pH, L);   /* k=60: C_bad=76, C_good=76 */
+                /* L contract: from slider k_L */
+                var cL = contractFromK(pL, kL);
+
+                /* IC curves */
+                var eu_e_H = euFn(pH, Cbad_e, Cgood_e);    /* H IC through endowment */
+                var eu_H_full = euFn(pH, cH.cb, cH.cg);    /* H IC through contract H */
+                var eu_L_cL = euFn(pL, cL.cb, cL.cg);     /* L IC through contract L */
+                var eu_H_at_cL = euFn(pH, cL.cb, cL.cg);  /* H's EU at L's contract */
+
+                /* Draw H's IC through contract H */
+                icCurve(ctx, pH, eu_H_full, ox, oy, gw, gh, C.icH);
+                /* Draw L's IC through contract L */
+                icCurve(ctx, pL, eu_L_cL, ox, oy, gw, gh, C.icL);
+
+                /* Endowment dot */
+                var ptE = tp(Cbad_e, Cgood_e, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptE.x, ptE.y, 9, 0, 2*Math.PI);
+                ctx.fillStyle = C.endowGlow; ctx.fill();
+                dot(ctx, Cbad_e, Cgood_e, ox, oy, gw, gh, xMax, yMax, C.endow, 5);
+                ctx.fillStyle = C.endow; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Endowment (40,100)', ptE.x - 6, ptE.y - 3);
+
+                /* Contract H dot */
+                var ptH = tp(cH.cb, cH.cg, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptH.x, ptH.y, 9, 0, 2*Math.PI);
+                ctx.fillStyle = C.contractHGlow; ctx.fill();
+                dot(ctx, cH.cb, cH.cg, ox, oy, gw, gh, xMax, yMax, C.contractH, 5);
+                ctx.fillStyle = C.contractH; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('H: (' + cH.cb.toFixed(0) + ', ' + cH.cg.toFixed(0) + ')',
+                             ptH.x + 6, ptH.y - 3);
+
+                /* Contract L dot */
+                var ptL = tp(cL.cb, cL.cg, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptL.x, ptL.y, 9, 0, 2*Math.PI);
+                ctx.fillStyle = C.contractLGlow; ctx.fill();
+                dot(ctx, cL.cb, cL.cg, ox, oy, gw, gh, xMax, yMax, C.contractL, 5);
+                ctx.fillStyle = C.contractL; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText('L: (' + cL.cb.toFixed(0) + ', ' + cL.cg.toFixed(0) + ')',
+                             ptL.x + 6, ptL.y + 3);
+
+                /* Legend for IC curves */
+                ctx.setLineDash([]); ctx.lineWidth = 1.5;
+                ctx.strokeStyle = C.icH;
+                ctx.beginPath(); ctx.moveTo(ox + gw - 140, oy + 12); ctx.lineTo(ox + gw - 110, oy + 12); ctx.stroke();
+                ctx.fillStyle = C.icH; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                ctx.fillText('H type IC', ox + gw - 106, oy + 12);
+                ctx.strokeStyle = C.icL;
+                ctx.beginPath(); ctx.moveTo(ox + gw - 140, oy + 26); ctx.lineTo(ox + gw - 110, oy + 26); ctx.stroke();
+                ctx.fillStyle = C.icL; ctx.fillText('L type IC', ox + gw - 106, oy + 26);
+
+                /* Check H-IC: H prefers H's contract over L's contract */
+                var hIC_valid = eu_H_full >= eu_H_at_cL;
+                var euHH = eu_H_full.toFixed(3);
+                var euHL = eu_H_at_cL.toFixed(3);
+
+                info.innerHTML =
+                    '<strong>k_L = £' + kL + '</strong>' +
+                    ' | L contract: C_bad = £' + cL.cb.toFixed(1) + ', C_good = £' + cL.cg.toFixed(1) +
+                    ' | EU_H(H) = ' + euHH + ', EU_H(L) = ' + euHL +
+                    '<br>' + (hIC_valid ?
+                        '<strong style="color:var(--color-success,green)">H prefers H\'s contract (' + euHH + ' ≥ ' + euHL + '): Incentive-compatible separating equilibrium.</strong>' :
+                        '<strong style="color:var(--color-error,red)">H defects to L\'s contract (' + euHL + ' > ' + euHH + '): Incentive-compatibility violated — k_L too generous.</strong>');
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 4: Moral Hazard / Principal-Agent            */
+        /* Base w0=9, bonus b slider 0-80                    */
+        /* Success prob: pH=0.8 (high effort), pL=0.3 (low)  */
+        /* Agent u=sqrt(w), cH=4, cL=0, reservation=3        */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-bonus');
+            var vv = document.getElementById('val-bonus');
+            var info = document.getElementById('info-moral');
+            var xMax = 80, yMax = 10;
+            var w0 = 9;
+            var pHE = 0.8, pLE = 0.3;
+            var cH = 4, cL = 0;
+            var reservation = 3;
+            var outputSuccess = 100;
+
+            /* EU_high(b) = pH*sqrt(w0+b) + (1-pH)*sqrt(w0) - cH */
+            /* EU_low(b) = pL*sqrt(w0+b) + (1-pL)*sqrt(w0) - cL */
+            /* IC: EU_high >= EU_low → (pH-pL)*(sqrt(w0+b)-sqrt(w0)) >= cH */
+            /* 0.5*(sqrt(9+b)-3) >= 4 → sqrt(9+b) >= 11 → 9+b >= 121 → b >= 112 */
+            /* But b is capped at 80 and output is 100, so we scale for clarity */
+            /* Use cH=2 to get a reasonable b* within range: 0.5*(sqrt(9+b)-3)>=2 */
+            /* → sqrt(9+b) >= 7 → b >= 40 */
+            /* Override cH to 2 for the graph */
+            var cH_graph = 2;
+            var BSTAR = 40;
+
+            function euH(b) { return pHE * Math.sqrt(w0 + b) + (1 - pHE) * Math.sqrt(w0) - cH_graph; }
+            function euL(b) { return pLE * Math.sqrt(w0 + b) + (1 - pLE) * Math.sqrt(w0) - cL; }
+            function profitH(b) { return pHE * outputSuccess - (pHE * (w0 + b) + (1 - pHE) * w0); }
+            function profitL(b) { return pLE * outputSuccess - (pLE * (w0 + b) + (1 - pLE) * w0); }
+
+            function draw() {
+                var res = getCtx('canvas-moral');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var b = parseFloat(sl.value);
+                vv.textContent = '£' + b;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Success bonus b (£)', 'Expected utility / Profit (scaled)', 10, 1,
+                    null, function(v) { return v.toFixed(0); });
+
+                /* IC switch point b* = 40 */
+                var ptBS = tp(BSTAR, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillStyle = C.bstarFill;
+                ctx.fillRect(ptBS.x, oy, tp(xMax, 0, ox, oy, gw, gh, xMax, yMax).x - ptBS.x, gh);
+                ctx.fillStyle = C.bstar; ctx.font = 'bold 9px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                ctx.fillText('High effort zone', (ptBS.x + tp(xMax,0,ox,oy,gw,gh,xMax,yMax).x)/2, oy+4);
+
+                /* b* vertical line */
+                ctx.strokeStyle = C.bstar; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                ctx.beginPath(); ctx.moveTo(ptBS.x, oy); ctx.lineTo(ptBS.x, oy + gh); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = C.bstar; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('b* = £' + BSTAR, ptBS.x, oy + gh - 2);
+
+                /* Reservation utility line */
+                ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, reservation, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, reservation, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, reservation, ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, reservation, ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke(); ctx.setLineDash([]);
+                ctx.fillStyle = C.textMuted; ctx.font = '10px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.fillText('Reservation ū=3', tp(xMax, reservation, ox, oy, gw, gh, xMax, yMax).x - 2,
+                             tp(0, reservation, ox, oy, gw, gh, xMax, yMax).y - 6);
+
+                /* EU high effort curve */
+                ctx.strokeStyle = C.effortH; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                for (var bi = 0; bi <= xMax; bi += 0.5) {
+                    var eu = euH(bi);
+                    if (eu < -0.5 || eu > yMax) { continue; }
+                    var pt = tp(bi, eu, ox, oy, gw, gh, xMax, yMax);
+                    if (bi === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+                }
+                ctx.stroke();
+                ctx.fillStyle = C.effortH; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('EU (high effort)', tp(10, euH(10), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(10, euH(10), ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                /* EU low effort curve */
+                ctx.strokeStyle = C.effortL; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                for (var bi2 = 0; bi2 <= xMax; bi2 += 0.5) {
+                    var eu2 = euL(bi2);
+                    if (eu2 < -0.5 || eu2 > yMax) continue;
+                    var pt2 = tp(bi2, eu2, ox, oy, gw, gh, xMax, yMax);
+                    if (bi2 === 0) ctx.moveTo(pt2.x, pt2.y); else ctx.lineTo(pt2.x, pt2.y);
+                }
+                ctx.stroke();
+                ctx.fillStyle = C.effortL; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText('EU (low effort)', tp(5, euL(5), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(5, euL(5), ox, oy, gw, gh, xMax, yMax).y + 2);
+
+                /* Principal profit (scaled down for display) */
+                /* Profit up to 71 (at b=0 high effort), scale /10 to fit */
+                ctx.strokeStyle = C.profit; ctx.lineWidth = 2; ctx.setLineDash([4, 3]);
+                ctx.beginPath();
+                for (var bi3 = 0; bi3 <= xMax; bi3 += 0.5) {
+                    var chooseH = euH(bi3) >= euL(bi3);
+                    var pr = (chooseH ? profitH(bi3) : profitL(bi3)) / 12;
+                    if (pr < -0.5 || pr > yMax) continue;
+                    var pt3 = tp(bi3, pr, ox, oy, gw, gh, xMax, yMax);
+                    if (bi3 === 0) ctx.moveTo(pt3.x, pt3.y); else ctx.lineTo(pt3.x, pt3.y);
+                }
+                ctx.stroke(); ctx.setLineDash([]);
+                ctx.fillStyle = C.profit; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Principal profit ÷12', tp(BSTAR + 4, profitH(BSTAR + 4)/12, ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(BSTAR + 4, profitH(BSTAR + 4)/12, ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                /* Current b dot */
+                var euHb = euH(b), euLb = euL(b);
+                var agentHighEffort = euHb >= euLb;
+                var euShow = agentHighEffort ? euHb : euLb;
+                var colorDot = agentHighEffort ? C.effortH : C.effortL;
+                if (euShow >= 0 && euShow <= yMax) {
+                    var ptCur = tp(b, euShow, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ptCur.x, ptCur.y, 8, 0, 2*Math.PI);
+                    ctx.fillStyle = agentHighEffort ? C.effortHFill : C.effortLFill; ctx.fill();
+                    dot(ctx, b, euShow, ox, oy, gw, gh, xMax, yMax, colorDot, 5);
+                }
+
+                /* Principal profit dot */
+                var prCur = (agentHighEffort ? profitH(b) : profitL(b)) / 12;
+                if (prCur >= 0 && prCur <= yMax) {
+                    var ptPr = tp(b, prCur, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ptPr.x, ptPr.y, 7, 0, 2*Math.PI);
+                    ctx.fillStyle = C.profitFill; ctx.fill();
+                    dot(ctx, b, prCur, ox, oy, gw, gh, xMax, yMax, C.profit, 4);
+                }
+
+                var pc_ok = euHb >= reservation;
+                info.innerHTML =
+                    '<strong>Bonus b = £' + b + '</strong>' +
+                    ' | EU (high effort) = ' + euHb.toFixed(2) +
+                    ' | EU (low effort) = ' + euLb.toFixed(2) +
+                    ' | Principal profit = £' + (agentHighEffort ? profitH(b) : profitL(b)).toFixed(0) +
+                    '<br><strong>Agent chooses: ' + (agentHighEffort ? 'HIGH effort' : 'LOW effort (shirking)') + '</strong>' +
+                    ' | Participation: ' + (pc_ok ? 'satisfied' : 'violated — agent rejects contract') +
+                    (b >= BSTAR ? ' | IC satisfied (b ≥ b* = £' + BSTAR + ')' : ' | IC fails (need b ≥ £' + BSTAR + ')');
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ── Global redraw ── */
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>

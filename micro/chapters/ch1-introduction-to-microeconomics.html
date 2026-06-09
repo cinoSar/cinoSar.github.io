@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1: Introduction to Microeconomics | Microeconomics Lessons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+    <style>
+        .interactive-graph { background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; margin: 1.5rem 0; box-shadow: var(--shadow-md); }
+        .interactive-graph canvas { display: block; margin: 0 auto; cursor: crosshair; max-width: 100%; }
+        .graph-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-border-light); align-items: center; }
+        .graph-controls label { font-size: var(--font-size-sm); color: var(--color-text-light); display: flex; align-items: center; gap: 0.5rem; }
+        .graph-controls input[type="range"] { width: 140px; accent-color: var(--color-primary); }
+        .graph-controls .value-display { font-weight: var(--font-weight-semibold); color: var(--color-primary-dark); min-width: 3em; }
+        .graph-info { margin-top: 0.75rem; padding: 0.75rem; background: var(--color-primary-pale); border-radius: var(--radius-sm); font-size: var(--font-size-sm); color: var(--color-text); }
+        .graph-caption { text-align: center; font-size: var(--font-size-sm); color: var(--color-text-light); margin-top: 0.5rem; font-style: italic; }
+        .chapter-nav { display: flex; justify-content: space-between; margin: 2rem 0; padding: 1rem 0; border-top: 1px solid var(--color-border); }
+        .chapter-nav a { color: var(--color-primary); text-decoration: none; font-weight: var(--font-weight-medium); }
+        .chapter-nav a:hover { color: var(--color-primary-dark); }
+        .toc { background: var(--color-background-alt); border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0; }
+        .toc h3 { margin-top: 0; font-size: var(--font-size-lg); }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin: 0.3rem 0; }
+        .toc a { color: var(--color-primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        .btn-toggle { background: var(--color-primary-pale); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 0.3rem 0.8rem; font-size: var(--font-size-sm); cursor: pointer; color: var(--color-primary-dark); }
+        .btn-toggle:hover { background: var(--color-primary); color: #fff; }
+        .btn-toggle.active { background: var(--color-primary); color: #fff; }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <a href="../index.html" style="text-decoration:none;color:inherit;">
+                <h1 class="site-title">Microeconomics Lessons</h1>
+            </a>
+            <p class="site-subtitle">Chapter 1: Introduction to Microeconomics</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li><a href="../index.html">&larr; Home</a></li>
+                <li class="nav-section-title">Chapter 1</li>
+                <li><a href="#the-problem">The Problem</a></li>
+                <li><a href="#scarcity">1.1 Scarcity &amp; Trade-offs</a></li>
+                <li><a href="#marginal">1.2 Marginal Thinking</a></li>
+                <li><a href="#markets">1.3 Markets &amp; Prices</a></li>
+                <li><a href="#incentives">1.4 Incentives</a></li>
+                <li><a href="#formal-derivations">1.5 Formal Toolkit</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+
+            <!-- ============================================ -->
+            <!-- THE PROBLEM                                   -->
+            <!-- ============================================ -->
+            <section id="the-problem" class="lesson-section section-problem">
+                <h2>The Problem: How Do You Decide?</h2>
+                <p>You have 24 hours in a day. You could spend this afternoon revising for an exam, earning money at a part-time job, exercising, or relaxing with friends. You cannot do all four at once. Whatever you choose, you give up something else &mdash; and that sacrifice is the first and most important idea in economics. <em>Every decision has a cost, even when no money changes hands.</em></p>
+
+                <p>Governments face the same problem at a vastly larger scale. In 2023, the UK Treasury had roughly £1.2 trillion to allocate across the NHS, schools, defence, infrastructure, welfare, and debt interest. Spending more on one item unavoidably means less for another. The question is not whether to make trade-offs, but how to make them well.</p>
+
+                <p>Microeconomics is the study of these choices: how individuals, households, and firms decide what to produce, consume, and trade, and how those decisions interact through markets to determine prices and quantities. The word &ldquo;micro&rdquo; comes from the Greek for &ldquo;small&rdquo;, but the questions are anything but small. They range from why a cup of coffee at a motorway service station costs three times as much as one at a supermarket, to how pharmaceutical firms decide whether to develop a new drug, to why housing in London is so expensive and what &mdash; if anything &mdash; policy can do about it.</p>
+
+                <p>Before tackling any of these questions, you need a set of analytical tools. This chapter introduces the four core principles that underpin everything that follows: <strong>scarcity and opportunity cost</strong>, <strong>marginal thinking</strong>, <strong>markets and prices</strong>, and <strong>incentives</strong>. Master these and the rest of the course is essentially a series of elaborations.</p>
+
+                <div class="callout callout-key-insight">
+                    <h4>Key Insight</h4>
+                    <p>Economics is not primarily about money. It is about <strong>choice under scarcity</strong>: how decision-makers allocate limited resources among competing uses, and what consequences those allocations have for individuals and society. Money is just the most convenient unit of account for comparing alternatives.</p>
+                </div>
+            </section>
+
+            <div class="toc">
+                <h3>In This Chapter</h3>
+                <ol>
+                    <li><a href="#scarcity">Scarcity and Trade-offs</a> &mdash; opportunity cost, production possibility frontier</li>
+                    <li><a href="#marginal">Marginal Thinking</a> &mdash; marginal benefit, marginal cost, the optimal decision rule</li>
+                    <li><a href="#markets">Markets and Prices</a> &mdash; supply, demand, and the price signal</li>
+                    <li><a href="#incentives">Incentives</a> &mdash; how changes in costs and benefits shift behaviour</li>
+                    <li><a href="#formal-derivations">The Formal Toolkit</a> &mdash; constrained optimisation, comparative statics</li>
+                </ol>
+            </div>
+
+
+            <!-- ============================================ -->
+            <!-- 1.1 SCARCITY AND TRADE-OFFS                   -->
+            <!-- ============================================ -->
+            <section id="scarcity" class="lesson-section section-geometric">
+                <h2>1.1 Scarcity and Trade-offs</h2>
+
+                <h3>Opportunity Cost: The True Cost of Any Choice</h3>
+                <p>Resources &mdash; time, money, land, labour, capital &mdash; are scarce relative to human desires. Scarcity forces choice. And every choice has an <strong>opportunity cost</strong>: the value of the next-best alternative foregone. If you spend £500 on a concert ticket, the opportunity cost is not just the £500 itself but whatever you would otherwise have done with it &mdash; perhaps a weekend trip to Edinburgh, or a month&rsquo;s worth of groceries. If a government builds a new motorway, the opportunity cost is the hospitals, schools, or tax cuts that could have been funded instead.</p>
+
+                <p>Opportunity cost is not the same as accounting cost. An accounting cost is the monetary payment actually made. An opportunity cost is broader: it includes the value of any resource you already own but deploy in a particular way. An entrepreneur who quits a £60,000-per-year job to start a business incurs an accounting cost of zero in salary forgone &mdash; she simply stops receiving it &mdash; but an opportunity cost of £60,000. Getting this distinction right is crucial for understanding why rational agents sometimes appear to &ldquo;leave money on the table&rdquo;.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Opportunity Cost</h4>
+                    <p>The opportunity cost of a choice is the value of the best alternative sacrificed. It is always forward-looking (what could I do instead right now?) and never includes sunk costs (what did I already spend?). Rational decision-making requires comparing benefits against opportunity costs, not accounting costs.</p>
+                </div>
+
+                <h3>The Production Possibility Frontier</h3>
+                <p>The cleanest way to visualise scarcity and opportunity cost is the <strong>production possibility frontier</strong> (PPF). Consider a simple economy that can produce only two goods &mdash; say, smartphones and wheat &mdash; using fixed resources. The PPF traces out every efficient combination: all the points where you cannot produce more of one good without producing less of the other.</p>
+
+                <p>Points inside the frontier are <em>inefficient</em> &mdash; resources are wasted or idle. Points outside the frontier are <em>unattainable</em> given current resources and technology. Points on the frontier are <em>efficient</em>: you are getting the maximum possible output from available resources. Moving along the frontier from one point to another illustrates opportunity cost directly: to get more smartphones, you must give up some wheat.</p>
+
+                <p>The frontier is typically bowed outward (concave to the origin) because resources are not perfectly substitutable. Some resources are much better suited to growing wheat than assembling electronics, and vice versa. As you try to produce more and more smartphones by shifting resources away from wheat, you first pull the resources that are only marginally useful for wheat &mdash; cheap sacrifice &mdash; but eventually you must use resources that are highly productive in wheat and poorly suited to electronics. The opportunity cost of each additional smartphone therefore rises. This is the <strong>law of increasing opportunity cost</strong>.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-ppf" width="600" height="420" style="width:600px;height:420px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Economy&rsquo;s point on PPF (% allocated to smartphones): <input type="range" id="slider-ppf" min="0" max="100" step="1" value="50"> <span class="value-display" id="val-ppf">50%</span></label>
+                        <button class="btn-toggle" id="btn-ppf-tech">Technology improves</button>
+                    </div>
+                    <div class="graph-info" id="info-ppf"></div>
+                    <p class="graph-caption">Figure 1.1 &mdash; Production Possibility Frontier. Move the slider to shift the allocation between two goods. Notice the opportunity cost (slope) is not constant &mdash; it rises as you specialise further in one good. Click "Technology improves" to see the frontier shift outward.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: NHS Resource Allocation</h4>
+                    <p>The NHS faces a PPF in which the two &ldquo;goods&rdquo; are, say, cancer treatment and mental health services. With a fixed budget, spending more on cutting-edge oncology drugs means fewer psychiatric beds. The frontier bows outward because some clinical staff, equipment, and facilities are specialised: a radiotherapy machine cannot treat depression. The UK government&rsquo;s 2023 decision to increase NHS spending on elective surgery backlogs implicitly moved the economy along this frontier, reducing resources available elsewhere.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 1.2 MARGINAL THINKING                         -->
+            <!-- ============================================ -->
+            <section id="marginal" class="lesson-section section-geometric">
+                <h2>1.2 Marginal Thinking</h2>
+
+                <h3>The Optimal Decision Rule</h3>
+                <p>Most economic decisions are not all-or-nothing choices but questions of <em>how much</em>: how many hours to study, how many units to produce, how much to invest. The correct way to approach such questions is to think at the margin &mdash; to ask whether doing a <em>little more</em> of the activity is worthwhile.</p>
+
+                <p>The <strong>marginal benefit</strong> (MB) of an activity is the additional benefit from one more unit. The <strong>marginal cost</strong> (MC) is the additional cost of one more unit. Rational decision-making requires producing (or consuming, or doing) up to the point where MB equals MC. If MB &gt; MC, do more: the extra benefit exceeds the extra cost. If MB &lt; MC, do less: the extra cost exceeds the extra benefit. Only at MB = MC is there no profitable adjustment left.</p>
+
+                <div class="callout callout-definition">
+                    <h4>The Fundamental Decision Rule</h4>
+                    <p>Choose the quantity \(q^*\) such that \(MB(q^*) = MC(q^*)\). At any quantity below \(q^*\), the marginal benefit exceeds the marginal cost and it is worth expanding. At any quantity above \(q^*\), the marginal cost exceeds the marginal benefit and it is worth contracting. This rule is equivalent to maximising net benefit (total benefit minus total cost).</p>
+                </div>
+
+                <h3>Why Marginal Benefit Typically Falls and Marginal Cost Typically Rises</h3>
+                <p>Marginal benefit typically <em>decreases</em> with quantity because of <strong>diminishing marginal utility</strong>: the first cup of coffee in the morning is wonderful; the fifth is barely worthwhile. Marginal cost typically <em>increases</em> with quantity because of <strong>diminishing marginal returns</strong>: as you add more of one input while others are fixed, each successive unit adds less output, meaning you need more input per unit of output. Together, these tendencies ensure that a unique, interior optimum MB = MC generally exists.</p>
+
+                <p>The graph below illustrates the MB and MC curves for a generic activity. The net benefit (shaded area) is maximised at the point where the two curves cross. Use the slider to explore what happens when costs rise &mdash; perhaps due to a tax or a rise in input prices &mdash; and observe how the optimal quantity shifts.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-marg" width="600" height="420" style="width:600px;height:420px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Marginal cost shifter (£ per unit): <input type="range" id="slider-mc-shift" min="0" max="30" step="1" value="0"> <span class="value-display" id="val-mc-shift">£0</span></label>
+                    </div>
+                    <div class="graph-info" id="info-marg"></div>
+                    <p class="graph-caption">Figure 1.2 &mdash; Marginal benefit and marginal cost. The optimal quantity is where MB = MC (green dot). As the cost shifter rises (a tax, a price increase), the MC curve shifts upward and the optimal quantity falls.</p>
+                </div>
+
+                <div class="callout callout-warning">
+                    <h4>Common Error: Confusing Total and Marginal</h4>
+                    <p>It is tempting to keep doing an activity as long as the <em>total</em> benefit exceeds the <em>total</em> cost. But this can lead to producing too much. Even if total benefit exceeds total cost, if the marginal cost of the last unit exceeds its marginal benefit, net benefit would rise by reducing output. Always compare <em>marginal</em> quantities, not <em>totals</em>, at the decision margin.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 1.3 MARKETS AND PRICES                        -->
+            <!-- ============================================ -->
+            <section id="markets" class="lesson-section section-geometric">
+                <h2>1.3 Markets and Prices</h2>
+
+                <h3>The Price Mechanism</h3>
+                <p>A market is any arrangement that brings buyers and sellers together to determine prices and quantities. Markets need not be physical places &mdash; a stock exchange, a classified-ad website, and a fish auction at Billingsgate all qualify. What they share is a <strong>price mechanism</strong>: a system by which the interaction of supply and demand generates prices that coordinate decentralised decisions.</p>
+
+                <p>When buyers want more of a good than sellers are willing to supply at the current price, the price is bid up. Higher prices make the good more attractive to produce (sellers expand supply) and less attractive to consume (buyers reduce demand), until quantity supplied equals quantity demanded at a new, higher <strong>equilibrium price</strong>. The reverse happens when supply exceeds demand: prices fall, discouraging production and encouraging consumption, until balance is restored.</p>
+
+                <p>This self-correcting mechanism &mdash; described by Adam Smith as the &ldquo;invisible hand&rdquo; &mdash; is one of the most remarkable properties of market economies. No central authority needs to calculate the right price; it emerges from the aggregate of millions of independent decisions. The price simultaneously signals scarcity (a high price tells producers to make more and consumers to economise) and provides an incentive to act on that signal.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Market Equilibrium</h4>
+                    <p>An equilibrium is a price-quantity pair \((P^*, Q^*)\) at which quantity demanded equals quantity supplied: \(Q_D(P^*) = Q_S(P^*)\). At any price above \(P^*\) there is a surplus (excess supply) that pushes prices down; at any price below \(P^*\) there is a shortage (excess demand) that pushes prices up. Chapter 2 develops this model in full; here we introduce its core logic.</p>
+                </div>
+
+                <h3>A Preview: Demand and Supply</h3>
+                <p>The graph below shows a simple supply and demand diagram. The demand curve slopes downward (consumers buy less at higher prices), and the supply curve slopes upward (producers supply more at higher prices). Their intersection gives the market equilibrium. Use the slider to shift demand &mdash; perhaps because consumer income rises, or preferences change &mdash; and observe how the equilibrium price and quantity adjust.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-sd" width="600" height="420" style="width:600px;height:420px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Demand shift (£): <input type="range" id="slider-demand-shift" min="-20" max="20" step="1" value="0"> <span class="value-display" id="val-demand-shift">£0</span></label>
+                    </div>
+                    <div class="graph-info" id="info-sd"></div>
+                    <p class="graph-caption">Figure 1.3 &mdash; Supply and demand preview. Shifting demand (e.g., rising incomes or changing tastes) moves the equilibrium along the supply curve, raising both price and quantity. Chapter 2 examines all the factors that shift each curve.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 1.4 INCENTIVES                                -->
+            <!-- ============================================ -->
+            <section id="incentives" class="lesson-section section-geometric">
+                <h2>1.4 Incentives</h2>
+
+                <h3>People Respond to Incentives</h3>
+                <p>Perhaps the single most powerful principle in economics is that <strong>people respond to incentives</strong>. Change the costs or benefits of an action and behaviour will change in predictable directions. This principle is so robust that economists use it not just to explain market outcomes but to design policies, contracts, and institutions.</p>
+
+                <p>Incentives can be positive (a subsidy, a prize, a bonus) or negative (a tax, a fine, a reduced wage). They can be monetary or non-monetary (reputation, social approval, guilt). The key insight is that the relevant incentive is always the <em>marginal</em> one: not how much you gain or lose in total, but how much more you gain or lose from the next unit of the activity.</p>
+
+                <p>Consider road pricing. London&rsquo;s congestion charge imposes a marginal cost on each additional car trip into the city centre. Some drivers whose MB from the trip is less than the charge switch to other modes; others continue driving. The charge does not ban cars from the city; it makes each car journey more expensive at the margin, changing the trade-off and therefore shifting behaviour. The same logic applies to carbon taxes, cigarette duties, and speed limits with fines.</p>
+
+                <div class="callout callout-definition">
+                    <h4>Incentive Compatibility</h4>
+                    <p>A rule, contract, or policy is <strong>incentive-compatible</strong> if the people it governs find it in their self-interest to behave in the way the designer intends. Bad policy design ignores incentives and is undermined by rational self-interest. Good policy design aligns private incentives with social goals &mdash; a theme that runs through the entire course, from tax policy (Ch. 9) to contract design (Ch. 20).</p>
+                </div>
+
+                <h3>Visualising the Response to Incentives</h3>
+                <p>The graph below shows how a rational decision-maker responds to a per-unit tax or subsidy. Without intervention, optimal quantity is where MB = MC. A tax shifts the effective MC upward by the tax amount, reducing the optimal quantity; a subsidy (negative tax) shifts MC downward, increasing it. Use the slider to impose a tax or subsidy and see the quantity response.</p>
+
+                <div class="interactive-graph">
+                    <canvas id="canvas-inc" width="600" height="420" style="width:600px;height:420px;"></canvas>
+                    <div class="graph-controls">
+                        <label>Policy (tax &lt; 0, subsidy &gt; 0, £):
+                            <input type="range" id="slider-policy" min="-25" max="25" step="1" value="0">
+                            <span class="value-display" id="val-policy">£0</span>
+                        </label>
+                    </div>
+                    <div class="graph-info" id="info-inc"></div>
+                    <p class="graph-caption">Figure 1.4 &mdash; Incentive response. A tax (negative slider) raises the effective marginal cost, reducing optimal quantity. A subsidy (positive slider) lowers it, increasing quantity. The shaded area shows the change in net benefit relative to the no-intervention optimum.</p>
+                </div>
+
+                <div class="callout callout-example">
+                    <h4>Example: The Sugar Tax</h4>
+                    <p>The UK Soft Drinks Industry Levy (&ldquo;sugar tax&rdquo;), introduced in 2018, charges manufacturers £0.18&ndash;£0.24 per litre on drinks with high sugar content. Manufacturers faced a choice: pay the levy (raise consumer prices, reducing quantity demanded) or reformulate recipes to reduce sugar content (lowering or eliminating the levy). Both responses were rational. Remarkably, the reformulation response was substantial &mdash; the levy raised far less revenue than projected because firms changed behaviour rather than simply passing the cost on. This is the incentive principle in action: change the margin, change the decision.</p>
+                </div>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- 1.5 FORMAL TOOLKIT                            -->
+            <!-- ============================================ -->
+            <section id="formal-derivations" class="lesson-section section-mathematical">
+                <h2>1.5 The Formal Toolkit</h2>
+
+                <h3>Constrained Optimisation</h3>
+                <p>The mathematical foundation of microeconomics is <strong>constrained optimisation</strong>: maximise (or minimise) an objective function subject to one or more constraints. Every major model in this course is a constrained optimisation problem in disguise. A consumer maximises utility subject to a budget constraint (Chapter 4). A firm maximises profit subject to a production technology (Chapter 6). A government maximises social welfare subject to a budget and information constraints (Chapters 9, 18, 19).</p>
+
+                <p>The general form is: choose \(x\) to maximise \(f(x)\) subject to \(g(x) \leq b\). The first-order condition (FOC) for an interior solution sets the derivative of the objective equal to zero (for unconstrained problems) or uses the Lagrangian method (for constrained problems). The Lagrangian is:</p>
+
+                \[\mathcal{L}(x, \lambda) = f(x) - \lambda[g(x) - b]\]
+
+                <p>The FOCs \(\partial \mathcal{L}/\partial x = 0\) and \(\partial \mathcal{L}/\partial \lambda = 0\) characterise the optimum. The multiplier \(\lambda\) has an important interpretation: it equals the marginal value of relaxing the constraint by one unit. If the budget constraint binds and \(\lambda = 5\), an extra £1 of budget raises the objective by £5 worth of utility.</p>
+
+                <h3>Comparative Statics</h3>
+                <p><strong>Comparative statics</strong> is the technique of asking: how does the optimum change when an exogenous parameter changes? If the optimal quantity is \(q^* = (MB_0 - c_0) / 2k\) (where \(MB_0\) is the intercept of the MB curve, \(c_0\) is the base MC, and \(k\) governs the slope of MB), then:</p>
+
+                \[\frac{\partial q^*}{\partial c_0} = -\frac{1}{2k} < 0\]
+
+                <p>A rise in marginal cost reduces optimal quantity. This is a comparative statics result: it does not tell you what happens along the path from one equilibrium to another, only where the new equilibrium is. Comparative statics is the workhorse of applied economic analysis &mdash; it is how we derive testable predictions from models.</p>
+
+                <h3>The Envelope Theorem</h3>
+                <p>A powerful shortcut in comparative statics is the <strong>envelope theorem</strong>: the derivative of the maximised value of the objective with respect to a parameter equals the partial derivative of the original objective (not the Lagrangian) with respect to that parameter, evaluated at the optimum. Formally, if \(V(\alpha) = \max_x f(x, \alpha)\) and \(x^*(\alpha)\) is the optimising choice, then:</p>
+
+                \[\frac{dV}{d\alpha} = \frac{\partial f(x^*(\alpha), \alpha)}{\partial \alpha}\]
+
+                <p>The indirect effect through \(x^*\) drops out because of the FOC. This theorem reappears in producer theory (Hotelling&rsquo;s lemma, Shephard&rsquo;s lemma), consumer theory (Roy&rsquo;s identity), and auction design.</p>
+
+                <h3>Positive vs Normative Economics</h3>
+                <p>A final methodological distinction: <strong>positive economics</strong> describes what is or what will be (&ldquo;a sugar tax reduces consumption of sugary drinks&rdquo;). <strong>Normative economics</strong> prescribes what ought to be (&ldquo;the government should tax sugary drinks&rdquo;). Models are tools for positive analysis; policy conclusions require normative judgements about whose welfare counts and how to weigh trade-offs. Both types of analysis are valuable, but conflating them &mdash; treating positive predictions as policy prescriptions without explicit value judgements &mdash; is one of the most common errors in applied economics.</p>
+            </section>
+
+
+            <!-- ============================================ -->
+            <!-- SUMMARY                                       -->
+            <!-- ============================================ -->
+            <section id="summary" class="lesson-section">
+                <h2>Summary</h2>
+
+                <p>Microeconomics rests on four principles that you will use in every chapter of this course. Scarcity forces choice, and every choice has an opportunity cost &mdash; the value of the next-best alternative. The production possibility frontier makes this trade-off visible and shows why opportunity costs typically rise as you specialise further. Marginal thinking &mdash; comparing the additional benefit and additional cost of one more unit &mdash; identifies the optimal level of any activity: produce up to the point where MB = MC, and stop there. Markets use the price mechanism to coordinate decentralised decisions, with prices simultaneously signalling relative scarcity and providing the incentive to act on it. And incentives work: changing the marginal cost or benefit of an action changes behaviour in predictable, exploitable ways.</p>
+
+                <p>The rest of this course develops, qualifies, and applies these principles. Chapter 2 builds the supply and demand model you previewed here into a complete analytical framework. Subsequent chapters extend it to consumer theory (Chapters 4–5), the firm (Chapters 6–9), strategic interaction (Chapters 13–14), and market failure (Chapters 18–20). The formal toolkit &mdash; constrained optimisation, comparative statics, the envelope theorem &mdash; provides the mathematical foundation throughout.</p>
+
+                <p>Keep returning to these four principles as the models grow more complex. If you find yourself lost in algebra, ask: what is being optimised? What is the constraint? What marginal trade-off is being equated? The answer will usually orient you. Economics at its best is not a collection of formulae to memorise but a coherent way of thinking about decisions, trade-offs, and the unintended consequences of well-meaning interventions.</p>
+            </section>
+
+            <div class="chapter-nav">
+                <a href="../index.html">&larr; Home</a>
+                <a href="ch2-supply-and-demand.html">Chapter 2: Supply and Demand &rarr;</a>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Microeconomics Lessons. Created as an educational resource.</p>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        var LIGHT = {
+            grid: '#e5e5e5', axis: '#1a1a1a', text: '#555555', textMuted: '#aaaaaa',
+            canvasBg: '#ffffff',
+            ppfLine: '#3b82f6', ppfFill: 'rgba(59,130,246,0.08)',
+            ppfLineNew: '#10b981', ppfFillNew: 'rgba(16,185,129,0.06)',
+            currentPt: '#f59e0b', currentGlow: 'rgba(245,158,11,0.25)',
+            inefficient: 'rgba(239,68,68,0.10)',
+            unattainable: 'rgba(99,102,241,0.10)',
+            mb: '#3b82f6', mbFill: 'rgba(59,130,246,0.10)',
+            mc: '#ef4444', mcFill: 'rgba(239,68,68,0.08)',
+            mcShift: '#f97316', mcShiftFill: 'rgba(249,115,22,0.08)',
+            eqDot: '#10b981', eqGlow: 'rgba(16,185,129,0.25)',
+            netBenFill: 'rgba(16,185,129,0.15)',
+            lossFill: 'rgba(239,68,68,0.15)',
+            demand: '#3b82f6', demandFill: 'rgba(59,130,246,0.08)',
+            demandShift: '#6366f1', demandShiftFill: 'rgba(99,102,241,0.08)',
+            supply: '#ef4444', supplyFill: 'rgba(239,68,68,0.08)',
+            surplus: 'rgba(59,130,246,0.12)', shortage: 'rgba(239,68,68,0.12)',
+            taxFill: 'rgba(245,158,11,0.18)', subFill: 'rgba(16,185,129,0.18)',
+            taxLine: '#f59e0b', subLine: '#10b981'
+        };
+
+        var DARK = {
+            grid: '#4a4a4a', axis: '#d0d0d0', text: '#c0c0c0', textMuted: '#707070',
+            canvasBg: '#2d2d2d',
+            ppfLine: '#60a5fa', ppfFill: 'rgba(96,165,250,0.10)',
+            ppfLineNew: '#34d399', ppfFillNew: 'rgba(52,211,153,0.08)',
+            currentPt: '#fbbf24', currentGlow: 'rgba(251,191,36,0.25)',
+            inefficient: 'rgba(248,113,113,0.12)',
+            unattainable: 'rgba(165,180,252,0.10)',
+            mb: '#60a5fa', mbFill: 'rgba(96,165,250,0.12)',
+            mc: '#f87171', mcFill: 'rgba(248,113,113,0.10)',
+            mcShift: '#fb923c', mcShiftFill: 'rgba(251,146,60,0.10)',
+            eqDot: '#34d399', eqGlow: 'rgba(52,211,153,0.25)',
+            netBenFill: 'rgba(52,211,153,0.18)',
+            lossFill: 'rgba(248,113,113,0.18)',
+            demand: '#60a5fa', demandFill: 'rgba(96,165,250,0.10)',
+            demandShift: '#a5b4fc', demandShiftFill: 'rgba(165,180,252,0.10)',
+            supply: '#f87171', supplyFill: 'rgba(248,113,113,0.10)',
+            surplus: 'rgba(96,165,250,0.14)', shortage: 'rgba(248,113,113,0.14)',
+            taxFill: 'rgba(251,191,36,0.20)', subFill: 'rgba(52,211,153,0.20)',
+            taxLine: '#fbbf24', subLine: '#34d399'
+        };
+
+        var darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+        var C = darkMQ.matches ? DARK : LIGHT;
+
+        function getCtx(id) {
+            var cv = document.getElementById(id);
+            var dpr = window.devicePixelRatio || 1;
+            var r = cv.getBoundingClientRect();
+            cv.width = r.width * dpr; cv.height = r.height * dpr;
+            var ctx = cv.getContext('2d');
+            ctx.scale(dpr, dpr);
+            cv.style.width = r.width + 'px'; cv.style.height = r.height + 'px';
+            return { ctx: ctx, w: r.width, h: r.height };
+        }
+
+        var Marg = { left: 60, top: 20, right: 20, bottom: 45 };
+
+        function tp(x, y, ox, oy, gw, gh, xMax, yMax) {
+            return { x: ox + (x / xMax) * gw, y: oy + (1 - y / yMax) * gh };
+        }
+
+        function dot(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color, r) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.beginPath(); ctx.arc(pt.x, pt.y, r || 5, 0, 2 * Math.PI);
+            ctx.fillStyle = color; ctx.fill();
+        }
+
+        function dashedTo(ctx, x, y, ox, oy, gw, gh, xMax, yMax, color) {
+            var pt = tp(x, y, ox, oy, gw, gh, xMax, yMax);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+            ctx.beginPath(); ctx.moveTo(pt.x, oy + gh); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(pt.x, pt.y); ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, xLabel, yLabel, xStep, yStep, fmtX, fmtY) {
+            var v, pt;
+            ctx.strokeStyle = C.grid; ctx.lineWidth = 0.5;
+            for (v = xStep; v <= xMax + 0.001; v += xStep) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(pt.x, oy); ctx.lineTo(pt.x, oy + gh); ctx.stroke();
+            }
+            for (v = yStep; v <= yMax + 0.001; v += yStep) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.moveTo(ox, pt.y); ctx.lineTo(ox + gw, pt.y); ctx.stroke();
+            }
+            ctx.strokeStyle = C.axis; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ox, oy + gh); ctx.lineTo(ox + gw, oy + gh); ctx.stroke();
+            ctx.fillStyle = C.text; ctx.font = '12px -apple-system, sans-serif';
+            ctx.textAlign = 'center'; ctx.fillText(xLabel, ox + gw / 2, oy + gh + 38);
+            ctx.save(); ctx.translate(ox - 44, oy + gh / 2); ctx.rotate(-Math.PI / 2);
+            ctx.fillText(yLabel, 0, 0); ctx.restore();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            for (v = xStep; v <= xMax + 0.001; v += xStep) {
+                pt = tp(v, 0, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(fmtX ? fmtX(v) : v, pt.x, oy + gh + 4);
+            }
+            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+            for (v = yStep; v <= yMax + 0.001; v += yStep) {
+                pt = tp(0, v, ox, oy, gw, gh, xMax, yMax);
+                ctx.fillText(fmtY ? fmtY(v) : v, ox - 6, pt.y);
+            }
+        }
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 1: Production Possibility Frontier           */
+        /* Smartphones (x) vs Wheat (y). PPF: y = A*(1 - x²) */
+        /* x: smartphones 0-100, y: wheat 0-100              */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-ppf');
+            var vv = document.getElementById('val-ppf');
+            var info = document.getElementById('info-ppf');
+            var btn = document.getElementById('btn-ppf-tech');
+            var techImproved = false;
+            var xMax = 110, yMax = 110;
+
+            /* PPF: wheat = A * sqrt(1 - (phones/100)^2) * 100 */
+            function ppfWheat(phones, A) {
+                var t = phones / 100;
+                if (t > 1) return 0;
+                return A * Math.sqrt(1 - t * t) * 100;
+            }
+
+            /* Phones from slider % */
+            function phonesFromPct(pct) { return pct; }
+
+            btn.addEventListener('click', function() {
+                techImproved = !techImproved;
+                btn.classList.toggle('active', techImproved);
+                btn.textContent = techImproved ? 'Technology: improved (+20%)' : 'Technology improves';
+                draw();
+            });
+
+            function draw() {
+                var res = getCtx('canvas-ppf');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var pct = parseInt(sl.value);
+                vv.textContent = pct + '%';
+
+                var A = techImproved ? 1.2 : 1.0;
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax,
+                    'Smartphones (units)', 'Wheat (tonnes)',
+                    20, 20,
+                    function(v) { return v; },
+                    function(v) { return v; });
+
+                /* Unattainable region (above PPF) — shaded only between old and new if tech improved */
+                if (techImproved) {
+                    ctx.beginPath();
+                    ctx.moveTo(tp(0, ppfWheat(0, 1.2), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, ppfWheat(0, 1.2), ox, oy, gw, gh, xMax, yMax).y);
+                    for (var xi = 0; xi <= 100; xi += 0.5) {
+                        ctx.lineTo(tp(xi, ppfWheat(xi, 1.2), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(xi, ppfWheat(xi, 1.2), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    for (var xi2 = 100; xi2 >= 0; xi2 -= 0.5) {
+                        ctx.lineTo(tp(xi2, ppfWheat(xi2, 1.0), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(xi2, ppfWheat(xi2, 1.0), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    ctx.closePath(); ctx.fillStyle = 'rgba(52,211,153,0.12)'; ctx.fill();
+                }
+
+                /* Draw original PPF (dashed if tech improved) */
+                if (techImproved) {
+                    ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+                } else {
+                    ctx.strokeStyle = C.ppfLine; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                }
+                ctx.beginPath();
+                ctx.moveTo(tp(0, ppfWheat(0, 1.0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, ppfWheat(0, 1.0), ox, oy, gw, gh, xMax, yMax).y);
+                for (var xi3 = 0; xi3 <= 100; xi3 += 0.5) {
+                    ctx.lineTo(tp(xi3, ppfWheat(xi3, 1.0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(xi3, ppfWheat(xi3, 1.0), ox, oy, gw, gh, xMax, yMax).y);
+                }
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                /* Draw new PPF if tech improved */
+                if (techImproved) {
+                    ctx.strokeStyle = C.ppfLineNew; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                    ctx.beginPath();
+                    ctx.moveTo(tp(0, ppfWheat(0, 1.2), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, ppfWheat(0, 1.2), ox, oy, gw, gh, xMax, yMax).y);
+                    for (var xi4 = 0; xi4 <= 100; xi4 += 0.5) {
+                        ctx.lineTo(tp(xi4, ppfWheat(xi4, 1.2), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(xi4, ppfWheat(xi4, 1.2), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    ctx.stroke();
+                    ctx.fillStyle = C.ppfLineNew; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('New PPF (tech +20%)', tp(10, ppfWheat(10, 1.2), ox, oy, gw, gh, xMax, yMax).x + 3,
+                                 tp(10, ppfWheat(10, 1.2), ox, oy, gw, gh, xMax, yMax).y - 3);
+                }
+
+                /* Label PPF */
+                ctx.fillStyle = C.ppfLine; ctx.font = 'bold 10px -apple-system, sans-serif';
+                ctx.textAlign = techImproved ? 'left' : 'center'; ctx.textBaseline = 'bottom';
+                if (!techImproved) {
+                    ctx.fillText('PPF', tp(50, ppfWheat(50, 1.0), ox, oy, gw, gh, xMax, yMax).x,
+                                 tp(50, ppfWheat(50, 1.0), ox, oy, gw, gh, xMax, yMax).y - 4);
+                } else {
+                    ctx.fillStyle = C.textMuted;
+                    ctx.fillText('Original PPF', tp(60, ppfWheat(60, 1.0), ox, oy, gw, gh, xMax, yMax).x + 3,
+                                 tp(60, ppfWheat(60, 1.0), ox, oy, gw, gh, xMax, yMax).y - 3);
+                }
+
+                /* Current allocation dot on the PPF */
+                var phones = phonesFromPct(pct);
+                var wheat = ppfWheat(phones, A);
+                var ptCur = tp(phones, wheat, ox, oy, gw, gh, xMax, yMax);
+                ctx.beginPath(); ctx.arc(ptCur.x, ptCur.y, 10, 0, 2 * Math.PI);
+                ctx.fillStyle = C.currentGlow; ctx.fill();
+                dot(ctx, phones, wheat, ox, oy, gw, gh, xMax, yMax, C.currentPt, 5);
+                dashedTo(ctx, phones, wheat, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+
+                /* Opportunity cost: slope at current point */
+                var h_delta = 1;
+                var oc = (ppfWheat(phones, A) - ppfWheat(phones + h_delta, A)) / h_delta;
+
+                info.innerHTML =
+                    '<strong>' + pct + '% allocation to smartphones</strong>' +
+                    ' &nbsp;|&nbsp; Smartphones = ' + phones.toFixed(0) +
+                    ', Wheat = ' + wheat.toFixed(1) + ' t' +
+                    (techImproved ? ' (improved PPF)' : '') +
+                    '<br>Opportunity cost of 1 more smartphone ≈ <strong>' + Math.abs(oc).toFixed(2) +
+                    ' tonnes of wheat</strong>' +
+                    (pct > 70 ? ' &mdash; cost rising steeply: resources not well-suited to further phone production' :
+                     pct < 30 ? ' &mdash; low cost: many resources still easily shifted to smartphones' :
+                     ' &mdash; balanced allocation');
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws = window._redraws || [];
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 2: Marginal Benefit vs Marginal Cost          */
+        /* MB = 80 - 1.2q, MC = 10 + 0.8q + shift            */
+        /* Optimum: q* = (70 - shift)/2, P* = MC(q*)         */
+        /* x: q (0-70), y: £ (0-100)                         */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-mc-shift');
+            var vv = document.getElementById('val-mc-shift');
+            var info = document.getElementById('info-marg');
+            var xMax = 70, yMax = 100;
+
+            function mbFn(q) { return 80 - 1.2 * q; }
+            function mcFn(q, shift) { return 10 + 0.8 * q + shift; }
+            function optQ(shift) { return Math.max(0, (70 - shift) / 2); }
+
+            function draw() {
+                var res = getCtx('canvas-marg');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var shift = parseInt(sl.value);
+                vv.textContent = '£' + shift;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Quantity', 'Marginal benefit / cost (£)',
+                    10, 10);
+
+                var qStar = optQ(shift);
+                var qBaseline = optQ(0);
+
+                /* Net benefit fill (MB > MC region up to q*) */
+                if (qStar > 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                    for (var qi = 0; qi <= qStar; qi += 0.3) {
+                        ctx.lineTo(tp(qi, mbFn(qi), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(qi, mbFn(qi), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    for (var qi2 = qStar; qi2 >= 0; qi2 -= 0.3) {
+                        ctx.lineTo(tp(qi2, mcFn(qi2, shift), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(qi2, mcFn(qi2, shift), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    ctx.closePath(); ctx.fillStyle = C.netBenFill; ctx.fill();
+                }
+
+                /* If shift > 0, shade the lost net benefit region (between old and new optimum) */
+                if (shift > 0 && qStar < qBaseline) {
+                    ctx.beginPath();
+                    ctx.moveTo(tp(qStar, mbFn(qStar), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(qStar, mbFn(qStar), ox, oy, gw, gh, xMax, yMax).y);
+                    for (var qi3 = qStar; qi3 <= qBaseline; qi3 += 0.3) {
+                        ctx.lineTo(tp(qi3, mbFn(qi3), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(qi3, mbFn(qi3), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    for (var qi4 = qBaseline; qi4 >= qStar; qi4 -= 0.3) {
+                        ctx.lineTo(tp(qi4, mcFn(qi4, 0), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(qi4, mcFn(qi4, 0), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    ctx.closePath(); ctx.fillStyle = C.lossFill; ctx.fill();
+                }
+
+                /* Baseline MC (always shown, dashed if shift > 0) */
+                if (shift > 0) {
+                    ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                    ctx.beginPath();
+                    ctx.moveTo(tp(0, mcFn(0, 0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, mcFn(0, 0), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.lineTo(tp(xMax, mcFn(xMax, 0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(xMax, mcFn(xMax, 0), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.stroke(); ctx.setLineDash([]);
+                }
+
+                /* MC curve (shifted) */
+                ctx.strokeStyle = shift > 0 ? C.mcShift : C.mc;
+                ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, mcFn(0, shift), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, mcFn(0, shift), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, mcFn(xMax, shift), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, mcFn(xMax, shift), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = shift > 0 ? C.mcShift : C.mc;
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText(shift > 0 ? 'MC + tax' : 'MC',
+                             tp(50, mcFn(50, shift) + 2, ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(50, mcFn(50, shift) + 2, ox, oy, gw, gh, xMax, yMax).y);
+
+                /* MB curve */
+                ctx.strokeStyle = C.mb; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, Math.max(0, mbFn(xMax)), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, Math.max(0, mbFn(xMax)), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = C.mb; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('MB', tp(15, mbFn(15), ox, oy, gw, gh, xMax, yMax).x - 2,
+                             tp(15, mbFn(15), ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                /* Equilibrium dot at q* */
+                if (qStar > 0) {
+                    var pStar = mbFn(qStar);
+                    dashedTo(ctx, qStar, pStar, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    var ptEq = tp(qStar, pStar, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ptEq.x, ptEq.y, 9, 0, 2*Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, qStar, pStar, ox, oy, gw, gh, xMax, yMax, C.eqDot, 5);
+                    ctx.fillStyle = C.eqDot; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('q* = ' + qStar.toFixed(1), ptEq.x + 6, ptEq.y - 3);
+                }
+
+                /* Net benefit labels */
+                ctx.fillStyle = C.eqDot; ctx.font = '9px -apple-system, sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                if (qStar > 5) {
+                    ctx.fillText('Net benefit', tp(qStar * 0.4, (mbFn(qStar * 0.4) + mcFn(qStar * 0.4, shift)) / 2,
+                                 ox, oy, gw, gh, xMax, yMax).x,
+                                 tp(qStar * 0.4, (mbFn(qStar * 0.4) + mcFn(qStar * 0.4, shift)) / 2,
+                                 ox, oy, gw, gh, xMax, yMax).y);
+                }
+
+                var netBen = (qStar * (mbFn(0) - mcFn(0, shift)) - qStar * qStar * (1.2 + 0.8) / 2);
+                info.innerHTML =
+                    '<strong>Cost shift = £' + shift + '</strong>' +
+                    ' &nbsp;|&nbsp; Optimal q* = ' + qStar.toFixed(1) +
+                    ' (was ' + qBaseline.toFixed(1) + ' at zero shift)' +
+                    '<br>' + (shift === 0 ? 'No policy: q* maximises net benefit — area between MB and MC up to q*' :
+                             'Cost rise of £' + shift + ' reduces optimal quantity by ' +
+                             (qBaseline - qStar).toFixed(1) + ' units. Red area = lost net benefit.');
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 3: Supply and Demand Preview                  */
+        /* Demand: P = (60 + shift) - 0.6Q, Supply: P = 5+0.4Q */
+        /* Eq: Q* = (55+shift), P* from demand               */
+        /* x: Q (0-90), y: P (0-80)                          */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-demand-shift');
+            var vv = document.getElementById('val-demand-shift');
+            var info = document.getElementById('info-sd');
+            var xMax = 90, yMax = 80;
+
+            function demFn(Q, shift) { return Math.max(0, (60 + shift) - 0.6 * Q); }
+            function supFn(Q) { return 5 + 0.4 * Q; }
+            function eqQ(shift) { return (55 + shift); }  /* solve 60+shift-0.6Q = 5+0.4Q → Q = (55+shift) */
+            function eqP(shift) { return supFn(eqQ(shift)); }
+
+            function draw() {
+                var res = getCtx('canvas-sd');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var shift = parseInt(sl.value);
+                vv.textContent = (shift >= 0 ? '+' : '') + '£' + shift;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Quantity Q', 'Price P (£)',
+                    10, 10);
+
+                /* Draw baseline demand (dashed if shifted) */
+                if (shift !== 0) {
+                    ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                    ctx.beginPath();
+                    ctx.moveTo(tp(0, demFn(0, 0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, demFn(0, 0), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.lineTo(tp(xMax, demFn(xMax, 0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(xMax, demFn(xMax, 0), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.stroke(); ctx.setLineDash([]);
+                }
+
+                /* Demand curve */
+                ctx.strokeStyle = shift !== 0 ? C.demandShift : C.demand;
+                ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, demFn(0, shift), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, demFn(0, shift), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, demFn(xMax, shift), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, demFn(xMax, shift), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = shift !== 0 ? C.demandShift : C.demand;
+                ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText(shift !== 0 ? 'D′ (shifted)' : 'Demand',
+                             tp(10, demFn(10, shift), ox, oy, gw, gh, xMax, yMax).x - 2,
+                             tp(10, demFn(10, shift), ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                /* Supply curve */
+                ctx.strokeStyle = C.supply; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, supFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, supFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, supFn(xMax), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, supFn(xMax), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = C.supply; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Supply', tp(70, supFn(70), ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(70, supFn(70), ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                /* Equilibrium */
+                var Qeq = eqQ(shift);
+                var Peq = eqP(shift);
+                if (Qeq > 0 && Qeq < xMax && Peq > 0 && Peq < yMax) {
+                    dashedTo(ctx, Qeq, Peq, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    var ptEq = tp(Qeq, Peq, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ptEq.x, ptEq.y, 9, 0, 2*Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, Qeq, Peq, ox, oy, gw, gh, xMax, yMax, C.eqDot, 5);
+                    ctx.fillStyle = C.eqDot; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('Q*=' + Qeq.toFixed(0) + ', P*=£' + Peq.toFixed(1), ptEq.x + 6, ptEq.y - 3);
+                }
+
+                /* Arrow showing demand shift */
+                if (shift !== 0) {
+                    var midQ = 20;
+                    var yOld = demFn(midQ, 0), yNew = demFn(midQ, shift);
+                    var ptOld = tp(midQ, yOld, ox, oy, gw, gh, xMax, yMax);
+                    var ptNew = tp(midQ, yNew, ox, oy, gw, gh, xMax, yMax);
+                    ctx.strokeStyle = shift > 0 ? C.eqDot : C.mc;
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath(); ctx.moveTo(ptOld.x, ptOld.y); ctx.lineTo(ptNew.x, ptNew.y); ctx.stroke();
+                    var arrowY = ptNew.y, arrowDir = shift > 0 ? -1 : 1;
+                    ctx.beginPath();
+                    ctx.moveTo(ptNew.x, arrowY);
+                    ctx.lineTo(ptNew.x - 5, arrowY + arrowDir * 8);
+                    ctx.lineTo(ptNew.x + 5, arrowY + arrowDir * 8);
+                    ctx.closePath(); ctx.fillStyle = shift > 0 ? C.eqDot : C.mc; ctx.fill();
+                }
+
+                var Qeq0 = eqQ(0), Peq0 = eqP(0);
+                info.innerHTML =
+                    '<strong>Demand shift = ' + (shift >= 0 ? '+' : '') + '£' + shift + '</strong>' +
+                    ' &nbsp;|&nbsp; Equilibrium: Q* = ' + Math.max(0, Qeq).toFixed(0) +
+                    ', P* = £' + Math.max(0, Peq).toFixed(1) +
+                    '<br>' + (shift === 0 ? 'Baseline equilibrium: where supply meets demand' :
+                              shift > 0 ? 'Higher demand (e.g. rising incomes) → higher price AND higher quantity. Supply curve slopes up, so output rises with price.' :
+                              'Lower demand → lower price AND lower quantity. Price falls to clear the surplus.');
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ══════════════════════════════════════════════════ */
+        /* GRAPH 4: Incentive Response (tax/subsidy)           */
+        /* MB = 80 - 1.2q, MC = 10 + 0.8q                    */
+        /* Policy shifts effective MC by -policy amount        */
+        /* (negative slider = tax, positive = subsidy)        */
+        /* x: q (0-70), y: £ (0-100)                         */
+        /* ══════════════════════════════════════════════════ */
+        (function() {
+            var sl = document.getElementById('slider-policy');
+            var vv = document.getElementById('val-policy');
+            var info = document.getElementById('info-inc');
+            var xMax = 70, yMax = 100;
+
+            function mbFn(q) { return 80 - 1.2 * q; }
+            /* policy > 0 is subsidy (MC down), < 0 is tax (MC up). Effective MC = 10 + 0.8q - policy */
+            function mcEff(q, policy) { return 10 + 0.8 * q - policy; }
+            function optQ(policy) { return Math.max(0, Math.min(xMax, (70 + policy) / 2)); }
+
+            function draw() {
+                var res = getCtx('canvas-inc');
+                var ctx = res.ctx, w = res.w, h = res.h;
+                ctx.fillStyle = C.canvasBg; ctx.fillRect(0, 0, w, h);
+
+                var policy = parseInt(sl.value);
+                vv.textContent = (policy >= 0 ? '+' : '') + '£' + policy;
+
+                var ox = Marg.left, oy = Marg.top;
+                var gw = w - ox - Marg.right, gh = h - oy - Marg.bottom;
+
+                drawAxes(ctx, ox, oy, gw, gh, xMax, yMax, 'Quantity', '£',
+                    10, 10);
+
+                var qStar = optQ(policy);
+                var qBaseline = optQ(0);  /* = 35 */
+
+                /* Policy band between old MC and new MC */
+                if (policy !== 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(tp(0, mcEff(0, 0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, mcEff(0, 0), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.lineTo(tp(xMax, mcEff(xMax, 0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(xMax, mcEff(xMax, 0), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.lineTo(tp(xMax, mcEff(xMax, policy), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(xMax, mcEff(xMax, policy), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.lineTo(tp(0, mcEff(0, policy), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, mcEff(0, policy), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.closePath();
+                    ctx.fillStyle = policy < 0 ? C.taxFill : C.subFill; ctx.fill();
+                }
+
+                /* Net benefit fill at new optimum */
+                if (qStar > 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                    for (var qi = 0; qi <= qStar; qi += 0.3) {
+                        ctx.lineTo(tp(qi, mbFn(qi), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(qi, mbFn(qi), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    for (var qi2 = qStar; qi2 >= 0; qi2 -= 0.3) {
+                        ctx.lineTo(tp(qi2, mcEff(qi2, policy), ox, oy, gw, gh, xMax, yMax).x,
+                                   tp(qi2, mcEff(qi2, policy), ox, oy, gw, gh, xMax, yMax).y);
+                    }
+                    ctx.closePath(); ctx.fillStyle = C.netBenFill; ctx.fill();
+                }
+
+                /* Baseline MC (dashed if policy active) */
+                if (policy !== 0) {
+                    ctx.strokeStyle = C.textMuted; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                    ctx.beginPath();
+                    ctx.moveTo(tp(0, mcEff(0, 0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(0, mcEff(0, 0), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.lineTo(tp(xMax, mcEff(xMax, 0), ox, oy, gw, gh, xMax, yMax).x,
+                               tp(xMax, mcEff(xMax, 0), ox, oy, gw, gh, xMax, yMax).y);
+                    ctx.stroke(); ctx.setLineDash([]);
+                }
+
+                /* Effective MC curve */
+                var mcColor = policy < 0 ? C.taxLine : (policy > 0 ? C.subLine : C.mc);
+                ctx.strokeStyle = mcColor; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, mcEff(0, policy), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, mcEff(0, policy), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, mcEff(xMax, policy), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, mcEff(xMax, policy), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = mcColor; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                ctx.fillText(policy < 0 ? 'MC + tax' : (policy > 0 ? 'MC − subsidy' : 'MC'),
+                             tp(50, mcEff(50, policy) + 2, ox, oy, gw, gh, xMax, yMax).x + 2,
+                             tp(50, mcEff(50, policy) + 2, ox, oy, gw, gh, xMax, yMax).y);
+
+                /* MB curve */
+                ctx.strokeStyle = C.mb; ctx.lineWidth = 2.5; ctx.setLineDash([]);
+                ctx.beginPath();
+                ctx.moveTo(tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(0, mbFn(0), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.lineTo(tp(xMax, Math.max(0, mbFn(xMax)), ox, oy, gw, gh, xMax, yMax).x,
+                           tp(xMax, Math.max(0, mbFn(xMax)), ox, oy, gw, gh, xMax, yMax).y);
+                ctx.stroke();
+                ctx.fillStyle = C.mb; ctx.font = 'bold 11px -apple-system, sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('MB', tp(15, mbFn(15), ox, oy, gw, gh, xMax, yMax).x - 2,
+                             tp(15, mbFn(15), ox, oy, gw, gh, xMax, yMax).y - 3);
+
+                /* Equilibrium dot */
+                var pStar = mbFn(qStar);
+                if (qStar > 0) {
+                    dashedTo(ctx, qStar, pStar, ox, oy, gw, gh, xMax, yMax, C.textMuted);
+                    var ptEq = tp(qStar, pStar, ox, oy, gw, gh, xMax, yMax);
+                    ctx.beginPath(); ctx.arc(ptEq.x, ptEq.y, 9, 0, 2*Math.PI);
+                    ctx.fillStyle = C.eqGlow; ctx.fill();
+                    dot(ctx, qStar, pStar, ox, oy, gw, gh, xMax, yMax, C.eqDot, 5);
+                    ctx.fillStyle = C.eqDot; ctx.font = 'bold 10px -apple-system, sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+                    ctx.fillText('q* = ' + qStar.toFixed(1), ptEq.x + 6, ptEq.y - 3);
+                }
+
+                /* Policy label */
+                if (policy !== 0) {
+                    var midQ = 30;
+                    var yMid = (mcEff(midQ, 0) + mcEff(midQ, policy)) / 2;
+                    ctx.fillStyle = mcColor; ctx.font = 'bold 9px -apple-system, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    ctx.fillText(policy < 0 ? 'Tax = £' + Math.abs(policy) : 'Subsidy = £' + policy,
+                                 tp(midQ, yMid, ox, oy, gw, gh, xMax, yMax).x,
+                                 tp(midQ, yMid, ox, oy, gw, gh, xMax, yMax).y);
+                }
+
+                info.innerHTML =
+                    '<strong>Policy = ' + (policy >= 0 ? '+' : '') + '£' + policy +
+                    (policy < 0 ? ' (tax)' : policy > 0 ? ' (subsidy)' : ' (no intervention)') + '</strong>' +
+                    ' &nbsp;|&nbsp; q* = ' + qStar.toFixed(1) +
+                    ' (baseline = ' + qBaseline.toFixed(1) + ')' +
+                    '<br>' + (policy === 0 ? 'No intervention: q* = 35, maximising private net benefit.' :
+                              policy < 0 ? 'Tax of £' + Math.abs(policy) + ' raises effective cost → q* falls by ' +
+                              (qBaseline - qStar).toFixed(1) + '. Fewer units produced: tax reduces consumption.' :
+                              'Subsidy of £' + policy + ' lowers effective cost → q* rises by ' +
+                              (qStar - qBaseline).toFixed(1) + '. More units produced: subsidy encourages consumption.');
+            }
+
+            sl.addEventListener('input', draw);
+            window._redraws.push(draw);
+            draw();
+        })();
+
+
+        /* ── Global redraw ── */
+        function redrawAll() {
+            (window._redraws || []).forEach(function(fn) { fn(); });
+        }
+        window.addEventListener('resize', redrawAll);
+        darkMQ.addEventListener('change', function(e) { C = e.matches ? DARK : LIGHT; redrawAll(); });
+    })();
+    </script>
+</body>
+</html>
